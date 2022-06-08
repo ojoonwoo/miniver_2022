@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
+import Project from './pages/Project';
+import ProjectDetail from './pages/ProjectDetail';
+import NotFound from './pages/NotFound';
 // import logo from './logo.svg';
 // import './App.css';
 import './reset.css';
@@ -28,7 +31,10 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Home />}></Route>
         <Route path='/about' element={<About />}></Route>
-        {/* Not Found 추가 */}
+        <Route path='/project' element={<Project />}>
+          <Route path='/project/:id' element={<ProjectDetail />}></Route>
+        </Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
   );
