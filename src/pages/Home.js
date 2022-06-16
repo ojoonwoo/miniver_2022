@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
+import WorkBox from '../components/WorkBox';
 
 function Home() {
     const [homeData, setHomeData] = useState([]);
@@ -29,13 +30,18 @@ function Home() {
     return (
         <div id="container">
             <Header />
-            <div>풀스크린 영상&이미지</div>
-            <div>
-                {homeData.map((item) =>
-                    <li key={item.idx}>
-                        <div className="test">{item.work_title}</div>
-                    </li>
-                )}
+            <div className="section-hero"></div>
+            <div className="section-work">
+                <h3>
+                    We are a creative agency
+                </h3>
+                <div>
+                    <div className="grid-inner">
+                        {homeData.map((item) =>
+                            <WorkBox key={item.idx} item={item} />
+                        )};
+                    </div>
+                </div>
             </div>
         </div>
     );

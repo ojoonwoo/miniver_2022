@@ -10,12 +10,22 @@ const api = require('./api');
 
 app.use(bodyParser.json());
 
-// cors 옵션 설정 필요
 
+
+
+// app.use('/works', express.static(path.join(__dirname, './../uploads/work')));
+// app.use(express.static(path.join(__dirname, '..', '/build')));
+app.use(express.static(path.join(__dirname, '..', '/public')));
+app.use('/works', express.static(path.join(__dirname, './../uploads/work')));
+
+// cors 옵션 설정 필요
 app.use('/api', api);
 
-app.use(express.static(path.join(__dirname, '..', '/build')));
-// app.use(express.static(path.join(__dirname, '..', '/public')));
+/* handle error */
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
 
 // app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname, '..', '/build/index.html'));
