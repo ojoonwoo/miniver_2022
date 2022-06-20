@@ -4,6 +4,7 @@ import About from './pages/About';
 import Project from './pages/Project';
 import ProjectDetail from './pages/ProjectDetail';
 import NotFound from './pages/NotFound';
+import Contact from './pages/Contact';
 // import logo from './logo.svg';
 // import './App.css';
 import './reset.css';
@@ -36,6 +37,7 @@ function App() {
         <Route path='/project' element={<Project pageName="Project"/>}>
           <Route path='/project/:id' element={<ProjectDetail />}></Route>
         </Route>
+        <Route path='/contact' element={<Contact pageName="Contact" />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
