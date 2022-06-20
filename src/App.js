@@ -8,8 +8,10 @@ import NotFound from './pages/NotFound';
 // import './App.css';
 import './reset.css';
 import './style.scss';
+// import './style.scss';
 
 function App() {
+
   return (
     // <div className="App">
     //   <header className="App-header">
@@ -29,8 +31,8 @@ function App() {
     // </div>
     <BrowserRouter>
       <Routes>
-        <Route exact path='/' element={<Home />}></Route>
-        <Route path='/about' element={<About />}></Route>
+        <Route exact path='/' element={<Home pageName="Home" />}></Route>
+        <Route path='/about' element={<About pageName="About" />}></Route>
         <Route path='/project' element={<Project />}>
           <Route path='/project/:id' element={<ProjectDetail />}></Route>
         </Route>

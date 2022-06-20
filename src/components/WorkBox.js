@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
+import styles from './WorkBox.module.scss';
 
 function WorkBox(props) {
     return (
-        <div className="workbox">
+        <div className={styles.workbox}>
             <Link to="/" className="logo">
                 <div className="wrapper">
                     <div className="item-img">
