@@ -3,19 +3,20 @@ import axios from 'axios';
 import Header from '../components/Header';
 import WorkBox from '../components/WorkBox';
 
-function Project() {
+function Project(props) {
     let initialData = [];
     const sortingData = useState([]);
     useEffect(() => {
         console.log('useEffect');
-        async function getProejctData() {
+        async function getProjectData() {
             const result = await axios.get(
                 '/api/work/getlist'
             );
             initialData = result.data.list;
+            console.log(initialData);
             sortingWorkList('');
         }
-        getProejctData();
+        getProjectData();
 
         // axios({
         //     method: 'get',
@@ -39,12 +40,12 @@ function Project() {
             console.log('show all');
         }
         // initialData 에서 category로 sorting 후 sortingData 변경!
-        console.log(initialData);
+        // console.log(initialData);
         console.log(sortingData);
     }
     
     return (
-        <div id="container" className="page-project">
+        <div id="container" className={props.pageName}>
             <Header color="black"/>
             <div className="contents">
                 <div className="grid-inner">

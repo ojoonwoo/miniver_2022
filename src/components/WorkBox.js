@@ -4,13 +4,13 @@ import styles from './WorkBox.module.scss';
 function WorkBox(props) {
     return (
         <div className={styles.workbox}>
-            <Link to="/" className="logo">
-                <div className="wrapper">
-                    <div className="item-img">
+            <Link to="/" className={styles.logo}>
+                <div className={styles.wrapper}>
+                    <div className={styles['item-img']}>
                         <img src={`works/${props.item.thumb_rectangle}`}></img>
                     </div>
-                    <div className="box-overlay">
-                        <div className="logo-img" style={{backgroundImage: `url(works/${props.item.logo_img})`}}></div>
+                    <div className={styles['box-overlay']}>
+                        <div className={styles['logo-img']} style={{backgroundImage: `url(works/${props.item.logo_img})`}}></div>
                     </div>
                 </div>
             </Link>
