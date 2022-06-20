@@ -30,7 +30,7 @@ img {
 }
 
 .section-hero {
-    background-color: #6F6F6F;
+    background-color: #6f6f6f;
     width: 100%;
     padding-bottom: 59.85%;
 }
@@ -41,3 +41,81 @@ img {
     font-weight: 300;
 }
 
+#container.About {
+    // ! 임시코드
+    .box {
+        background-color: lightgrey;
+        width: 100%;
+        height: 30rem;
+    }
+    > .inner {
+        padding-top: 33.6rem;
+        padding-bottom: 22.3rem;
+    }
+    .title-block {
+        margin-bottom: 6rem;
+        .sub-title {
+            font-weight: 700;
+            font-size: 3.1rem;
+            line-height: 3.8rem;
+            text-align: center;
+            letter-spacing: -0.03em;
+            color: $black;
+            margin-bottom: 3.1rem;
+        }
+        .title {
+            font-weight: 700;
+            font-size: 3.8rem;
+            line-height: 4.4rem;
+            text-align: center;
+            letter-spacing: -0.03em;
+            color: $black;
+        }
+    }
+    .video-block {
+        width: 100%;
+        padding-top: 38.227513227513228%;
+        background-color: lightgray;
+        margin-bottom: 15.3rem;
+    }
+    .do-block {
+        margin-bottom: 13rem;
+        .inner {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+    }
+    .team-block {
+        margin-bottom: 24.4rem;
+        .inner {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            .box {
+                background: none;
+                ul {
+                    width: 100%;
+                    height: 100%;
+                    li {
+                        background-color: lightgray;
+                        height: 100%;
+                        width: 26rem;
+                        margin-right: 2rem;
+                        display: inline-block;
+                    }
+                    li:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+    .client-block {
+        .inner {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+    }
+}
