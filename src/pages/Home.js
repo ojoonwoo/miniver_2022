@@ -3,7 +3,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import WorkBox from '../components/WorkBox';
 
-function Home() {
+function Home(props) {
     const [homeData, setHomeData] = useState([]);
     useEffect(() => {
         async function getHomeData() {
@@ -28,7 +28,7 @@ function Home() {
     }, []);
 
     return (
-        <div id="container">
+        <div id="container" className={props.pageName}>
             <Header />
             <div className="section-hero"></div>
             <div className="section-work">

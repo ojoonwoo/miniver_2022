@@ -1,0 +1,40 @@
+@import '../variable.scss';
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 11rem 0;
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .logo svg {
+            fill: $white;
+        }
+        ul {
+            display: flex;
+            align-items: center;
+            li {
+                a {
+                    display: block;
+                    padding: 2.4rem;
+                    font-size: 2rem;
+                    font-weight: 300;
+                    letter-spacing: -0.01em;
+                    color: $white;
+                }
+            }
+        }
+    }
+    &[data-color="black"] .wrapper {
+        .logo svg {
+            fill: $black;
+        }
+        ul li a {
+            color: $black;
+        }
+    }
+}

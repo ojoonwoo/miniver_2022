@@ -1,10 +1,9 @@
 import Header from '../components/Header';
 
-function About() {
+function About(props) {
     return (
-        <div id="container">
-            <Header />
-            About
+        <div id="container" className={props.pageName}>
+            <Header color="black"/>
         </div>
     );
 }
