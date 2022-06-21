@@ -131,6 +131,7 @@ img {
     .inner {
         width: 100%;
         max-width: 1100px;
+        // border: 1px solid red;
         .title-block {
             margin-bottom: 10.2rem;
             .title-num {
@@ -156,8 +157,7 @@ img {
             }
         }
         .select-block {
-            padding-right: 8rem;
-            // border: 1px solid blue;
+            padding-right: 33%;
             .inner {
                 box-sizing: border-box;
                 // border: 1px solid red;
@@ -171,11 +171,14 @@ img {
                     line-height: 2.5rem;
                     margin: 0 1rem 1.8rem 0;
                 }
-                button:nth-child(3) {
-                    margin-right: 40rem;
-                }
+                // button:nth-child(3) {
+                //     margin-right: 40rem;
+                // }
                 input[type='text']::placeholder {
                     color: rgba(255, 255, 255, 0.3);
+                }
+                input:focus{
+                    outline:none;
                 } 
             }
         }
