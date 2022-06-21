@@ -60,17 +60,19 @@ function Project(props) {
     // }
     
     return (
-        <div id="container" className={props.pageName}>
-            <Header color="black"/>
-            <div className="contents">
-                <div className="grid-inner">
-                    <h1 className="page-title">Project</h1>
-                    <div className="categories">
+        <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div id="container" className={props.pageName}>
+                <Header color="black"/>
+                <div className="contents">
+                    <div className="grid-inner">
+                        <h1 className="page-title">Project</h1>
+                        <div className="categories">
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
