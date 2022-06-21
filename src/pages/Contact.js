@@ -1,7 +1,9 @@
+import {motion} from 'framer-motion';
 import Header from '../components/Header';
 
 function Contact(props) {
     return (
+        <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <div id="container" className={props.pageName}>
             <Header></Header>
             <div className="inner">
@@ -23,6 +25,7 @@ function Contact(props) {
                 </div>
             </div>
         </div>
+        </motion.div>
     );
 }
 

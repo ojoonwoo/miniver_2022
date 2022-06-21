@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import WorkBox from '../components/WorkBox';
+import { motion } from 'framer-motion';
 
 function Home(props) {
     const [homeData, setHomeData] = useState([]);
@@ -28,6 +29,7 @@ function Home(props) {
     }, []);
 
     return (
+        <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <div id="container" className={props.pageName}>
             <Header />
             <div className="section-hero"></div>
@@ -44,6 +46,7 @@ function Home(props) {
                 </div>
             </div>
         </div>
+        </motion.div>
     );
 }
 
