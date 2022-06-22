@@ -1,4 +1,5 @@
 // import express from 'express';
+const { resolvePreset } = require('@babel/core');
 const express = require('express');
 const router = express.Router();
 // const fs = require('fs');
@@ -8,17 +9,39 @@ const db = require('../dbconnection');
 
 router.get('/getcategories', function(req, res) {
     let categoryData = [];
+    function returnCategory() {
+        console.log('result', categoryData);
+        return categoryData;
+    }
     db.query(`select * from category_info where 1`, (err, results, fields) => {
         if(!err) {
-            // res.json({ list: results });
-            categoryData = results.map((val, index, arr) => {
-                console.log(val);
-                // db.query(`select count()`)
-            })
-            // categoryData
-            // res.send();
-            // res.json({msg: 'Y'});
-            // console.log(rows);
+            // todo: 코드 이해 필요
+            (async() => {
+                console.log('promise all start');
+                const result = await Promise.all(
+                    results.map(async(value, index) => {
+                        let newArr = [];
+                        return new Promise((resolve, reject) => 
+                            db.query(`select * from work_info where 1 and work_categories in (${value.idx})`, (err, results, fields) => {
+                                if(!err) {
+                                    console.log('result push');
+                                    value['count'] = results.length;
+                                    newArr.push(value);
+                                    return resolve(value);
+                                    // return resolve();
+                                } else {
+                                    return reject(err);
+                                }
+                            })
+                        )
+                        console.log('return map');
+                    })
+                );
+                console.log('promise all end');
+                console.log('result', result);
+                res.json({ list: result });
+            })();
+            
         } else {
             console.log(`query error : ${err}`);
             res.send(err);
@@ -29,7 +52,7 @@ router.get('/getlist', function(req, res) {
     // recruit list 가져오기
     const cate = (req.query.cate == 'all' || !req.query.cate) ? "" : req.query.cate;
 
-    console.log(req.query.cate);
+    // console.log(req.query.cate);
     // table로
     let where = '';
     if(cate !== '') {

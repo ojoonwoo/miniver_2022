@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import WorkBox from '../components/WorkBox';
 
@@ -46,7 +47,7 @@ function Project(props) {
             method: 'get',
             url: '/api/work/getcategories',
         });
-        console.log(result);
+        console.log(result.data.list);
     }
 
     // const sortingWorkList = (category) => {
