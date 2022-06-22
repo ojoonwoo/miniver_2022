@@ -8,9 +8,11 @@ function Home(props) {
     const [homeData, setHomeData] = useState([]);
     useEffect(() => {
         async function getHomeData() {
-            const result = await axios.get(
-                '/api/work/getlist'
-            );
+            const result = await axios({
+                method: 'get',
+                url: '/api/work/getlist',
+                params: { cate: 'all' },
+            });
             setHomeData(result.data.list);
         }
         getHomeData();
