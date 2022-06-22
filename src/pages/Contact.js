@@ -16,7 +16,7 @@ function Contact(props) {
                     <div className="inner">
                         <button>Compaign Site</button>
                         <button>Viral Video</button>
-                        <button>Social media</button>
+                        <button>Social Media</button>
                         <button>Short Video</button>
                         <button>Goods</button>
                         <button>Photography</button>
