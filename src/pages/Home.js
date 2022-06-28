@@ -32,22 +32,22 @@ function Home(props) {
 
     return (
         <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <div id="container" className={props.pageName}>
-            <Header />
-            <div className="section-hero"></div>
-            <div className="section-work">
-                <h3>
-                    We are a creative agency
-                </h3>
-                <div>
-                    <div className="grid-inner">
-                        {homeData.map((item) =>
-                            <WorkBox key={item.idx} item={item} />
-                        )};
+            <div id="container" className={props.pageName}>
+                <Header />
+                <div className="section-hero"></div>
+                <div className="section-work">
+                    <h3>
+                        We are a creative agency
+                    </h3>
+                    <div>
+                        <div className="grid-inner">
+                            {homeData.map((item) =>
+                                <WorkBox key={item.idx} item={item} />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </motion.div>
     );
 }

@@ -3,10 +3,12 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import WorkBox from '../components/WorkBox';
+import CategoryItem from '../components/CategoryItem';
 
 function Project(props) {
-    let categories = [];
-    const sortingData = useState([]);
+    const [projectData, setProjectData] = useState([]);
+    const [categoryData, setCategoryData] = useState([]);
+    // let categoryData = [];
     useEffect(() => {
         console.log('useEffect');
         // async function getProjectData() {
@@ -40,6 +42,7 @@ function Project(props) {
             url: '/api/work/getlist',
             params: { cate: cate },
         });
+        setProjectData(result.data.list);
         console.log(result.data.list);
     }
     const getCategoryData = async() => {
@@ -47,6 +50,8 @@ function Project(props) {
             method: 'get',
             url: '/api/work/getcategories',
         });
+        // categoryData = result.data.list;
+        setCategoryData(result.data.list);
         console.log(result.data.list);
     }
 
@@ -68,7 +73,9 @@ function Project(props) {
                     <div className="grid-inner">
                         <h1 className="page-title">Project</h1>
                         <div className="categories">
-
+                            {categoryData.map((item) =>
+                                <CategoryItem key={item.idx} item={item} />
+                            )}
                         </div>
                     </div>
                 </div>

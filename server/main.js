@@ -14,8 +14,9 @@ app.use(bodyParser.json());
 
 
 // app.use('/works', express.static(path.join(__dirname, './../uploads/work')));
-// app.use(express.static(path.join(__dirname, '..', '/build')));
-app.use(express.static(path.join(__dirname, '..', '/public')));
+app.use(express.static(path.join(__dirname, '..', '/build')));
+// app.use(express.static(path.join(__dirname, '..', '/public')));
+
 app.use('/works', express.static(path.join(__dirname, './../uploads/work')));
 
 // cors 옵션 설정 필요
