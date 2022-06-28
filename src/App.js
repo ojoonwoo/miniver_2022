@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { useDispatch, useSelector } from 'react-redux';
 import Home from './pages/Home';
 import About from './pages/About';
 import Project from './pages/Project';
 import ProjectDetail from './pages/ProjectDetail';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
+import Header from './components/Header';
 // import logo from './logo.svg';
 // import './App.css';
 import './reset.css';
@@ -13,6 +15,11 @@ import './style.scss';
 // import './style.scss';
 
 function App() {
+    // * Redux store를 가져와주는 useSelector()
+    let headerColor = useSelector((state) => {
+        return state.headerColor;
+    });
+    console.log(headerColor);
     return (
         // <div className="App">
         //   <header className="App-header">
@@ -32,6 +39,7 @@ function App() {
         // </div>
         <AnimatePresence>
             <BrowserRouter>
+                <Header color={headerColor} />
                 <Routes>
                     <Route exact path="/" element={<Home pageName="Home" />}></Route>
                     <Route path="/about" element={<About pageName="About" />}></Route>

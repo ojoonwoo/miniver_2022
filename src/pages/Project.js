@@ -68,7 +68,7 @@ function Project(props) {
     return (
         <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div id="container" className={props.pageName}>
-                <Header color="black"/>
+                {/* <Header color="black"/> */}
                 <div className="contents">
                     <div className="grid-inner">
                         <h1 className="page-title">Project</h1>

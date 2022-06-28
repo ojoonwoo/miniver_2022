@@ -1,11 +1,27 @@
 import {motion} from 'framer-motion';
 import Header from '../components/Header';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeColor } from './../store.js';
+import { useEffect } from 'react';
 
 function Contact(props) {
+    let headerColor = useSelector((state) => {
+        return state.headerColor;
+    });
+    console.log(headerColor);
+    let dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log('마운트');
+        dispatch(changeColor('white'));
+        return () => {
+            console.log('언마운트');
+        };
+    }, []);
     return (
         <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <div id="container" className={props.pageName}>
-            <Header></Header>
+            {/* <Header></Header> */}
             <div className="inner">
                 <div className="title-block">
                     <h3 className="title-num">1.</h3>

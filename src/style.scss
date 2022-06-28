@@ -20,7 +20,14 @@ body {
     line-height: 1;
     letter-spacing: -0.01em;
     color: $black;
+
+    -ms-overflow-style: none;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 img {
     max-width: 100%;
 }
@@ -169,7 +176,8 @@ img {
             .inner {
                 box-sizing: border-box;
                 // border: 1px solid red;
-                button, input[type='text'] {
+                button,
+                input[type='text'] {
                     padding: 1.1rem 3rem;
                     border: 1px solid $white;
                     color: $white;
@@ -185,9 +193,9 @@ img {
                 input[type='text']::placeholder {
                     color: rgba(255, 255, 255, 0.3);
                 }
-                input:focus{
-                    outline:none;
-                } 
+                input:focus {
+                    outline: none;
+                }
             }
         }
     }

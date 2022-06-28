@@ -2,9 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import WorkBox from '../components/WorkBox';
+import { changeColor } from './../store.js';
+import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 
 function Home(props) {
+    let headerColor = useSelector((state) => {
+        return state.headerColor;
+    });
+    console.log(headerColor);
+    let dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log('마운트');
+        dispatch(changeColor('white'));
+        return () => {
+            console.log('언마운트');
+        };
+    }, []);
+
     const [homeData, setHomeData] = useState([]);
     useEffect(() => {
         async function getHomeData() {
@@ -33,7 +49,7 @@ function Home(props) {
     return (
         <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div id="container" className={props.pageName}>
-                <Header />
+                {/* <Header /> */}
                 <div className="section-hero"></div>
                 <div className="section-work">
                     <h3>
