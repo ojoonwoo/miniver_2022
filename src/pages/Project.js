@@ -3,9 +3,16 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import WorkBox from '../components/WorkBox';
+import { changeColor } from './../store.js';
+import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from '../components/CategoryItem';
 
 function Project(props) {
+    let headerColor = useSelector((state) => {
+        return state.headerColor;
+    });
+    console.log(headerColor);
+    let dispatch = useDispatch();
     const [projectData, setProjectData] = useState([]);
     const [categoryData, setCategoryData] = useState([]);
     // let categoryData = [];
@@ -19,6 +26,7 @@ function Project(props) {
         // }
         getCategoryData();
         getProjectData('all');
+        dispatch(changeColor('black'));
 
         // axios({
         //     method: 'get',

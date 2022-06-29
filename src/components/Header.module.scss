@@ -6,35 +6,150 @@ header {
     left: 0;
     right: 0;
     width: 100%;
-    padding: 11rem 0;
+    padding: 1.4rem 2rem 1.4rem 3rem;
+    box-sizing: border-box;
     .wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
         .logo svg {
             fill: $white;
+            transition: fill 1s ease-in-out;
+            width: 9.6rem;
         }
-        ul {
+        .nav-ham {
+            width: 4.4rem;
+            height: 4.4rem;
+        }
+        .nav-ham__btn {
+            width: 100%;
+            height: 100%;
+        }
+        .nav-block {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: rgba(255, 255, 255, 0.79);
+            z-index: 10;
             display: flex;
-            align-items: center;
-            li {
-                a {
-                    display: block;
-                    padding: 2.4rem;
-                    font-size: 2rem;
-                    font-weight: 300;
-                    letter-spacing: -0.01em;
-                    color: $white;
+            justify-content: flex-end;
+            .inner {
+                position: relative;
+                display: flex;
+                flex-flow: column;
+                justify-content: space-between;
+                background-color: #000;
+                width: 77%;
+                height: 100vh;
+                padding: 7.75rem 0 4.5rem 6rem;
+                .nav-block__btn-close {
+                    position: absolute;
+                    width: 4.4rem;
+                    height: 4.4rem;
+                    right: 2rem;
+                    top: 1.4rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                ul {
+                    li {
+                        a {
+                            display: block;
+                            padding: 1.75rem 0;
+                            font-size: 2.3rem;
+                            font-weight: 300;
+                            letter-spacing: -0.01em;
+                            color: $white;
+                            transition: 1s ease-in-out;
+                        }
+                    }
+                }
+                footer {
+                    color: #fff;
+                    .logo svg {
+                        width: 12.4rem;
+                        margin-bottom: 1.8rem;
+                    }
+                    .footer-elem {
+                        margin-bottom: 2rem;
+                        .footer-elem__title {
+                            font-weight: 700;
+                            font-size: 1.4rem;
+                            line-height: 1.7rem;
+                            letter-spacing: -0.01em;
+                            margin-bottom: 0.5rem;
+                        }
+                        .footer-elem__desc {
+                            font-weight: 400;
+                            font-size: 1.1rem;
+                            line-height: 1.4rem;
+                            letter-spacing: -0.01em;
+                        }
+                    }
+                    .brief-block {
+                        margin-bottom: 6.2rem;
+                    }
+                    .copyright-block {
+                        font-weight: 400;
+                        font-size: 1rem;
+                        line-height: 1.2rem;
+                        letter-spacing: -0.03em;
+                    }
                 }
             }
         }
     }
-    &[data-color="black"] .wrapper {
+    &[data-color='black'] .wrapper {
         .logo svg {
             fill: $black;
         }
         ul li a {
             color: $black;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    header {
+        padding: 11rem 0;
+        width: $desktop-container-width;
+        margin: 0 auto;
+        .wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .logo svg {
+                width: 20.2rem;
+            }
+            .nav-ham {
+                display: none;
+            }
+            ul {
+                display: flex;
+                align-items: center;
+                li {
+                    a {
+                        display: block;
+                        padding: 2.4rem;
+                        font-size: 2rem;
+                        font-weight: 300;
+                        letter-spacing: -0.01em;
+                        color: $white;
+                        transition: 1s ease-in-out;
+                    }
+                }
+            }
+        }
+        &[data-color='black'] .wrapper {
+            .logo svg {
+                fill: $black;
+            }
+            ul li a {
+                color: $black;
+            }
         }
     }
 }
