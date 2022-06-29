@@ -32,10 +32,15 @@ header {
             left: 0;
             top: 0;
             background: rgba(255, 255, 255, 0.79);
+            opacity: 0;
+            visibility: hidden;
+            transition: all .3s cubic-bezier(.59,.01,.28,1);
             z-index: 10;
             display: flex;
             justify-content: flex-end;
+            overflow: hidden;
             .inner {
+                transform: translateX(100%);
                 position: relative;
                 display: flex;
                 flex-flow: column;
@@ -63,7 +68,7 @@ header {
                             font-weight: 300;
                             letter-spacing: -0.01em;
                             color: $white;
-                            transition: 1s ease-in-out;
+                            transition: color 1s ease-in-out;
                         }
                     }
                 }
@@ -71,7 +76,7 @@ header {
                     color: #fff;
                     .logo svg {
                         width: 12.4rem;
-                        margin-bottom: 1.8rem;
+                        margin-bottom: 1.7rem;
                     }
                     .footer-elem {
                         margin-bottom: 2rem;
@@ -90,7 +95,19 @@ header {
                         }
                     }
                     .brief-block {
-                        margin-bottom: 6.2rem;
+                        margin-bottom: 7.4rem;
+                        a {
+                            span.footer-elem__title {
+                                margin-bottom: 0;
+                                margin-right: 2.1rem;
+                                display: inline-block;
+                                vertical-align: middle;
+                            }
+                            svg {
+                                display: inline-block;
+                                vertical-align: middle;
+                            }
+                        }
                     }
                     .copyright-block {
                         font-weight: 400;
@@ -127,18 +144,25 @@ header {
             .nav-ham {
                 display: none;
             }
-            ul {
-                display: flex;
-                align-items: center;
-                li {
-                    a {
-                        display: block;
-                        padding: 2.4rem;
-                        font-size: 2rem;
-                        font-weight: 300;
-                        letter-spacing: -0.01em;
-                        color: $white;
-                        transition: 1s ease-in-out;
+            .nav-block {
+                background: none;
+                opacity: 1;
+                visibility: visible;
+                .inner {
+                    background: none;
+                    ul {
+                        display: flex;
+                        align-items: center;
+                        li {
+                            a {
+                                display: block;
+                                padding: 2.4rem;
+                                font-size: 2rem;
+                                font-weight: 300;
+                                letter-spacing: -0.01em;
+                                color: $white;
+                            }
+                        }
                     }
                 }
             }

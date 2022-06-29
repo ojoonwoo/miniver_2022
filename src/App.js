@@ -19,7 +19,7 @@ function App() {
     let headerColor = useSelector((state) => {
         return state.headerColor;
     });
-    console.log(headerColor);
+    // console.log(headerColor);
     return (
         // <div className="App">
         //   <header className="App-header">

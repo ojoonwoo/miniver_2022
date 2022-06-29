@@ -10,14 +10,14 @@ function Home(props) {
     let headerColor = useSelector((state) => {
         return state.headerColor;
     });
-    console.log(headerColor);
+    // console.log(headerColor);
     let dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('마운트');
+        // console.log('마운트');
         dispatch(changeColor('white'));
         return () => {
-            console.log('언마운트');
+            // console.log('언마운트');
         };
     }, []);
 

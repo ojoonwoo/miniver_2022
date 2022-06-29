@@ -5,7 +5,7 @@ let headerColor = createSlice ({
     initialState: "white",
     reducers: {
         changeColor(state, action) {
-            console.log(state, action.payload);
+            // console.log(state, action.payload);
             return state = action.payload;
         }
     }
