@@ -61,6 +61,75 @@ img {
     font-weight: 300;
 }
 
+#container.Contact {
+    background-color: $black;
+    color: $white;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > .inner {
+        width: 100%;
+        // border: 1px solid red;
+        padding: 0 8.5rem;
+        .title-block {
+            margin-bottom: 4rem;
+            .title-num {
+                // ! 나중에 폰트 웨이트 변수로 변경, 볼드, 라이트볼드 등등으로
+                font-weight: 700;
+                font-size: 1.9rem;
+                line-height: 2.2rem;
+                letter-spacing: -0.03em;
+                margin-bottom: 1rem;
+            }
+            .title {
+                font-weight: 700;
+                font-size: 2.1rem;
+                line-height: 2.5rem;
+                letter-spacing: -0.03em;
+                margin-bottom: 1.3rem;
+            }
+            .title-desc {
+                font-weight: 400;
+                font-size: 1.1rem;
+                line-height: 2.2rem;
+                letter-spacing: -0.03em;
+            }
+        }
+        .select-block {
+            // padding-right: 33%;
+            .inner {
+                box-sizing: border-box;
+                // border: 1px solid red;
+                button,
+                input[type='text'] {
+                    padding: 1rem 3rem 1rem 2.5rem;
+                    border: 1px solid $white;
+                    color: $white;
+                    border-radius: 6rem;
+                    font-weight: 400;
+                    font-size: 1.4rem;
+                    line-height: 1.7rem;
+                    margin-bottom: 1rem;
+                }
+                input[type='text'] {
+                    width: 15.7rem;
+                }
+                // button:nth-child(3) {
+                //     margin-right: 40rem;
+                // }
+                input[type='text']::placeholder {
+                    color: rgba(255, 255, 255, 0.3);
+                }
+                input:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}
+
 @media (min-width: 1200px) {
     html {
         font-size: 62.5%;
@@ -216,6 +285,9 @@ img {
                         font-size: 2rem;
                         line-height: 2.5rem;
                         margin: 0 1rem 1.8rem 0;
+                    }
+                    input[type='text'] {
+                        width: auto;
                     }
                     // button:nth-child(3) {
                     //     margin-right: 40rem;

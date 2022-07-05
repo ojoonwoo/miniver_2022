@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from '../components/Header';
+// import Header from '../components/Header';
+import Footer from '../components/Footer';
 import WorkBox from '../components/WorkBox';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,12 +14,31 @@ function Home(props) {
     // console.log(headerColor);
     let dispatch = useDispatch();
 
+    let [isMobile, setIsMobile] = useState(true);
+
     useEffect(() => {
         // console.log('마운트');
         dispatch(changeColor('white'));
+        
+        let winWidth = window.innerWidth;
+        // * 마운트시에 데스크탑이라면 footer 숨김
+        if (winWidth >= 1200) {
+            setIsMobile(false);
+        }
+        let a = window.addEventListener('resize', () => {
+            console.log('윈도우 리사이즈');
+            console.log(winWidth);
+            winWidth = window.innerWidth;
+            if (winWidth >= 1200) {
+                setIsMobile(false);
+            } else {
+                setIsMobile(true);
+            }
+        });
         return () => {
-            // console.log('언마운트');
+            window.removeEventListener('resize', a);
         };
+        
     }, []);
 
     const [homeData, setHomeData] = useState([]);
@@ -47,10 +67,12 @@ function Home(props) {
     }, []);
 
     return (
+        // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
         <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div id="container" className={props.pageName}>
                 {/* <Header /> */}
-                <div className="section-hero"></div>
+                <div className="section-hero">
+                </div>
                 <div className="section-work">
                     <h3>
                         We are a creative agency
@@ -63,6 +85,7 @@ function Home(props) {
                         </div>
                     </div>
                 </div>
+                {isMobile ? null : <Footer />}
             </div>
         </motion.div>
     );

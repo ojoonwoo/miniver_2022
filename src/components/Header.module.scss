@@ -26,8 +26,8 @@ header {
             height: 100%;
         }
         .nav-ham svg {
-            fill: $white;
             transition: fill 1s ease-in-out;
+            fill: $white;
         }
         .nav-block {
             width: 100%;
@@ -76,50 +76,6 @@ header {
                         }
                     }
                 }
-                footer {
-                    color: #fff;
-                    .logo svg {
-                        width: 12.4rem;
-                        margin-bottom: 1.7rem;
-                    }
-                    .footer-elem {
-                        margin-bottom: 2rem;
-                        .footer-elem__title {
-                            font-weight: 700;
-                            font-size: 1.4rem;
-                            line-height: 1.7rem;
-                            letter-spacing: -0.01em;
-                            margin-bottom: 0.5rem;
-                        }
-                        .footer-elem__desc {
-                            font-weight: 400;
-                            font-size: 1.1rem;
-                            line-height: 1.4rem;
-                            letter-spacing: -0.01em;
-                        }
-                    }
-                    .brief-block {
-                        margin-bottom: 7.4rem;
-                        a {
-                            span.footer-elem__title {
-                                margin-bottom: 0;
-                                margin-right: 2.1rem;
-                                display: inline-block;
-                                vertical-align: middle;
-                            }
-                            svg {
-                                display: inline-block;
-                                vertical-align: middle;
-                            }
-                        }
-                    }
-                    .copyright-block {
-                        font-weight: 400;
-                        font-size: 1rem;
-                        line-height: 1.2rem;
-                        letter-spacing: -0.03em;
-                    }
-                }
             }
         }
     }
@@ -129,9 +85,6 @@ header {
         }
         .nav-ham__btn svg {
             fill: $black;
-        }
-        ul li a {
-            color: $black;
         }
     }
 }
@@ -152,11 +105,19 @@ header {
                 display: none;
             }
             .nav-block {
+                position: inherit;
+                width: auto;
                 background: none;
                 opacity: 1;
                 visibility: visible;
+                height: auto;
+                // border: 1px solid red;
                 .inner {
+                    padding: 0;
+                    width: auto;
                     background: none;
+                    height: auto;
+                    transform: inherit;
                     ul {
                         display: flex;
                         align-items: center;
@@ -178,7 +139,7 @@ header {
             .logo svg {
                 fill: $black;
             }
-            ul li a {
+            .nav-block ul li a {
                 color: $black;
             }
         }

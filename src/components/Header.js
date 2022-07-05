@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 import { useEffect, useState } from 'react';
 import Footer from './Footer.js';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 function Header(props) {
-    let [isMobile, setIsMobile] = useState(true);
     let [menuOpen, setMenuOpen] = useState(false);
 
+    // ! 모바일 인식 부분 Redux로 전환
+    let [isMobile, setIsMobile] = useState(true);
     // * 윈도우 리사이즈 반응해서 footer on/off해주는 useEffect
     useEffect(() => {
         let winWidth = window.innerWidth;
@@ -21,6 +22,7 @@ function Header(props) {
             winWidth = window.innerWidth;
             if (winWidth >= 1200) {
                 setIsMobile(false);
+                setMenuOpen(false);
             } else {
                 setIsMobile(true);
             }
@@ -30,7 +32,7 @@ function Header(props) {
         };
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('메뉴오픈');
         console.log(menuOpen);
     }, [menuOpen]);
@@ -44,50 +46,76 @@ function Header(props) {
                     </svg>
                 </Link>
                 <div className={styles['nav-ham']}>
-                    <button type="button" className={styles['nav-ham__btn']} onClick={()=>{setMenuOpen(!menuOpen)}}>
+                    <button
+                        type="button"
+                        className={styles['nav-ham__btn']}
+                        onClick={() => {
+                            setMenuOpen(!menuOpen);
+                        }}
+                    >
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M2 6.81158C2 6.2593 2.44772 5.81158 3 5.81158H21C21.5523 5.81158 22 6.2593 22 6.81158C22 7.36387 21.5523 7.81158 21 7.81158H3C2.44772 7.81158 2 7.36387 2 6.81158Z"
-                            />
-                            <path
-                                d="M5 12.8116C5 12.2593 5.44772 11.8116 6 11.8116H21C21.5523 11.8116 22 12.2593 22 12.8116C22 13.3639 21.5523 13.8116 21 13.8116H6C5.44772 13.8116 5 13.3639 5 12.8116Z"
-                            />
-                            <path
-                                d="M5 18.8116C5 18.2593 5.44772 17.8116 6 17.8116H21C21.5523 17.8116 22 18.2593 22 18.8116C22 19.3639 21.5523 19.8116 21 19.8116H6C5.44772 19.8116 5 19.3639 5 18.8116Z"
-                            />
+                            <path d="M2 6.81158C2 6.2593 2.44772 5.81158 3 5.81158H21C21.5523 5.81158 22 6.2593 22 6.81158C22 7.36387 21.5523 7.81158 21 7.81158H3C2.44772 7.81158 2 7.36387 2 6.81158Z" />
+                            <path d="M5 12.8116C5 12.2593 5.44772 11.8116 6 11.8116H21C21.5523 11.8116 22 12.2593 22 12.8116C22 13.3639 21.5523 13.8116 21 13.8116H6C5.44772 13.8116 5 13.3639 5 12.8116Z" />
+                            <path d="M5 18.8116C5 18.2593 5.44772 17.8116 6 17.8116H21C21.5523 17.8116 22 18.2593 22 18.8116C22 19.3639 21.5523 19.8116 21 19.8116H6C5.44772 19.8116 5 19.3639 5 18.8116Z" />
                         </svg>
                     </button>
                 </div>
-                <motion.div className={`${styles['nav-block']}`}
-                    animate={menuOpen ? "open" : "closed"}
-                    initial={false}
-                    transition={{ duration: 0.1 }}
-                    variants={{
-                        open: {
-                            opacity: 1,
-                            visibility: 'visible'
-                        },
-                        closed: {
-                            opacity: 0,
-                            visibility: 'hidden'
-                        },
-                    }}
-                >
-                    <motion.div className={`${styles['inner']}`}
-                    animate={menuOpen ? "open" : "closed"}
-                    initial={false}
-                    transition={{ duration: 0.3 }}
-                    variants={{
-                        open: {
-                            x: 0,
-                        },
-                        closed: {
-                            x: "100%",
-                        },
-                    }}
+                {isMobile === true ? (
+                    <motion.div
+                        className={`${styles['nav-block']}`}
+                        animate={menuOpen ? 'open' : 'closed'}
+                        initial={false}
+                        transition={{ duration: 0.1 }}
+                        variants={{
+                            open: {
+                                opacity: 1,
+                                visibility: 'visible',
+                            },
+                            closed: {
+                                opacity: 0,
+                                visibility: 'hidden',
+                            },
+                        }}
                     >
-                        {isMobile == true ? (
-                            <button className={`${styles['nav-block__btn-close']}`} onClick={()=>{setMenuOpen(!menuOpen)}}>
+                        <motion.div
+                            className={`${styles['inner']}`}
+                            animate={menuOpen ? 'open' : 'closed'}
+                            initial={false}
+                            transition={{ duration: 0.3 }}
+                            variants={{
+                                open: {
+                                    x: 0,
+                                },
+                                closed: {
+                                    x: '100%',
+                                },
+                            }}
+                        >
+                            {/* {isMobile == true ? (
+                                <button
+                                    className={`${styles['nav-block__btn-close']}`}
+                                    onClick={() => {
+                                        setMenuOpen(!menuOpen);
+                                    }}
+                                >
+                                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M5.27842 6.09C5.64964 5.71878 6.25151 5.71878 6.62273 6.09L18.7216 18.1889C19.0928 18.5601 19.0928 19.1619 18.7216 19.5332C18.3504 19.9044 17.7485 19.9044 17.3773 19.5332L5.27842 7.43432C4.9072 7.0631 4.9072 6.46122 5.27842 6.09Z"
+                                            fill="white"
+                                        />
+                                        <path
+                                            d="M5.27842 19.5332C4.90719 19.1619 4.90719 18.5601 5.27842 18.1889L17.3773 6.09C17.7485 5.71878 18.3504 5.71878 18.7216 6.09C19.0928 6.46122 19.0928 7.0631 18.7216 7.43432L6.62273 19.5332C6.25151 19.9044 5.64964 19.9044 5.27842 19.5332Z"
+                                            fill="white"
+                                        />
+                                    </svg>
+                                </button>
+                            ) : null} */}
+                            <button
+                                className={`${styles['nav-block__btn-close']}`}
+                                onClick={() => {
+                                    setMenuOpen(!menuOpen);
+                                }}
+                            >
                                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M5.27842 6.09C5.64964 5.71878 6.25151 5.71878 6.62273 6.09L18.7216 18.1889C19.0928 18.5601 19.0928 19.1619 18.7216 19.5332C18.3504 19.9044 17.7485 19.9044 17.3773 19.5332L5.27842 7.43432C4.9072 7.0631 4.9072 6.46122 5.27842 6.09Z"
@@ -99,21 +127,59 @@ function Header(props) {
                                     />
                                 </svg>
                             </button>
-                        ) : null}
-                        <ul>
-                            <li>
-                                <Link to="/about">About</Link>
-                            </li>
-                            <li>
-                                <Link to="/project">Project</Link>
-                            </li>
-                            <li>
-                                <Link to="/contact">Contact</Link>
-                            </li>
-                        </ul>
-                        {isMobile == true ? <Footer /> : null}
+                            <ul>
+                                <li>
+                                    <Link
+                                        to="/about"
+                                        onClick={() => {
+                                            setMenuOpen(!menuOpen);
+                                        }}
+                                    >
+                                        About
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/project"
+                                        onClick={() => {
+                                            setMenuOpen(!menuOpen);
+                                        }}
+                                    >
+                                        Project
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/contact"
+                                        onClick={() => {
+                                            setMenuOpen(!menuOpen);
+                                        }}
+                                    >
+                                        Contact
+                                    </Link>
+                                </li>
+                            </ul>
+                            {/* {isMobile == true ? <Footer /> : null} */}
+                            <Footer />
+                        </motion.div>
                     </motion.div>
-                </motion.div>
+                ) : (
+                    <div className={`${styles['nav-block']}`}>
+                        <div className={`${styles['inner']}`}>
+                            <ul>
+                                <li>
+                                    <Link to="/about">About</Link>
+                                </li>
+                                <li>
+                                    <Link to="/project">Project</Link>
+                                </li>
+                                <li>
+                                    <Link to="/contact">Contact</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                )}
             </div>
         </header>
     );
