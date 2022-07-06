@@ -6,6 +6,7 @@ import WorkBox from '../components/WorkBox';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from '../components/CategoryItem';
+import PageTransition from '../components/PageTransition';
 
 function Project(props) {
     let headerColor = useSelector((state) => {
@@ -44,7 +45,7 @@ function Project(props) {
         };
     }, []);
 
-    const getProjectData = async(cate) => {
+    const getProjectData = async (cate) => {
         const result = await axios({
             method: 'get',
             url: '/api/work/getlist',
@@ -52,8 +53,8 @@ function Project(props) {
         });
         setProjectData(result.data.list);
         console.log(result.data.list);
-    }
-    const getCategoryData = async() => {
+    };
+    const getCategoryData = async () => {
         const result = await axios({
             method: 'get',
             url: '/api/work/getcategories',
@@ -61,7 +62,7 @@ function Project(props) {
         // categoryData = result.data.list;
         setCategoryData(result.data.list);
         console.log(result.data.list);
-    }
+    };
 
     // const sortingWorkList = (category) => {
     //     console.log('sorting');
@@ -72,24 +73,26 @@ function Project(props) {
     //     // console.log(initialData);
     //     console.log(sortingData);
     // }
-    
+
     return (
         // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
-        <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <PageTransition>
             <div id="container" className={props.pageName}>
                 {/* <Header color="black"/> */}
                 <div className="contents">
                     <div className="grid-inner">
                         <h1 className="page-title">Project</h1>
                         <div className="categories">
-                            {categoryData.map((item) =>
+                            {categoryData.map((item) => (
                                 <CategoryItem key={item.idx} item={item} />
-                            )}
+                            ))}
                         </div>
                     </div>
                 </div>
             </div>
-        </motion.div>
+            {/* </motion.div> */}
+        </PageTransition>
     );
 }
 

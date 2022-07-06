@@ -6,6 +6,7 @@ import WorkBox from '../components/WorkBox';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
+import PageTransition from '../components/PageTransition';
 
 function Home(props) {
     let headerColor = useSelector((state) => {
@@ -68,7 +69,8 @@ function Home(props) {
 
     return (
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
-        <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <PageTransition>
             <div id="container" className={props.pageName}>
                 {/* <Header /> */}
                 <div className="section-hero">
@@ -87,7 +89,8 @@ function Home(props) {
                 </div>
                 {isMobile ? null : <Footer />}
             </div>
-        </motion.div>
+        {/* </motion.div> */}
+        </PageTransition>
     );
 }
 
