@@ -39,7 +39,7 @@ function App() {
         // </div>
         <AnimatePresence>
             <BrowserRouter>
-                <Header />
+                <Header color={headerColor}/>
                 <Routes>
                     <Route exact path="/" element={<Home pageName="Home" />}></Route>
                     <Route path="/about" element={<About pageName="About" />}></Route>
