@@ -4,7 +4,7 @@ import styles from './WorkBox.module.scss';
 function WorkBox(props) {
     return (
         <div className={`${styles.workbox}`}>
-            <Link to="/" className={styles.logo}>
+            <Link to="/project/0" className={styles.logo}>
                 <div className={styles.wrapper}>
                     <div className={styles['item-img']}>
                         <img src={`works/${props.item.idx}/thumb_rectangle/${props.item.thumb_rectangle}`}></img>
