@@ -135,7 +135,6 @@ router.get('/getdetail', function(req, res) {
     console.log(idx);
     var work_detail = {
         "idx": "1",
-        "serial": "qqqqqqqq",
         "work_categories": "2",
         "work_title": "Sol 4",
         "client_name": "Royal Canin",

@@ -7,10 +7,10 @@ function WorkBox(props) {
             <Link to="/" className={styles.logo}>
                 <div className={styles.wrapper}>
                     <div className={styles['item-img']}>
-                        <img src={`works/${props.item.serial}/${props.item.thumb_rectangle}`}></img>
+                        <img src={`works/${props.item.idx}/thumb_rectangle/${props.item.thumb_rectangle}`}></img>
                     </div>
                     <div className={styles['box-overlay']}>
-                        <div className={styles['logo-img']} style={{backgroundImage: `url(works/${props.item.serial}/${props.item.logo_img})`}}></div>
+                        <div className={styles['logo-img']} style={{backgroundImage: `url(works/${props.item.idx}/logo_img/${props.item.logo_img})`}}></div>
                     </div>
                 </div>
             </Link>
