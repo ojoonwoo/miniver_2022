@@ -1,9 +1,30 @@
 import { motion } from 'framer-motion';
 import Header from '../components/Header';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeColor } from './../store.js';
+import { useEffect } from 'react';
+import PageTransition from '../components/PageTransition';
 
 function About(props) {
+    let headerColor = useSelector((state) => {
+        return state.headerColor;
+    });
+    console.log(headerColor);
+    let dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log('마운트');
+        dispatch(changeColor('black'));
+        return () => {
+            console.log('언마운트');
+        };
+    }, []);
+
     return (
-        <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ease: 'easeIn', duration: 0.7 }} exit={{ opacity: 0 }}>
+
+        // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ease: 'easeIn', duration: 0.7 }} exit={{ opacity: 0 }}>
+        // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <PageTransition>
             <div id="container" className={props.pageName}>
                 <div className="inner">
                     {/* <Header color="black" /> */}
@@ -47,7 +68,8 @@ function About(props) {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        {/* </motion.div> */}
+        </PageTransition>
     );
 }
 

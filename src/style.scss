@@ -5,6 +5,10 @@
 // $white: #ffffff;
 // $desktop-container-width: 1200px;
 
+*{
+    box-sizing: border-box;
+}
+
 html {
     font-size: 62.5%;
 }
@@ -20,112 +24,41 @@ body {
     line-height: 1;
     letter-spacing: -0.01em;
     color: $black;
+
+    -ms-overflow-style: none;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 img {
     max-width: 100%;
 }
 
 .grid-inner {
-    width: $desktop-container-width;
-    margin: 0 auto;
-}
-.contents {
-    padding-top: 29rem;
-}
-.contents .page-title {
-    font-size: 7.6rem;
-    font-weight: 700;
+    width: 100%;
+    padding: 0 3rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .section-hero {
     background-color: #6f6f6f;
     width: 100%;
-    padding-bottom: 59.85%;
-}
-.section-work > h3 {
-    font-size: 3.6rem;
-    text-align: center;
-    padding: 10rem 0 7rem;
-    font-weight: 300;
+    padding-bottom: 100%;
 }
 
-#container.About {
-    // ! 임시코드
-    .box {
-        background-color: lightgrey;
-        width: 100%;
-        height: 30rem;
-    }
-    > .inner {
-        padding-top: 33.6rem;
-        padding-bottom: 22.3rem;
-    }
-    .title-block {
-        margin-bottom: 6rem;
-        .sub-title {
-            font-weight: 700;
-            font-size: 3.1rem;
-            line-height: 3.8rem;
-            text-align: center;
-            letter-spacing: -0.03em;
-            color: $black;
-            margin-bottom: 3.1rem;
-        }
-        .title {
-            font-weight: 700;
-            font-size: 3.8rem;
-            line-height: 4.4rem;
-            text-align: center;
-            letter-spacing: -0.03em;
-            color: $black;
-        }
-    }
-    .video-block {
-        width: 100%;
-        padding-top: 38.227513227513228%;
-        background-color: lightgray;
-        margin-bottom: 15.3rem;
-    }
-    .do-block {
-        margin-bottom: 13rem;
-        .inner {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-    }
-    .team-block {
-        margin-bottom: 24.4rem;
-        .inner {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            .box {
-                background: none;
-                ul {
-                    width: 100%;
-                    height: 100%;
-                    li {
-                        background-color: lightgray;
-                        height: 100%;
-                        width: 26rem;
-                        margin-right: 2rem;
-                        display: inline-block;
-                    }
-                    li:last-child {
-                        margin-right: 0;
-                    }
-                }
-            }
-        }
-    }
-    .client-block {
-        .inner {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-    }
+.section-work {
+    padding-bottom: 9.2rem;
+}
+
+.section-work > h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 4.5rem 0 2rem;
+    font-weight: 300;
 }
 
 #container.Contact {
@@ -136,48 +69,52 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    .inner {
+    > .inner {
         width: 100%;
-        max-width: 1100px;
         // border: 1px solid red;
+        padding: 0 8.5rem;
         .title-block {
-            margin-bottom: 10.2rem;
+            margin-bottom: 4rem;
             .title-num {
                 // ! 나중에 폰트 웨이트 변수로 변경, 볼드, 라이트볼드 등등으로
                 font-weight: 700;
-                font-size: 2.7rem;
-                line-height: 3.1rem;
+                font-size: 1.9rem;
+                line-height: 2.2rem;
                 letter-spacing: -0.03em;
                 margin-bottom: 1rem;
             }
             .title {
                 font-weight: 700;
-                font-size: 3.7rem;
-                line-height: 5.4rem;
+                font-size: 2.1rem;
+                line-height: 2.5rem;
                 letter-spacing: -0.03em;
-                margin-bottom: 0.5rem;
+                margin-bottom: 1.3rem;
             }
             .title-desc {
                 font-weight: 400;
-                font-size: 1.5rem;
+                font-size: 1.1rem;
                 line-height: 2.2rem;
                 letter-spacing: -0.03em;
             }
         }
         .select-block {
-            padding-right: 33%;
+            // padding-right: 33%;
             .inner {
                 box-sizing: border-box;
                 // border: 1px solid red;
-                button, input[type='text'] {
-                    padding: 1.1rem 3rem;
+                button,
+                input[type='text'] {
+                    padding: 1rem 3rem 1rem 2.5rem;
                     border: 1px solid $white;
                     color: $white;
                     border-radius: 6rem;
                     font-weight: 400;
-                    font-size: 2rem;
-                    line-height: 2.5rem;
-                    margin: 0 1rem 1.8rem 0;
+                    font-size: 1.4rem;
+                    line-height: 1.7rem;
+                    margin-bottom: 1rem;
+                }
+                input[type='text'] {
+                    width: 15.7rem;
                 }
                 // button:nth-child(3) {
                 //     margin-right: 40rem;
@@ -185,9 +122,183 @@ img {
                 input[type='text']::placeholder {
                     color: rgba(255, 255, 255, 0.3);
                 }
-                input:focus{
-                    outline:none;
-                } 
+                input:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    html {
+        font-size: 62.5%;
+    }
+
+    .grid-inner {
+        width: $desktop-container-width;
+        margin: 0 auto;
+    }
+    .contents {
+        padding-top: 29rem;
+    }
+    .contents .page-title {
+        font-size: 7.6rem;
+        font-weight: 700;
+    }
+
+    .section-hero {
+        padding-bottom: 59.85%;
+    }
+    .section-work > h3 {
+        font-size: 3.6rem;
+        padding: 10rem 0 7rem;
+    }
+
+    #container.About {
+        // ! 임시코드
+        .box {
+            background-color: lightgrey;
+            width: 100%;
+            height: 30rem;
+        }
+        > .inner {
+            padding-top: 33.6rem;
+            padding-bottom: 22.3rem;
+        }
+        .title-block {
+            margin-bottom: 6rem;
+            .sub-title {
+                font-weight: 700;
+                font-size: 3.1rem;
+                line-height: 3.8rem;
+                text-align: center;
+                letter-spacing: -0.03em;
+                color: $black;
+                margin-bottom: 3.1rem;
+            }
+            .title {
+                font-weight: 700;
+                font-size: 3.8rem;
+                line-height: 4.4rem;
+                text-align: center;
+                letter-spacing: -0.03em;
+                color: $black;
+            }
+        }
+        .video-block {
+            width: 100%;
+            padding-top: 38.227513227513228%;
+            background-color: lightgray;
+            margin-bottom: 15.3rem;
+        }
+        .do-block {
+            margin-bottom: 13rem;
+            .inner {
+                width: 100%;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+        }
+        .team-block {
+            margin-bottom: 24.4rem;
+            .inner {
+                width: 100%;
+                max-width: 1100px;
+                margin: 0 auto;
+                .box {
+                    background: none;
+                    ul {
+                        width: 100%;
+                        height: 100%;
+                        li {
+                            background-color: lightgray;
+                            height: 100%;
+                            width: 26rem;
+                            margin-right: 2rem;
+                            display: inline-block;
+                        }
+                        li:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+        .client-block {
+            .inner {
+                width: 100%;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    #container.Contact {
+        background-color: $black;
+        color: $white;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .inner {
+            width: 100%;
+            max-width: 1100px;
+            // border: 1px solid red;
+            .title-block {
+                margin-bottom: 10.2rem;
+                .title-num {
+                    // ! 나중에 폰트 웨이트 변수로 변경, 볼드, 라이트볼드 등등으로
+                    font-weight: 700;
+                    font-size: 2.7rem;
+                    line-height: 3.1rem;
+                    letter-spacing: -0.03em;
+                    margin-bottom: 1rem;
+                }
+                .title {
+                    font-weight: 700;
+                    font-size: 3.7rem;
+                    line-height: 5.4rem;
+                    letter-spacing: -0.03em;
+                    margin-bottom: 0.5rem;
+                }
+                .title-desc {
+                    font-weight: 400;
+                    font-size: 1.5rem;
+                    line-height: 2.2rem;
+                    letter-spacing: -0.03em;
+                }
+            }
+            .select-block {
+                padding-right: 33%;
+                .inner {
+                    box-sizing: border-box;
+                    // border: 1px solid red;
+                    button,
+                    input[type='text'] {
+                        padding: 1.1rem 3rem;
+                        border: 1px solid $white;
+                        color: $white;
+                        border-radius: 6rem;
+                        font-weight: 400;
+                        font-size: 2rem;
+                        line-height: 2.5rem;
+                        margin: 0 1rem 1.8rem 0;
+                    }
+                    input[type='text'] {
+                        width: auto;
+                    }
+                    // button:nth-child(3) {
+                    //     margin-right: 40rem;
+                    // }
+                    input[type='text']::placeholder {
+                        color: rgba(255, 255, 255, 0.3);
+                    }
+                    input:focus {
+                        outline: none;
+                    }
+                }
             }
         }
     }
