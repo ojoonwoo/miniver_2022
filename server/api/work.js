@@ -9,10 +9,7 @@ const db = require('../dbconnection');
 
 router.get('/getcategories', function(req, res) {
     let categoryData = [];
-    function returnCategory() {
-        console.log('result', categoryData);
-        return categoryData;
-    }
+    
     db.query(`select * from category_info where 1`, (err, results, fields) => {
         if(!err) {
             // todo: 코드 이해 필요

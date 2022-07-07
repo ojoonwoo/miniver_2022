@@ -33,7 +33,7 @@ function Home(props) {
     return (
         <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div id="container" className={props.pageName}>
-                <Header />
+                {/* <Header /> */}
                 <div className="section-hero"></div>
                 <div className="section-work">
                     <h3>

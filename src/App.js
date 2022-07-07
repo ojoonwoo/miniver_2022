@@ -6,6 +6,8 @@ import Project from './pages/Project';
 import ProjectDetail from './pages/ProjectDetail';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
+
+import Header from './components/Header';
 // import logo from './logo.svg';
 // import './App.css';
 import './reset.css';
@@ -32,6 +34,7 @@ function App() {
         // </div>
         <AnimatePresence>
             <BrowserRouter>
+                <Header />
                 <Routes>
                     <Route exact path="/" element={<Home pageName="Home" />}></Route>
                     <Route path="/about" element={<About pageName="About" />}></Route>

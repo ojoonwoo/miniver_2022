@@ -5,7 +5,7 @@ function Contact(props) {
     return (
         <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <div id="container" className={props.pageName}>
-            <Header></Header>
+            {/* <Header></Header> */}
             <div className="inner">
                 <div className="title-block">
                     <h3 className="title-num">1.</h3>
