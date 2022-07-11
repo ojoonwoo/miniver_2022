@@ -5,14 +5,13 @@ import Footer from '../components/Footer';
 import WorkBox from '../components/WorkBox';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 
 function Home(props) {
-    let headerColor = useSelector((state) => {
-        return state.headerColor;
+    let themeColor = useSelector((state) => {
+        return state.themeColor;
     });
-    // console.log(headerColor);
     let dispatch = useDispatch();
 
     let [isMobile, setIsMobile] = useState(true);

@@ -16,8 +16,9 @@ import './style.scss';
 
 function App() {
     // * Redux store를 가져와주는 useSelector()
-    let headerColor = useSelector((state) => {
-        return state.headerColor;
+    let themeColor = useSelector((state) => {
+        console.log(state)
+        return state.themeColor;
     });
     // console.log(headerColor);
     return (
@@ -37,22 +38,24 @@ function App() {
         //     </a>
         //   </header>
         // </div>
-        <AnimatePresence>
-            <BrowserRouter>
-                <Header color={headerColor} />
-                <Routes>
-                    <Route exact path="/" element={<Home pageName="Home" />}></Route>
-                    <Route path="/about" element={<About pageName="About" />}></Route>
-                    <Route path="/project/*">
-                        {/* <Route index element={<Project pageName="Project" />}></Route> */}
-                        <Route index element={<Project pageName="Project" />}></Route>
-                        <Route path=":id" element={<ProjectDetail pageName="ProjectDetail" />}></Route>
-                    </Route>
-                    <Route path="/contact" element={<Contact pageName="Contact" />}></Route>
-                    <Route path="*" element={<NotFound />}></Route>
-                </Routes>
-            </BrowserRouter>
-        </AnimatePresence>
+        <div className="App" data-theme={themeColor}>
+            <AnimatePresence>
+                <BrowserRouter>
+                    <Header />
+                    <Routes>
+                        <Route exact path="/" element={<Home pageName="Home" />}></Route>
+                        <Route path="/about" element={<About pageName="About" />}></Route>
+                        <Route path="/project/*">
+                            {/* <Route index element={<Project pageName="Project" />}></Route> */}
+                            <Route index element={<Project pageName="Project" />}></Route>
+                            <Route path=":id" element={<ProjectDetail pageName="ProjectDetail" />}></Route>
+                        </Route>
+                        <Route path="/contact" element={<Contact pageName="Contact" />}></Route>
+                        <Route path="*" element={<NotFound />}></Route>
+                    </Routes>
+                </BrowserRouter>
+            </AnimatePresence>
+        </div>
     );
 }
 

@@ -40,6 +40,18 @@ button, input, select {
     color: inherit;
 }
 
+[data-theme] {
+    transition: color .3s cubic-bezier(0,0,.2,1),background-color .6s ease;
+    will-change: color,background-color;
+}
+
+[data-theme=white] {
+    color: $white;
+}
+[data-theme=black] {
+    color: $black;
+}
+
 .grid-inner {
     width: 100%;
     padding: 0 3rem;

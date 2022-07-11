@@ -1,15 +1,15 @@
-import { motion } from 'framer-motion';
-import Header from '../components/Header';
+// import { motion } from 'framer-motion';
+// import Header from '../components/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeColor } from './../store.js';
 import { useEffect } from 'react';
 import PageTransition from '../components/PageTransition';
 
 function About(props) {
-    let headerColor = useSelector((state) => {
-        return state.headerColor;
+    let themeColor = useSelector((state) => {
+        return state.themeColor;
     });
-    console.log(headerColor);
+    console.log(themeColor);
     let dispatch = useDispatch();
 
     useEffect(() => {

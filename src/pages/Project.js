@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { motion } from 'framer-motion';
-import Header from '../components/Header';
+// import { motion } from 'framer-motion';
+// import Header from '../components/Header';
 import WorkBox from '../components/WorkBox';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,8 @@ import { useLocation, Link, Outlet } from "react-router-dom";
 function Project(props) {
     const location = useLocation();
 
-    let headerColor = useSelector((state) => {
-        return state.headerColor;
+    let themeColor = useSelector((state) => {
+        return state.themeColor;
     });
     // console.log(headerColor);
     let dispatch = useDispatch();

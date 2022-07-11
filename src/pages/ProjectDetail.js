@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import { useParams } from 'react-router-dom';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +10,8 @@ import PageTransition from '../components/PageTransition';
 function ProjectDetail(props) {
     const params = useParams();
 
-    let headerColor = useSelector((state) => {
-        return state.headerColor;
+    let themeColor = useSelector((state) => {
+        return state.themeColor;
     });
     
     let dispatch = useDispatch();
