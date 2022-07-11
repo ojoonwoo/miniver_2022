@@ -44,7 +44,7 @@ function App() {
                     <Route exact path="/" element={<Home pageName="Home" />}></Route>
                     <Route path="/about" element={<About pageName="About" />}></Route>
                     <Route path="/project" element={<Project pageName="Project" />}>
-                        <Route path="/project/:id" element={<ProjectDetail />}></Route>
+                        <Route path=":id" element={<ProjectDetail />}/>
                     </Route>
                     <Route path="/contact" element={<Contact pageName="Contact" />}></Route>
                     <Route path="*" element={<NotFound />}></Route>

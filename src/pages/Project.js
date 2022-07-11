@@ -7,26 +7,28 @@ import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from '../components/CategoryItem';
 import PageTransition from '../components/PageTransition';
+import { useLocation, Link, Outlet } from "react-router-dom";
 
 function Project(props) {
+    const location = useLocation();
+
     let headerColor = useSelector((state) => {
         return state.headerColor;
     });
-    console.log(headerColor);
+    // console.log(headerColor);
     let dispatch = useDispatch();
     const [projectData, setProjectData] = useState([]);
     const [categoryData, setCategoryData] = useState([]);
-    // let categoryData = [];
     useEffect(() => {
-        console.log('useEffect');
-        // async function getProjectData() {
-        //     const result = await axios.get(
-        //         '/api/work/getlist'
-        //     );
-        //     sortingWorkList('');
-        // }
+        let cate = '';
+        if(location.hash) {
+            cate = location.hash.split('#')[1];
+        } else {
+            cate = 'all';
+        }
+
         getCategoryData();
-        getProjectData('all');
+        getProjectData(cate);
         dispatch(changeColor('black'));
 
         // axios({
@@ -46,13 +48,15 @@ function Project(props) {
     }, []);
 
     const getProjectData = async (cate) => {
+        if(!cate) cate = 'all';
         const result = await axios({
             method: 'get',
             url: '/api/work/getlist',
             params: { cate: cate },
         });
+        console.log(cate);
         setProjectData(result.data.list);
-        console.log(result.data.list);
+        // console.log(result.data.list);
     };
     const getCategoryData = async () => {
         const result = await axios({
@@ -61,8 +65,15 @@ function Project(props) {
         });
         // categoryData = result.data.list;
         setCategoryData(result.data.list);
-        console.log(result.data.list);
+        // console.log(result.data.list);
     };
+
+    const cateClick = (cate, e) => {
+        e.preventDefault();
+        const hash = '#'+cate;
+        window.location.hash = hash;
+        getProjectData(cate);
+    }
 
     // const sortingWorkList = (category) => {
     //     console.log('sorting');
@@ -73,7 +84,6 @@ function Project(props) {
     //     // console.log(initialData);
     //     console.log(sortingData);
     // }
-
     return (
         // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
         // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -84,14 +94,21 @@ function Project(props) {
                     <div className="grid-inner">
                         <h1 className="page-title">Project</h1>
                         <div className="categories">
+                            <CategoryItem classActive={location.hash.split('#')[1] == 'all' ? 'isActive' : ''} item={{idx: 'all', category_name: 'All'}} onClick={cateClick}/>
                             {categoryData.map((item) => (
-                                <CategoryItem key={item.idx} item={item} />
+                                <CategoryItem key={item.idx} classActive={location.hash.split('#')[1] == `${item.idx}` ? 'isActive' : ''} item={item} onClick={cateClick}/>
                             ))}
+                        </div>
+                        <div className="workbox-container">
+                            {projectData.map((item) =>
+                                <WorkBox key={item.idx} item={item} desc={true} />
+                            )}
                         </div>
                     </div>
                 </div>
             </div>
             {/* </motion.div> */}
+            <Outlet />
         </PageTransition>
     );
 }

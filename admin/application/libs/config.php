@@ -10,6 +10,7 @@ define('_PUBLIC_URL', 'http://'.$_SERVER['HTTP_HOST'].'/miniver_2022/admin/publi
 define('_ROOT_URL', 'http://'.$_SERVER['HTTP_HOST'].'/miniver_2022/admin/');
 
 define('_WORK_UPLOAD_URL', 'http://'.$_SERVER['HTTP_HOST'].':3000/works/');
+define('_WORK_UPLOAD_DIR', _MNV_ROOT.'uploads/work/');
 // define('_DBTYPE', 'mysql');
 define('_HOST', 'localhost');
 define('_DBNAME', 'miniver_2022');

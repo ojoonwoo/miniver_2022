@@ -74,9 +74,10 @@ $this_categories = explode(', ', $work_data['work_categories']);
             <div class="input-group">
                 <input class="form-control" type="file" id="logo-img" name="logo_img[]" accept="image/png" <?=$readonly?>>
                 <?php
+                $file = _WORK_UPLOAD_URL.$work_data['idx'].'/logo_img/'.$work_data['logo_img'];
                 if($action !== 'add') {
                 ?>
-                <img src="<?=_WORK_UPLOAD_URL.$work_data['idx'].'/logo_img/'.$work_data['logo_img']?>" alt="" style="background: #000; max-width: 12rem" class="img-thumbnail rounded">
+                <img src="<?=$file?>" alt="" style="background: #000; max-width: 12rem" class="img-thumbnail rounded">
                 <?php
                 }
                 ?>
@@ -90,9 +91,10 @@ $this_categories = explode(', ', $work_data['work_categories']);
                     <div class="input-group">
                         <input class="form-control" type="file" id="thumb-rectangle" name="thumb_rectangle[]" accept="image/jpg, image/jpeg, image/png, image/gif" <?=$readonly?>>
                         <?php
+                        $file = _WORK_UPLOAD_URL.$work_data['idx'].'/thumb_rectangle/'.$work_data['thumb_rectangle'];
                         if($action !== 'add') {
                         ?>
-                        <img src="<?=_WORK_UPLOAD_URL.$work_data['idx'].'/thumb_rectangle/'.$work_data['thumb_rectangle']?>" alt="" style="background: #000; max-width: 12rem" class="img-thumbnail rounded">
+                        <img src="<?=$file?>" alt="" style="max-width: 12rem" class="img-thumbnail rounded">
                         <?php
                         }
                         ?>
@@ -104,9 +106,10 @@ $this_categories = explode(', ', $work_data['work_categories']);
                     <div class="input-group">
                         <input class="form-control" type="file" id="thumb-square" name="thumb_square[]" accept="image/jpg, image/jpeg, image/png, image/gif" <?=$readonly?>>
                         <?php
+                        $file = _WORK_UPLOAD_URL.$work_data['idx'].'/thumb_square/'.$work_data['thumb_square'];
                         if($action !== 'add') {
                         ?>
-                        <img src="<?=_WORK_UPLOAD_URL.$work_data['idx'].'/thumb_square/'.$work_data['thumb_square']?>" alt="" style="background: #000; max-width: 12rem" class="img-thumbnail rounded">
+                        <img src="<?=$file?>" alt="" style="max-width: 12rem" class="img-thumbnail rounded">
                         <?php
                         }
                         ?>
@@ -120,9 +123,10 @@ $this_categories = explode(', ', $work_data['work_categories']);
             <div class="input-group">
                 <input class="form-control" type="file" id="hero-source" name="hero_source[]" <?=$readonly?>>
                 <?php
+                $file = _WORK_UPLOAD_URL.$work_data['idx'].'/hero_source/'.$work_data['hero_source'];
                 if($action !== 'add') {
                 ?>
-                <img src="<?=_WORK_UPLOAD_URL.$work_data['idx'].'/hero_source/'.$work_data['hero_source']?>" alt="" style="background: #000; max-width: 12rem" class="img-thumbnail rounded">
+                <img src="<?=$file?>" alt="" style="max-width: 12rem" class="img-thumbnail rounded">
                 <?php
                 }
                 ?>
@@ -136,9 +140,10 @@ $this_categories = explode(', ', $work_data['work_categories']);
                 <?php
                 if($action !== 'add') {
                     $source_array = explode(', ', $work_data['detail_sources1']);
-                    foreach($source_array as $source) {
+                    foreach($source_array as $source_name) {
+                        $source = _WORK_UPLOAD_URL.$work_data['idx'].'/detail_sources1/'.$source_name;
                 ?>
-                <img src="<?=_WORK_UPLOAD_URL.$work_data['idx'].'/detail_sources1/'.$source?>" alt="" style="background: #000; max-width: 12rem" class="img-thumbnail rounded">
+                <img src="<?=$source?>" alt="" style="max-width: 12rem" class="img-thumbnail rounded">
                 <?php
                     }
                 }
@@ -153,9 +158,10 @@ $this_categories = explode(', ', $work_data['work_categories']);
                 <?php
                 if($action !== 'add') {
                     $source_array = explode(', ', $work_data['detail_sources2']);
-                    foreach($source_array as $source) {
+                    foreach($source_array as $source_name) {
+                        $source = _WORK_UPLOAD_URL.$work_data['idx'].'/detail_sources2/'.$source_name;
                 ?>
-                <img src="<?=_WORK_UPLOAD_URL.$work_data['idx'].'/detail_sources2/'.$source?>" alt="" style="background: #000; max-width: 12rem" class="img-thumbnail rounded">
+                <img src="<?=$source?>" alt="" style="max-width: 12rem" class="img-thumbnail rounded">
                 <?php
                     }
                 }

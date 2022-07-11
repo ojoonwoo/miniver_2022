@@ -35,6 +35,10 @@ body {
 img {
     max-width: 100%;
 }
+button, input, select {
+    font-family: 'Kumbh Sans', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: inherit;
+}
 
 .grid-inner {
     width: 100%;
@@ -43,6 +47,15 @@ img {
     display: flex;
     flex-wrap: wrap;
 }
+
+.contents {
+    padding-top: 10.7rem;
+}
+.contents .page-title {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
 
 .section-hero {
     background-color: #6f6f6f;
@@ -130,6 +143,27 @@ img {
     }
 }
 
+#container.Project {
+    .categories {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+        margin-bottom: 5rem;
+    }
+    // .categories > .is-active {
+    //     color: #6f6f6f;
+    // }
+    .workbox-container {
+        display: flex;
+        flex-wrap: wrap;
+        width: calc(100% + 6rem);
+        margin: 0 -3rem;
+        .workbox {
+            margin-bottom: 0;
+        }
+    }
+}
+
 @media (min-width: 1200px) {
     html {
         font-size: 62.5%;
@@ -138,6 +172,7 @@ img {
     .grid-inner {
         width: $desktop-container-width;
         margin: 0 auto;
+        padding: 0;
     }
     .contents {
         padding-top: 29rem;
@@ -300,6 +335,19 @@ img {
                     }
                 }
             }
+        }
+    }
+
+    #container.Project {
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 4.6rem;
+        }
+        .workbox-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
         }
     }
 }

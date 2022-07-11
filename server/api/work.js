@@ -17,11 +17,13 @@ router.get('/getcategories', function(req, res) {
                 console.log('promise all start');
                 const result = await Promise.all(
                     results.map(async(value, index) => {
+                        const cateQuery = `select * from work_info where 1 and work_categories LIKE '%${value.idx}%'`;
                         let newArr = [];
                         return new Promise((resolve, reject) => 
-                            db.query(`select * from work_info where 1 and work_categories in (${value.idx})`, (err, results, fields) => {
+                            // db.query(`select * from work_info where 1 and work_categories in (${value.idx})`, (err, results, fields) => {
+                            db.query(cateQuery, (err, results, fields) => {
                                 if(!err) {
-                                    console.log('result push');
+                                    // console.log('result push');
                                     value['count'] = results.length;
                                     newArr.push(value);
                                     return resolve(value);
@@ -53,11 +55,14 @@ router.get('/getlist', function(req, res) {
     // table로
     let where = '';
     if(cate !== '') {
-        where = `and work_categories in('${cate}')`;
+        // where = `and work_categories in(${cate})`;
+        where = `and work_categories LIKE '%${cate}%'`;
     } else {
         where  = '';
     }
     const query = `select * from work_info where 1 ${where}`;
+
+    console.log(query);
     db.query(query, (err, results, fields) => {
         if(!err) {
             // res.json({ list: results });
