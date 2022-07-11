@@ -32,7 +32,20 @@ $this_categories = explode(', ', $work_data['work_categories']);
     <form action="<?=$form_action?>" onsubmit="return formCheck(this, '<?=$action?>');" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="work-title" class="form-label">프로젝트 제목</label>
-            <input type="text" class="form-control" id="work-title" name="work_title" <?=$readonly?> value="<?=$work_data['work_title']?>">
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">영어</span>
+                        <input type="text" class="form-control" id="work-title" name="work_title" <?=$readonly?> value="<?=$work_data['work_title']?>">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text">한국어</span>
+                        <input type="text" class="form-control" id="work-title-kor" name="work_title_kor" <?=$readonly?> value="<?=$work_data['work_title_kor']?>">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <label for="work-category" class="form-label">카테고리 (다중선택 가능)</label>
@@ -180,7 +193,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
     </form>
     <script>
         function formCheck(form, action) {
-            if($.trim(form.work_title.value).length<1) {
+            if($.trim(form.work_title.value).length<1 || $.trim(form.work_title_kor.value).length<1) {
                 alert('프로젝트 제목을 입력해주세요');
                 return false;
             }

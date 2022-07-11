@@ -164,6 +164,20 @@ button, input, select {
     }
 }
 
+#container.ProjectDetail {
+    .project-detail__top-block {
+        padding: 1rem 3rem 4rem;
+        .project-detail__title {
+            margin-bottom: 1.2rem;
+        }
+        .project-detail__title-kr {
+            font-size: 1.2rem;
+            color: $grey2;
+            font-weight: 700;
+        }
+    }
+}
+
 @media (min-width: 1200px) {
     html {
         font-size: 62.5%;

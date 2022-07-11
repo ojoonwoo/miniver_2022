@@ -31,17 +31,6 @@ function Project(props) {
         getProjectData(cate);
         dispatch(changeColor('black'));
 
-        // axios({
-        //     method: 'get',
-        //     url: '/api/work/getlist',
-        //     // params: {
-        //     //     cate: this.state.selectedCate
-        //     // }
-        // }).then(res => {
-        //     // this.setState({ items: res.data.list });
-        //     console.log(res.data.list);
-        //     mainWorks = res.data.list;
-        // });
         return () => {
             console.log('unmount');
         };

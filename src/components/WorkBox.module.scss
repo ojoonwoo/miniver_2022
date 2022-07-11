@@ -1,3 +1,5 @@
+@import '../variable.scss';
+
 .workbox {
     position: relative;
     width: 100%;
@@ -40,7 +42,7 @@
         }
         .title {
             font-size: 1.2rem;
-            color: #404040;
+            color: $grey2;
         }
     }
 }

@@ -62,7 +62,6 @@ router.get('/getlist', function(req, res) {
     }
     const query = `select * from work_info where 1 ${where}`;
 
-    console.log(query);
     db.query(query, (err, results, fields) => {
         if(!err) {
             // res.json({ list: results });
@@ -74,89 +73,20 @@ router.get('/getlist', function(req, res) {
             res.send(err);
         }
     });
-    // const work_list = [
-    //     {
-    //         "idx": "1",
-    //         "serial": "qqqqqqqq",
-    //         "work_categories": "2",
-    //         "work_title": "Sol 4",
-    //         "client_name": "Royal Canin",
-    //         "client_name_kor": "로얄캐닌",
-    //         "work_overview": "캠페인 간략내용 \'테스트\'",
-    //         "logo_img": "logo.png",
-    //         "hero_source": "main_image.jpg",
-    //         "thumb_rectangle": "thumb_rect.jpg",
-    //         "thumb_square": "thumb_square.jpg",
-    //         "detail_sources1": "source1_1.jpg, source1_2.jpg, source1_3.jpg",
-    //         "detail_sources2": "source2_1.jpg, source2_2.jpg, source2_3.jpg",
-    //         "work_register_date": "",
-    //         "work_update_date": "",
-    //         "work_visible": 1
-    //     },
-    //     {
-    //         "idx": "2",
-    //         "serial": "bbbbbbbb",
-    //         "work_categories": "1,3",
-    //         "work_title": "Blah Blah",
-    //         "client_name": "Nescafe DolceGusto",
-    //         "client_name_kor": "네스카페 돌체구스토",
-    //         "work_overview": "캠페인 간략내용 \'테스트\'",
-    //         "logo_img": "logo.png",
-    //         "hero_source": "main_image.jpg",
-    //         "thumb_rectangle": "thumb_rect.jpg",
-    //         "thumb_square": "thumb_square.jpg",
-    //         "detail_sources1": "source1_1.jpg, source1_2.jpg, source1_3.jpg",
-    //         "detail_sources2": "source2_1.jpg, source2_2.jpg, source2_3.jpg",
-    //         "work_register_date": "",
-    //         "work_update_date": "",
-    //         "work_visible": 1
-    //     },
-    //     {
-    //         "idx": "3",
-    //         "serial": "cccccccc",
-    //         "work_categories": "Viral Video, Campaign Site",
-    //         "work_title": "Blah Blah",
-    //         "client_name": "Starbucks at home",
-    //         "client_name_kor": "스타벅스 앳 홈",
-    //         "work_overview": "캠페인 간략내용 \'테스트\'",
-    //         "logo_img": "logo.png",
-    //         "hero_source": "main_image.jpg",
-    //         "thumb_rectangle": "thumb_rect.jpg",
-    //         "thumb_square": "thumb_square.jpg",
-    //         "detail_sources1": "source1_1.jpg, source1_2.jpg, source1_3.jpg",
-    //         "detail_sources2": "source2_1.jpg, source2_2.jpg, source2_3.jpg",
-    //         "work_register_date": "",
-    //         "work_update_date": "",
-    //         "work_visible": 1
-    //     },
-        
-    // ];
-    
 });
 router.get('/getdetail', function(req, res) {
     // recruit list 가져오기
     const idx = req.query.idx;
     
-    console.log(idx);
-    var work_detail = {
-        "idx": "1",
-        "work_categories": "2",
-        "work_title": "Sol 4",
-        "client_name": "Royal Canin",
-        "client_name_kor": "로얄캐닌",
-        "work_overview": "캠페인 간략내용 \'테스트\'",
-        "logo_img": "/works/qqqqqqqq/logo.png",
-        "hero_source": "/works/qqqqqqqq/main_image.jpg",
-        "thumb_rectangle": "/works/qqqqqqqq/thumb_rect.jpg",
-        "thumb_square": "/works/qqqqqqqq/thumb_square.jpg",
-        "detail_sources1": "/works/qqqqqqqq/source1_1.jpg, /works/qqqqqqqq/source1_2.jpg, /works/qqqqqqqq/source1_3.jpg",
-        "detail_sources2": "/works/qqqqqqqq/source2_1.jpg, /works/qqqqqqqq/source2_2.jpg, /works/qqqqqqqq/source2_3.jpg",
-        "work_register_date": "",
-        "work_update_date": "",
-        "work_visible": 1
-    };
-
-    res.json({ info: work_detail });
+    const query = `select * from work_info where 1 AND idx=${idx}`;
+    db.query(query, (err, results, fields) => {
+        if(!err) {
+            res.json({results});
+        } else {
+            console.log(`query error : ${err}`);
+            res.send(err);
+        }
+    });
 });
 
 // export default router;

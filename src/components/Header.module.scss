@@ -2,19 +2,22 @@
 
 header {
     position: absolute;
+    color: $white;
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
     padding: 1.4rem 2rem 1.4rem 3rem;
     box-sizing: border-box;
+    z-index: 100;
     .wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
         .logo svg {
-            fill: $white;
-            transition: fill 3s ease-in-out;
+            // fill: $white;
+            fill: currentColor;
+            // transition: fill 1s ease-in-out;
             width: 9.6rem;
         }
         .nav-ham {
@@ -24,10 +27,11 @@ header {
         .nav-ham__btn {
             width: 100%;
             height: 100%;
+            color: $white;
         }
         .nav-ham svg {
-            transition: fill 1s ease-in-out;
-            fill: $white;
+            // transition: fill 1s ease-in-out;
+            // fill: currentColor;
         }
         .nav-block {
             width: 100%;
@@ -38,7 +42,7 @@ header {
             background: rgba(255, 255, 255, 0.79);
             opacity: 0;
             visibility: hidden;
-            transition: all .3s cubic-bezier(.59,.01,.28,1);
+            transition: all 0.3s cubic-bezier(0.59, 0.01, 0.28, 1);
             z-index: 10;
             display: flex;
             justify-content: flex-end;
@@ -71,7 +75,7 @@ header {
                             font-size: 2.3rem;
                             font-weight: 300;
                             letter-spacing: -0.01em;
-                            color: $white;
+                            color: currentColor;
                             transition: color 1s ease-in-out;
                         }
                     }
@@ -79,12 +83,15 @@ header {
             }
         }
     }
+    &[data-color='black'] {
+        color: $black;
+    }
     &[data-color='black'] .wrapper {
-        .logo svg {
-            fill: $black;
-        }
-        .nav-ham__btn svg {
-            fill: $black;
+        // .logo svg {
+        //     fill: $black;
+        // }
+        .nav-ham__btn {
+            color: $black;
         }
     }
 }
@@ -136,9 +143,6 @@ header {
             }
         }
         &[data-color='black'] .wrapper {
-            .logo svg {
-                fill: $black;
-            }
             .nav-block ul li a {
                 color: $black;
             }
