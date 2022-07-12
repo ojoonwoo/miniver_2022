@@ -7,6 +7,7 @@ const router = express.Router();
 const db = require('../dbconnection');
 
 
+
 router.get('/getcategories', function(req, res) {
     let categoryData = [];
     
@@ -81,7 +82,18 @@ router.get('/getdetail', function(req, res) {
     const query = `select * from work_info where 1 AND idx=${idx}`;
     db.query(query, (err, results, fields) => {
         if(!err) {
-            res.json({results});
+            let returnData = results[0];
+            returnData['category_names'] = [];
+            returnData['detail_sources1_arr'] = returnData['detail_sources1'].includes(', ') ? returnData['detail_sources1'].split(', ') : [returnData['detail_sources1']];
+            returnData['detail_sources2_arr'] = returnData['detail_sources2'].includes(', ') ? returnData['detail_sources2'].split(', ') : [returnData['detail_sources2']];
+
+            const cateQuery = `select category_name from category_info where 1 AND idx IN (${results[0].work_categories})`;
+            db.query(cateQuery, (err, results, fields) => {
+                results.forEach(function(val, idx) {
+                    returnData['category_names'].push(val.category_name);
+                });
+                res.json(returnData);
+            });
         } else {
             console.log(`query error : ${err}`);
             res.send(err);

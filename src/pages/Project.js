@@ -64,15 +64,6 @@ function Project(props) {
         getProjectData(cate);
     }
 
-    // const sortingWorkList = (category) => {
-    //     console.log('sorting');
-    //     if(!category) {
-    //         console.log('show all');
-    //     }
-    //     // initialData 에서 category로 sorting 후 sortingData 변경!
-    //     // console.log(initialData);
-    //     console.log(sortingData);
-    // }
     return (
         // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
         // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -83,7 +74,7 @@ function Project(props) {
                     <div className="grid-inner">
                         <h1 className="page-title">Project</h1>
                         <div className="categories">
-                            <CategoryItem classActive={location.hash.split('#')[1] == 'all' ? 'isActive' : ''} item={{idx: 'all', category_name: 'All'}} onClick={cateClick}/>
+                            <CategoryItem classActive={(location.hash.split('#')[1] == 'all' || !location.hash) ? 'isActive' : ''} item={{idx: 'all', category_name: 'All'}} onClick={cateClick}/>
                             {categoryData.map((item) => (
                                 <CategoryItem key={item.idx} classActive={location.hash.split('#')[1] == `${item.idx}` ? 'isActive' : ''} item={item} onClick={cateClick}/>
                             ))}

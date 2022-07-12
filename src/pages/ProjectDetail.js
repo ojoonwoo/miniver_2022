@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 // import { motion } from 'framer-motion';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PageTransition from '../components/PageTransition';
-// import { param } from '../../server/api/work.js';
+import { Scrollbar, A11y, FreeMode } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 function ProjectDetail(props) {
     const params = useParams();
@@ -18,21 +24,6 @@ function ProjectDetail(props) {
 
     const [projectData, setProjectData] = useState([]);
 
-    const [categories, setCategories] = useState([]);
-
-    const categorySplit = (cateData) => {
-        let idxArr = '';
-        if(cateData.includes(',')) {
-            idxArr = cateData.split(',');
-        } else {
-            idxArr = cateData;
-        }
-        // idxArr.forEach(function(item, idx) {
-        //     console.log(item);
-        // })
-        // return idxArr;
-    }
-
     useEffect(() => {
         dispatch(changeColor('black'));
         async function getProjectData() {
@@ -41,9 +32,8 @@ function ProjectDetail(props) {
                 url: '/api/work/getdetail',
                 params: { idx: params.id },
             });
-            setProjectData(result.data.results[0]);
-            const cate = await categorySplit(result.data.results[0].work_categories);
-            setCategories(cate);
+            setProjectData(result.data);
+            console.log(result.data);
         }
         getProjectData();
 
@@ -59,12 +49,69 @@ function ProjectDetail(props) {
                     <div className="project-detail__top-block">
                         <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
                         <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
-                        <span>{categories}</span>
+                        <div className="project-detail_categories">
+                           {projectData.category_names && projectData.category_names.map((value, idx) => (<span key={idx} className="project-detail__category">#{value}</span>))}
+                        </div>
+                        <Link to={`/project/`} className="go-list"><span>View List</span></Link>
+                    </div>
+                    <div className="project-detail__hero">
+                        {projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}
+                    </div>
+                    <div className="project-detail__middle-block">
+                        <div className="grid-inner">
+                            <div className="project-detail__desc">
+                                <dl>
+                                    <dt>Client</dt>
+                                    <dd>{projectData.client_name}</dd>
+                                </dl>
+                                <dl>
+                                    <dt>Overview</dt>
+                                    <dd>{projectData.work_overview}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div className="project-detail__details">
+                            <Swiper
+                            // install Swiper modules
+                            modules={[Scrollbar, FreeMode, A11y]}
+                            spaceBetween={10}
+                            slidesPerView={'auto'}
+                            slidesOffsetBefore={30}
+                            slidesOffsetAfter={30}
+                            scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
+                            freemode={{ freemode: true }}
+                            onSwiper={(swiper) => console.log(swiper)}
+                            onSlideChange={() => console.log('slide change')}
+                            >
+                                {
+                                    projectData.detail_sources1_arr && projectData.detail_sources1_arr.map((slideContent, index) => (
+                                        <SwiperSlide key={index}>
+                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`}></ImageVideo>
+                                        </SwiperSlide>
+                                    ))
+
+                                }
+                                <div className="slideshow-scrollbar"></div>
+                            </Swiper>
+                        </div>
                     </div>
                 </div>
             </div>
         </PageTransition>
     );
 }
+
+function ImageVideo(props) {
+    let item = '';
+    if(props.src.split('.')[1] == 'mp4') {
+        item = <video><source src={props.src} type="video/mp4"></source></video>;
+    } else {
+        item = <img src={props.src} />;
+    }
+    return (
+        <div>{item}</div>
+    );
+}
+
 
 export default ProjectDetail;

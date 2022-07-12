@@ -178,14 +178,82 @@ button, input, select {
 
 #container.ProjectDetail {
     .project-detail__top-block {
+        position: relative;
         padding: 1rem 3rem 4rem;
         .project-detail__title {
             margin-bottom: 1.2rem;
+            line-height: 1.2;
+            padding-right: 6rem;
         }
         .project-detail__title-kr {
             font-size: 1.2rem;
             color: $grey2;
             font-weight: 700;
+        }
+        .project-detail_categories {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 1.5rem 0 0;
+            .project-detail__category {
+                padding: 1rem 1.5rem;
+                margin-right: 1rem;
+                border-radius: 6rem;
+                border: 0.1rem solid $black;
+                font-size: 1.2rem;
+            }
+        }
+        .go-list {
+            position: absolute;
+            top: 1rem;
+            right: 3rem;
+            font-size: 1rem;
+            padding: 1rem;
+            color: #9c9c9c;
+            text-decoration: underline;
+            text-underline-offset: 0.1rem;
+        }
+    }
+    .project-detail__middle-block {
+        padding: 3.5rem 0 5.5rem;
+        > .grid-inner {
+            flex-direction: column;
+        }
+        .project-detail__desc dl {
+            margin-bottom: 2.4rem;
+            &:last-child {
+                margin-bottom: 0;
+                dd {
+                    font-size: 1rem;
+                    font-weight: 400;
+                }
+            }
+            dt {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 0.8rem;
+            }
+            dd {
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: $grey2;
+            }
+        }
+        .project-detail__details {
+            margin-top: 10rem;
+            .swiper-slide {
+                width: 31.5rem;
+            }
+
+            .slideshow-scrollbar {
+                width: 20.5rem;
+                height: 0.2rem;
+                margin: 3rem auto 0;
+                background-color: #D9D9D9;
+                .swiper-scrollbar-drag {
+                    height: 100%;
+                    background-color: #1F1F1F;
+                }
+            }
         }
     }
 }
