@@ -40,6 +40,53 @@ button, input, select {
     color: inherit;
 }
 
+[data-theme] {
+    transition: color .3s cubic-bezier(0,0,.2,1),background-color .6s ease;
+    will-change: color,background-color;
+}
+
+[data-theme=white] {
+    color: $white;
+}
+[data-theme=black] {
+    color: $black;
+}
+
+
+
+
+
+
+.fade-enter .contents {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+.fade-enter-active .contents {
+    opacity: 1;
+    transform: translateX(0%);
+}
+.fade-exit .contents {
+    opacity: 1;
+    transform: translateX(0%);
+}
+.fade-exit-active .contents {
+    opacity: 0;
+    transform: translateX(100%);
+}
+.fade-enter-active .contents,
+.fade-exit-active .contents {
+    transition: opacity 500ms, transform 500ms;
+}
+
+
+
+
+
+
+
+
+
+
 .grid-inner {
     width: 100%;
     padding: 0 3rem;

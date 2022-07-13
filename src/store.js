@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
-let headerColor = createSlice ({
+let themeColor = createSlice ({
     name: 'headerColor',
     initialState: "white",
     reducers: {
@@ -11,10 +11,10 @@ let headerColor = createSlice ({
     }
 });
 
-export let {changeColor} = headerColor.actions;
+export let {changeColor} = themeColor.actions;
 
 export default configureStore({
   reducer: {
-      headerColor: headerColor.reducer
+    themeColor: themeColor.reducer
   }
 });

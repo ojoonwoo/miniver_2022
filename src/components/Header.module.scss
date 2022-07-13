@@ -2,7 +2,7 @@
 
 header {
     position: absolute;
-    color: $white;
+    // color: $white;
     top: 0;
     left: 0;
     right: 0;
@@ -27,7 +27,7 @@ header {
         .nav-ham__btn {
             width: 100%;
             height: 100%;
-            color: $white;
+            // color: $white;
         }
         .nav-ham svg {
             // transition: fill 1s ease-in-out;
@@ -36,13 +36,14 @@ header {
         .nav-block {
             width: 100%;
             height: 100vh;
+            // color: $white;
             position: absolute;
             left: 0;
             top: 0;
             background: rgba(255, 255, 255, 0.79);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.59, 0.01, 0.28, 1);
+            // transition: all 0.3s cubic-bezier(0.59, 0.01, 0.28, 1);
             z-index: 10;
             display: flex;
             justify-content: flex-end;
@@ -75,23 +76,12 @@ header {
                             font-size: 2.3rem;
                             font-weight: 300;
                             letter-spacing: -0.01em;
-                            color: currentColor;
-                            transition: color 1s ease-in-out;
+                            color: $white;
+                            // transition: color 1s ease-in-out;
                         }
                     }
                 }
             }
-        }
-    }
-    &[data-color='black'] {
-        color: $black;
-    }
-    &[data-color='black'] .wrapper {
-        // .logo svg {
-        //     fill: $black;
-        // }
-        .nav-ham__btn {
-            color: $black;
         }
     }
 }
@@ -135,17 +125,16 @@ header {
                                 font-size: 2rem;
                                 font-weight: 300;
                                 letter-spacing: -0.01em;
-                                color: $white;
                             }
                         }
                     }
                 }
             }
         }
-        &[data-color='black'] .wrapper {
-            .nav-block ul li a {
-                color: $black;
-            }
+    }
+    [data-theme='black'] header .wrapper {
+        .nav-block ul li a {
+            color: $black;
         }
     }
 }

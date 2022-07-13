@@ -16,27 +16,11 @@ import 'swiper/css/scrollbar';
 function ProjectDetail(props) {
     const params = useParams();
     const location = useLocation();
-    console.log(location);
     let headerColor = useSelector((state) => {
         return state.headerColor;
     });
 
-    const transition = {
-        duration: 1,
-        ease: [0.43, 0.13, 0.23, 0.96]
-    };
-    
-    const imageVariants = {
-        initial: { x: -200, y: -60, scale: 0.3, opacity: 1 },
-        exit: { y: 0, scale: 0.2, opacity: 1, transition },
-        enter: {
-            y: "0%",
-            opacity: 1,
-            duration: 3,
-            scale: 1,
-            transition
-        }
-    };
+    // 나머지 opacity 0 -> 1
     
     let dispatch = useDispatch();
 
@@ -48,7 +32,7 @@ function ProjectDetail(props) {
             const result = await axios({
                 method: 'get',
                 url: '/api/work/getdetail',
-                params: { idx: params.id },
+                params: { idx: params.id ? params.id : props.id },
             });
             setProjectData(result.data);
             console.log(result.data);
@@ -64,21 +48,25 @@ function ProjectDetail(props) {
     }, []);
     return (
         // <PageTransition>
-            <div id="container" className={props.pageName}>
+            // <div id="container" className={props.pageName}>
+            <div id="container" className="ProjectDetail">
                 <div className="contents">
                     <div className="project-detail__top-block">
                         <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
                         <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
                         <div className="project-detail_categories">
-                           {projectData.category_names && projectData.category_names.map((value, idx) => (<span key={idx} className="project-detail__category">#{value}</span>))}
+                            {projectData.category_names &&
+                                projectData.category_names.map((value, idx) => (
+                                    <span key={idx} className="project-detail__category">
+                                        #{value}
+                                    </span>
+                                ))}
                         </div>
-                        <Link to={`/project/`} className="go-list"><span>View List</span></Link>
+                        <Link to={{pathname: '/project'}} className="go-list"><span>View List</span></Link>
                     </div>
-                    <motion.div initial="exit" animate="enter" exit="exit" variants={imageVariants}>
-                        <div className="project-detail__hero">
-                            {projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}
-                        </div>
-                    </motion.div>
+                    <div className="project-detail__hero">
+                        {projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}
+                    </div>
                     <div className="project-detail__middle-block">
                         <div className="grid-inner">
                             <div className="project-detail__desc">
@@ -94,25 +82,23 @@ function ProjectDetail(props) {
                         </div>
                         <div className="project-detail__details">
                             <Swiper
-                            // install Swiper modules
-                            modules={[Scrollbar, FreeMode, A11y]}
-                            spaceBetween={10}
-                            slidesPerView={'auto'}
-                            slidesOffsetBefore={30}
-                            slidesOffsetAfter={30}
-                            scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
-                            freemode={{ freemode: true }}
-                            onSwiper={(swiper) => console.log(swiper)}
-                            onSlideChange={() => console.log('slide change')}
+                                // install Swiper modules
+                                modules={[Scrollbar, FreeMode, A11y]}
+                                spaceBetween={10}
+                                slidesPerView={'auto'}
+                                slidesOffsetBefore={30}
+                                slidesOffsetAfter={30}
+                                scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
+                                freemode={{ freemode: true }}
+                                onSwiper={(swiper) => console.log(swiper)}
+                                onSlideChange={() => console.log('slide change')}
                             >
-                                {
-                                    projectData.detail_sources1_arr && projectData.detail_sources1_arr.map((slideContent, index) => (
+                                {projectData.detail_sources1_arr &&
+                                    projectData.detail_sources1_arr.map((slideContent, index) => (
                                         <SwiperSlide key={index}>
                                             <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`}></ImageVideo>
                                         </SwiperSlide>
-                                    ))
-
-                                }
+                                    ))}
                                 <div className="slideshow-scrollbar"></div>
                             </Swiper>
                         </div>
@@ -125,15 +111,16 @@ function ProjectDetail(props) {
 
 function ImageVideo(props) {
     let item = '';
-    if(props.src.split('.')[1] == 'mp4') {
-        item = <video><source src={props.src} type="video/mp4"></source></video>;
+    if (props.src.split('.')[1] == 'mp4') {
+        item = (
+            <video>
+                <source src={props.src} type="video/mp4"></source>
+            </video>
+        );
     } else {
         item = <img src={props.src} />;
     }
-    return (
-        <div>{item}</div>
-    );
+    return <div>{item}</div>;
 }
-
 
 export default ProjectDetail;

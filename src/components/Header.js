@@ -3,6 +3,7 @@ import styles from './Header.module.scss';
 import { useEffect, useState } from 'react';
 import Footer from './Footer.js';
 import { motion } from 'framer-motion';
+import PageTransition from '../components/PageTransition';
 
 function Header(props) {
     let [menuOpen, setMenuOpen] = useState(false);
@@ -38,7 +39,7 @@ function Header(props) {
     }, [menuOpen]);
 
     return (
-        <header data-color={props.color}>
+        <header>
             <div className={styles.wrapper}>
                 <Link to="/" className={styles.logo}>
                     <svg width="213" height="31" viewBox="0 0 213 31" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
