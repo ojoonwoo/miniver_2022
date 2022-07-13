@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { useParams, Link } from 'react-router-dom';
+import { useLocation, useParams, Link } from 'react-router-dom';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PageTransition from '../components/PageTransition';
@@ -15,10 +15,28 @@ import 'swiper/css/scrollbar';
 
 function ProjectDetail(props) {
     const params = useParams();
-
+    const location = useLocation();
+    console.log(location);
     let headerColor = useSelector((state) => {
         return state.headerColor;
     });
+
+    const transition = {
+        duration: 1,
+        ease: [0.43, 0.13, 0.23, 0.96]
+    };
+    
+    const imageVariants = {
+        initial: { x: -200, y: -60, scale: 0.3, opacity: 1 },
+        exit: { y: 0, scale: 0.2, opacity: 1, transition },
+        enter: {
+            y: "0%",
+            opacity: 1,
+            duration: 3,
+            scale: 1,
+            transition
+        }
+    };
     
     let dispatch = useDispatch();
 
@@ -37,13 +55,15 @@ function ProjectDetail(props) {
         }
         getProjectData();
 
+        console.log('project detail mount');
+        // alert('project detail mount');
         return () => {
-            console.log('unmount');
+            // alert('project detail unmount');
+            console.log('project detail unmount');
         };
     }, []);
     return (
-        <PageTransition>
-            {/* <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
+        // <PageTransition>
             <div id="container" className={props.pageName}>
                 <div className="contents">
                     <div className="project-detail__top-block">
@@ -54,9 +74,11 @@ function ProjectDetail(props) {
                         </div>
                         <Link to={`/project/`} className="go-list"><span>View List</span></Link>
                     </div>
-                    <div className="project-detail__hero">
-                        {projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}
-                    </div>
+                    <motion.div initial="exit" animate="enter" exit="exit" variants={imageVariants}>
+                        <div className="project-detail__hero">
+                            {projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}
+                        </div>
+                    </motion.div>
                     <div className="project-detail__middle-block">
                         <div className="grid-inner">
                             <div className="project-detail__desc">
@@ -97,7 +119,7 @@ function ProjectDetail(props) {
                     </div>
                 </div>
             </div>
-        </PageTransition>
+        // </PageTransition>
     );
 }
 

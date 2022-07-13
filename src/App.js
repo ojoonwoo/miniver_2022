@@ -37,14 +37,14 @@ function App() {
         //     </a>
         //   </header>
         // </div>
-        <AnimatePresence>
+        // <AnimatePresence>
+        <AnimatePresence exitBeforeEnter initial={false}>
             <BrowserRouter>
                 <Header color={headerColor} />
                 <Routes>
                     <Route exact path="/" element={<Home pageName="Home" />}></Route>
                     <Route path="/about" element={<About pageName="About" />}></Route>
                     <Route path="/project/*">
-                        {/* <Route index element={<Project pageName="Project" />}></Route> */}
                         <Route index element={<Project pageName="Project" />}></Route>
                         <Route path=":id" element={<ProjectDetail pageName="ProjectDetail" />}></Route>
                     </Route>

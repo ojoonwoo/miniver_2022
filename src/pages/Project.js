@@ -12,6 +12,16 @@ import { useLocation, Link, Outlet } from "react-router-dom";
 function Project(props) {
     const location = useLocation();
 
+    const transition = { duration: 5.5, ease: [0.43, 0.13, 0.23, 0.96] };
+    const thumbnailVariants = {
+        initial: { opacity: 1 },
+        enter: { opacity: 1, transition },
+        exit: {
+            // opacity: 0,
+            transition: { duration: 6.5, delay: 5.3, ...transition }
+        }
+    };
+
     let headerColor = useSelector((state) => {
         return state.headerColor;
     });
@@ -31,8 +41,11 @@ function Project(props) {
         getProjectData(cate);
         dispatch(changeColor('black'));
 
+        console.log('project list mount');
+        // alert('project list mount');
         return () => {
-            console.log('unmount');
+            console.log('project list unmount');
+            // alert('project list unmount');
         };
     }, []);
 
@@ -67,7 +80,7 @@ function Project(props) {
     return (
         // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
         // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <PageTransition>
+        // <PageTransition>
             <div id="container" className={props.pageName}>
                 {/* <Header color="black"/> */}
                 <div className="contents">
@@ -81,15 +94,17 @@ function Project(props) {
                         </div>
                         <div className="workbox-container">
                             {projectData.map((item) =>
-                                <WorkBox key={item.idx} item={item} desc={true} />
+                                <motion.div key={item.idx} className="thumbnail" variants={thumbnailVariants} initial="initial" animate="enter" exit="exit">
+                                    {/* <WorkBox key={item.idx} item={item} desc={true} /> */}
+                                    <WorkBox item={item} desc={true} />
+                                </motion.div>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
-            {/* </motion.div> */}
-            <Outlet />
-        </PageTransition>
+            // <Outlet />
+        // </PageTransition>
     );
 }
 

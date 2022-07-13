@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom';
 import styles from './WorkBox.module.scss';
 
 function WorkBox(props) {
+    const position = {x: 10, y: 10};
     return (
         <div className={`workbox ${styles.workbox}`}>
-            <Link to={`/project/${props.item.idx}`} className={styles.logo}>
+            {/* <Link to={`/project/${props.item.idx}`} className={styles.logo}> */}
+            <Link to={`/project/${props.item.idx}`} state={{position: position}} className={styles.logo}>
                 <div className={styles.wrapper}>
                     <div className={styles['item-img']}>
                         <img src={`/works/${props.item.idx}/thumb_rectangle/${props.item.thumb_rectangle}`}></img>
