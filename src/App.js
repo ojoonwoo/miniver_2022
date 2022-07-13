@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import Home from './pages/Home';
@@ -17,43 +17,25 @@ import './style.scss';
 function App() {
     // * Redux store를 가져와주는 useSelector()
     let themeColor = useSelector((state) => {
-        console.log(state)
+        console.log(state);
         return state.themeColor;
     });
-    // console.log(headerColor);
+    const location = useLocation();
     return (
-        // <div className="App">
-        //   <header className="App-header">
-        //     <img src={logo} className="App-logo" alt="logo" />
-        //     <p>
-        //       Edit <code>src/App.js</code> and save to reload.
-        //     </p>
-        //     <a
-        //       className="App-link"
-        //       href="https://reactjs.org"
-        //       target="_blank"
-        //       rel="noopener noreferrer"
-        //     >
-        //       Learn React
-        //     </a>
-        //   </header>
-        // </div>
         <div className="App" data-theme={themeColor}>
-            <AnimatePresence>
-                <BrowserRouter>
-                    <Header />
-                    <Routes>
-                        <Route exact path="/" element={<Home pageName="Home" />}></Route>
-                        <Route path="/about" element={<About pageName="About" />}></Route>
-                        <Route path="/project/*">
-                            {/* <Route index element={<Project pageName="Project" />}></Route> */}
-                            <Route index element={<Project pageName="Project" />}></Route>
-                            <Route path=":id" element={<ProjectDetail pageName="ProjectDetail" />}></Route>
-                        </Route>
-                        <Route path="/contact" element={<Contact pageName="Contact" />}></Route>
-                        <Route path="*" element={<NotFound />}></Route>
-                    </Routes>
-                </BrowserRouter>
+            <Header />
+            <AnimatePresence exitBeforeEnter>
+                <Routes key={location.pathname} location={location}>
+                    <Route exact path="/" element={<Home pageName="Home" />}></Route>
+                    <Route path="/about" element={<About pageName="About" />}></Route>
+                    <Route path="/project/*">
+                        {/* <Route index element={<Project pageName="Project" />}></Route> */}
+                        <Route index element={<Project pageName="Project" />}></Route>
+                        <Route path=":id" element={<ProjectDetail pageName="ProjectDetail" />}></Route>
+                    </Route>
+                    <Route path="/contact" element={<Contact pageName="Contact" />}></Route>
+                    <Route path="*" element={<NotFound />}></Route>
+                </Routes>
             </AnimatePresence>
         </div>
     );

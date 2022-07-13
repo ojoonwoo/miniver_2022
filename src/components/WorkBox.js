@@ -1,10 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import styles from './WorkBox.module.scss';
 
 function WorkBox(props) {
+
+    let [workClick, setWorkClick] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log('hi');
+        console.log(workClick);
+        if(workClick === true) {
+            navigate('/project/'+props.item.idx);
+        }
+    }, [workClick]);
+
     return (
-        <div className={`workbox ${styles.workbox}`}>
-            <Link to={`/project/${props.item.idx}`} className={styles.logo}>
+        // <div className={`workbox ${styles.workbox}`}>
+        <div className={`workbox ${styles.workbox}`} onClick={() => {setWorkClick(true)}}>
+            {/* <Link to={`/project/${props.item.idx}`} className={styles.logo}> */}
                 <div className={styles.wrapper}>
                     <div className={styles['item-img']}>
                         <img src={`/works/${props.item.idx}/thumb_rectangle/${props.item.thumb_rectangle}`}></img>
@@ -21,7 +35,7 @@ function WorkBox(props) {
                 </div> :
                 ""
                 }
-            </Link>
+            {/* </Link> */}
         </div>
     );
 }

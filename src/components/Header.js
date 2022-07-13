@@ -3,6 +3,7 @@ import styles from './Header.module.scss';
 import { useEffect, useState } from 'react';
 import Footer from './Footer.js';
 import { motion } from 'framer-motion';
+import PageTransition from '../components/PageTransition';
 
 function Header(props) {
     let [menuOpen, setMenuOpen] = useState(false);

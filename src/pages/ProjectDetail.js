@@ -19,7 +19,7 @@ function ProjectDetail(props) {
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
-    
+
     let dispatch = useDispatch();
 
     const [projectData, setProjectData] = useState([]);
@@ -50,13 +50,18 @@ function ProjectDetail(props) {
                         <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
                         <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
                         <div className="project-detail_categories">
-                           {projectData.category_names && projectData.category_names.map((value, idx) => (<span key={idx} className="project-detail__category">#{value}</span>))}
+                            {projectData.category_names &&
+                                projectData.category_names.map((value, idx) => (
+                                    <span key={idx} className="project-detail__category">
+                                        #{value}
+                                    </span>
+                                ))}
                         </div>
-                        <Link to={`/project/`} className="go-list"><span>View List</span></Link>
+                        <Link to={`/project/`} className="go-list">
+                            <span>View List</span>
+                        </Link>
                     </div>
-                    <div className="project-detail__hero">
-                        {projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}
-                    </div>
+                    <div className="project-detail__hero">{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</div>
                     <div className="project-detail__middle-block">
                         <div className="grid-inner">
                             <div className="project-detail__desc">
@@ -72,25 +77,23 @@ function ProjectDetail(props) {
                         </div>
                         <div className="project-detail__details">
                             <Swiper
-                            // install Swiper modules
-                            modules={[Scrollbar, FreeMode, A11y]}
-                            spaceBetween={10}
-                            slidesPerView={'auto'}
-                            slidesOffsetBefore={30}
-                            slidesOffsetAfter={30}
-                            scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
-                            freemode={{ freemode: true }}
-                            onSwiper={(swiper) => console.log(swiper)}
-                            onSlideChange={() => console.log('slide change')}
+                                // install Swiper modules
+                                modules={[Scrollbar, FreeMode, A11y]}
+                                spaceBetween={10}
+                                slidesPerView={'auto'}
+                                slidesOffsetBefore={30}
+                                slidesOffsetAfter={30}
+                                scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
+                                freemode={{ freemode: true }}
+                                onSwiper={(swiper) => console.log(swiper)}
+                                onSlideChange={() => console.log('slide change')}
                             >
-                                {
-                                    projectData.detail_sources1_arr && projectData.detail_sources1_arr.map((slideContent, index) => (
+                                {projectData.detail_sources1_arr &&
+                                    projectData.detail_sources1_arr.map((slideContent, index) => (
                                         <SwiperSlide key={index}>
                                             <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`}></ImageVideo>
                                         </SwiperSlide>
-                                    ))
-
-                                }
+                                    ))}
                                 <div className="slideshow-scrollbar"></div>
                             </Swiper>
                         </div>
@@ -103,15 +106,16 @@ function ProjectDetail(props) {
 
 function ImageVideo(props) {
     let item = '';
-    if(props.src.split('.')[1] == 'mp4') {
-        item = <video><source src={props.src} type="video/mp4"></source></video>;
+    if (props.src.split('.')[1] == 'mp4') {
+        item = (
+            <video>
+                <source src={props.src} type="video/mp4"></source>
+            </video>
+        );
     } else {
         item = <img src={props.src} />;
     }
-    return (
-        <div>{item}</div>
-    );
+    return <div>{item}</div>;
 }
-
 
 export default ProjectDetail;

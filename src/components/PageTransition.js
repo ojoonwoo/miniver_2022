@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 const animationConfiguration = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
@@ -6,15 +6,9 @@ const animationConfiguration = {
 };
 const PageTransition = ({ children }) => {
     return (
-        <motion.div
-            variants={animationConfiguration}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={{ duration: 1 }}
-        >
-            {children}
-        </motion.div>
+            <motion.div variants={animationConfiguration} initial="initial" animate="animate" exit="exit" transition={{ duration: 3 }}>
+                {children}
+            </motion.div>
     );
 };
 export default PageTransition;
