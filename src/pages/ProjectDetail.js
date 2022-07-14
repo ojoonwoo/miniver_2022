@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useLocation, useParams, Link } from 'react-router-dom';
-import { changeColor } from './../store.js';
+import { changeColor, changeTransitionMode } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PageTransition from '../components/PageTransition';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
@@ -21,12 +21,21 @@ function ProjectDetail(props) {
     });
 
     // 나머지 opacity 0 -> 1
+
+    // console.log(location.pathname);
+    // if(location.pathname===`/project/${params.id ? params.id : props.id}`) {
+    //     console.log('디테일');
+    // }
     
     let dispatch = useDispatch();
 
     const [projectData, setProjectData] = useState([]);
 
     useEffect(() => {
+        // if(location.pathname===`/project/${params.id ? params.id : props.id}`) {
+        //     console.log('디테일페이지입니다 ');
+        //     dispatch(changeTransitionMode({timeout: 300, classNames: 'fade'}));
+        // }
         dispatch(changeColor('black'));
         async function getProjectData() {
             const result = await axios({
@@ -35,22 +44,23 @@ function ProjectDetail(props) {
                 params: { idx: params.id ? params.id : props.id },
             });
             setProjectData(result.data);
-            console.log(result.data);
+            // console.log(result.data);
         }
         getProjectData();
-        console.log('패스네임:', location.pathname);
+        // console.log('패스네임:', location.pathname);
 
         console.log('project detail mount');
         // alert('project detail mount');
         return () => {
             // alert('project detail unmount');
             console.log('project detail unmount');
+            dispatch(changeTransitionMode({timeout: 300, classNames: 'page'}));
         };
     }, []);
     return (
         // <PageTransition>
             // <div id="container" className={props.pageName}>
-            <div id="container" className="ProjectDetail">
+            <div id="container" className="ProjectDetail z-20">
                 <div className="contents">
                     <div className="project-detail__top-block">
                         <h1 className="page-title project-detail__title">{projectData.work_title}</h1>

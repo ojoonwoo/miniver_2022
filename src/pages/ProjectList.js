@@ -42,10 +42,10 @@ function ProjectList(props) {
         getProjectData(cate);
         dispatch(changeColor('black'));
 
-        console.log('project list mount');
+        console.log('프로젝트 리스트 마운트');
         // alert('project list mount');
         return () => {
-            console.log('project list unmount');
+            console.log('프로젝트 리스트 언마운트');
             // alert('project list unmount');
         };
     }, []);
@@ -57,7 +57,7 @@ function ProjectList(props) {
             url: '/api/work/getlist',
             params: { cate: cate },
         });
-        console.log(cate);
+        // console.log(cate);
         setProjectData(result.data.list);
         // console.log(result.data.list);
     };
@@ -81,7 +81,7 @@ function ProjectList(props) {
 
     return (
         // <div id="container" className={props.pageName}>
-        <div id="container" className="Project">
+        <div id="container" className="Project z-20">
             {/* <Header color="black"/> */}
             <div className="contents">
                 <div className="grid-inner">

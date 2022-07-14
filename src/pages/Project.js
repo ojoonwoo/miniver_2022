@@ -20,10 +20,10 @@ function Project(props) {
     
     const history = createBrowserHistory({ window });
     const location = useLocation();
-    let headerColor = useSelector((state) => {
-        return state.headerColor;
+    let themeColor = useSelector((state) => {
+        return state.themeColor;
     });
-    let [workIndex, setWorkClick] = useState(0);
+    // let [workIndex, setWorkClick] = useState(0);
     let dispatch = useDispatch();
     useEffect(() => {
         
@@ -39,33 +39,35 @@ function Project(props) {
             // alert('project list unmount');
         };
     }, []);
-    const workClick = (idx, e) => {
-        e.preventDefault();
-        setWorkClick(idx);
-        history.push(
-            {pathname: location.pathname+'/'+idx},
-        );
-    }
+    // const workClick = (idx, e) => {
+    //     e.preventDefault();
+    //     console.log(idx);
+    //     setWorkClick(idx);
+    //     history.push(
+    //         {pathname: location.pathname+'/'+idx},
+    //     );
+    // }
     
 
-    const [mode, setMode] = useState("in-out");
+    // const [mode, setMode] = useState("in-out");
 
     return (
         // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
         // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         // <PageTransition>
-        <SwitchTransition mode={mode}>
-            <CSSTransition
-            key={workIndex}
-            addEndListener={(node, done) => {
-              node.addEventListener("transitionend", done, false);
-            }}
-            classNames="fade"
-            unmountOnExit={true}
-            >
-                {workIndex ? <ProjectDetail id={workIndex} className={props.pageName}/> : <ProjectList workboxClick={workClick}/>}
-            </CSSTransition>
-        </SwitchTransition>
+        // <SwitchTransition mode={mode}>
+        //     <CSSTransition
+        //     key={workIndex}
+        //     addEndListener={(node, done) => {
+        //       node.addEventListener("transitionend", done, false);
+        //     }}
+        //     classNames="fade"
+        //     unmountOnExit={true}
+        //     >
+        //         {workIndex ? <ProjectDetail id={workIndex} className={props.pageName}/> : <ProjectList/>}
+        //     </CSSTransition>
+        // </SwitchTransition>
+        <ProjectList/>
             // <Outlet />
         // </PageTransition>
     );

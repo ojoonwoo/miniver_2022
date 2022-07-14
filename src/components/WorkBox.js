@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { changeIdx } from './../store.js';
+import { changeIdx, changeTransitionMode } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './WorkBox.module.scss';
 
@@ -12,11 +12,12 @@ function WorkBox(props) {
     let dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('hi');
+        // console.log('hi');
         if(workClick === true) {
             console.log('hi2');
             console.log(workClick);
             dispatch(changeIdx(props.item.idx));
+            dispatch(changeTransitionMode({timeout: 300, classNames: 'fade'}));
             navigate('/project/'+props.item.idx);
         }
     }, [workClick]);
