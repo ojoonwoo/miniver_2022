@@ -72,18 +72,20 @@ function Home(props) {
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         // <PageTransition>
             <div id="container" className={`z-20 ${props.pageName}`}>
-                {/* <Header /> */}
-                <div className="section-hero">
-                </div>
-                <div className="section-work">
-                    <h3>
-                        We are a creative agency
-                    </h3>
-                    <div>
-                        <div className="grid-inner">
-                            {homeData.map((item) =>
-                                <WorkBox key={item.idx} item={item} />
-                            )}
+                <div className="contents">
+                    {/* <Header /> */}
+                    <div className="section-hero">
+                    </div>
+                    <div className="section-work">
+                        <h3>
+                            We are a creative agency
+                        </h3>
+                        <div>
+                            <div className="grid-inner">
+                                {homeData.map((item) =>
+                                    <WorkBox key={item.idx} item={item} />
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -21,7 +21,7 @@ function WorkBox(props) {
             console.log(props.item.idx);
             dispatch(changeIdx(props.item.idx));
             dispatch(changeTransitionMode({timeout: 300, classNames: 'fade'}));
-            navigate('/project/'+props.item.idx);
+            navigate('/project/'+props.item.idx, {state: {position: {x: 0, y: 30}}});
         }
     }, [workClick]);
 

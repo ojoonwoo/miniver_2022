@@ -72,11 +72,11 @@ select {
 
 .fade-enter .contents {
     opacity: 0;
-    transform: translateY(-10%);
+    transform: translateX(-100%);
 }
 .fade-enter-active .contents {
     opacity: 1;
-    transform: translateY(0%);
+    transform: translateX(0%);
 }
 
 .fade-exit {
@@ -85,15 +85,15 @@ select {
 
 .fade-exit .contents {
     opacity: 1;
-    transform: translateY(0%);
+    transform: translateX(0%);
 }
 .fade-exit-active .contents {
-    opacity: 1;
-    transform: translateY(10%);
+    opacity: 0;
+    transform: translateX(100%);
 }
 .fade-enter-active .contents,
 .fade-exit-active .contents {
-    transition: opacity 1000ms, transform 1000ms;
+    transition: opacity 500ms, transform 500ms;
 }
 
 .page-enter {
@@ -151,6 +151,10 @@ select {
     text-align: center;
     padding: 4.5rem 0 2rem;
     font-weight: 300;
+}
+
+.Home .contents {
+    padding-top: 0;
 }
 
 #container.Contact {
@@ -244,10 +248,6 @@ select {
 }
 
 #container.ProjectDetail {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
     .project-detail__top-block {
         position: relative;
         padding: 1rem 3rem 4rem;

@@ -17,8 +17,11 @@ import 'swiper/css/scrollbar';
 function ProjectDetail(props) {
     const params = useParams();
 
-    console.log(params.id);
     const location = useLocation();
+    // todo : offset animate
+
+    
+    console.log(location.state.position);
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
@@ -40,6 +43,8 @@ function ProjectDetail(props) {
         //     dispatch(changeTransitionMode({timeout: 300, classNames: 'fade'}));
         // }
         dispatch(changeColor('black'));
+        dispatch(changeTransitionMode({timeout: 300, classNames: 'page'}));
+
         async function getProjectData() {
             const result = await axios({
                 method: 'get',
@@ -57,7 +62,7 @@ function ProjectDetail(props) {
         return () => {
             // alert('project detail unmount');
             console.log('project detail unmount');
-            dispatch(changeTransitionMode({timeout: 300, classNames: 'page'}));
+            // dispatch(changeTransitionMode({timeout: 300, classNames: 'page'}));
         };
     }, []);
     return (

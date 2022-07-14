@@ -3,7 +3,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 // import Header from '../components/Header';
 import WorkBox from '../components/WorkBox';
-import { changeColor } from './../store.js';
+import { changeColor, changeTransitionMode } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from '../components/CategoryItem';
 import PageTransition from '../components/PageTransition';
@@ -41,6 +41,7 @@ function ProjectList(props) {
         getCategoryData();
         getProjectData(cate);
         dispatch(changeColor('black'));
+        dispatch(changeTransitionMode({timeout: 300, classNames: 'page'}));
 
         console.log('프로젝트 리스트 마운트');
         // alert('project list mount');
