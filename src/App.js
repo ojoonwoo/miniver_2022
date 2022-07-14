@@ -22,14 +22,18 @@ function App() {
         console.log(state);
         return state.themeColor;
     });
+    let projectIdx = useSelector((state) => {
+        console.log(state);
+        return state.projectIdx;
+    });
     const [mode, setMode] = useState("out-in");
     const location = useLocation();
     return (
         <div className="App" data-theme={themeColor}>
             <Header />
             <TransitionGroup>
-                <CSSTransition timeout={300} classNames="fade">
-                    <Routes key={location.pathname} location={location}>
+                <CSSTransition key={location.pathname===`/project/${projectIdx}`} timeout={300} classNames="fade">
+                    <Routes location={location}>
                         <Route exact path="/" element={<Home pageName="Home" />}></Route>
                         <Route path="/about" element={<About pageName="About" />}></Route>
                         

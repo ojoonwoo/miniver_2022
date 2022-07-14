@@ -94,7 +94,8 @@ function ProjectList(props) {
                     </div>
                     <div className="workbox-container">
                         {projectData.map((item) =>
-                            <WorkBox key={item.idx} item={item} desc={true} onClick={props.workboxClick}/>
+                            // <WorkBox key={item.idx} item={item} desc={true} onClick={props.workboxClick}/>
+                            <WorkBox key={item.idx} item={item} desc={true}/>
                             // <WorkBox key={item.idx} item={item} desc={true} onClick={(e) => {props.workboxClick(item.idx, e)}}/>
                         )}
                     </div>
