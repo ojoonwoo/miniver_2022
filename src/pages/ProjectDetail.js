@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PageTransition from '../components/PageTransition';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { changeIdx } from './../store.js';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -15,6 +16,8 @@ import 'swiper/css/scrollbar';
 
 function ProjectDetail(props) {
     const params = useParams();
+
+    console.log(params.id);
     const location = useLocation();
     let themeColor = useSelector((state) => {
         return state.themeColor;
@@ -27,19 +30,20 @@ function ProjectDetail(props) {
     const [projectData, setProjectData] = useState([]);
 
     useEffect(() => {
-        dispatch(changeColor('black'));
-        async function getProjectData() {
-            const result = await axios({
-                method: 'get',
-                url: '/api/work/getdetail',
-                params: { idx: params.id ? params.id : props.id },
-            });
-            setProjectData(result.data);
-            console.log(result.data);
+        if(params.id) {
+            dispatch(changeColor('black'));
+            // dispatch(changeIdx(0));
+            async function getProjectData() {
+                const result = await axios({
+                    method: 'get',
+                    url: '/api/work/getdetail',
+                    params: { idx: params.id },
+                });
+                setProjectData(result.data);
+                console.log(result.data);
+            }
+            getProjectData();
         }
-        getProjectData();
-        console.log('패스네임:', location.pathname);
-
         console.log('project detail mount');
         // alert('project detail mount');
         return () => {
@@ -50,62 +54,62 @@ function ProjectDetail(props) {
     return (
         // <PageTransition>
             // <div id="container" className={props.pageName}>
-            <div id="container" className="ProjectDetail">
-                <div className="contents">
-                    <div className="project-detail__top-block">
-                        <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
-                        <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
-                        <div className="project-detail_categories">
-                            {projectData.category_names &&
-                                projectData.category_names.map((value, idx) => (
-                                    <span key={idx} className="project-detail__category">
-                                        #{value}
-                                    </span>
+            
+            <div className="contents ProjectDetail">
+                <div className="project-detail__top-block">
+                    <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
+                    <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
+                    <div className="project-detail_categories">
+                        {projectData.category_names &&
+                            projectData.category_names.map((value, idx) => (
+                                <span key={idx} className="project-detail__category">
+                                    #{value}
+                                </span>
+                            ))}
+                    </div>
+                    <Link to={{pathname: '/project'}} className="go-list"><span>View List</span></Link>
+                </div>
+                <div className="project-detail__hero">
+                    {projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}
+                </div>
+                <div className="project-detail__middle-block">
+                    <div className="grid-inner">
+                        <div className="project-detail__desc">
+                            <dl>
+                                <dt>Client</dt>
+                                <dd>{projectData.client_name}</dd>
+                            </dl>
+                            <dl>
+                                <dt>Overview</dt>
+                                <dd>{projectData.work_overview}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div className="project-detail__details">
+                        <Swiper
+                            // install Swiper modules
+                            modules={[Scrollbar, FreeMode, A11y]}
+                            spaceBetween={10}
+                            slidesPerView={'auto'}
+                            slidesOffsetBefore={30}
+                            slidesOffsetAfter={30}
+                            scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
+                            freemode={{ freemode: true }}
+                            onSwiper={(swiper) => console.log(swiper)}
+                            onSlideChange={() => console.log('slide change')}
+                        >
+                            {projectData.detail_sources1_arr &&
+                                projectData.detail_sources1_arr.map((slideContent, index) => (
+                                    <SwiperSlide key={index}>
+                                        <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`}></ImageVideo>
+                                    </SwiperSlide>
                                 ))}
-                        </div>
-                        <Link to={{pathname: '/project'}} className="go-list"><span>View List</span></Link>
-                    </div>
-                    <div className="project-detail__hero">
-                        {projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}
-                    </div>
-                    <div className="project-detail__middle-block">
-                        <div className="grid-inner">
-                            <div className="project-detail__desc">
-                                <dl>
-                                    <dt>Client</dt>
-                                    <dd>{projectData.client_name}</dd>
-                                </dl>
-                                <dl>
-                                    <dt>Overview</dt>
-                                    <dd>{projectData.work_overview}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div className="project-detail__details">
-                            <Swiper
-                                // install Swiper modules
-                                modules={[Scrollbar, FreeMode, A11y]}
-                                spaceBetween={10}
-                                slidesPerView={'auto'}
-                                slidesOffsetBefore={30}
-                                slidesOffsetAfter={30}
-                                scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
-                                freemode={{ freemode: true }}
-                                onSwiper={(swiper) => console.log(swiper)}
-                                onSlideChange={() => console.log('slide change')}
-                            >
-                                {projectData.detail_sources1_arr &&
-                                    projectData.detail_sources1_arr.map((slideContent, index) => (
-                                        <SwiperSlide key={index}>
-                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`}></ImageVideo>
-                                        </SwiperSlide>
-                                    ))}
-                                <div className="slideshow-scrollbar"></div>
-                            </Swiper>
-                        </div>
+                            <div className="slideshow-scrollbar"></div>
+                        </Swiper>
                     </div>
                 </div>
             </div>
+            
         // </PageTransition>
     );
 }

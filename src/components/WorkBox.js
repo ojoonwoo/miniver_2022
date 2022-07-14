@@ -1,8 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { changeIdx } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
+import { createBrowserHistory } from 'history';
 import styles from './WorkBox.module.scss';
 
 function WorkBox(props) {
@@ -10,12 +11,13 @@ function WorkBox(props) {
     let [workClick, setWorkClick] = useState(false);
     const navigate = useNavigate();
     let dispatch = useDispatch();
+    const location = useLocation();
 
     useEffect(() => {
-        console.log('hi');
         if(workClick === true) {
             console.log('hi2');
             console.log(workClick);
+            console.log(props.item.idx);
             dispatch(changeIdx(props.item.idx));
             navigate('/project/'+props.item.idx);
         }

@@ -59,23 +59,23 @@ button, input, select {
 
 .fade-enter .contents {
     opacity: 0;
-    transform: translateX(-100%);
+    transform: translateY(-10%);
 }
 .fade-enter-active .contents {
     opacity: 1;
-    transform: translateX(0%);
+    transform: translateY(0%);
 }
 .fade-exit .contents {
     opacity: 1;
-    transform: translateX(0%);
+    transform: translateY(0%);
 }
 .fade-exit-active .contents {
-    opacity: 0;
-    transform: translateX(100%);
+    opacity: 1;
+    transform: translateY(10%);
 }
 .fade-enter-active .contents,
 .fade-exit-active .contents {
-    transition: opacity 500ms, transform 500ms;
+    transition: opacity 1000ms, transform 1000ms;
 }
 
 
@@ -190,7 +190,7 @@ button, input, select {
     }
 }
 
-#container.Project {
+.contents.Project {
     .categories {
         display: flex;
         flex-wrap: wrap;
@@ -211,7 +211,11 @@ button, input, select {
     }
 }
 
-#container.ProjectDetail {
+.contents.ProjectDetail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     .project-detail__top-block {
         position: relative;
         padding: 1rem 3rem 4rem;
