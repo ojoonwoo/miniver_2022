@@ -17,7 +17,7 @@ function Home(props) {
     let [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
-        // console.log('마운트');
+        console.log('홈 마운트');
         dispatch(changeColor('white'));
         
         let winWidth = window.innerWidth;
@@ -37,6 +37,7 @@ function Home(props) {
         });
         return () => {
             window.removeEventListener('resize', a);
+            console.log('홈 언마운트');
         };
         
     }, []);
@@ -69,8 +70,8 @@ function Home(props) {
     return (
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <PageTransition>
-            <div id="container" className={props.pageName}>
+        // <PageTransition>
+            <div id="container" className={`z-20 ${props.pageName}`}>
                 {/* <Header /> */}
                 <div className="section-hero">
                 </div>
@@ -88,8 +89,8 @@ function Home(props) {
                 </div>
                 {isMobile ? null : <Footer />}
             </div>
-        {/* </motion.div> */}
-        </PageTransition>
+        // {/* </motion.div> */}
+        // </PageTransition>
     );
 }
 

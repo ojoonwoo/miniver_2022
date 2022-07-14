@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Home from './pages/Home';
 import About from './pages/About';
 import Project from './pages/Project';
@@ -18,6 +18,7 @@ import './style.scss';
 // import './style.scss';
 
 function App() {
+    // let dispatch = useDispatch();
     // * Redux store를 가져와주는 useSelector()
     let themeColor = useSelector((state) => {
         // console.log(state);
@@ -27,23 +28,27 @@ function App() {
         // console.log(state);
         return state.projectIdx;
     });
-    const [mode, setMode] = useState("out-in");
+    let transitionMode = useSelector((state) => {
+        console.log(state);
+        return state.transitionMode;
+    });
+    // const [mode, setMode] = useState("out-in");
     const location = useLocation();
+    console.log(location.pathname);
     return (
         <div className="App" data-theme={themeColor}>
             <Header />
             <TransitionGroup>
-                {/* <CSSTransition key={location.pathname===`/project/${projectIdx}`} timeout={300} classNames="fade"> */}
-                <CSSTransition key={location.pathname} timeout={300} classNames="fade">
+                <CSSTransition key={location.pathname} timeout={transitionMode.timeout} classNames={transitionMode.classNames} unmountOnExit={true} mountOnEnter={true} in={true}>
                     <Routes location={location}>
                         <Route exact path="/" element={<Home pageName="Home" />}></Route>
                         <Route path="/about" element={<About pageName="About" />}></Route>
                         
-                        <Route path="/project/*" element={<Project />}>
+                        {/* <Route path="/project/*" element={<Project />}>
                             <Route path=":id" element={<ProjectDetail />}></Route>   
-                        </Route>
-                        {/* <Route path="/project" exact element={<Project pageName="Project" />}></Route>
-                        <Route path="/project/:id" element={<ProjectDetail pageName="ProjectDetail" />}></Route> */}
+                        </Route> */}
+                        <Route path="/project" exact element={<Project pageName="Project" />}></Route>
+                        <Route path="/project/:id" element={<ProjectDetail pageName="ProjectDetail" />}></Route>
                         
                         <Route path="/contact" element={<Contact pageName="Contact" />}></Route>
                         <Route path="*" element={<NotFound />}></Route>

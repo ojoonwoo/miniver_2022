@@ -34,8 +34,8 @@ function Header(props) {
     }, []);
 
     useEffect(() => {
-        console.log('메뉴오픈');
-        console.log(menuOpen);
+        // console.log('메뉴오픈');
+        // console.log(menuOpen);
     }, [menuOpen]);
 
     return (
@@ -92,7 +92,7 @@ function Header(props) {
                                 },
                             }}
                         >
-                            {/* {isMobile == true ? (
+                            {/* {isMobile === true ? (
                                 <button
                                     className={`${styles['nav-block__btn-close']}`}
                                     onClick={() => {

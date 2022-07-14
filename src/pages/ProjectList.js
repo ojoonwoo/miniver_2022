@@ -42,10 +42,10 @@ function ProjectList(props) {
         getProjectData(cate);
         dispatch(changeColor('black'));
 
-        console.log('project list mount');
+        console.log('프로젝트 리스트 마운트');
         // alert('project list mount');
         return () => {
-            console.log('project list unmount');
+            console.log('프로젝트 리스트 언마운트');
             // alert('project list unmount');
         };
     }, []);
@@ -57,7 +57,7 @@ function ProjectList(props) {
             url: '/api/work/getlist',
             params: { cate: cate },
         });
-        console.log(cate);
+        // console.log(cate);
         setProjectData(result.data.list);
         // console.log(result.data.list);
     };
@@ -81,22 +81,24 @@ function ProjectList(props) {
 
     return (
         // <div id="container" className={props.pageName}>
-            /* <Header color="black"/> */
-        <div className="contents Project">
-            <div className="grid-inner">
-                <h1 className="page-title">Project</h1>
-                <div className="categories">
-                    <CategoryItem classActive={(location.hash.split('#')[1] == 'all' || !location.hash) ? 'isActive' : ''} item={{idx: 'all', category_name: 'All'}} onClick={cateClick}/>
-                    {categoryData.map((item) => (
-                        <CategoryItem key={item.idx} classActive={location.hash.split('#')[1] == `${item.idx}` ? 'isActive' : ''} item={item} onClick={cateClick}/>
-                    ))}
-                </div>
-                <div className="workbox-container">
-                    {projectData.map((item) =>
-                        // <WorkBox key={item.idx} item={item} desc={true} onClick={props.workboxClick}/>
-                        <WorkBox key={item.idx} item={item} desc={true}/>
-                        // <WorkBox key={item.idx} item={item} desc={true} onClick={(e) => {props.workboxClick(item.idx, e)}}/>
-                    )}
+        <div id="container" className="Project z-20">
+            {/* <Header color="black"/> */}
+            <div className="contents">
+                <div className="grid-inner">
+                    <h1 className="page-title">Project</h1>
+                    <div className="categories">
+                        <CategoryItem classActive={(location.hash.split('#')[1] == 'all' || !location.hash) ? 'isActive' : ''} item={{idx: 'all', category_name: 'All'}} onClick={cateClick}/>
+                        {categoryData.map((item) => (
+                            <CategoryItem key={item.idx} classActive={location.hash.split('#')[1] == `${item.idx}` ? 'isActive' : ''} item={item} onClick={cateClick}/>
+                        ))}
+                    </div>
+                    <div className="workbox-container">
+                        {projectData.map((item) =>
+                            // <WorkBox key={item.idx} item={item} desc={true} onClick={props.workboxClick}/>
+                            <WorkBox key={item.idx} item={item} desc={true}/>
+                            // <WorkBox key={item.idx} item={item} desc={true} onClick={(e) => {props.workboxClick(item.idx, e)}}/>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

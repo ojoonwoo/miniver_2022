@@ -13,16 +13,16 @@ function Contact(props) {
     let dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('마운트');
+        console.log('컨텍트 마운트');
         dispatch(changeColor('white'));
         return () => {
-            console.log('언마운트');
+            console.log('컨텍트 언마운트');
         };
     }, []);
     return (
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <PageTransition>
+        // <PageTransition>
             <div id="container" className={props.pageName}>
                 {/* <Header></Header> */}
                 <div className="inner">
@@ -44,8 +44,8 @@ function Contact(props) {
                     </div>
                 </div>
             </div>
-            {/* </motion.div> */}
-        </PageTransition>
+            // {/* </motion.div> */}
+        // </PageTransition>
     );
 }
 
