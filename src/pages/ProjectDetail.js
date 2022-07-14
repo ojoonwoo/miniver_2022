@@ -16,8 +16,8 @@ import 'swiper/css/scrollbar';
 function ProjectDetail(props) {
     const params = useParams();
     const location = useLocation();
-    let headerColor = useSelector((state) => {
-        return state.headerColor;
+    let themeColor = useSelector((state) => {
+        return state.themeColor;
     });
 
     // 나머지 opacity 0 -> 1
@@ -38,6 +38,7 @@ function ProjectDetail(props) {
             console.log(result.data);
         }
         getProjectData();
+        console.log('패스네임:', location.pathname);
 
         console.log('project detail mount');
         // alert('project detail mount');

@@ -13,8 +13,22 @@ let themeColor = createSlice ({
 
 export let {changeColor} = themeColor.actions;
 
+let projectIdx = createSlice ({
+  name: 'projectIdx',
+  initialState: 0,
+  reducers: {
+      changeIdx(state, action) {
+          // console.log(state, action.payload);
+          return state = action.payload;
+      }
+  }
+});
+
+export let {changeIdx} = projectIdx.actions;
+
 export default configureStore({
   reducer: {
-    themeColor: themeColor.reducer
+    themeColor: themeColor.reducer,
+    projectIdx: projectIdx.reducer
   }
 });
