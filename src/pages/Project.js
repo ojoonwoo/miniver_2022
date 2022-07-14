@@ -20,13 +20,15 @@ function Project(props) {
     
     const history = createBrowserHistory({ window });
     const location = useLocation();
+
+    
     let headerColor = useSelector((state) => {
         return state.headerColor;
     });
     let [workIndex, setWorkClick] = useState(0);
     let dispatch = useDispatch();
     useEffect(() => {
-        
+        console.log(location);
         // if(workFlag === true) {
         //     console.log(workFlag);
         //     navigate('/project/'+props.item.idx);
@@ -41,10 +43,10 @@ function Project(props) {
     }, []);
     const workClick = (idx, e) => {
         e.preventDefault();
-        setWorkClick(idx);
-        history.push(
-            {pathname: location.pathname+'/'+idx},
-        );
+        // setWorkClick(idx);
+        // history.push(
+        //     {pathname: location.pathname+'/'+idx},
+        // );
     }
     
 
@@ -56,14 +58,13 @@ function Project(props) {
         // <PageTransition>
         <SwitchTransition mode={mode}>
             <CSSTransition
-            key={workIndex}
+            key={location.key}
             addEndListener={(node, done) => {
               node.addEventListener("transitionend", done, false);
             }}
             classNames="fade"
-            unmountOnExit={true}
             >
-                {workIndex ? <ProjectDetail id={workIndex} className={props.pageName}/> : <ProjectList workboxClick={workClick}/>}
+                {location.pathname==='/project' ? <ProjectList /> : <ProjectDetail className={props.pageName} />}
             </CSSTransition>
         </SwitchTransition>
             // <Outlet />

@@ -17,10 +17,10 @@ function WorkBox(props) {
     }, []);
 
     return (
-        // <div className={`workbox ${styles.workbox}`}>
-        // <div className={`workbox ${styles.workbox}`} onClick={() => {setWorkClick(true)}}>
-        <div className={`workbox ${styles.workbox}`} onClick={(e) => {props.onClick(props.item.idx, e)}}>
-            {/* <Link to={`/project/${props.item.idx}`} className={styles.logo}> */}
+        <div className={`workbox ${styles.workbox}`}>
+        {/* // <div className={`workbox ${styles.workbox}`} onClick={() => {setWorkClick(true)}}>
+        // <div className={`workbox ${styles.workbox}`} onClick={(e) => {props.onClick(props.item.idx, e)}}> */}
+            <Link to={`/project/${props.item.idx}`} className={styles.logo}>
             
                 <div className={styles.wrapper}>
                     <div className={styles['item-img']}>
@@ -38,7 +38,7 @@ function WorkBox(props) {
                 </div> :
                 ""
                 }
-            {/* </Link> */}
+            </Link>
         </div>
     );
 }
