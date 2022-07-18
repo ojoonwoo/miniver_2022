@@ -8,8 +8,7 @@ function WorkBox(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('hi');
-        console.log(workClick);
+        // console.log(workClick);
         if(workClick === true) {
             navigate('/project/'+props.item.idx);
         }

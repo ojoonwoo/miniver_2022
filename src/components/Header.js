@@ -34,8 +34,8 @@ function Header(props) {
     }, []);
 
     useEffect(() => {
-        console.log('메뉴오픈');
-        console.log(menuOpen);
+        // console.log('메뉴오픈');
+        // console.log(menuOpen);
     }, [menuOpen]);
 
     return (

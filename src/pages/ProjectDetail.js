@@ -36,13 +36,13 @@ function ProjectDetail(props) {
             console.log(result.data);
         }
         getProjectData();
-
+            console.log('project detail mount');
         return () => {
-            console.log('unmount');
+            console.log('project detail unmount');
         };
     }, []);
     return (
-        <PageTransition>
+        <PageTransition variantsName="detail">
             {/* <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
             <div id="container" className={props.pageName}>
                 <div className="contents">

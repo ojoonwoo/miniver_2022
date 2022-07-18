@@ -180,6 +180,7 @@ button, input, select {
     .project-detail__top-block {
         position: relative;
         padding: 1rem 3rem 4rem;
+        opacity: 0;
         .project-detail__title {
             margin-bottom: 1.2rem;
             line-height: 1.2;
@@ -213,7 +214,12 @@ button, input, select {
             text-underline-offset: 0.1rem;
         }
     }
+    .project-detail__hero {
+        margin-top: 170px;
+        padding: 0 3rem;
+    }
     .project-detail__middle-block {
+        opacity: 0;
         padding: 3.5rem 0 5.5rem;
         > .grid-inner {
             flex-direction: column;
