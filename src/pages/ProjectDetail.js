@@ -66,20 +66,15 @@ function ProjectDetail(props) {
             setRelatedWork(relatedWork.data.list);
         }
         getProjectData();
-        // console.log('패스네임:', location.pathname);
-
-        console.log('project detail mount');
-        // alert('project detail mount');
+            console.log('project detail mount');
         return () => {
-            // alert('project detail unmount');
             console.log('project detail unmount');
-            // dispatch(changeTransitionMode({timeout: 300, classNames: 'page'}));
         };
     }, []);
     return (
-        // <PageTransition>
-            // <div id="container" className={props.pageName}>
-            <div id="container" className="ProjectDetail z-20">
+        <PageTransition variantsName="detail">
+            {/* <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
+            <div id="container" className={props.pageName}>
                 <div className="contents">
                     <div className="project-detail__top-block">
                         <h1 className="page-title project-detail__title">{projectData.work_title}</h1>

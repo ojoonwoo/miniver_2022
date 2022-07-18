@@ -14,7 +14,7 @@ function WorkBox(props) {
     const location = useLocation();
 
     useEffect(() => {
-        // console.log('hi');
+        // console.log(workClick);
         if(workClick === true) {
             console.log('hi2');
             console.log(workClick);
