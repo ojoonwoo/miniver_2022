@@ -21,8 +21,6 @@ function ProjectDetail(props) {
 
     const location = useLocation();
 
-    
-
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
@@ -40,15 +38,8 @@ function ProjectDetail(props) {
     const [relatedWork, setRelatedWork] = useState([]);
 
     useEffect(() => {
-        // todo : offset animate
-        console.log(location.state.position);
-        
-        // if(location.pathname===`/project/${params.id ? params.id : props.id}`) {
-        //     console.log('디테일페이지입니다 ');
-        //     dispatch(changeTransitionMode({timeout: 300, classNames: 'fade'}));
-        // }
+ 
         dispatch(changeColor('black'));
-        dispatch(changeTransitionMode({timeout: 300, classNames: 'page'}));
 
         async function getProjectData() {
             const result = await axios({
@@ -171,7 +162,7 @@ function ProjectDetail(props) {
 
             </div>
             
-        // </PageTransition>
+        </PageTransition>
     );
 }
 

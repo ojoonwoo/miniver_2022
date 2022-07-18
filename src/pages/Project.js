@@ -8,69 +8,105 @@ import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from '../components/CategoryItem';
 import PageTransition from '../components/PageTransition';
 import { Routes, Route, useLocation, Link, Outlet, useParams, useNavigate } from 'react-router-dom';
-import { TransitionGroup, SwitchTransition, CSSTransition } from "react-transition-group";
-import ProjectDetail from './ProjectDetail';
-import ProjectList from './ProjectList';
 
 // todo
 // 프로젝트 컨테이너 만들어서 리스트, 뷰 분리
 
 function Project(props) {
     
-    const params = useParams();
     const location = useLocation();
-    let themeColor = useSelector((state) => {
-        return state.themeColor;
+    const navigate = useNavigate();
+
+    let headerColor = useSelector((state) => {
+        return state.headerColor;
     });
-    // let [workIndex, setWorkClick] = useState(0);
+    // console.log(headerColor);
+    const params = useParams();
     let dispatch = useDispatch();
+    const [projectData, setProjectData] = useState([]);
+    const [categoryData, setCategoryData] = useState([]);
+    
     useEffect(() => {
-        // console.log(location.pathname);
-        // console.log('params', params);
-        // console.log('workindex', workIndex);
+        
         // if(workFlag === true) {
         //     console.log(workFlag);
         //     navigate('/project/'+props.item.idx);
         // }
 
+        let cate = '';
+        if (location.hash) {
+            cate = location.hash.split('#')[1];
+        } else {
+            cate = 'all';
+        }
+
+        getCategoryData();
+        getProjectData(cate);
         dispatch(changeColor('black'));
 
+        console.log('프로젝트 리스트 마운트');
         // alert('project list mount');
         return () => {
+            console.log('프로젝트 리스트 언마운트');
             // alert('project list unmount');
         };
     }, []);
-    // const workClick = (idx, e) => {
-    //     e.preventDefault();
-    //     console.log(idx);
-    //     setWorkClick(idx);
-    //     history.push(
-    //         {pathname: location.pathname+'/'+idx},
-    //     );
-    // }
+
+    const getProjectData = async (cate) => {
+        if (!cate) cate = 'all';
+        const result = await axios({
+            method: 'get',
+            url: '/api/work/getlist',
+            params: { cate: cate },
+        });
+        // console.log(cate);
+        setProjectData(result.data.list);
+        // console.log(result.data.list);
+    };
+    const getCategoryData = async () => {
+        const result = await axios({
+            method: 'get',
+            url: '/api/work/getcategories',
+        });
+        
+        setCategoryData(result.data.list);
+        // console.log(result.data.list);
+    };
+
+    const cateClick = (cate, e) => {
+        e.preventDefault();
+        const hash = '#' + cate;
+        window.location.hash = hash;
+        getProjectData(cate);
+    };
     
 
-    // const [mode, setMode] = useState("in-out");
-
     return (
-        // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
-        // <motion.div className="Project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        // <PageTransition>
-        // <SwitchTransition mode={mode}>
-        //     <CSSTransition
-        //     key={workIndex}
-        //     addEndListener={(node, done) => {
-        //       node.addEventListener("transitionend", done, false);
-        //     }}
-        //     classNames="fade"
-        //     unmountOnExit={true}
-        //     >
-        //         {workIndex ? <ProjectDetail id={workIndex} className={props.pageName}/> : <ProjectList/>}
-        //     </CSSTransition>
-        // </SwitchTransition>
-        <ProjectList/>
-            // <Outlet />
-        // </PageTransition>
+        // <div id="container" className={props.pageName}>
+        <PageTransition>
+            <div id="container" className="Project">
+                {/* <Header color="black"/> */}
+                <div className="contents">
+                    <div className="grid-inner">
+                        <h1 className="page-title">Project</h1>
+                        <div className="categories">
+                            <CategoryItem classActive={(location.hash.split('#')[1] == 'all' || !location.hash) ? 'isActive' : ''} item={{idx: 'all', category_name: 'All'}} onClick={cateClick}/>
+                            {categoryData.map((item) => (
+                                <CategoryItem key={item.idx} classActive={location.hash.split('#')[1] == `${item.idx}` ? 'isActive' : ''} item={item} onClick={cateClick}/>
+                            ))}
+                        </div>
+                        <div className="workbox-container">
+                            {projectData.map((item) =>
+                                // <WorkBox key={item.idx} item={item} desc={true} onClick={props.workboxClick}/>
+                                <WorkBox key={item.idx} item={item} desc={true}/>
+                                // <WorkBox key={item.idx} item={item} desc={true} onClick={(e) => {props.workboxClick(item.idx, e)}}/>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Outlet />
+        </PageTransition>
     );
 }
 

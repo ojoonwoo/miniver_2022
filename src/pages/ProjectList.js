@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from '../components/CategoryItem';
 import PageTransition from '../components/PageTransition';
 import { useLocation, Link, Outlet, useParams, useNavigate } from 'react-router-dom';
-import { TransitionGroup, SwitchTransition, CSSTransition } from "react-transition-group";
 
 
 function ProjectList(props) {
@@ -41,7 +40,6 @@ function ProjectList(props) {
         getCategoryData();
         getProjectData(cate);
         dispatch(changeColor('black'));
-        dispatch(changeTransitionMode({timeout: 300, classNames: 'page'}));
 
         console.log('프로젝트 리스트 마운트');
         // alert('project list mount');
@@ -82,7 +80,7 @@ function ProjectList(props) {
 
     return (
         // <div id="container" className={props.pageName}>
-        <div id="container" className="Project z-20">
+        <div id="container" className="Project">
             {/* <Header color="black"/> */}
             <div className="contents">
                 <div className="grid-inner">

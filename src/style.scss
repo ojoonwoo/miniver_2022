@@ -55,70 +55,9 @@ select {
 }
 
 .contents {
-    background-color: #ffffff;
+    // background-color: #ffffff;
 }
 
-.z-20 {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-// 주석임다
-
-.fade-enter {
-    z-index: 200;
-}
-
-// .fade-enter .contents {
-//     opacity: 0;
-//     transform: translateX(-100%);
-// }
-// .fade-enter-active .contents {
-//     opacity: 1;
-//     transform: translateX(0%);
-// }
-
-// .fade-exit {
-//     z-index: 10;
-// }
-
-// .fade-exit .contents {
-//     opacity: 1;
-//     transform: translateX(0%);
-// }
-// .fade-exit-active .contents {
-//     opacity: 0;
-//     transform: translateX(100%);
-// }
-// .fade-enter-active .contents,
-// .fade-exit-active .contents {
-//     transition: opacity 500ms, transform 500ms;
-// }
-
-.page-enter {
-    opacity: 0;
-    z-index: 20;
-    // transform: scale(1.1);
-}
-
-.page-enter-active {
-    opacity: 1;
-    // transform: scale(1);
-    transition: opacity 300ms, transform 300ms;
-}
-
-.page-exit {
-    opacity: 1;
-    z-index: 10;
-    // transform: scale(1);
-}
-
-.page-exit-active {
-    opacity: 0;
-    // transform: scale(0.9);
-    transition: opacity 300ms, transform 300ms;
-}
 
 .grid-inner {
     width: 100%;

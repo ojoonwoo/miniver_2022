@@ -70,8 +70,8 @@ function Home(props) {
     return (
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        // <PageTransition>
-            <div id="container" className={`z-20 ${props.pageName}`}>
+        <PageTransition>
+            <div id="container" className={props.pageName}>
                 <div className="contents">
                     {/* <Header /> */}
                     <div className="section-hero">
@@ -92,7 +92,7 @@ function Home(props) {
                 {isMobile ? null : <Footer />}
             </div>
         // {/* </motion.div> */}
-        // </PageTransition>
+        </PageTransition>
     );
 }
 
