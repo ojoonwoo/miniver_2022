@@ -9,6 +9,8 @@ import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { changeIdx } from './../store.js';
 
+import WorkBox from '../components/WorkBox';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -18,10 +20,9 @@ function ProjectDetail(props) {
     const params = useParams();
 
     const location = useLocation();
-    // todo : offset animate
 
     
-    console.log(location.state.position);
+
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
@@ -36,8 +37,12 @@ function ProjectDetail(props) {
     let dispatch = useDispatch();
 
     const [projectData, setProjectData] = useState([]);
+    const [relatedWork, setRelatedWork] = useState([]);
 
     useEffect(() => {
+        // todo : offset animate
+        console.log(location.state.position);
+        
         // if(location.pathname===`/project/${params.id ? params.id : props.id}`) {
         //     console.log('디테일페이지입니다 ');
         //     dispatch(changeTransitionMode({timeout: 300, classNames: 'fade'}));
@@ -52,7 +57,13 @@ function ProjectDetail(props) {
                 params: { idx: params.id ? params.id : props.id },
             });
             setProjectData(result.data);
-            // console.log(result.data);
+            
+            const relatedWork = await axios({
+                method: 'get',
+                url: '/api/work/getlist',
+                params: { cate: result.data.work_categories.substring(0, 1), exclude: result.data.idx, limit: 3}
+            })
+            setRelatedWork(relatedWork.data.list);
         }
         getProjectData();
         // console.log('패스네임:', location.pathname);
@@ -90,11 +101,11 @@ function ProjectDetail(props) {
                         <div className="grid-inner">
                             <div className="project-detail__desc">
                                 <dl>
-                                    <dt>Client</dt>
+                                    <dt className="small-title">Client</dt>
                                     <dd>{projectData.client_name}</dd>
                                 </dl>
                                 <dl>
-                                    <dt>Overview</dt>
+                                    <dt className="small-title">Overview</dt>
                                     <dd>{projectData.work_overview}</dd>
                                 </dl>
                             </div>
@@ -121,6 +132,45 @@ function ProjectDetail(props) {
                                 <div className="slideshow-scrollbar"></div>
                             </Swiper>
                         </div>
+                        <div className="project-detail__details __2">
+                            <Swiper
+                                // install Swiper modules
+                                modules={[Scrollbar, FreeMode, A11y]}
+                                spaceBetween={10}
+                                slidesPerView={'auto'}
+                                slidesOffsetBefore={30}
+                                slidesOffsetAfter={30}
+                                scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
+                                freemode={{ freemode: true }}
+                                onSwiper={(swiper) => console.log(swiper)}
+                                onSlideChange={() => console.log('slide change')}
+                            >
+                                {projectData.detail_sources2_arr &&
+                                    projectData.detail_sources2_arr.map((slideContent, index) => (
+                                        <SwiperSlide key={index}>
+                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${slideContent}`}></ImageVideo>
+                                        </SwiperSlide>
+                                    ))}
+                                <div className="slideshow-scrollbar"></div>
+                            </Swiper>
+                        </div>
+                        <div className="contact-block">
+                            <p className="small-title">Contact</p>
+                            <Link to="/contact">
+                                <span>프로젝트 문의하기</span>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="project-detail__bottom-block">
+                        <p className="small-title">Related Work</p>
+                        <div className="box-container">
+                            {relatedWork.map((item) =>
+                                <div className="related-box" key={item.idx}>
+                                    <WorkBox item={item} thumb="square"/>
+                                </div>
+                            )}
+                        </div>
+                        <button type="button" className="go-top">Back to top</button>
                     </div>
                 </div>
 

@@ -70,31 +70,31 @@ select {
     z-index: 200;
 }
 
-.fade-enter .contents {
-    opacity: 0;
-    transform: translateX(-100%);
-}
-.fade-enter-active .contents {
-    opacity: 1;
-    transform: translateX(0%);
-}
+// .fade-enter .contents {
+//     opacity: 0;
+//     transform: translateX(-100%);
+// }
+// .fade-enter-active .contents {
+//     opacity: 1;
+//     transform: translateX(0%);
+// }
 
-.fade-exit {
-    z-index: 10;
-}
+// .fade-exit {
+//     z-index: 10;
+// }
 
-.fade-exit .contents {
-    opacity: 1;
-    transform: translateX(0%);
-}
-.fade-exit-active .contents {
-    opacity: 0;
-    transform: translateX(100%);
-}
-.fade-enter-active .contents,
-.fade-exit-active .contents {
-    transition: opacity 500ms, transform 500ms;
-}
+// .fade-exit .contents {
+//     opacity: 1;
+//     transform: translateX(0%);
+// }
+// .fade-exit-active .contents {
+//     opacity: 0;
+//     transform: translateX(100%);
+// }
+// .fade-enter-active .contents,
+// .fade-exit-active .contents {
+//     transition: opacity 500ms, transform 500ms;
+// }
 
 .page-enter {
     opacity: 0;
@@ -198,6 +198,8 @@ select {
             .inner {
                 box-sizing: border-box;
                 // border: 1px solid red;
+                display: flex;
+                flex-wrap: wrap;
                 button,
                 input[type='text'] {
                     padding: 1rem 3rem 1rem 2.5rem;
@@ -208,6 +210,10 @@ select {
                     font-size: 1.4rem;
                     line-height: 1.7rem;
                     margin-bottom: 1rem;
+                    margin-right: 1rem;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
                 }
                 input[type='text'] {
                     width: 15.7rem;
@@ -221,6 +227,7 @@ select {
                 input:focus {
                     outline: none;
                 }
+                
             }
         }
     }
@@ -248,9 +255,13 @@ select {
 }
 
 #container.ProjectDetail {
+    .small-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
     .project-detail__top-block {
         position: relative;
-        padding: 1rem 3rem 4rem;
+        padding: 1rem 3rem 3rem;
         .project-detail__title {
             margin-bottom: 1.2rem;
             line-height: 1.2;
@@ -268,6 +279,7 @@ select {
             .project-detail__category {
                 padding: 1rem 1.5rem;
                 margin-right: 1rem;
+                margin-bottom: 1rem;
                 border-radius: 6rem;
                 border: 0.1rem solid $black;
                 font-size: 1.2rem;
@@ -299,8 +311,6 @@ select {
                 }
             }
             dt {
-                font-size: 1.5rem;
-                font-weight: 700;
                 margin-bottom: 0.8rem;
             }
             dd {
@@ -325,6 +335,38 @@ select {
                     background-color: #1f1f1f;
                 }
             }
+            &.__2 {
+                margin-top: 6rem;
+            }
+        }
+        .contact-block {
+            padding: 2rem 3rem 0;
+            .small-title {
+                margin-bottom: 0.7rem;
+            }
+            span {
+                font-size: 1.2rem;
+            }
+        }
+    }
+    .project-detail__bottom-block {
+        background-color: #f1f1f1;
+        padding: 3.6rem 0 2.7rem;
+        text-align: center;
+        .small-title {
+            text-align: left;
+            margin-bottom: 1.5rem;
+            padding-left: 6.4rem;
+        }
+        .box-container {
+            padding-left: 6.4rem;
+            .related-box {
+                width: 20rem;
+            }
+        }
+        .go-top {
+            text-align: center;
+            padding: 1rem;
         }
     }
 }

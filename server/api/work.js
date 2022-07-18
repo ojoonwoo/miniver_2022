@@ -51,6 +51,8 @@ router.get('/getcategories', function(req, res) {
 router.get('/getlist', function(req, res) {
     // recruit list 가져오기
     const cate = (req.query.cate == 'all' || !req.query.cate) ? "" : req.query.cate;
+    const count = (req.query.limit) && req.query.limit;
+    const excludeIdx = (req.query.exclude) && req.query.exclude;
 
     // console.log(req.query.cate);
     // table로
@@ -61,7 +63,17 @@ router.get('/getlist', function(req, res) {
     } else {
         where  = '';
     }
+    if(excludeIdx) {
+        where += ` and idx <> '${excludeIdx}'`;
+    }
+
+    if(count) {
+        where += ` limit ${count}`;
+    }
+
     const query = `select * from work_info where 1 ${where}`;
+
+    console.log(query);
 
     db.query(query, (err, results, fields) => {
         if(!err) {

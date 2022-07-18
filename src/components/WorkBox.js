@@ -21,17 +21,24 @@ function WorkBox(props) {
             console.log(props.item.idx);
             dispatch(changeIdx(props.item.idx));
             dispatch(changeTransitionMode({timeout: 300, classNames: 'fade'}));
-            navigate('/project/'+props.item.idx, {state: {position: {x: 0, y: 30}}});
+            // setTimeout(() => {
+                navigate('/project/'+props.item.idx, {state: {position: {x: 0, y: 30}}});
+            // }, 1300);
         }
     }, [workClick]);
 
     return (
-        <div className={`workbox ${styles.workbox}`} onClick={() => {setWorkClick(true)}}>
+        <div className={`workbox ${styles.workbox} ${styles[props.thumb]}`} onClick={() => {setWorkClick(true)}}>
             {/* <Link to={`/project/${props.item.idx}`} className={`workbox ${styles.workbox}`}> */}
             
                 <div className={styles.wrapper}>
                     <div className={styles['item-img']}>
-                        <img src={`/works/${props.item.idx}/thumb_rectangle/${props.item.thumb_rectangle}`}></img>
+                        {props.thumb==='square'
+                        ?
+                            <img src={`/works/${props.item.idx}/thumb_square/${props.item.thumb_square}`}></img>
+                        :
+                            <img src={`/works/${props.item.idx}/thumb_rectangle/${props.item.thumb_rectangle}`}></img>
+                        } 
                     </div>
                     <div className={styles['box-overlay']}>
                         <div className={styles['logo-img']} style={{backgroundImage: `url(/works/${props.item.idx}/logo_img/${props.item.logo_img})`}}></div>

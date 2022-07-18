@@ -45,6 +45,14 @@
             color: $grey2;
         }
     }
+    &.square {
+        .wrapper {
+            padding-bottom: 100%;
+        }
+        .box-overlay {
+            display: none;
+        }
+    }
 }
 
 @media (min-width: 1200px) {
