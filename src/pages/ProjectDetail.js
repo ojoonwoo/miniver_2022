@@ -29,7 +29,10 @@ function ProjectDetail(props) {
     
     useEffect(() => {
         // animation
-        window.scrollTo(0, 0);
+        // document.documentElement.scrollTo({
+        //     top: 0,
+        //     behavior: "smooth"
+        // });
         // console.log('detail', boxRef.current.getBoundingClientRect());
         // console.log('move', boxRef.current.getBoundingClientRect().y - boxPosition.y);
         dispatch(changeColor('black'));
@@ -52,12 +55,24 @@ function ProjectDetail(props) {
 
     const heroAnimation = useAnimation();
     const otherAnimation = useAnimation();
+    const scrollTopAnim = () => {
+        // window.scrollTo(0, 0);
+        document.documentElement.scrollTo({
+            top: 0,
+            behavior: "smooth",
+            duration: 1
+        });
+    }
     async function sequence() {
-        await heroAnimation.start({ y: 0 });
-        await heroAnimation.start({ width: '100%' });
+        // await heroAnimation.start({y: (boxPosition.y-266), width: boxPosition.width});
+        await scrollTopAnim();
+        await heroAnimation.start({ y: 0, transition: {duration: 0.5, delay: 0.5} });
+        await heroAnimation.start({ width: '100%',
+            
+        });
         await otherAnimation.start({ opacity: 1,
-            transition:{duration: 0.3}
-         }) 
+            transition:{duration: 0.3, delay: 0.5}
+        });
         // await middleAnimation.start({ opacity: 1,
         //     transition:{duration: 0.3}
         // })
@@ -86,7 +101,8 @@ function ProjectDetail(props) {
                     </motion.div>
                     {/* </div> */}
                     {/* <div className="project-detail__hero">{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</div> */}
-                    <motion.div initial={boxPosition&&{y: (boxPosition.y-266), width: boxPosition.width}} animate={heroAnimation} transition={{delay: 0.5, duration: 0.5}} className="project-detail__hero" ref={boxRef}>{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div>
+                    <motion.div initial={boxPosition&&{y: (boxPosition.y-266), width: boxPosition.width}} animate={heroAnimation} className="project-detail__hero" ref={boxRef}>{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div>
+                    {/* <motion.div animate={heroAnimation} transition={{delay: 0.5, duration: 0.5}} className="project-detail__hero" ref={boxRef}>{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div> */}
                     {/* <div className="project-detail__middle-block"> */}
                     <motion.div animate={otherAnimation} className="project-detail__middle-block">
                         <div className="grid-inner">

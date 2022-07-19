@@ -19,6 +19,7 @@ function WorkBox(props) {
     }, []);
 
     function LinkWithBoxPosition() {
+        // window.scrollTo(0, 0);
         const offsetObject = {
             y: window.pageYOffset+boxRef.current.getBoundingClientRect().y,
             width: boxRef.current.getBoundingClientRect().width

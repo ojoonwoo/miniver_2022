@@ -43,7 +43,7 @@ function PageTransition(props) {
         animate: {
             opacity: 1,
             transition: {
-                delay: 1,
+                // delay: 1,
             },
         },
         exit: {
