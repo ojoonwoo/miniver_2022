@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useParams, Link } from 'react-router-dom';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,7 +46,8 @@ function ProjectDetail(props) {
             {/* <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
             <div id="container" className={props.pageName}>
                 <div className="contents">
-                    <div className="project-detail__top-block">
+                    {/* <div className="project-detail__top-block"> */}
+                    <motion.div animate={{opacity: 1}} transition={{delay:1.2, duration: 0.3}} className="project-detail__top-block">
                         <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
                         <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
                         <div className="project-detail_categories">
@@ -60,9 +61,12 @@ function ProjectDetail(props) {
                         <Link to={`/project/`} className="go-list">
                             <span>View List</span>
                         </Link>
-                    </div>
-                    <div className="project-detail__hero">{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</div>
-                    <div className="project-detail__middle-block">
+                    </motion.div>
+                    {/* </div> */}
+                    {/* <div className="project-detail__hero">{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</div> */}
+                    <motion.div animate={{ padding: 0, margin: 0 }} transition={{delay: 1, duration: 0.5}} className="project-detail__hero">{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div>
+                    {/* <div className="project-detail__middle-block"> */}
+                    <motion.div animate={{opacity: 1}} transition={{delay:1.2, duration: 0.3}} className="project-detail__middle-block">
                         <div className="grid-inner">
                             <div className="project-detail__desc">
                                 <dl>
@@ -97,7 +101,8 @@ function ProjectDetail(props) {
                                 <div className="slideshow-scrollbar"></div>
                             </Swiper>
                         </div>
-                    </div>
+                    </motion.div>
+                    {/* </div> */}
                 </div>
             </div>
         </PageTransition>
