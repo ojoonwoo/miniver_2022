@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PageTransition from '../components/PageTransition';
@@ -15,7 +15,10 @@ import 'swiper/css/scrollbar';
 
 function ProjectDetail(props) {
     const params = useParams();
-
+    const location = useLocation();
+    const boxRef = useRef(null);
+    console.log(location.state);
+    const boxPosition = location.state;
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
@@ -25,6 +28,10 @@ function ProjectDetail(props) {
     const [projectData, setProjectData] = useState([]);
     
     useEffect(() => {
+        // animation
+        window.scrollTo(0, 0);
+        // console.log('detail', boxRef.current.getBoundingClientRect());
+        // console.log('move', boxRef.current.getBoundingClientRect().y - boxPosition.y);
         dispatch(changeColor('black'));
         async function getProjectData() {
             const result = await axios({
@@ -33,7 +40,7 @@ function ProjectDetail(props) {
                 params: { idx: params.id },
             });
             setProjectData(result.data);
-            console.log(result.data);
+            // console.log(result.data);
         }
         getProjectData();
             console.log('project detail mount');
@@ -64,7 +71,7 @@ function ProjectDetail(props) {
                     </motion.div>
                     {/* </div> */}
                     {/* <div className="project-detail__hero">{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</div> */}
-                    <motion.div animate={{ padding: 0, margin: 0 }} transition={{delay: 1, duration: 0.5}} className="project-detail__hero">{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div>
+                    <motion.div initial={boxPosition&&{y: (boxPosition.y-266), width: boxPosition.width}} animate={{ y: 0, width: '100%' }} transition={{delay: 0.5, duration: 0.5}} className="project-detail__hero" ref={boxRef}>{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div>
                     {/* <div className="project-detail__middle-block"> */}
                     <motion.div animate={{opacity: 1}} transition={{delay:1.2, duration: 0.3}} className="project-detail__middle-block">
                         <div className="grid-inner">
