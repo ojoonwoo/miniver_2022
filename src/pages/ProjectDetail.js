@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,18 +43,33 @@ function ProjectDetail(props) {
             // console.log(result.data);
         }
         getProjectData();
+        sequence();
             console.log('project detail mount');
         return () => {
             console.log('project detail unmount');
         };
     }, []);
+
+    const heroAnimation = useAnimation();
+    const otherAnimation = useAnimation();
+    async function sequence() {
+        await heroAnimation.start({ y: 0 });
+        await heroAnimation.start({ width: '100%' });
+        await otherAnimation.start({ opacity: 1,
+            transition:{duration: 0.3}
+         }) 
+        // await middleAnimation.start({ opacity: 1,
+        //     transition:{duration: 0.3}
+        // })
+    }
+
     return (
         <PageTransition variantsName="detail">
             {/* <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
             <div id="container" className={props.pageName}>
                 <div className="contents">
                     {/* <div className="project-detail__top-block"> */}
-                    <motion.div animate={{opacity: 1}} transition={{delay:1.2, duration: 0.3}} className="project-detail__top-block">
+                    <motion.div animate={otherAnimation} className="project-detail__top-block">
                         <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
                         <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
                         <div className="project-detail_categories">
@@ -71,9 +86,9 @@ function ProjectDetail(props) {
                     </motion.div>
                     {/* </div> */}
                     {/* <div className="project-detail__hero">{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</div> */}
-                    <motion.div initial={boxPosition&&{y: (boxPosition.y-266), width: boxPosition.width}} animate={{ y: 0, width: '100%' }} transition={{delay: 0.5, duration: 0.5}} className="project-detail__hero" ref={boxRef}>{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div>
+                    <motion.div initial={boxPosition&&{y: (boxPosition.y-266), width: boxPosition.width}} animate={heroAnimation} transition={{delay: 0.5, duration: 0.5}} className="project-detail__hero" ref={boxRef}>{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div>
                     {/* <div className="project-detail__middle-block"> */}
-                    <motion.div animate={{opacity: 1}} transition={{delay:1.2, duration: 0.3}} className="project-detail__middle-block">
+                    <motion.div animate={otherAnimation} className="project-detail__middle-block">
                         <div className="grid-inner">
                             <div className="project-detail__desc">
                                 <dl>

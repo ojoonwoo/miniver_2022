@@ -34,8 +34,18 @@ function PageTransition(props) {
 
     animationConfiguration = {
         // default: { position: 'absolute'},
-        initial: { opacity: 0, zIndex: 2, position: 'absolute', width: '100%' },
-        animate: { opacity: 1 },
+        initial: {
+            opacity: 0,
+            zIndex: 2,
+            position: 'absolute',
+            width: '100%',
+        },
+        animate: {
+            opacity: 1,
+            transition: {
+                delay: 1,
+            },
+        },
         exit: {
             opacity: 0,
             zIndex: 1,
