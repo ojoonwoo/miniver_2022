@@ -108,11 +108,11 @@ function ProjectDetail(props) {
                         <div className="grid-inner">
                             <div className="project-detail__desc">
                                 <dl>
-                                    <dt>Client</dt>
+                                    <dt className="small-title">Client</dt>
                                     <dd>{projectData.client_name}</dd>
                                 </dl>
                                 <dl>
-                                    <dt>Overview</dt>
+                                    <dt className="small-title">Overview</dt>
                                     <dd>{projectData.work_overview}</dd>
                                 </dl>
                             </div>

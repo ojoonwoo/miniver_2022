@@ -9,6 +9,7 @@ import ProjectDetail from './pages/ProjectDetail';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
 import Header from './components/Header';
+import Loader from './components/Loader';
 import './reset.css';
 import './style.scss';
 
@@ -23,6 +24,7 @@ function App() {
     return (
         <div className="App" data-theme={themeColor}>
             <Header />
+            <Loader />
             <AnimatePresence>
                 <Routes key={location.pathname} location={location}>
                     <Route exact path="/" element={<Home pageName="Home" />}></Route>

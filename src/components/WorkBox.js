@@ -47,8 +47,8 @@ function WorkBox(props) {
             {
             props.desc ?
             <div className={`workbox__desc ${styles['workbox-desc']}`}>
-                <p className={styles['client-name']}>{props.item.client_name}</p>
-                <span className={styles.title}>{props.item.work_title}</span>
+                <p className={styles['client-name']}>{props.item.work_title}</p>
+                <span className={styles.title}>{props.item.work_title_kor}</span>
             </div> :
             ""
             }
