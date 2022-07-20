@@ -139,8 +139,27 @@ function ProjectDetail(props) {
                                 <div className="slideshow-scrollbar"></div>
                             </Swiper>
                         </div>
+                        <div className="contact-block">
+                            <div>
+                                <p className="small-title">Contact</p>
+                                <Link to="/contact">
+                                    <span>프로젝트 문의하기</span>
+                                </Link>
+                            </div>
+                        </div>
                     </motion.div>
+                    <div className="project-detail__bottom-block">
+                        <p className="small-title">Related Work</p>
+                        <div className="box-container">
+                            {relatedWork.map((item) =>
+                                <div className="related-box" key={item.idx}>
+                                    <WorkBox item={item} thumb="square"/>
+                                </div>
+                            )}
+                        </div>
+                        <button type="button" className="go-top">Back to top</button>
                     {/* </div> */}
+                    </div>
                 </div>
             </div>
         </PageTransition>
