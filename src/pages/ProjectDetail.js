@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PageTransition from '../components/PageTransition';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import WorkBox from '../components/WorkBox';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -26,6 +27,7 @@ function ProjectDetail(props) {
     let dispatch = useDispatch();
 
     const [projectData, setProjectData] = useState([]);
+    const [relatedWork, setRelatedWork] = useState([]);
     
     useEffect(() => {
         // animation
@@ -44,6 +46,12 @@ function ProjectDetail(props) {
             });
             setProjectData(result.data);
             // console.log(result.data);
+            const relatedWork = await axios({
+                method: 'get',
+                url: '/api/work/getlist',
+                params: { cate: result.data.work_categories.substring(0, 1), exclude: result.data.idx, limit: 3}
+            })
+            setRelatedWork(relatedWork.data.list);
         }
         getProjectData();
         sequence();
@@ -57,11 +65,11 @@ function ProjectDetail(props) {
     const otherAnimation = useAnimation();
     const scrollTopAnim = () => {
         // window.scrollTo(0, 0);
-        document.documentElement.scrollTo({
-            top: 0,
-            behavior: "smooth",
-            duration: 1
-        });
+        // document.documentElement.scrollTo({
+        //     top: 0,
+        //     behavior: "smooth",
+        //     duration: 1
+        // });
     }
     async function sequence() {
         // await heroAnimation.start({y: (boxPosition.y-266), width: boxPosition.width});
@@ -153,7 +161,7 @@ function ProjectDetail(props) {
                         <div className="box-container">
                             {relatedWork.map((item) =>
                                 <div className="related-box" key={item.idx}>
-                                    <WorkBox item={item} thumb="square"/>
+                                    <WorkBox item={item}/>
                                 </div>
                             )}
                         </div>

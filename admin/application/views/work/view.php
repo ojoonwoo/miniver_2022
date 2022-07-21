@@ -113,7 +113,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
                         ?>
                     </div>
                 </div>
-                <div class="col">
+                <!-- <div class="col">
                     <label for="thumb-square" class="form-label">썸네일 정사각형</label>
                     <div class="badge bg-danger" style="width: auto;">사이즈x가이드</div>
                     <div class="input-group">
@@ -127,7 +127,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
                         }
                         ?>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="mb-3">
@@ -164,10 +164,10 @@ $this_categories = explode(', ', $work_data['work_categories']);
             </div>
         </div>
         <div class="mb-3">
-            <label for="detail-sources2" class="form-label">상세 주요 이미지2 (2개까지 가능)</label>
+            <label for="detail-sources2" class="form-label">하단 목업 이미지</label>
             <div class="badge bg-danger" style="width: auto;">사이즈x가이드</div>
             <div class="input-group">
-                <input class="form-control" type="file" id="detail-sources2" name="detail_sources2[]" multiple="multiple" accept="image/jpg, image/jpeg, image/png, image/gif, video/mp4" <?=$readonly?>>
+                <input class="form-control" type="file" id="detail-sources2" name="detail_sources2[]" accept="image/jpg, image/jpeg, image/png, image/gif, video/mp4" <?=$readonly?>>
                 <?php
                 if($action !== 'add') {
                     $source_array = explode(', ', $work_data['detail_sources2']);
@@ -214,10 +214,10 @@ $this_categories = explode(', ', $work_data['work_categories']);
                     alert('로고 이미지를 올려주세요');
                     return false;
                 }
-                if(document.getElementsByName('thumb_square[]')[0].files.length<1) {
-                    alert('정사각형 썸네일 이미지를 올려주세요');
-                    return false;
-                }
+                // if(document.getElementsByName('thumb_square[]')[0].files.length<1) {
+                //     alert('정사각형 썸네일 이미지를 올려주세요');
+                //     return false;
+                // }
                 if(document.getElementsByName('thumb_rectangle[]')[0].files.length<1) {
                     alert('직사각형 썸네일 이미지를 올려주세요');
                     return false;
