@@ -9,7 +9,6 @@ import ProjectDetail from './pages/ProjectDetail';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
 import Header from './components/Header';
-import Loader from './components/Loader';
 import './reset.css';
 import './style.scss';
 
