@@ -96,7 +96,15 @@ select {
 .Home .contents {
     padding-top: 0;
 }
-
+.global-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $black;
+    z-index: 999;
+    height: 100vh;
+    width: 100%;
+}
 #container.Contact {
     background-color: $black;
     color: $white;
