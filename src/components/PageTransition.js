@@ -1,72 +1,87 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
-// const animationConfiguration = {
-//     // default: { position: 'absolute'},
-//     initial: { opacity: 0, zIndex: 2, position: 'absolute', width: '100%'},
-//     animate: { opacity: 1 },
-//     exit: { zIndex: 1, },
-// };
-// const PageTransition = ({ children }) => {
-//     // useEffect(() => {
-//     //     console.log(children);
+import { useDispatch, useSelector } from 'react-redux';
+import { setTransitionState } from './../store';
 
-//     //     return () => {
-//     //         console.log('unmount');
-//     //     };
-//     // }, []);
-//     // return (
-//     //         <motion.div variants={animationConfiguration} initial="initial" animate="animate" exit="exit" transition={{ duration: 1 }}>
-//     //             {children}
-//     //         </motion.div>
-//     // );
-// };
 function PageTransition(props) {
-    let animationConfiguration;
-    // if(props.variantsName === 'detail') {
-    //     animationConfiguration = {
-    //         // default: { position: 'absolute'},
-    //         initial: { opacity: 0, zIndex: 2, position: 'absolute', width: '100%'},
-    //         animate: { opacity: 1 },
-    //         exit: { zIndex: 1, },
-    //     };
-    // } else {
+    const pageAnimate = useAnimation();
+    const loaderAnimate = useAnimation();
 
-    animationConfiguration = {
-        // default: { position: 'absolute'},
-        initial: {
-            opacity: 0,
-            zIndex: 2,
-            position: 'absolute',
-            width: '100%',
-        },
+    let transitionState = useSelector((state) => {
+        return state.transitionState;
+    });
+
+    let dispatch = useDispatch();
+
+    const animateSequence = async () => {
+        if (transitionState === 'initial') {
+            await loaderAnimate.set({ y: 0 });
+            await pageAnimate.start({ opacity: 1, transition: { duration: 0.3 } });
+            return await loaderAnimate.start({ y: '-100%', transition: { duration: 1 } }); 
+        } else {
+            await loaderAnimate.start({ y: 0, transition: { duration: 0.6 } });
+            await pageAnimate.start({ opacity: 1, transition: { duration: 0.3 } });
+            return await loaderAnimate.start({ y: '-100%', transition: { duration: 1 } });
+        }
+    };
+
+    useEffect(() => {
+        console.log(transitionState);
+        animateSequence();
+    }, [transitionState]);
+
+    const containerVariants = {
         animate: {
             opacity: 1,
-            transition: {
-                delay: 1,
-            },
         },
         exit: {
             opacity: 0,
-            zIndex: 1,
             transition: {
-                duration: 1,
-                ease: [0.83, 0, 0.17, 1],
+                duration: 2,
+                when: 'afterChildren',
             },
         },
     };
-    // }
+
+    const animationConfiguration = {
+        initial: {
+            opacity: 0,
+            zIndex: 2,
+            transition: {
+                duration: 0.5,
+            },
+        },
+    };
+    const loaderConf = {
+        initial: {
+            y: '-100%',
+            transition: {
+                duration: 0.3,
+            },
+        },
+        exit: {
+            y: '-100%',
+        },
+    };
+
     useEffect(() => {
         console.log(props);
         console.log('page transition mount');
+        animateSequence();
+        if (transitionState === 'initial') {
+            dispatch(setTransitionState('animate'));
+        }
         return () => {
             console.log('page transition unmount');
         };
     }, []);
     return (
-        // <motion.div variants={animationConfiguration} initial="initial" animate="animate" exit="exit" transition={{ duration: 2 }}>
-        <motion.div variants={animationConfiguration} initial="initial" animate="animate" exit="exit">
-            {props.children}
+        <motion.div style={{ position: 'absolute', top: 0, left: 0, width: '100%' }} variants={containerVariants} animate="animate" exit="exit">
+            <motion.div variants={loaderConf} initial="initial" animate={loaderAnimate} className="global-loader"></motion.div>
+            <motion.div variants={animationConfiguration} initial="initial" animate={pageAnimate}>
+                {props.children}
+            </motion.div>
         </motion.div>
     );
 }

@@ -91,7 +91,7 @@ function Home(props) {
                 </div>
                 {isMobile ? null : <Footer />}
             </div>
-        // {/* </motion.div> */}
+        {/* // </motion.div> */}
         </PageTransition>
     );
 }
