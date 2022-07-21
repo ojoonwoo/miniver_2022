@@ -59,8 +59,8 @@ function ProjectDetail(props) {
     }
 
     return (
-        // <PageTransition variantsName="detail">
-            // {/* <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
+        <PageTransition variantsName="detail">
+            {/* // <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
             <div id="container" className={props.pageName}>
                 <div className="contents">
                     {/* <div className="project-detail__top-block"> */}
@@ -122,7 +122,7 @@ function ProjectDetail(props) {
                     {/* </div> */}
                 </div>
             </div>
-        // </PageTransition>
+        </PageTransition>
     );
 }
 

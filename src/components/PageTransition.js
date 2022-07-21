@@ -16,18 +16,24 @@ function PageTransition(props) {
 
     const animateSequence = async () => {
         if (transitionState === 'initial') {
-            await loaderAnimate.set({ y: 0 });
+            if(props.variantsName !== 'detail') {
+                await loaderAnimate.set({ y: 0 });
+            }
             await pageAnimate.start({ opacity: 1, transition: { duration: 0.3 } });
             return await loaderAnimate.start({ y: '-100%', transition: { duration: 1 } }); 
-        } else {
-            await loaderAnimate.start({ y: 0, transition: { duration: 0.6 } });
+        } else if(transitionState === 'animate') {
+            if(props.variantsName !== 'detail') {
+                await loaderAnimate.start({ y: 0, transition: { duration: 0.6 } });
+            }
             await pageAnimate.start({ opacity: 1, transition: { duration: 0.3 } });
             return await loaderAnimate.start({ y: '-100%', transition: { duration: 1 } });
+        } else {
+            console.log('애니메이트 시퀀스 none');
         }
     };
 
     useEffect(() => {
-        console.log(transitionState);
+        console.log('*** 트랜지션 스테이트:',transitionState);
         animateSequence();
     }, [transitionState]);
 
@@ -71,6 +77,8 @@ function PageTransition(props) {
         animateSequence();
         if (transitionState === 'initial') {
             dispatch(setTransitionState('animate'));
+        } else if (props.variantsName === 'detail') {
+            // dispatch(setTransitionState('none'));
         }
         return () => {
             console.log('page transition unmount');
