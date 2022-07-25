@@ -116,7 +116,7 @@ select {
     > .inner {
         width: 100%;
         // border: 1px solid red;
-        padding: 0 8.5rem;
+        padding: 0 3rem;
         .title-block {
             margin-bottom: 4rem;
             .title-num {
@@ -141,41 +141,44 @@ select {
                 letter-spacing: -0.03em;
             }
         }
-        .select-block {
+        .input-block {
             // padding-right: 33%;
             .inner {
                 box-sizing: border-box;
-                // border: 1px solid red;
                 display: flex;
                 flex-wrap: wrap;
-                button,
-                input[type='text'] {
-                    padding: 1rem 3rem 1rem 2.5rem;
-                    border: 1px solid $white;
-                    color: $white;
-                    border-radius: 6rem;
-                    font-weight: 400;
-                    font-size: 1.4rem;
-                    line-height: 1.7rem;
+                .input-wrap {
+                    width: 100%;
                     margin-bottom: 1rem;
-                    margin-right: 1rem;
+                    label {
+                        padding: 1rem 3rem 1rem 2.5rem;
+                        border: 1px solid $white;
+                        color: $white;
+                        border-radius: 6rem;
+                        font-weight: 400;
+                        font-size: 1.4rem;
+                        line-height: 1.7rem;
+                        display: inline-block;
+                        input {
+                            opacity: 0;
+                            visibility: hidden;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            &:checked {
+                                background-color: #fff;
+                            }
+                        }
+                    }
                     &:last-child {
                         margin-bottom: 0;
                     }
                 }
-                input[type='text'] {
-                    width: 15.7rem;
-                }
-                // button:nth-child(3) {
-                //     margin-right: 40rem;
-                // }
-                input[type='text']::placeholder {
-                    color: rgba(255, 255, 255, 0.3);
-                }
-                input:focus {
-                    outline: none;
-                }
-                
+                button {
+                    width: 4.4rem;
+                    height: 4.4rem;
+                    border: 1px solid blue;
+                } 
             }
         }
     }
