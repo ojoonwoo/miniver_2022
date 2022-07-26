@@ -1,8 +1,8 @@
 function ArrowRight() {
     return (
-            <svg className="arrow__right" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1.08289 9.99997H48.3746L39.6315 1.08228" stroke="white" strokeWidth="2" strokeLinecap="round" />
-            </svg>
+        <svg width="44" height="10" viewBox="0 0 44 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 9.02397H42.4242L34.7659 1.21271" stroke="white" strokeLinecap="round" />
+        </svg>
     );
 }
 

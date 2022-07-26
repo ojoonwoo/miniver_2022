@@ -30,9 +30,12 @@ let contactState = createSlice ({
   name: 'contactState',
   initialState: {
     step: 1,
-    category: [],
+    category: {},
     description: "",
-    schedule: [],
+    schedule: {
+      startDate: null,
+      endDate: null
+    },
     budget: 0,
     company: "",
     name: "",

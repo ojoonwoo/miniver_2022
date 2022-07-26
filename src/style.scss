@@ -58,7 +58,6 @@ select {
     // background-color: #ffffff;
 }
 
-
 .grid-inner {
     width: 100%;
     padding: 0 3rem;
@@ -117,68 +116,149 @@ select {
         width: 100%;
         // border: 1px solid red;
         padding: 0 3rem;
-        .title-block {
-            margin-bottom: 4rem;
-            .title-num {
-                // ! 나중에 폰트 웨이트 변수로 변경, 볼드, 라이트볼드 등등으로
-                font-weight: 700;
-                font-size: 1.9rem;
-                line-height: 2.2rem;
-                letter-spacing: -0.03em;
-                margin-bottom: 1rem;
-            }
-            .title {
-                font-weight: 700;
-                font-size: 2.1rem;
-                line-height: 2.5rem;
-                letter-spacing: -0.03em;
-                margin-bottom: 1.3rem;
-            }
-            .title-desc {
-                font-weight: 400;
-                font-size: 1.1rem;
-                line-height: 2.2rem;
-                letter-spacing: -0.03em;
-            }
-        }
-        .input-block {
-            // padding-right: 33%;
-            .inner {
-                box-sizing: border-box;
-                display: flex;
-                flex-wrap: wrap;
-                .input-wrap {
-                    width: 100%;
-                    margin-bottom: 1rem;
-                    label {
-                        padding: 1rem 3rem 1rem 2.5rem;
-                        border: 1px solid $white;
-                        color: $white;
-                        border-radius: 6rem;
+        .surveys {
+            .survey-item {
+                .title-block {
+                    margin-bottom: 8rem;
+                    .title-num {
+                        // ! 나중에 폰트 웨이트 변수로 변경, 볼드, 라이트볼드 등등으로
+                        font-weight: 700;
+                        font-size: 1.9rem;
+                        line-height: 2.2rem;
+                        letter-spacing: -0.03em;
+                        margin-bottom: 1rem;
+                    }
+                    .title {
+                        font-weight: 700;
+                        font-size: 2.1rem;
+                        line-height: 2.5rem;
+                        letter-spacing: -0.03em;
+                        margin-bottom: 1.3rem;
+                    }
+                    .title-desc {
                         font-weight: 400;
-                        font-size: 1.4rem;
-                        line-height: 1.7rem;
-                        display: inline-block;
-                        input {
-                            opacity: 0;
-                            visibility: hidden;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            &:checked {
-                                background-color: #fff;
+                        font-size: 1.1rem;
+                        line-height: 2.2rem;
+                        letter-spacing: -0.03em;
+                    }
+                }
+                &[data-idx='1'] .title-block {
+                    margin-bottom: 4rem;
+                }
+                &[data-idx='5'] input {
+                    margin-bottom: 0.8rem;
+                }
+                .input-block {
+                    // padding-right: 33%;
+                    > .inner {
+                        box-sizing: border-box;
+                        display: flex;
+                        flex-wrap: wrap;
+                        .input-box {
+                            > .inner {
+                                display: inline-block;
+                            }
+                            width: 100%;
+                            margin-bottom: 1rem;
+                            input {
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 17px;
+                                color: $white;
+                                width: 20rem;
+                                height: 3.6rem;
+                                border-bottom: 1px solid #d9d9d9;
+                                padding: 1rem;
+                                &:focus {
+                                    outline: none;
+                                }
+                            }
+                            input[type='text'] {
+                                width: 20rem;
+                                height: 3.6rem;
+                                border-bottom: 1px solid #d9d9d9;
+                                padding: 1rem;
+                            }
+                            label {
+                                display: inline-block;
+                                > input {
+                                    opacity: 0;
+                                    visibility: hidden;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    &:checked + .btn-checkbox {
+                                        background-color: red;
+                                    }
+                                }
+                                .btn-checkbox {
+                                    padding: 1rem 3rem 1rem 2.5rem;
+                                    border: 1px solid $white;
+                                    color: $white;
+                                    border-radius: 6rem;
+                                    font-weight: 400;
+                                    font-size: 1.4rem;
+                                    line-height: 1.7rem;
+                                    display: inline-block;
+                                }
+                            }
+                            &:last-of-type {
+                                margin-bottom: 5.8rem;
+                            }
+                            &#dateInput {
+                                // border: 1px solid red;
+                                > .inner {
+                                    display: flex;
+                                    align-items: center;
+                                    width: fit-content;
+                                    border-bottom: 1px solid #d9d9d9;
+                                    span {
+                                        font-weight: 400;
+                                        font-size: 1.4rem;
+                                        line-height: 1.7rem;
+                                        color: rgba(255, 255, 255, 0.3);
+                                    }
+                                    .react-datepicker-wrapper {
+                                        width: auto;
+                                        input {
+                                            width: 9.6rem;
+                                            padding: 0;
+                                            text-align: center;
+                                            border-bottom: 0;
+                                        }
+                                    }
+                                }
+                            }
+                            &#budgetInput {
+                                > .inner {
+                                    position: relative;
+                                    span {
+                                        position: absolute;
+                                        font-weight: 400;
+                                        font-size: 1.4rem;
+                                        line-height: 1.7rem;
+                                        color: rgba(255, 255, 255, 0.3);
+                                        top: calc(50% - 0.85rem);
+                                        right: 1rem;
+                                    }
+                                    input {
+                                        padding: 1rem 5rem 1rem 1rem;
+                                    }
+                                }
+                            }
+                        }
+                        button {
+                            width: 4.4rem;
+                            height: 4.4rem;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            svg {
+                                margin-top: -0.6rem;
                             }
                         }
                     }
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
                 }
-                button {
-                    width: 4.4rem;
-                    height: 4.4rem;
-                    border: 1px solid blue;
-                } 
             }
         }
     }
