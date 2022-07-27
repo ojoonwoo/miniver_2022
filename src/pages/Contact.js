@@ -89,7 +89,7 @@ function Contact(props) {
             method: 'post',
             url: '/api/contact/insert',
             data: {
-                category: JSON.stringify(contactState.category),
+                category: contactState.category.toString(),
                 description: contactState.description,
                 schedule: contactState.schedule,
                 budget: contactState.budget,
@@ -161,7 +161,7 @@ function Contact(props) {
                 dispatch(
                     setContactState({
                         step: 2,
-                        category: categoryArr,
+                        category: categoryArr.sort(),
                         description: contactState.description,
                         schedule: contactState.schedule,
                         budget: contactState.budget,

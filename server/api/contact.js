@@ -20,9 +20,10 @@ router.post('/insert', function(req, res) {
     let email = req.body.email;
 
 
-    const query = `insert into contact_info (project_categories, project_description, project_start_date, project_end_date, project_budget, company_name, manager_name, manager_phone, manager_email) values (${categories}, ${description}, ${startDate}, ${endDate}, ${budget}, ${company}, ${name}, ${phone}, ${email})`;
+    const query = `insert into contact_info (project_categories, project_description, project_start_date, project_end_date, project_budget, company_name, manager_name, manager_phone, manager_email) values ('${categories}', '${description}', '${startDate}', '${endDate}', '${budget}', '${company}', '${name}', '${phone}', '${email}')`;
 
     db.query(query, (err, results, fields) => {
+        console.log(fields);
         if(!err) {
             console.log('result', results);
             res.send('insert 성공');
