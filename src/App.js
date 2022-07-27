@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useSelector } from 'react-redux';
+
 import Home from './pages/Home';
 import About from './pages/About';
 import Project from './pages/Project';
@@ -9,6 +10,7 @@ import ProjectDetail from './pages/ProjectDetail';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
 import Header from './components/Header';
+
 import './reset.css';
 import './style.scss';
 
@@ -20,6 +22,7 @@ function App() {
         return state.themeColor;
     });
     const location = useLocation();
+    
     return (
         <div className="App" data-theme={themeColor}>
             <AnimatePresence>

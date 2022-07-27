@@ -1,7 +1,9 @@
 @import '../variable.scss';
 
 header {
-    position: absolute;
+    // display: none;
+    // position: absolute;
+    position: fixed;
     // color: $white;
     top: 0;
     left: 0;

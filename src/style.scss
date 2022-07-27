@@ -11,9 +11,12 @@
 
 html {
     font-size: 62.5%;
+    height: 100%;
+    overflow: hidden;
 }
 
 body {
+    height: 100%;
     margin: 0;
     /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -24,13 +27,31 @@ body {
     line-height: 1;
     letter-spacing: -0.01em;
     color: $black;
-
     -ms-overflow-style: none;
+    overflow: hidden;
+    -ms-scroll-chaining: none;
+    overscroll-behavior: none;
 }
 
-::-webkit-scrollbar {
-    display: none;
+[data-scroll-container] {
+    height: 100%;
+    overflow: hidden auto;
+    -ms-scroll-chaining: none;
+    overscroll-behavior: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
+
+.site-content {
+    height: 100%;
+    width: 100%;
+}
+
+// ::-webkit-scrollbar {
+//     display: none;
+// }
 
 img {
     max-width: 100%;
@@ -205,14 +226,16 @@ select {
 
 #container.ProjectDetail {
     .small-title {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         font-weight: 700;
     }
     .project-detail__top-block {
         position: relative;
-        padding: 1rem 3rem 3rem;
+        // padding: 1rem 3rem 3rem;
+        padding: 0 3rem;
         opacity: 0;
         .project-detail__title {
+            padding-top: 1rem;
             margin-bottom: 1.2rem;
             line-height: 1.2;
             padding-right: 6rem;
@@ -226,6 +249,7 @@ select {
             display: flex;
             flex-wrap: wrap;
             margin: 1.5rem 0 0;
+            padding-bottom: 3rem;
             .project-detail__category {
                 padding: 1rem 1.5rem;
                 margin-right: 1rem;
@@ -249,7 +273,21 @@ select {
     .project-detail__hero {
         // margin-top: 170px;
         // padding: 0 3rem;
+        position: relative;
         margin: 0 auto;
+        padding-bottom: 72%;
+    }
+    .project-detail__hero .hero-box {
+        position: absolute;
+        height: 100%;
+    }
+    .project-detail__hero .hero-box > div {
+        height: 100%;
+    }
+    .project-detail__hero .hero-box img,
+    .project-detail__hero .hero-box video {
+        height: 100%;
+        object-fit: cover;
     }
     .project-detail__middle-block {
         opacity: 0;
@@ -262,7 +300,6 @@ select {
             &:last-child {
                 margin-bottom: 0;
                 dd {
-                    font-size: 1rem;
                     font-weight: 400;
                 }
             }
@@ -306,6 +343,7 @@ select {
         }
     }
     .project-detail__bottom-block {
+        opacity: 0;
         background-color: #f1f1f1;
         padding: 3.6rem 0 2.7rem;
         text-align: center;

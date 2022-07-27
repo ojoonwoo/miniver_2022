@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { motion, useAnimation } from 'framer-motion';
+import { createDomMotionComponent, motion, useAnimation } from 'framer-motion';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +8,9 @@ import PageTransition from '../components/PageTransition';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import WorkBox from '../components/WorkBox';
+import * as common from './../CommonFunction';
+import useResizeObserver from '@react-hook/resize-observer'
+
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -15,28 +18,28 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 function ProjectDetail(props) {
+    const heroAnimation = useAnimation();
+    const otherAnimation = useAnimation();
     const params = useParams();
     const location = useLocation();
-    const boxRef = useRef(null);
-    console.log(location.state);
-    const boxPosition = location.state;
+    const [heroBoxPosition, setBoxPosition] = useState(null);
+    const [goScrollTop, setScrollTop] = useState(false);
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
-
+    const [topBlockHeight, setTopBlockHeight] = useState(null);
+    
+    // const [rect, ref] = useClientRect();
+    const rectRef = useRef(null);
+    const rectSize = useSize(rectRef);
+    
     let dispatch = useDispatch();
 
     const [projectData, setProjectData] = useState([]);
     const [relatedWork, setRelatedWork] = useState([]);
+
     
     useEffect(() => {
-        // animation
-        // document.documentElement.scrollTo({
-        //     top: 0,
-        //     behavior: "smooth"
-        // });
-        // console.log('detail', boxRef.current.getBoundingClientRect());
-        // console.log('move', boxRef.current.getBoundingClientRect().y - boxPosition.y);
         dispatch(changeColor('black'));
         async function getProjectData() {
             const result = await axios({
@@ -50,49 +53,95 @@ function ProjectDetail(props) {
                 method: 'get',
                 url: '/api/work/getlist',
                 params: { cate: result.data.work_categories.substring(0, 1), exclude: result.data.idx, limit: 3}
-            })
+            });
             setRelatedWork(relatedWork.data.list);
+            
         }
         getProjectData();
-        sequence();
-            console.log('project detail mount');
+        
+        console.log('project detail mount');
         return () => {
             console.log('project detail unmount');
         };
     }, []);
+    
+    useEffect(() => {
+        if(projectData.length<1) {return};
+        if(!rectSize)  {return;}
+        setTopBlockHeight(rectSize.y+rectSize.height);
+        setBoxPosition(location.state);
+        if(heroBoxPosition !== null && topBlockHeight !== null)  {
+            console.log('state changed');
+            sequence();
+        }
+    }, [heroBoxPosition, topBlockHeight, rectSize]);
+    // useEffect(() => {
+    //     console.log('rect detect');
+    //     // setTopBlockHeight(topBlockRef.current.clientHeight);
+    //     if(rect === null)  {return;}
+     
+    //     setTopBlockHeight(rect.y+rect.height);
+    //     console.log(rect.y+rect.height);
+    //     setBoxPosition(location.state);
+    //     if(heroBoxPosition !== null) {
+    //         console.log('state changed');
+    //         sequence();
+    //     }
+    // }, [heroBoxPosition, topBlockHeight, rect]);
 
-    const heroAnimation = useAnimation();
-    const otherAnimation = useAnimation();
-    const scrollTopAnim = () => {
-        // window.scrollTo(0, 0);
-        // document.documentElement.scrollTo({
-        //     top: 0,
-        //     behavior: "smooth",
-        //     duration: 1
-        // });
+    const animInit = () => {
+        return new Promise(function(resolve, reject) {
+            // heroAnimation.set({
+            //     y: heroBoxPosition.pageY
+            // })
+            heroAnimation.set({
+                x: heroBoxPosition.x,
+                y: -(topBlockHeight + 137) + heroBoxPosition.y,
+                width: heroBoxPosition.width,
+                height: heroBoxPosition.height
+            });
+            // window.scrollTo(0, 0);
+            // document.documentElement.scrollTo({
+            //     top: 0,
+            //     behavior: "smooth",
+            //     duration: 0.1
+            // });
+            resolve(true);
+        });
     }
     async function sequence() {
         // await heroAnimation.start({y: (boxPosition.y-266), width: boxPosition.width});
-        await scrollTopAnim();
-        await heroAnimation.start({ y: 0, transition: {duration: 0.5, delay: 0.5} });
-        await heroAnimation.start({ width: '100%',
-            
+        // await animInit();
+        await heroAnimation.start({ y: 0,
+            transition: {duration: 0.3, delay: 0.5, ease: 'circOut'}
+            // transition: {duration: 0.5}
         });
-        await otherAnimation.start({ opacity: 1,
-            transition:{duration: 0.3, delay: 0.5}
+        await heroAnimation.start({ x: 0, width: '100%', height: '100%',
+            transition: {duration: 0.3, delay: 0.05, ease: 'circOut'}
+        });
+        return await otherAnimation.start({ opacity: 1,
+            transition:{duration: 0.2, delay: 0}
         });
         // await middleAnimation.start({ opacity: 1,
         //     transition:{duration: 0.3}
         // })
     }
 
+    const goTopHandler = () => {
+        setScrollTop(true);
+        console.log(goScrollTop);
+        setTimeout(function() {
+            setScrollTop(false);
+        }, 1000);
+    }
+
+
     return (
-        <PageTransition variantsName="detail">
+        <PageTransition variantsName="detail" goScrollTop={goScrollTop}>
             {/* // <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
             <div id="container" className={props.pageName}>
                 <div className="contents">
-                    {/* <div className="project-detail__top-block"> */}
-                    <motion.div animate={otherAnimation} className="project-detail__top-block">
+                    <motion.div animate={otherAnimation} className="project-detail__top-block" ref={rectRef}>
                         <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
                         <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
                         <div className="project-detail_categories">
@@ -107,11 +156,18 @@ function ProjectDetail(props) {
                             <span>View List</span>
                         </Link>
                     </motion.div>
-                    {/* </div> */}
-                    {/* <div className="project-detail__hero">{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</div> */}
-                    <motion.div initial={boxPosition&&{y: (boxPosition.y-266), width: boxPosition.width}} animate={heroAnimation} className="project-detail__hero" ref={boxRef}>{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div>
-                    {/* <motion.div animate={heroAnimation} transition={{delay: 0.5, duration: 0.5}} className="project-detail__hero" ref={boxRef}>{projectData.hero_source && <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>}</motion.div> */}
-                    {/* <div className="project-detail__middle-block"> */}
+                    {projectData.category_names && heroBoxPosition && rectSize !== null &&
+                    <div className="project-detail__hero">
+                        <motion.div className="hero-box" initial={{
+                            x: heroBoxPosition.x,
+                            y: (-(topBlockHeight + 107) + heroBoxPosition.y),
+                            width: heroBoxPosition.width,
+                            height: heroBoxPosition.height
+                            }} animate={heroAnimation}>
+                            <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>
+                        </motion.div>
+                    </div>
+                    }
                     <motion.div animate={otherAnimation} className="project-detail__middle-block">
                         <div className="grid-inner">
                             <div className="project-detail__desc">
@@ -156,7 +212,7 @@ function ProjectDetail(props) {
                             </div>
                         </div>
                     </motion.div>
-                    <div className="project-detail__bottom-block">
+                    <motion.div animate={otherAnimation} className="project-detail__bottom-block">
                         <p className="small-title">Related Work</p>
                         <div className="box-container">
                             {relatedWork.map((item) =>
@@ -165,9 +221,9 @@ function ProjectDetail(props) {
                                 </div>
                             )}
                         </div>
-                        <button type="button" className="go-top">Back to top</button>
+                        <button type="button" className="go-top" onClick={goTopHandler}>Back to top</button>
                     {/* </div> */}
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </PageTransition>
@@ -186,6 +242,29 @@ function ImageVideo(props) {
         item = <img src={props.src} />;
     }
     return <div>{item}</div>;
+}
+
+// hook으로 빼기
+function useClientRect() {
+    const [rect, setRect] = useState(null);
+    const ref = useCallback(node => {
+      if (node !== null) {
+        setRect(node.getBoundingClientRect());
+      }
+    }, []);
+    return [rect, ref];
+}
+
+const useSize = (target) => {
+    const [size, setSize] = useState();
+    
+    useLayoutEffect(() => {
+        setSize(target.current.getBoundingClientRect())
+    }, [target]);
+    
+    // Where the magic happens
+    useResizeObserver(target, (entry) => setSize(entry.contentRect));
+    return size;
 }
 
 export default ProjectDetail;
