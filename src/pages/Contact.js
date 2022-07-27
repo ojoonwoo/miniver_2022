@@ -49,11 +49,27 @@ function Contact(props) {
         getCategoryData();
         return () => {
             console.log('컨텍트 언마운트');
+            dispatch(
+                setContactState({
+                    step: 1,
+                    category: null,
+                    description: null,
+                    schedule: null,
+                    budget: null,
+                    company: null,
+                    name: null,
+                    phone: null,
+                    email: null,
+                })
+            );
         };
     }, []);
 
     useEffect(() => {
         setActive(contactState.step);
+        if(contactState.step === 6) {
+            insertContactData();
+        }
         return () => {};
     }, [contactState.step]);
 
@@ -67,17 +83,37 @@ function Contact(props) {
         console.log(result.data.list);
     };
 
-    const inputHandler = ({ target }) => {
+    const insertContactData = async () => {
+        console.log(contactState);
+        const result = await axios({
+            method: 'post',
+            url: '/api/contact/insert',
+            data: {
+                category: JSON.stringify(contactState.category),
+                description: contactState.description,
+                schedule: contactState.schedule,
+                budget: contactState.budget,
+                company: contactState.company,
+                name: contactState.name,
+                phone: contactState.phone,
+                email: contactState.email,
+            }
+        });
+        console.log(result);
+    };
+
+    const inputHandler = ({ target }, idx) => {
         console.log(target);
         console.log(target.value);
         console.log(target.checked);
         switch (contactState.step) {
             case 1:
+                // console.log(idx);
                 if (target.checked === true) {
-                    checkedList.add(target.value);
+                    checkedList.add(idx);
                     setCheckedList(checkedList);
                 } else {
-                    checkedList.delete(target.value);
+                    checkedList.delete(idx);
                     setCheckedList(checkedList);
                 }
                 break;
@@ -152,14 +188,21 @@ function Contact(props) {
                 );
                 break;
             case 3:
+                let sDate = JSON.stringify(startDate);
+                sDate = sDate.substring(1, 11);
+                let eDate = JSON.stringify(endDate);
+                eDate = eDate.substring(1, 11);
+
                 dispatch(
                     setContactState({
                         step: 4,
                         category: contactState.category,
                         description: contactState.description,
                         schedule: {
-                            startDate: startDate.getFullYear() + '년 ' + (startDate.getMonth() + 1) + '월 ' + startDate.getDate() + '일',
-                            endDate: endDate.getFullYear() + '년 ' + (endDate.getMonth() + 1) + '월 ' + endDate.getDate() + '일',
+                            // startDate: startDate.getFullYear() + '년 ' + (startDate.getMonth() + 1) + '월 ' + startDate.getDate() + '일',
+                            // endDate: endDate.getFullYear() + '년 ' + (endDate.getMonth() + 1) + '월 ' + endDate.getDate() + '일',
+                            startDate: sDate,
+                            endDate: eDate
                         },
                         budget: budget,
                         company: contactState.company,
@@ -198,6 +241,7 @@ function Contact(props) {
                         email: email,
                     })
                 );
+                // ! DB 통신
                 break;
             default:
                 break;
@@ -255,7 +299,7 @@ function Contact(props) {
                                                             type="checkbox"
                                                             value={item.category_name}
                                                             onChange={(e) => {
-                                                                inputHandler(e);
+                                                                inputHandler(e, item.idx);
                                                             }}
                                                         />
                                                         <div className="btn-checkbox">
@@ -272,7 +316,7 @@ function Contact(props) {
                                                         type="checkbox"
                                                         value="기타"
                                                         onChange={(e) => {
-                                                            inputHandler(e);
+                                                            inputHandler(e, 999);
                                                         }}
                                                     />
                                                     <div className="btn-checkbox">
@@ -307,8 +351,8 @@ function Contact(props) {
                                                     onChange={(e) => {
                                                         inputHandler(e);
                                                     }}
-                                                    autocomplete="off"
-                                                    spellcheck="false"
+                                                    autoComplete="off"
+                                                    spellCheck="false"
                                                 />
                                             </div>
                                         </div>
@@ -340,8 +384,8 @@ function Contact(props) {
                                                     onChange={(e) => {
                                                         inputHandler(e);
                                                     }}
-                                                    autocomplete="off"
-                                                    spellcheck="false"
+                                                    autoComplete="off"
+                                                    spellCheck="false"
                                                 />
                                                 <span>만원</span>
                                             </div>
@@ -372,8 +416,8 @@ function Contact(props) {
                                                     onChange={(e) => {
                                                         inputHandler(e);
                                                     }}
-                                                    autocomplete="off"
-                                                    spellcheck="false"
+                                                    autoComplete="off"
+                                                    spellCheck="false"
                                                 />
                                             </div>
                                         </div>
@@ -404,8 +448,8 @@ function Contact(props) {
                                                     onChange={(e) => {
                                                         inputHandler(e);
                                                     }}
-                                                    autocomplete="off"
-                                                    spellcheck="false"
+                                                    autoComplete="off"
+                                                    spellCheck="false"
                                                 />
                                                 <input
                                                     id="phoneInput"
@@ -415,8 +459,8 @@ function Contact(props) {
                                                     onChange={(e) => {
                                                         inputHandler(e);
                                                     }}
-                                                    autocomplete="off"
-                                                    spellcheck="false"
+                                                    autoComplete="off"
+                                                    spellCheck="false"
                                                 />
                                                 <input
                                                     id="emailInput"
@@ -426,8 +470,8 @@ function Contact(props) {
                                                     onChange={(e) => {
                                                         inputHandler(e);
                                                     }}
-                                                    autocomplete="off"
-                                                    spellcheck="false"
+                                                    autoComplete="off"
+                                                    spellCheck="false"
                                                 />
                                             </div>
                                         </div>
