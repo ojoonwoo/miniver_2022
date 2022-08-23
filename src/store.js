@@ -29,14 +29,14 @@ export let {setTransitionState} = transitionState.actions;
 let contactState = createSlice ({
   name: 'contactState',
   initialState: {
-    step: 1,
-    category: {},
+    step: 5,
+    category: [],
     description: "",
     schedule: {
-      startDate: null,
-      endDate: null
+      startDate: "",
+      endDate: ""
     },
-    budget: 0,
+    budget: "",
     company: "",
     name: "",
     phone: "",

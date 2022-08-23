@@ -31,8 +31,8 @@ function Contact(props) {
     // * step 2 내용 인풋 state
     const [description, setDescription] = useState('');
     // * step 3 일정 인풋 state
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [budget, setBudget] = useState('');
     // * step 4 브랜드 또는 회사명 인풋 state
     const [company, setCompany] = useState('');
@@ -67,7 +67,7 @@ function Contact(props) {
 
     useEffect(() => {
         setActive(contactState.step);
-        if(contactState.step === 6) {
+        if (contactState.step === 6) {
             insertContactData();
         }
         return () => {};
@@ -85,19 +85,57 @@ function Contact(props) {
 
     const insertContactData = async () => {
         console.log(contactState);
+        let category = contactState.category.toString().replace(/,/g, ', ');
+        let phone = '';
+        console.log(contactState.phone.length);
+        // ! 앞의 두자리 01
+        // ! 02, 070, 080, 1566
+        // ! 9자리면 맨 뒤 부터 4 - 3 -
+        // ! 10자리면 앞에 두번째를 확인
+        // ! 1. 앞에 두번째가 1보다 크면 4 -
+        switch (contactState.phone.length) {
+            case 11:
+                // * 전화번호 11자리 일때
+                // * 010, 070, 080
+                // * xxx - xxxx - xxxx로 변환 
+                phone = contactState.phone.replace(/^(\d{3})(\d{4})(\d{4})$/, `$1-$2-$3`);
+                break;
+            case 10:
+                // * 전화번호 10자리 일때
+                // * 두번째 숫자가 2라면
+                // * x2 - xxxx - xxxx로 변환
+                // * 두번째 숫자가 2보다 크다면
+                // * xxx - xxx - xxxx로 변환
+                console.log(contactState.phone.charAt(1));
+                if(contactState.phone.charAt(1) === '2') {
+                    phone = contactState.phone.replace(/^(\d{2})(\d{4})(\d{4})$/, `$1-$2-$3`);
+                } else {
+                    phone = contactState.phone.replace(/^(\d{3})(\d{3})(\d{4})$/, `$1-$2-$3`);
+                }
+                break;
+            case 9:
+                // * 전화번호 9자리 일때
+                // * xx - xxx - xxxx로 변환
+                phone = contactState.phone.replace(/^(\d{2})(\d{3})(\d{4})$/, `$1-$2-$3`);
+                break;
+            default:
+                break;
+        }
+        console.log(phone);
+        return false;
         const result = await axios({
             method: 'post',
             url: '/api/contact/insert',
             data: {
-                category: contactState.category.toString(),
+                category: category,
                 description: contactState.description,
                 schedule: contactState.schedule,
                 budget: contactState.budget,
                 company: contactState.company,
                 name: contactState.name,
-                phone: contactState.phone,
+                phone: phone,
                 email: contactState.email,
-            }
+            },
         });
         console.log(result);
     };
@@ -130,9 +168,14 @@ function Contact(props) {
                 console.log(target.id);
                 switch (target.id) {
                     case 'nameInput':
+                        // target.value = target.value.replace(/^?[a-zA-Zㄱ-힣|\s]/g, '');
                         setName(target.value);
                         break;
                     case 'phoneInput':
+                        target.value = target.value.replace(/[^0-9.]/g, '').replace(/[~!@\#$%^&*\()\-=+_'\s\;<>\/.\`:\"\\,\[\]?|{}]/gi, '');
+                        if (target.value.length > 11) {
+                            return false;
+                        }
                         setPhone(target.value);
                         break;
                     case 'emailInput':
@@ -149,9 +192,56 @@ function Contact(props) {
     };
 
     const contactStateHandler = () => {
-        if (contactState.step === 1 && checkedList.size === 0) {
-            alert('문의하실 카테고리를 선택해주세요');
-            return false;
+        switch (contactState.step) {
+            case 1:
+                if (checkedList.size === 0) {
+                    alert('문의하실 프로젝트를 선택해주세요');
+                    return false;
+                }
+                break;
+            case 2:
+                if (!description) {
+                    alert('프로젝트 내용을 입력해주세요');
+                    return false;
+                }
+                break;
+            case 3:
+                if (!startDate || !endDate) {
+                    alert('일정을 입력해주세요');
+                    return false;
+                }
+                if (!budget) {
+                    alert('예산을 입력해주세요');
+                    return false;
+                }
+                break;
+            case 4:
+                if (!company) {
+                    alert('브랜드 또는 회사명을 입력해주세요');
+                    return false;
+                }
+                break;
+            case 5:
+                const regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+                if (!name) {
+                    alert('성함을 입력해주세요');
+                    return false;
+                }
+                if (!phone) {
+                    alert('휴대폰 번호를 입력해주세요');
+                    return false;
+                }
+                if (!email) {
+                    alert('이메일 주소를 입력해주세요');
+                    return false;
+                }
+                if (!regex.test(email)) {
+                    alert('이메일 형식을 확인해주세요');
+                    return false;
+                }
+                break;
+            default:
+                break;
         }
         console.log(contactState.step);
         // ! 중복되는 부분 수정해야함
@@ -202,7 +292,7 @@ function Contact(props) {
                             // startDate: startDate.getFullYear() + '년 ' + (startDate.getMonth() + 1) + '월 ' + startDate.getDate() + '일',
                             // endDate: endDate.getFullYear() + '년 ' + (endDate.getMonth() + 1) + '월 ' + endDate.getDate() + '일',
                             startDate: sDate,
-                            endDate: eDate
+                            endDate: eDate,
                         },
                         budget: budget,
                         company: contactState.company,
@@ -453,7 +543,7 @@ function Contact(props) {
                                                 />
                                                 <input
                                                     id="phoneInput"
-                                                    type="number"
+                                                    type="text"
                                                     placeholder="휴대폰 번호"
                                                     value={phone}
                                                     onChange={(e) => {
@@ -488,11 +578,10 @@ function Contact(props) {
                                         <br />
                                         빠른 회신 드리겠습니다.
                                     </h2>
-                                    <h2 className='title'>감사합니다.</h2>
+                                    <h2 className="title">감사합니다.</h2>
                                 </div>
                                 <div className="input-block">
-                                    <div className="inner">
-                                    </div>
+                                    <div className="inner"></div>
                                 </div>
                             </motion.div>
                         </AnimatePresence>
