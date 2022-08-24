@@ -122,7 +122,6 @@ function Contact(props) {
                 break;
         }
         console.log(phone);
-        return false;
         const result = await axios({
             method: 'post',
             url: '/api/contact/insert',

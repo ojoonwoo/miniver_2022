@@ -29,7 +29,7 @@ export let {setTransitionState} = transitionState.actions;
 let contactState = createSlice ({
   name: 'contactState',
   initialState: {
-    step: 5,
+    step: 1,
     category: [],
     description: "",
     schedule: {
