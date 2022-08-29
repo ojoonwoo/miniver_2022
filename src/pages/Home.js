@@ -12,31 +12,35 @@ function Home(props) {
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
+    let device = useSelector((state) => {
+        return state.currentDevice;
+    });
+
     let dispatch = useDispatch();
 
-    let [isMobile, setIsMobile] = useState(true);
+    // let [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
         console.log('홈 마운트');
         dispatch(changeColor('white'));
         
-        let winWidth = window.innerWidth;
-        // * 마운트시에 데스크탑이라면 footer 숨김
-        if (winWidth >= 1200) {
-            setIsMobile(false);
-        }
-        let a = window.addEventListener('resize', () => {
-            console.log('윈도우 리사이즈');
-            console.log(winWidth);
-            winWidth = window.innerWidth;
-            if (winWidth >= 1200) {
-                setIsMobile(false);
-            } else {
-                setIsMobile(true);
-            }
-        });
+        // let winWidth = window.innerWidth;
+        // // * 마운트시에 데스크탑이라면 footer 숨김
+        // if (winWidth >= 1200) {
+        //     setIsMobile(false);
+        // }
+        // let a = window.addEventListener('resize', () => {
+        //     console.log('윈도우 리사이즈');
+        //     console.log(winWidth);
+        //     winWidth = window.innerWidth;
+        //     if (winWidth >= 1200) {
+        //         setIsMobile(false);
+        //     } else {
+        //         setIsMobile(true);
+        //     }
+        // });
         return () => {
-            window.removeEventListener('resize', a);
+            // window.removeEventListener('resize', a);
             console.log('홈 언마운트');
         };
         
@@ -89,7 +93,7 @@ function Home(props) {
                         </div>
                     </div>
                 </div>
-                {isMobile ? null : <Footer />}
+                {device==='mobile' ? null : <Footer />}
             </div>
         {/* // </motion.div> */}
         </PageTransition>

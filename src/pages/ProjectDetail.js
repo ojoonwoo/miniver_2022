@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { createDomMotionComponent, motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,13 +27,20 @@ function ProjectDetail(props) {
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
+    let device = useSelector((state) => {
+        return state.currentDevice;
+    });
+
     const [topBlockHeight, setTopBlockHeight] = useState(null);
     
     // const [rect, ref] = useClientRect();
     const rectRef = useRef(null);
     const rectSize = useSize(rectRef);
+    const contentRef = useRef(null);
     
     let dispatch = useDispatch();
+
+    
 
     const [projectData, setProjectData] = useState([]);
     const [relatedWork, setRelatedWork] = useState([]);
@@ -68,7 +75,10 @@ function ProjectDetail(props) {
     useEffect(() => {
         if(projectData.length<1) {return};
         if(!rectSize)  {return;}
-        setTopBlockHeight(rectSize.y+rectSize.height);
+        
+        const topPadding = parseFloat(window.getComputedStyle(contentRef.current).paddingTop);
+        console.log('device', device, 'top padding', topPadding);
+        setTopBlockHeight(rectSize.y+rectSize.height+topPadding);
         setBoxPosition(location.state);
         if(heroBoxPosition !== null && topBlockHeight !== null)  {
             console.log('state changed');
@@ -95,10 +105,11 @@ function ProjectDetail(props) {
             //     y: heroBoxPosition.pageY
             // })
             heroAnimation.set({
-                x: heroBoxPosition.x,
-                y: -(topBlockHeight + 137) + heroBoxPosition.y,
-                width: heroBoxPosition.width,
-                height: heroBoxPosition.height
+                x: window.innerWidth/2 - heroBoxPosition.width/2,
+                // x: heroBoxPosition.x,
+                // y: -(topBlockHeight + 137) + heroBoxPosition.y,
+                // width: heroBoxPosition.width,
+                // height: heroBoxPosition.height
             });
             // window.scrollTo(0, 0);
             // document.documentElement.scrollTo({
@@ -112,12 +123,13 @@ function ProjectDetail(props) {
     async function sequence() {
         // await heroAnimation.start({y: (boxPosition.y-266), width: boxPosition.width});
         // await animInit();
+        
         await heroAnimation.start({ y: 0,
             transition: {duration: 0.3, delay: 0.5, ease: 'circOut'}
             // transition: {duration: 0.5}
         });
         await heroAnimation.start({ x: 0, width: '100%', height: '100%',
-            transition: {duration: 0.3, delay: 0.05, ease: 'circOut'}
+            transition: {duration: 0.3, delay: 0.1, ease: 'circOut'}
         });
         return await otherAnimation.start({ opacity: 1,
             transition:{duration: 0.2, delay: 0}
@@ -140,7 +152,7 @@ function ProjectDetail(props) {
         <PageTransition variantsName="detail" goScrollTop={goScrollTop}>
             {/* // <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
             <div id="container" className={props.pageName}>
-                <div className="contents">
+                <div className="contents" ref={contentRef}>
                     <motion.div animate={otherAnimation} className="project-detail__top-block" ref={rectRef}>
                         <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
                         <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
@@ -156,11 +168,14 @@ function ProjectDetail(props) {
                             <span>View List</span>
                         </Link>
                     </motion.div>
-                    {projectData.category_names && heroBoxPosition && rectSize !== null &&
+                    {/* {projectData.category_names && heroBoxPosition && rectSize !== null && */}
+                    {projectData.category_names && heroBoxPosition && topBlockHeight &&
                     <div className="project-detail__hero">
+                        {/* {`project detail boxPosition y: ${heroBoxPosition.y}`}
+                        {`project detail topBlockHeight: ${topBlockHeight}`} */}
                         <motion.div className="hero-box" initial={{
                             x: heroBoxPosition.x,
-                            y: (-(topBlockHeight + 107) + heroBoxPosition.y),
+                            y: (-topBlockHeight + heroBoxPosition.y),
                             width: heroBoxPosition.width,
                             height: heroBoxPosition.height
                             }} animate={heroAnimation}>
@@ -185,14 +200,23 @@ function ProjectDetail(props) {
                             <Swiper
                                 // install Swiper modules
                                 modules={[Scrollbar, FreeMode, A11y]}
-                                spaceBetween={10}
+                                spaceBetween={device==='mobile' ? 10 : 20}
                                 slidesPerView={'auto'}
-                                slidesOffsetBefore={30}
-                                slidesOffsetAfter={30}
+                                // slidesOffsetBefore={device==='mobile' ? 30 : (window.innerWidth-1200)/2}
+                                slidesOffsetBefore={device==='mobile' ? 30 : 150}
+                                slidesOffsetAfter={device==='mobile' ? 30 : 150}
                                 scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
-                                freemode={{ freemode: true }}
+                                freeMode={true}
+                                updateOnWindowResize={true}
                                 onSwiper={(swiper) => console.log(swiper)}
                                 onSlideChange={() => console.log('slide change')}
+                                onResize={(swiper) => {
+                                    // if(device==='desktop') {
+                                    //     swiper.params.slidesOffsetAfter = (window.innerWidth-1200)/2;
+                                    //     swiper.params.slidesOffsetBefore = (window.innerWidth-1200)/2;
+                                    //     swiper.update();
+                                    // }
+                                }}
                             >
                                 {projectData.detail_sources1_arr &&
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
@@ -215,11 +239,33 @@ function ProjectDetail(props) {
                     <motion.div animate={otherAnimation} className="project-detail__bottom-block">
                         <p className="small-title">Related Work</p>
                         <div className="box-container">
-                            {relatedWork.map((item) =>
-                                <div className="related-box" key={item.idx}>
-                                    <WorkBox item={item}/>
-                                </div>
+                            <Swiper
+                                // install Swiper modules
+                                modules={[Scrollbar, A11y]}
+                                spaceBetween={device==='mobile' ? 10 : 20}
+                                slidesPerView={'auto'}
+                                slidesOffsetBefore={device==='mobile' ? 64 : 150}
+                                slidesOffsetAfter={device==='mobile' ? 64 : 150}
+                                // freeMode={true}
+                                updateOnWindowResize={true}
+                                onSwiper={(swiper) => console.log(swiper)}
+                                onSlideChange={() => console.log('slide change')}
+                                onResize={(swiper) => {
+                                    // if(device==='desktop') {
+                                    //     swiper.params.slidesOffsetAfter = (window.innerWidth-1200)/2;
+                                    //     swiper.params.slidesOffsetBefore = (window.innerWidth-1200)/2;
+                                    //     swiper.update();
+                                    // }
+                                }}
+                            >
+                            {relatedWork.map((slideContent, index) =>
+                                <SwiperSlide className="related-box" key={index}>
+                                {/* <div className="related-box" key={item.idx}> */}
+                                    <WorkBox item={slideContent}/>
+                                {/* </div> */}
+                                </SwiperSlide>
                             )}
+                            </Swiper>
                         </div>
                         <button type="button" className="go-top" onClick={goTopHandler}>Back to top</button>
                     {/* </div> */}

@@ -2,8 +2,8 @@
 
 header {
     // display: none;
-    // position: absolute;
-    position: fixed;
+    position: absolute;
+    // position: fixed;
     // color: $white;
     top: 0;
     left: 0;
@@ -91,7 +91,10 @@ header {
 @media (min-width: 1200px) {
     header {
         padding: 11rem 0;
-        width: $desktop-container-width;
+        padding: $desktop-container-padding;
+        padding-top: 11rem;
+        padding-bottom: 11rem;
+        // width: $desktop-container-width;
         margin: 0 auto;
         .wrapper {
             display: flex;

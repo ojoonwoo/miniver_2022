@@ -3,6 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTransitionState } from './../store';
+import Header from './Header';
 import * as common from './../CommonFunction';
 
 
@@ -110,7 +111,7 @@ function PageTransition(props) {
         <motion.div style={{ position: 'absolute', top: 0, left: 0, width: '100%' }} variants={containerVariants} animate="animate" exit="exit" className="site-content">
             <motion.div variants={loaderConf} initial="initial" animate={loaderAnimate} className="global-loader"></motion.div>
             <motion.div variants={animationConfiguration} initial="initial" animate={pageAnimate} data-scroll-container ref={containerRef} onScroll={onScroll}>
-                {/* {React.cloneElement(props.children, {containerRef: containerRef})} */}
+                <Header />
                 {props.children}
             </motion.div>
         </motion.div>

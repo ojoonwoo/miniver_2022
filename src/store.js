@@ -53,10 +53,24 @@ let contactState = createSlice ({
 export let {setContactState} = contactState.actions;
 
 
+let currentDevice = createSlice ({
+    name: 'currentDevice',
+    initialState: 'mobile',
+    reducers: {
+      setDevice(state, action) {
+        return state = action.payload;
+      }
+    }
+});
+
+export let {setDevice} = currentDevice.actions;
+
+
 export default configureStore({
   reducer: {
     themeColor: themeColor.reducer,
     transitionState: transitionState.reducer,
     contactState: contactState.reducer,
+    currentDevice: currentDevice.reducer
   }
 });

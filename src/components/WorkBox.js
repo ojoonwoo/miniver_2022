@@ -29,6 +29,7 @@ function WorkBox(props) {
             height: RectInfo.height,
             // pageY: window.pageYOffset
         };
+        // console.log('workbox', offsetObject.y);
         setTimeout(() => {navigate(`/project/${props.item.idx}`, {state: offsetObject})}, 300);
         // navigate(`/project/${props.item.idx}`, {state: offsetObject})
     }
