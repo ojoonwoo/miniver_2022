@@ -12,6 +12,10 @@ function WorkBox(props) {
     let dispatch = useDispatch();
     const location = useLocation();
 
+    let device = useSelector((state) => {
+        return state.currentDevice;
+    });
+
     useEffect(() => {
         // if(!boxRef.current) {
         //     console.log('null');
@@ -30,7 +34,13 @@ function WorkBox(props) {
             // pageY: window.pageYOffset
         };
         // console.log('workbox', offsetObject.y);
-        setTimeout(() => {navigate(`/project/${props.item.idx}`, {state: offsetObject})}, 300);
+        setTimeout(() => {
+            // if(device == 'mobile') {
+                navigate(`/project/${props.item.idx}`, {state: offsetObject})
+            // } else {
+
+            // }
+        }, 300);
         // navigate(`/project/${props.item.idx}`, {state: offsetObject})
     }
 

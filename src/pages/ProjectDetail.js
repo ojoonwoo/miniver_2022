@@ -173,14 +173,20 @@ function ProjectDetail(props) {
                     <div className="project-detail__hero">
                         {/* {`project detail boxPosition y: ${heroBoxPosition.y}`}
                         {`project detail topBlockHeight: ${topBlockHeight}`} */}
-                        <motion.div className="hero-box" initial={{
-                            x: heroBoxPosition.x,
-                            y: (-topBlockHeight + heroBoxPosition.y),
-                            width: heroBoxPosition.width,
-                            height: heroBoxPosition.height
-                            }} animate={heroAnimation}>
-                            <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>
-                        </motion.div>
+                        {device == 'mobile' ?
+                            <motion.div className="hero-box" initial={{
+                                x: heroBoxPosition.x,
+                                y: (-topBlockHeight + heroBoxPosition.y),
+                                width: heroBoxPosition.width,
+                                height: heroBoxPosition.height
+                                }} animate={heroAnimation}>
+                                <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>
+                            </motion.div>
+                        : 
+                            <div className="hero-box">
+                                <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>
+                            </div>
+                        }
                     </div>
                     }
                     <motion.div animate={otherAnimation} className="project-detail__middle-block">

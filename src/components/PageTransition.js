@@ -12,6 +12,10 @@ function PageTransition(props) {
     const loaderAnimate = useAnimation();
     const containerRef = useRef();
 
+    let device = useSelector((state) => {
+        return state.currentDevice;
+    });
+
 
     let transitionState = useSelector((state) => {
         return state.transitionState;
@@ -20,6 +24,8 @@ function PageTransition(props) {
     let dispatch = useDispatch();
 
     const animateSequence = async () => {
+        // @todo : 코드 수정 필요
+        // desktop 에서는 박스 애니메이션이 부적합해보임
         if (transitionState === 'initial') {
             if(props.variantsName !== 'detail') {
                 await loaderAnimate.set({ y: 0 });
