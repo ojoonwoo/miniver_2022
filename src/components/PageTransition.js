@@ -109,9 +109,6 @@ function PageTransition(props) {
     return (
         <motion.div style={{ position: 'absolute', top: 0, left: 0, width: '100%' }} variants={containerVariants} animate="animate" exit="exit" className="site-content">
             <motion.div variants={loaderConf} initial="initial" animate={loaderAnimate} className="global-loader">
-                {/* // ! 로더 텍스트 테스트 */}
-                <h2 style={{color: '#fff', marginTop: '100%', textAlign: 'center', fontSize: '2.4rem'}}>MINI IS ORIGINAL</h2>
-                {/* // ! END 로더 텍스트 테스트 */}
             </motion.div>
             <motion.div variants={animationConfiguration} initial="initial" animate={pageAnimate} data-scroll-container ref={containerRef} onScroll={onScroll}>
                 {/* {React.cloneElement(props.children, {containerRef: containerRef})} */}

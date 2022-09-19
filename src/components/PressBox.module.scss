@@ -1,0 +1,25 @@
+@import '../variable.scss';
+
+.pressbox {
+    width: 100%;
+    margin-bottom: 7rem;
+    .img-block {
+        width: 100%;
+        height: 40rem;
+        background-color: grey;
+        margin-bottom: 1.6rem;
+        overflow: hidden;
+    }
+    .text-block {
+        .title {
+            font-weight: 700;
+            font-size: 2.3rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+        .date {
+            font-weight: 400;
+            font-size: 1.4rem;
+        }
+    }
+}

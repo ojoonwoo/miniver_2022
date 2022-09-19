@@ -151,6 +151,16 @@ function Header(props) {
                                 </li>
                                 <li>
                                     <Link
+                                        to="/press"
+                                        onClick={() => {
+                                            setMenuOpen(!menuOpen);
+                                        }}
+                                    >
+                                        Press
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
                                         to="/contact"
                                         onClick={() => {
                                             setMenuOpen(!menuOpen);
@@ -173,6 +183,9 @@ function Header(props) {
                                 </li>
                                 <li>
                                     <Link to="/project">Project</Link>
+                                </li>
+                                <li>
+                                    <Link to="/press">Press</Link>
                                 </li>
                                 <li>
                                     <Link to="/contact">Contact</Link>

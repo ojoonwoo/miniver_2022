@@ -635,4 +635,21 @@ select {
             width: 100%;
         }
     }
+
+    #container.Press {
+        .inner {
+            width: $desktop-container-width;
+            margin: 0 auto;
+            padding: 0;
+            .page-title {
+                margin-bottom: 4rem;
+            }
+            .pressbox-container {
+                display: grid;
+                width: 100%;
+                grid-template-columns: 1fr 1fr 1fr;
+                column-gap: 30px;
+            }
+        }
+    }
 }

@@ -27,6 +27,11 @@
                                 Worklist
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="<?=_ROOT_URL?>press/">
+                                Presslist
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>

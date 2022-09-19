@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Project from './pages/Project';
 import ProjectDetail from './pages/ProjectDetail';
+import Press from './pages/Press';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
 import Header from './components/Header';
@@ -35,6 +36,7 @@ function App() {
                         <Route index element={<Project pageName="Project" />}></Route>
                         <Route path=":id" element={<ProjectDetail pageName="ProjectDetail" initial={{ opacity: 1 }} />}></Route>
                     </Route>
+                    <Route path="/press" element={<Press pageName="Press" />}></Route>
                     <Route path="/contact" element={<Contact pageName="Contact" />}></Route>
                     <Route path="*" element={<NotFound />}></Route>
                 </Routes>
