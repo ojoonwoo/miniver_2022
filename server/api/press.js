@@ -6,7 +6,7 @@ const db = require('../dbconnection');
 
 router.get('/getlist', function(req, res) {
     // press list 가져오기
-    const query = `select * from press_info where 1`;
+    const query = `select * from press_info where 1 and press_visible = "1"`;
 
     console.log(query);
 

@@ -6,36 +6,36 @@ use \mysqli;
 class PressModel extends Model {
     // methods ... selectList, updateItem, readItem, deleteItem,
 
-    public function selectList($category, $idx, $pageNo) {
+    public function selectList() {
         $sql = 'SELECT * FROM press_info';
         $result = mysqli_query($this->my_db, $sql);
-        $res_data = array();
+        // $res_data = array();
 
-        $i = 0;
-        while ($row = mysqli_fetch_array($result))
-        {
-            // category select
-            $category_array = explode(', ', $row['work_categories']);
-            $category_names = [];
-            foreach($category_array as $key => $cate) {
-                $cate_name = $this->getCategoryName($cate);
-                // $cate_sql = 'SELECT category_name FROM category_info WHERE idx = "'.$cate.'"';
-                // $cate_result = mysqli_query($this->my_db, $cate_sql);
-                // $data = mysqli_fetch_assoc($cate_result);
-                // $category_names[$key] = $data['category_name'];
-                $category_names[$key] = $cate_name;
-            }
+        // $i = 0;
+        // while ($row = mysqli_fetch_array($result))
+        // {
+        //     // category select
+        //     $category_array = explode(', ', $row['work_categories']);
+        //     $category_names = [];
+        //     foreach($category_array as $key => $cate) {
+        //         $cate_name = $this->getCategoryName($cate);
+        //         // $cate_sql = 'SELECT category_name FROM category_info WHERE idx = "'.$cate.'"';
+        //         // $cate_result = mysqli_query($this->my_db, $cate_sql);
+        //         // $data = mysqli_fetch_assoc($cate_result);
+        //         // $category_names[$key] = $data['category_name'];
+        //         $category_names[$key] = $cate_name;
+        //     }
             
-            $result_cate_arr = implode(', ', $category_names);
-            $row['work_category_names'] = $result_cate_arr;
-            $res_data[] = $row;
+        //     $result_cate_arr = implode(', ', $category_names);
+        //     $row['work_category_names'] = $result_cate_arr;
+        //     $res_data[] = $row;
 
-            $i++;
-        }
+        //     $i++;
+        // }
 
-        return $res_data;
+        return $result;
     }
-    public function insertWork($data) {
+    public function insertPress($data) {
         // $filtered_data = array();
 
         $columns = "";
@@ -57,7 +57,7 @@ class PressModel extends Model {
         // echo "<br/>";
         // echo $values;
 
-        $sql = 'INSERT INTO work_info('.$columns.') VALUES('.$values.')';
+        $sql = 'INSERT INTO press_info('.$columns.') VALUES('.$values.')';
         $result = mysqli_query($this->my_db, $sql);
 
         // echo $sql;
@@ -79,13 +79,30 @@ class PressModel extends Model {
             $cv_set .= $columnkey.'='.$escape_value.$divide;
             $i++;
         }
-        $cv_set .= ", work_update_date= '".date('Y-m-d H:i:s')."'";
+        $cv_set .= ", press_update_date= '".date('Y-m-d H:i:s')."'";
 
-        $sql = 'UPDATE work_info SET '.$cv_set.' WHERE idx = '.$index.'';
+        $sql = 'UPDATE press_info SET '.$cv_set.' WHERE idx = '.$index.'';
         $result = mysqli_query($this->my_db, $sql);
 
 
         return $result;
     }
+    public function getLastPressID() {
+        $sql = 'SELECT idx FROM press_info WHERE 1 ORDER BY idx DESC LIMIT 1';
+        $result = mysqli_query($this->my_db, $sql);
+        $data = mysqli_fetch_assoc($result);
+        $id = $data['idx'];
+        return $id;
+    }
+    public function getDetail($index) {
+        $sql = 'SELECT * FROM press_info WHERE idx = "'.$index.'"';
+        $result = mysqli_query($this->my_db, $sql);
+        $data = mysqli_fetch_array($result);
+
+        if($data['idx']) {
+            return $data;
+        } else {
+            return false;
+        }
+    }
 }
-?>

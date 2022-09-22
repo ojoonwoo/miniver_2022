@@ -11,6 +11,8 @@ define('_ROOT_URL', 'http://'.$_SERVER['HTTP_HOST'].'/miniver_2022/admin/');
 
 define('_WORK_UPLOAD_URL', 'http://'.$_SERVER['HTTP_HOST'].':3000/works/');
 define('_WORK_UPLOAD_DIR', _MNV_ROOT.'uploads/work/');
+define('_PRESS_UPLOAD_URL', 'http://'.$_SERVER['HTTP_HOST'].':3000/journalists/');
+define('_PRESS_UPLOAD_DIR', _MNV_ROOT.'uploads/press/');
 // define('_DBTYPE', 'mysql');
 define('_HOST', 'localhost');
 define('_DBNAME', 'miniver_2022');
