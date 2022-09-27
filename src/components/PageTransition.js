@@ -3,6 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTransitionState } from './../store';
+import Header from './Header';
 import * as common from './../CommonFunction';
 
 
@@ -10,6 +11,10 @@ function PageTransition(props) {
     const pageAnimate = useAnimation();
     const loaderAnimate = useAnimation();
     const containerRef = useRef();
+
+    let device = useSelector((state) => {
+        return state.currentDevice;
+    });
 
 
     let transitionState = useSelector((state) => {
@@ -19,6 +24,8 @@ function PageTransition(props) {
     let dispatch = useDispatch();
 
     const animateSequence = async () => {
+        // @todo : 코드 수정 필요
+        // desktop 에서는 박스 애니메이션이 부적합해보임
         if (transitionState === 'initial') {
             if(props.variantsName !== 'detail') {
                 await loaderAnimate.set({ y: 0 });
@@ -111,7 +118,7 @@ function PageTransition(props) {
             <motion.div variants={loaderConf} initial="initial" animate={loaderAnimate} className="global-loader">
             </motion.div>
             <motion.div variants={animationConfiguration} initial="initial" animate={pageAnimate} data-scroll-container ref={containerRef} onScroll={onScroll}>
-                {/* {React.cloneElement(props.children, {containerRef: containerRef})} */}
+                <Header />
                 {props.children}
             </motion.div>
         </motion.div>

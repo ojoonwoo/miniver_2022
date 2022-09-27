@@ -1,35 +1,27 @@
 import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from './Footer.js';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 
 function Header(props) {
+    let device = useSelector((state) => {
+        return state.currentDevice;
+    });
+
     let [menuOpen, setMenuOpen] = useState(false);
 
     // ! 모바일 인식 부분 Redux로 전환
-    let [isMobile, setIsMobile] = useState(true);
     // * 윈도우 리사이즈 반응해서 footer on/off해주는 useEffect
     useEffect(() => {
-        let winWidth = window.innerWidth;
-        // * 마운트시에 데스크탑이라면 footer 숨김
-        if (winWidth >= 1200) {
-            setIsMobile(false);
+        
+        if(device==='desktop') {
+            setMenuOpen(false);
         }
-        let a = window.addEventListener('resize', () => {
-            console.log('윈도우 리사이즈');
-            console.log(winWidth);
-            winWidth = window.innerWidth;
-            if (winWidth >= 1200) {
-                setIsMobile(false);
-                setMenuOpen(false);
-            } else {
-                setIsMobile(true);
-            }
-        });
+        
         return () => {
-            window.removeEventListener('resize', a);
         };
     }, []);
 
@@ -61,7 +53,7 @@ function Header(props) {
                         </svg>
                     </button>
                 </div>
-                {isMobile === true ? (
+                {device === 'mobile' ? (
                     <motion.div
                         className={`${styles['nav-block']}`}
                         animate={menuOpen ? 'open' : 'closed'}

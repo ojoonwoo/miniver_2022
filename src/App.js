@@ -1,7 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -11,6 +11,7 @@ import Press from './pages/Press';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
 import Header from './components/Header';
+import { setDevice } from './store.js';
 
 import './reset.css';
 import './style.scss';
@@ -22,12 +23,32 @@ function App() {
         // console.log(state);
         return state.themeColor;
     });
+    const dispatch = useDispatch();
     const location = useLocation();
+
+    useEffect(() => {
+        let winWidth = window.innerWidth;
+        // * 마운트시에 데스크탑이라면 footer 숨김
+        if (winWidth >= 1200) {
+            dispatch(setDevice('desktop'));
+        } else {
+            dispatch(setDevice('mobile'));
+        }
+        window.addEventListener('resize', () => {
+            // console.log('윈도우 리사이즈');
+            winWidth = window.innerWidth;
+            if (winWidth >= 1200) {
+                dispatch(setDevice('desktop'));
+            } else {
+                dispatch(setDevice('mobile'));
+            }
+        });
+    }, []);
     
     return (
         <div className="App" data-theme={themeColor}>
             <AnimatePresence>
-                <Header />
+                {/* <Header /> */}
                 <Routes key={location.pathname} location={location}>
                     <Route exact path="/" element={<Home pageName="Home" />}></Route>
                     <Route path="/about" element={<About pageName="About" />}></Route>
