@@ -9,8 +9,7 @@ import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import WorkBox from '../components/WorkBox';
 import * as common from './../CommonFunction';
-import useResizeObserver from '@react-hook/resize-observer'
-
+import useResizeObserver from '@react-hook/resize-observer';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -32,20 +31,17 @@ function ProjectDetail(props) {
     });
 
     const [topBlockHeight, setTopBlockHeight] = useState(null);
-    
+
     // const [rect, ref] = useClientRect();
     const rectRef = useRef(null);
     const rectSize = useSize(rectRef);
     const contentRef = useRef(null);
-    
-    let dispatch = useDispatch();
 
-    
+    let dispatch = useDispatch();
 
     const [projectData, setProjectData] = useState([]);
     const [relatedWork, setRelatedWork] = useState([]);
 
-    
     useEffect(() => {
         dispatch(changeColor('black'));
         async function getProjectData() {
@@ -59,37 +55,36 @@ function ProjectDetail(props) {
             const relatedWork = await axios({
                 method: 'get',
                 url: '/api/work/getlist',
-                params: { cate: result.data.work_categories.substring(0, 1), exclude: result.data.idx, limit: 3}
+                params: { cate: result.data.work_categories.substring(0, 1), exclude: result.data.idx, limit: 3 },
             });
             setRelatedWork(relatedWork.data.list);
-            
         }
         getProjectData();
-        
+
         console.log('project detail mount');
         return () => {
             console.log('project detail unmount');
         };
     }, []);
-    
-    useEffect(() => {
-        if(projectData.length<1) {return};
-        if(!rectSize)  {return;}
-        
-        const topPadding = parseFloat(window.getComputedStyle(contentRef.current).paddingTop);
-        console.log('device', device, 'top padding', topPadding);
-        setTopBlockHeight(rectSize.y+rectSize.height+topPadding);
-        setBoxPosition(location.state);
-        if(heroBoxPosition !== null && topBlockHeight !== null)  {
-            console.log('state changed');
-            sequence();
-        }
-    }, [heroBoxPosition, topBlockHeight, rectSize]);
+
+    // useEffect(() => {
+    //     if(projectData.length<1) {return};
+    //     if(!rectSize)  {return;}
+
+    //     const topPadding = parseFloat(window.getComputedStyle(contentRef.current).paddingTop);
+    //     console.log('device', device, 'top padding', topPadding);
+    //     setTopBlockHeight(rectSize.y+rectSize.height+topPadding);
+    //     setBoxPosition(location.state);
+    //     if(heroBoxPosition !== null && topBlockHeight !== null)  {
+    //         console.log('state changed');
+    //         sequence();
+    //     }
+    // }, [heroBoxPosition, topBlockHeight, rectSize]);
     // useEffect(() => {
     //     console.log('rect detect');
     //     // setTopBlockHeight(topBlockRef.current.clientHeight);
     //     if(rect === null)  {return;}
-     
+
     //     setTopBlockHeight(rect.y+rect.height);
     //     console.log(rect.y+rect.height);
     //     setBoxPosition(location.state);
@@ -99,63 +94,71 @@ function ProjectDetail(props) {
     //     }
     // }, [heroBoxPosition, topBlockHeight, rect]);
 
-    const animInit = () => {
-        return new Promise(function(resolve, reject) {
-            // heroAnimation.set({
-            //     y: heroBoxPosition.pageY
-            // })
-            heroAnimation.set({
-                x: window.innerWidth/2 - heroBoxPosition.width/2,
-                // x: heroBoxPosition.x,
-                // y: -(topBlockHeight + 137) + heroBoxPosition.y,
-                // width: heroBoxPosition.width,
-                // height: heroBoxPosition.height
-            });
-            // window.scrollTo(0, 0);
-            // document.documentElement.scrollTo({
-            //     top: 0,
-            //     behavior: "smooth",
-            //     duration: 0.1
-            // });
-            resolve(true);
-        });
-    }
-    async function sequence() {
-        // await heroAnimation.start({y: (boxPosition.y-266), width: boxPosition.width});
-        // await animInit();
-        
-        await heroAnimation.start({ y: 0,
-            transition: {duration: 0.3, delay: 0.5, ease: 'circOut'}
-            // transition: {duration: 0.5}
-        });
-        await heroAnimation.start({ x: 0, width: '100%', height: '100%',
-            transition: {duration: 0.3, delay: 0.1, ease: 'circOut'}
-        });
-        return await otherAnimation.start({ opacity: 1,
-            transition:{duration: 0.2, delay: 0}
-        });
-        // await middleAnimation.start({ opacity: 1,
-        //     transition:{duration: 0.3}
-        // })
-    }
+    // const animInit = () => {
+    //     return new Promise(function (resolve, reject) {
+    //         // heroAnimation.set({
+    //         //     y: heroBoxPosition.pageY
+    //         // })
+    //         heroAnimation.set({
+    //             x: window.innerWidth / 2 - heroBoxPosition.width / 2,
+    //             // x: heroBoxPosition.x,
+    //             // y: -(topBlockHeight + 137) + heroBoxPosition.y,
+    //             // width: heroBoxPosition.width,
+    //             // height: heroBoxPosition.height
+    //         });
+    //         // window.scrollTo(0, 0);
+    //         // document.documentElement.scrollTo({
+    //         //     top: 0,
+    //         //     behavior: "smooth",
+    //         //     duration: 0.1
+    //         // });
+    //         resolve(true);
+    //     });
+    // };
+    // async function sequence() {
+    //     // await heroAnimation.start({y: (boxPosition.y-266), width: boxPosition.width});
+    //     // await animInit();
+
+    //     await heroAnimation.start({
+    //         y: 0,
+    //         transition: { duration: 0.3, delay: 0.5, ease: 'circOut' },
+    //         // transition: {duration: 0.5}
+    //     });
+    //     await heroAnimation.start({ x: 0, width: '100%', height: '100%', transition: { duration: 0.3, delay: 0.1, ease: 'circOut' } });
+    //     return await otherAnimation.start({ opacity: 1, transition: { duration: 0.2, delay: 0 } });
+    //     // await middleAnimation.start({ opacity: 1,
+    //     //     transition:{duration: 0.3}
+    //     // })
+    // }
 
     const goTopHandler = () => {
         setScrollTop(true);
         console.log(goScrollTop);
-        setTimeout(function() {
+        setTimeout(function () {
             setScrollTop(false);
         }, 1000);
-    }
-
+    };
 
     return (
         <PageTransition variantsName="detail" goScrollTop={goScrollTop}>
             {/* // <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
             <div id="container" className={props.pageName}>
                 <div className="contents" ref={contentRef}>
+                    {projectData.category_names && (
+                        <div className="project-detail__hero">
+                            <div className="hero-box">
+                                <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>
+                            </div>
+                            <div className="client-box">
+                                <h3 className="client-box__title-kr">{projectData.client_name_kor}</h3>
+                                <h2 className='client-box__title'>{projectData.client_name}</h2>
+                            </div>
+                        </div>
+                    )}
                     <motion.div animate={otherAnimation} className="project-detail__top-block" ref={rectRef}>
-                        <h1 className="page-title project-detail__title">{projectData.work_title}</h1>
+                        <h2 className="small-title">Title</h2>
                         <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
+                        <p className="page-title project-detail__title">{projectData.work_title}</p>
                         <div className="project-detail_categories">
                             {projectData.category_names &&
                                 projectData.category_names.map((value, idx) => (
@@ -169,10 +172,10 @@ function ProjectDetail(props) {
                         </Link>
                     </motion.div>
                     {/* {projectData.category_names && heroBoxPosition && rectSize !== null && */}
-                    {projectData.category_names && heroBoxPosition && topBlockHeight &&
+                    {/* {projectData.category_names && heroBoxPosition && topBlockHeight &&
                     <div className="project-detail__hero">
-                        {/* {`project detail boxPosition y: ${heroBoxPosition.y}`}
-                        {`project detail topBlockHeight: ${topBlockHeight}`} */}
+                        {`project detail boxPosition y: ${heroBoxPosition.y}`}
+                        {`project detail topBlockHeight: ${topBlockHeight}`}
                         {device == 'mobile' ?
                             <motion.div className="hero-box" initial={{
                                 x: heroBoxPosition.x,
@@ -188,29 +191,17 @@ function ProjectDetail(props) {
                             </div>
                         }
                     </div>
-                    }
+                    } */}
                     <motion.div animate={otherAnimation} className="project-detail__middle-block">
-                        <div className="grid-inner">
-                            <div className="project-detail__desc">
-                                <dl>
-                                    <dt className="small-title">Client</dt>
-                                    <dd>{projectData.client_name}</dd>
-                                </dl>
-                                <dl>
-                                    <dt className="small-title">Overview</dt>
-                                    <dd>{projectData.work_overview}</dd>
-                                </dl>
-                            </div>
-                        </div>
                         <div className="project-detail__details">
                             <Swiper
                                 // install Swiper modules
                                 modules={[Scrollbar, FreeMode, A11y]}
-                                spaceBetween={device==='mobile' ? 10 : 20}
+                                spaceBetween={device === 'mobile' ? 10 : 20}
                                 slidesPerView={'auto'}
                                 // slidesOffsetBefore={device==='mobile' ? 30 : (window.innerWidth-1200)/2}
-                                slidesOffsetBefore={device==='mobile' ? 30 : 150}
-                                slidesOffsetAfter={device==='mobile' ? 30 : 150}
+                                slidesOffsetBefore={device === 'mobile' ? 30 : 150}
+                                slidesOffsetAfter={device === 'mobile' ? 30 : 150}
                                 scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
                                 freeMode={true}
                                 updateOnWindowResize={true}
@@ -233,6 +224,19 @@ function ProjectDetail(props) {
                                 <div className="slideshow-scrollbar"></div>
                             </Swiper>
                         </div>
+                        <div className="grid-inner">
+                            <div className="project-detail__desc">
+                                <dl>
+                                    <dt className="small-title">Overview</dt>
+                                    <dd>{projectData.work_overview}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div className="project-detail__mockup">
+                            <div className="mockup-box">
+                                <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo>
+                            </div>
+                        </div>
                         <div className="contact-block">
                             <div>
                                 <p className="small-title">Contact</p>
@@ -248,10 +252,10 @@ function ProjectDetail(props) {
                             <Swiper
                                 // install Swiper modules
                                 modules={[Scrollbar, A11y]}
-                                spaceBetween={device==='mobile' ? 10 : 20}
+                                spaceBetween={device === 'mobile' ? 10 : 20}
                                 slidesPerView={'auto'}
-                                slidesOffsetBefore={device==='mobile' ? 64 : 150}
-                                slidesOffsetAfter={device==='mobile' ? 64 : 150}
+                                slidesOffsetBefore={device === 'mobile' ? 64 : 150}
+                                slidesOffsetAfter={device === 'mobile' ? 64 : 150}
                                 // freeMode={true}
                                 updateOnWindowResize={true}
                                 onSwiper={(swiper) => console.log(swiper)}
@@ -264,17 +268,19 @@ function ProjectDetail(props) {
                                     // }
                                 }}
                             >
-                            {relatedWork.map((slideContent, index) =>
-                                <SwiperSlide className="related-box" key={index}>
-                                {/* <div className="related-box" key={item.idx}> */}
-                                    <WorkBox item={slideContent}/>
-                                {/* </div> */}
-                                </SwiperSlide>
-                            )}
+                                {relatedWork.map((slideContent, index) => (
+                                    <SwiperSlide className="related-box" key={index}>
+                                        {/* <div className="related-box" key={item.idx}> */}
+                                        <WorkBox item={slideContent} />
+                                        {/* </div> */}
+                                    </SwiperSlide>
+                                ))}
                             </Swiper>
                         </div>
-                        <button type="button" className="go-top" onClick={goTopHandler}>Back to top</button>
-                    {/* </div> */}
+                        <button type="button" className="go-top" onClick={goTopHandler}>
+                            Back to top
+                        </button>
+                        {/* </div> */}
                     </motion.div>
                 </div>
             </div>
@@ -299,24 +305,24 @@ function ImageVideo(props) {
 // hook으로 빼기
 function useClientRect() {
     const [rect, setRect] = useState(null);
-    const ref = useCallback(node => {
-      if (node !== null) {
-        setRect(node.getBoundingClientRect());
-      }
+    const ref = useCallback((node) => {
+        if (node !== null) {
+            setRect(node.getBoundingClientRect());
+        }
     }, []);
     return [rect, ref];
 }
 
 const useSize = (target) => {
     const [size, setSize] = useState();
-    
+
     useLayoutEffect(() => {
-        setSize(target.current.getBoundingClientRect())
+        setSize(target.current.getBoundingClientRect());
     }, [target]);
-    
+
     // Where the magic happens
     useResizeObserver(target, (entry) => setSize(entry.contentRect));
     return size;
-}
+};
 
 export default ProjectDetail;

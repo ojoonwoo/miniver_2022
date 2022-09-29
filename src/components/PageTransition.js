@@ -27,15 +27,15 @@ function PageTransition(props) {
         // @todo : 코드 수정 필요
         // desktop 에서는 박스 애니메이션이 부적합해보임
         if (transitionState === 'initial') {
-            if(props.variantsName !== 'detail') {
+            // if(props.variantsName !== 'detail') {
                 await loaderAnimate.set({ y: 0 });
-            }
+            // }
             await pageAnimate.start({ opacity: 1, transition: { duration: 0.1 } });
             return await loaderAnimate.start({ y: '-100%', transition: { duration: 1 } }); 
         } else if(transitionState === 'animate') {
-            if(props.variantsName !== 'detail') {
+            // if(props.variantsName !== 'detail') {
                 await loaderAnimate.start({ y: 0, transition: { duration: 0.6 } });
-            }
+            // }
             await pageAnimate.start({ opacity: 1, transition: { duration: 0.3 } });
             return await loaderAnimate.start({ y: '-100%', transition: { duration: 1 } });
         } else {
@@ -108,6 +108,7 @@ function PageTransition(props) {
             dispatch(setTransitionState('animate'));
         } else if (props.variantsName === 'detail') {
             // dispatch(setTransitionState('none'));
+            dispatch(setTransitionState('animate'));
         }
         return () => {
             console.log('page transition unmount');

@@ -77,10 +77,6 @@ select {
     color: $black;
 }
 
-.contents {
-    // background-color: #ffffff;
-}
-
 .grid-inner {
     width: 100%;
     padding: 0 3rem;
@@ -92,6 +88,10 @@ select {
 .contents {
     padding-top: 10.7rem;
 }
+.ProjectDetail .contents {
+    padding-top: 0;
+}
+
 .contents .page-title {
     font-size: 3rem;
     font-weight: 700;
@@ -318,35 +318,35 @@ select {
         position: relative;
         // padding: 1rem 3rem 3rem;
         padding: 0 3rem;
-        opacity: 0;
-        .project-detail__title {
-            padding-top: 1rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.2;
-            padding-right: 6rem;
+        // opacity: 0;
+        .small-title {
+            margin-bottom: 0.8rem;
         }
         .project-detail__title-kr {
             font-size: 1.2rem;
-            color: $grey2;
             font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+        .project-detail__title {
+            font-size: 1.2rem;
+            font-weight: 300;
         }
         .project-detail_categories {
             display: flex;
             flex-wrap: wrap;
             margin: 1.5rem 0 0;
-            padding-bottom: 3rem;
             .project-detail__category {
-                padding: 1rem 1.5rem;
-                margin-right: 1rem;
-                margin-bottom: 1rem;
+                padding: 0.55rem 1.25rem;
+                margin-right: 0.6rem;
+                margin-bottom: 0.6rem;
                 border-radius: 6rem;
                 border: 0.1rem solid $black;
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
         }
         .go-list {
             position: absolute;
-            top: 1rem;
+            top: -0.5rem;
             right: 3rem;
             font-size: 1rem;
             padding: 1rem;
@@ -359,12 +359,30 @@ select {
         // margin-top: 170px;
         // padding: 0 3rem;
         position: relative;
-        margin: 0 auto;
-        padding-bottom: 72%;
+        margin: 0 auto 3.6rem;
+        // padding-bottom: 72%;
+        padding-bottom: 90%;
+        .client-box {
+            position: absolute;
+            bottom: 2.4rem;
+            left: 3rem;
+            .client-box__title-kr {
+                font-weight: 700;
+                font-size: 1.2rem;
+                letter-spacing: -0.03em;
+                margin-bottom: 0.2rem;
+            }
+            .client-box__title {
+                font-weight: 700;
+                font-size: 2rem;
+                letter-spacing: -0.01em;
+            }
+        }
     }
     .project-detail__hero .hero-box {
         position: absolute;
         height: 100%;
+        width: 100%;
     }
     .project-detail__hero .hero-box > div {
         position: absolute;
@@ -382,10 +400,11 @@ select {
         object-fit: cover;
     }
     .project-detail__middle-block {
-        opacity: 0;
-        padding: 3.5rem 0 5.5rem;
+        // opacity: 0;
+        padding: 2.5rem 0 5.5rem;
         > .grid-inner {
             flex-direction: column;
+            margin-bottom: 3.6rem;
         }
         .project-detail__desc dl {
             margin-bottom: 2.4rem;
@@ -402,10 +421,11 @@ select {
                 font-size: 1.2rem;
                 font-weight: 700;
                 color: $grey2;
+                line-height: 1.41;
             }
         }
         .project-detail__details {
-            margin-top: 10rem;
+            margin-bottom: 3.6rem;
             .swiper-slide {
                 width: 31.5rem;
             }
@@ -425,7 +445,7 @@ select {
             }
         }
         .contact-block {
-            padding: 2rem 3rem 0;
+            padding: 2.8rem 3rem 0;
             .small-title {
                 margin-bottom: 0.7rem;
             }
@@ -435,7 +455,7 @@ select {
         }
     }
     .project-detail__bottom-block {
-        opacity: 0;
+        // opacity: 0;
         background-color: #f1f1f1;
         padding: 3.6rem 0 2.7rem;
         text-align: center;
@@ -447,7 +467,7 @@ select {
         .box-container {
             // padding-left: 6.4rem;
             .related-box {
-                width: 31rem;
+                width: 20rem;
             }
         }
         .go-top {
@@ -476,6 +496,10 @@ select {
     }
     .contents {
         padding-top: 29rem;
+    }
+
+    .ProjectDetail .contents {
+        padding-top: 0;
     }
     .contents .page-title {
         font-size: 7.6rem;
@@ -702,7 +726,7 @@ select {
         .project-detail__hero .hero-box {
             position: absolute;
             height: 100%;
-            
+
             width: 100%;
         }
         .project-detail__hero .hero-box > div {
@@ -722,7 +746,7 @@ select {
             object-fit: cover;
         }
         .project-detail__middle-block {
-            opacity: 0;
+            // opacity: 0;
             padding: 5.2rem 0 20rem;
             > .grid-inner {
                 flex-direction: column;
@@ -752,7 +776,7 @@ select {
                 .swiper-slide {
                     width: 90rem;
                 }
-    
+
                 .slideshow-scrollbar {
                     width: 46.8rem;
                     height: 0.5rem;
@@ -784,7 +808,7 @@ select {
             }
         }
         .project-detail__bottom-block {
-            opacity: 0;
+            // opacity: 0;
             background-color: #f1f1f1;
             padding: 14.6rem 0 3.5rem;
             text-align: center;
