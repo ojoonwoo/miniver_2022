@@ -18,8 +18,8 @@ function PressBox(props) {
 
     return (
         <a href={props.item.press_link} target="_blank" rel="noopener noreferrer" className={styles.pressbox}>
-            <div className={styles['img-block']} style={{backgroundImage:`url(/journalists/${props.item.idx}/press_thumb/${props.item.press_thumb})`}}>
-                {/* <img src={`/journalists/${props.item.idx}/press_thumb/${props.item.press_thumb}`} alt=""></img> */}
+            <div className={styles['img-block']}>
+                <img className={styles['thumb']} src={`/journalists/${props.item.idx}/press_thumb/${props.item.press_thumb}`} alt=""></img>
             </div>
             <div className={styles['text-block']}>
                 <p className={styles['title']}>{pressTitle}</p>

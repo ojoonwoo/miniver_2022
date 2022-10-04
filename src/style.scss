@@ -311,7 +311,7 @@ select {
 
 #container.ProjectDetail {
     .small-title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         font-weight: 700;
     }
     .project-detail__top-block {
@@ -320,7 +320,7 @@ select {
         padding: 0 3rem;
         // opacity: 0;
         .small-title {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
         }
         .project-detail__title-kr {
             font-size: 1.2rem;
@@ -346,7 +346,7 @@ select {
         }
         .go-list {
             position: absolute;
-            top: -0.5rem;
+            top: -0.7rem;
             right: 3rem;
             font-size: 1rem;
             padding: 1rem;
@@ -401,7 +401,7 @@ select {
     }
     .project-detail__middle-block {
         // opacity: 0;
-        padding: 2.5rem 0 5.5rem;
+        padding: 2.5rem 0 3.6rem;
         > .grid-inner {
             flex-direction: column;
             margin-bottom: 3.6rem;
@@ -410,18 +410,17 @@ select {
             margin-bottom: 2.4rem;
             &:last-child {
                 margin-bottom: 0;
-                dd {
-                    font-weight: 400;
-                }
             }
             dt {
-                margin-bottom: 0.8rem;
+                margin-bottom: 1.2rem;
             }
             dd {
                 font-size: 1.2rem;
-                font-weight: 700;
+                font-weight: 300;
                 color: $grey2;
                 line-height: 1.41;
+                letter-spacing: -0.03em;
+                word-break: break-all;
             }
         }
         .project-detail__details {
@@ -446,18 +445,29 @@ select {
         }
         .contact-block {
             padding: 2.8rem 3rem 0;
-            .small-title {
-                margin-bottom: 0.7rem;
-            }
-            span {
-                font-size: 1.2rem;
+            div {
+                .small-title {
+                    margin-bottom: 1.2rem;
+                }
+                a {
+                    span {
+                        font-weight: 300;
+                        font-size: 1.2rem;
+                        line-height: 1;
+                        letter-spacing: -0.03em;
+                    }
+                    svg {
+                        margin-bottom: 0.2rem;
+                        margin-left: 0.7rem;
+                    }
+                }
             }
         }
     }
     .project-detail__bottom-block {
         // opacity: 0;
         background-color: #f1f1f1;
-        padding: 3.6rem 0 2.7rem;
+        padding: 4.6rem 0 2.7rem;
         text-align: center;
         .small-title {
             text-align: left;
@@ -472,7 +482,10 @@ select {
         }
         .go-top {
             text-align: center;
-            padding: 1rem;
+            padding-top: 2.2rem;
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: -0.01em;
         }
     }
 }
@@ -685,6 +698,11 @@ select {
             padding: $desktop-container-padding;
             margin: 0 auto;
             // padding: 0;
+            display: flex;
+            .left {
+                flex-basis: 25.3rem;
+                margin-right: 2rem;
+            }
             .project-detail__title {
                 // @todo
                 padding-top: 5.4rem;
@@ -718,10 +736,23 @@ select {
             // margin-top: 170px;
             // padding: 0 3rem;
             position: relative;
-            margin: 0 auto;
+            margin: 0 auto 6.6rem;
             // padding-bottom: 72%;
             // padding-bottom: 43.8%;
-            padding-bottom: 48.3%;
+            padding-bottom: 41.67%;
+            .client-box {
+                width: 100%;
+                margin: 0 auto;
+                left: 15rem;
+                bottom: 7.7rem;
+                .client-box__title-kr {
+                    font-size: 2.3rem;
+                    margin-bottom: 0.5rem;
+                }
+                .client-box__title {
+                    font-size: 4rem;
+                }
+            }
         }
         .project-detail__hero .hero-box {
             position: absolute;
@@ -791,6 +822,20 @@ select {
                     margin-top: 6rem;
                 }
             }
+            .project-detail__mockup {
+                width: 100%;
+                padding: 0 15rem;
+                margin: 0 auto;
+                .mockup-box {
+                    width: 100%;
+                    > div {
+                        width: 100%;
+                        > img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
             .contact-block {
                 // width: $desktop-container-width;
                 width: 100%;
@@ -840,18 +885,18 @@ select {
     }
 
     #container.Press {
-        .inner {
-            width: $desktop-container-width;
+        .grid-inner {
+            width: 100%;
+            padding: $desktop-container-padding;
             margin: 0 auto;
-            padding: 0;
             .page-title {
-                margin-bottom: 4rem;
+                margin-bottom: 5rem;
             }
             .pressbox-container {
                 display: grid;
                 width: 100%;
                 grid-template-columns: 1fr 1fr 1fr;
-                column-gap: 30px;
+                column-gap: 2rem;
             }
         }
     }

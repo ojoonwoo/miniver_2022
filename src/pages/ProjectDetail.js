@@ -151,21 +151,25 @@ function ProjectDetail(props) {
                             </div>
                             <div className="client-box">
                                 <h3 className="client-box__title-kr">{projectData.client_name_kor}</h3>
-                                <h2 className='client-box__title'>{projectData.client_name}</h2>
+                                <h2 className="client-box__title">{projectData.client_name}</h2>
                             </div>
                         </div>
                     )}
                     <motion.div animate={otherAnimation} className="project-detail__top-block" ref={rectRef}>
-                        <h2 className="small-title">Title</h2>
-                        <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
-                        <p className="page-title project-detail__title">{projectData.work_title}</p>
-                        <div className="project-detail_categories">
-                            {projectData.category_names &&
-                                projectData.category_names.map((value, idx) => (
-                                    <span key={idx} className="project-detail__category">
-                                        #{value}
-                                    </span>
-                                ))}
+                        <div className="left">
+                            <h2 className="small-title">Title</h2>
+                        </div>
+                        <div className="right">
+                            <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
+                            <p className="page-title project-detail__title">{projectData.work_title}</p>
+                            <div className="project-detail_categories">
+                                {projectData.category_names &&
+                                    projectData.category_names.map((value, idx) => (
+                                        <span key={idx} className="project-detail__category">
+                                            #{value}
+                                        </span>
+                                    ))}
+                            </div>
                         </div>
                         <Link to={`/project/`} className="go-list">
                             <span>View List</span>
@@ -242,6 +246,9 @@ function ProjectDetail(props) {
                                 <p className="small-title">Contact</p>
                                 <Link to="/contact">
                                     <span>프로젝트 문의하기</span>
+                                    <svg width="29" height="7" viewBox="0 0 29 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5.97348H27.375L22.4989 1" stroke="#404040" stroke-linecap="round" />
+                                    </svg>
                                 </Link>
                             </div>
                         </div>
