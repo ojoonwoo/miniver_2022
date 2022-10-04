@@ -1,7 +1,7 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 let themeColor = createSlice ({
-    name: 'headerColor',
+    name: 'themeColor',
     initialState: "white",
     reducers: {
         changeColor(state, action) {
@@ -12,6 +12,19 @@ let themeColor = createSlice ({
 });
 
 export let {changeColor} = themeColor.actions;
+
+let heroBoxColor = createSlice ({
+  name: 'heroBoxColor',
+  initialState: "",
+  reducers: {
+      heroBoxChangeColor(state, action) {
+          // console.log(state, action.payload);
+          return state = action.payload;
+      }
+  }
+});
+
+export let {heroBoxChangeColor} = heroBoxColor.actions;
 
 let transitionState = createSlice ({
   name: 'transitionState',
@@ -69,6 +82,7 @@ export let {setDevice} = currentDevice.actions;
 export default configureStore({
   reducer: {
     themeColor: themeColor.reducer,
+    heroBoxColor: heroBoxColor.reducer,
     transitionState: transitionState.reducer,
     contactState: contactState.reducer,
     currentDevice: currentDevice.reducer

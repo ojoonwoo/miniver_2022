@@ -1,4 +1,4 @@
-@import '../variable.scss';
+@import '../_variable.scss';
 
 header {
     // display: none;
@@ -76,9 +76,9 @@ header {
                             display: block;
                             padding: 1.75rem 0;
                             font-size: 2.3rem;
-                            font-weight: 300;
+                            font-weight: 400;
                             letter-spacing: -0.01em;
-                            color: $white;
+                            color: currentColor;
                             // transition: color 1s ease-in-out;
                         }
                     }
@@ -90,10 +90,9 @@ header {
 
 @media (min-width: 1200px) {
     header {
-        padding: 11rem 0;
         padding: $desktop-container-padding;
-        padding-top: 11rem;
-        padding-bottom: 11rem;
+        padding-top: 7.6rem;
+        padding-bottom: 7.6rem;
         // width: $desktop-container-width;
         margin: 0 auto;
         .wrapper {
@@ -128,18 +127,17 @@ header {
                                 display: block;
                                 padding: 2.4rem;
                                 font-size: 2rem;
-                                font-weight: 300;
                                 letter-spacing: -0.01em;
+                            }
+                            &:last-child {
+                                a {
+                                    padding-right: 0;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-    }
-    [data-theme='black'] header .wrapper {
-        .nav-block ul li a {
-            color: $black;
         }
     }
 }

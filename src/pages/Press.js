@@ -12,7 +12,6 @@ import { Routes, Route, useLocation, Link, Outlet, useParams, useNavigate } from
 // 프로젝트 컨테이너 만들어서 리스트, 뷰 분리
 
 function Project(props) {
-    
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -23,7 +22,7 @@ function Project(props) {
     const params = useParams();
     let dispatch = useDispatch();
     const [pressData, setPressData] = useState([]);
-    
+
     useEffect(() => {
         dispatch(changeColor('black'));
         getPressData();
@@ -33,7 +32,7 @@ function Project(props) {
             console.log('프레스 리스트 언마운트');
         };
     }, []);
-    
+
     const getPressData = async () => {
         const result = await axios({
             method: 'get',
@@ -48,12 +47,12 @@ function Project(props) {
             <div id="container" className={props.pageName}>
                 {/* <Header color="black"/> */}
                 <div className="contents">
-                    <div className="inner">
+                    <div className="grid-inner">
                         <h1 className="page-title">Press</h1>
                         <div className="pressbox-container">
-                            {pressData.map((item) =>
-                                <PressBox key={item.idx} item={item}/>
-                            )}
+                            {pressData.map((item) => (
+                                <PressBox key={item.idx} item={item} />
+                            ))}
                         </div>
                     </div>
                 </div>
