@@ -33,6 +33,9 @@ if($page_title == '') {
     <script src="<?=_PUBLIC_URL?>lib/jquery-3.3.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <title><?php echo $pg_title ?></title>
+    <script>
+        var _root_url = "<?=_ROOT_URL?>";
+    </script>
 </head>
 <body>
     

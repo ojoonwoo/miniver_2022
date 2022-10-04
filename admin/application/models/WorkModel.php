@@ -7,7 +7,7 @@ class WorkModel extends Model {
     // methods ... selectList, updateItem, readItem, deleteItem,
 
     public function selectList($category, $idx, $pageNo) {
-        $sql = 'SELECT * FROM work_info';
+        $sql = 'SELECT * FROM work_info WHERE 1 ORDER BY work_order ASC, work_register_date DESC';
         $result = mysqli_query($this->my_db, $sql);
         $res_data = array();
 
@@ -120,6 +120,27 @@ class WorkModel extends Model {
         $sql = 'UPDATE work_info SET '.$cv_set.' WHERE idx = '.$index.'';
         $result = mysqli_query($this->my_db, $sql);
 
+
+        return $result;
+    }
+    public function listOrderUpdate($list) {
+        $q_string = "";
+        $idx_arr = array();
+        foreach($list as $key => $val) {
+            $q_string .= "WHEN idx = '".$val['idx']."' THEN '".$val['order']."' ";
+            $idx_arr[$key] = $val['idx'];
+        }
+        $idx_string = implode(",", $idx_arr);
+        
+        $sql = "UPDATE work_info
+            SET
+            work_order = CASE
+            $q_string
+            END
+            WHERE idx IN($idx_string)
+            ";
+
+        $result = mysqli_query($this->my_db, $sql);
 
         return $result;
     }

@@ -218,6 +218,24 @@ class WorkController extends Controller {
         $url = _ROOT_URL.'work/edit/'.$index;
         echo "<script>location.replace('$url')</script>";
     }
+    public function workOrderUpdate() {
+        if($_SERVER['REQUEST_METHOD'] !== "POST") {
+            exit();    
+        }
+
+        $list_data = $_POST['list'];
+
+        $model = new \application\models\WorkModel();
+
+        $result = $model->listOrderUpdate($list_data);
+
+
+        if($result) {
+            echo json_encode(array('result' => true), JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode(array('result' => false), JSON_UNESCAPED_UNICODE);
+        }
+    }
 }
 
 ?>

@@ -1,3 +1,25 @@
 .page-title .h2 {
     text-transform: uppercase;
 }
+
+.draggable-source--is-dragging {
+    visibility: hidden;
+}
+table {
+    position: relative;
+}
+.draggable-item * {
+    user-select: none;
+}
+.draggable-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+.draggable--is-dragging * {
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}
+.draggable-mirror {
+    background-color: rgba(0, 0, 0, 0.1);
+}
