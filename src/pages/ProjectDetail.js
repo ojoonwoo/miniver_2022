@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import WorkBox from '../components/WorkBox';
 import * as common from './../CommonFunction';
 import useResizeObserver from '@react-hook/resize-observer';
+import { heroBoxChangeColor } from './../store.js';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -28,6 +29,10 @@ function ProjectDetail(props) {
     });
     let device = useSelector((state) => {
         return state.currentDevice;
+    });
+    let heroBoxColor = useSelector((state) => {
+        // console.log(state);
+        return state.heroBoxColor;
     });
 
     const [topBlockHeight, setTopBlockHeight] = useState(null);
@@ -63,9 +68,21 @@ function ProjectDetail(props) {
 
         console.log('project detail mount');
         return () => {
+            dispatch(heroBoxChangeColor(''));
             console.log('project detail unmount');
         };
     }, []);
+
+    useEffect(() => {
+        if(projectData.hero_color) {
+            dispatch(heroBoxChangeColor(projectData.hero_color));
+            console.log('hero color is', projectData.hero_color);
+        }
+        return () => {
+            dispatch(heroBoxChangeColor(''));
+            console.log('hero color remove');
+        };
+    }, [projectData]);
 
     // useEffect(() => {
     //     if(projectData.length<1) {return};
@@ -149,7 +166,7 @@ function ProjectDetail(props) {
                             <div className="hero-box">
                                 <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>
                             </div>
-                            <div className="client-box">
+                            <div className="client-box" style={{color:heroBoxColor}}>
                                 <h3 className="client-box__title-kr">{projectData.client_name_kor}</h3>
                                 <h2 className="client-box__title">{projectData.client_name}</h2>
                             </div>
@@ -230,10 +247,16 @@ function ProjectDetail(props) {
                         </div>
                         <div className="grid-inner">
                             <div className="project-detail__desc">
-                                <dl>
-                                    <dt className="small-title">Overview</dt>
-                                    <dd>{projectData.work_overview}</dd>
-                                </dl>
+                                <div className="left">
+                                    <dl>
+                                        <dt className="small-title">Overview</dt>
+                                    </dl>
+                                </div>
+                                <div className="right">
+                                    <dl>
+                                        <dd>{projectData.work_overview}</dd>
+                                    </dl>
+                                </div>
                             </div>
                         </div>
                         <div className="project-detail__mockup">
@@ -242,14 +265,18 @@ function ProjectDetail(props) {
                             </div>
                         </div>
                         <div className="contact-block">
-                            <div>
-                                <p className="small-title">Contact</p>
-                                <Link to="/contact">
-                                    <span>프로젝트 문의하기</span>
-                                    <svg width="29" height="7" viewBox="0 0 29 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 5.97348H27.375L22.4989 1" stroke="#404040" stroke-linecap="round" />
-                                    </svg>
-                                </Link>
+                            <div className="inner">
+                                <div className="left">
+                                    <p className="small-title">Contact</p>
+                                </div>
+                                <div className="right">
+                                    <Link to="/contact">
+                                        <span>프로젝트 문의하기</span>
+                                        <svg viewBox="0 0 29 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 5.97348H27.375L22.4989 1" stroke="#404040" strokeLinecap="round" />
+                                        </svg>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </motion.div>

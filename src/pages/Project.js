@@ -17,10 +17,6 @@ function Project(props) {
     const location = useLocation();
     const navigate = useNavigate();
 
-    let headerColor = useSelector((state) => {
-        return state.headerColor;
-    });
-    // console.log(headerColor);
     const params = useParams();
     let dispatch = useDispatch();
     const [projectData, setProjectData] = useState([]);

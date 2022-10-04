@@ -10,6 +10,10 @@ function Header(props) {
     let device = useSelector((state) => {
         return state.currentDevice;
     });
+    let heroBoxColor = useSelector((state) => {
+        // console.log(state);
+        return state.heroBoxColor;
+    });
 
     let [menuOpen, setMenuOpen] = useState(false);
 
@@ -31,7 +35,7 @@ function Header(props) {
     }, [menuOpen]);
 
     return (
-        <header>
+        <header style={{color:heroBoxColor}}>
             <div className={styles.wrapper}>
                 <Link to="/" className={styles.logo}>
                     <svg width="213" height="31" viewBox="0 0 213 31" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

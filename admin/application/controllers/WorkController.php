@@ -138,6 +138,7 @@ class WorkController extends Controller {
             "client_name"=> htmlspecialchars($_POST['client_name']),
             "client_name_kor"=> htmlspecialchars($_POST['client_name_kor']),
             "work_overview"=> htmlspecialchars($_POST['work_overview']),
+            "hero_color"=> htmlspecialchars($_POST['hero_color']),
         );
 
 
@@ -182,6 +183,7 @@ class WorkController extends Controller {
             "client_name"=> htmlspecialchars($_POST['client_name']),
             "client_name_kor"=> htmlspecialchars($_POST['client_name_kor']),
             "work_overview"=> htmlspecialchars($_POST['work_overview']),
+            "hero_color"=> htmlspecialchars($_POST['hero_color']),
         );
 
         
