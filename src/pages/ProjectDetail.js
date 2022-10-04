@@ -221,8 +221,9 @@ function ProjectDetail(props) {
                                 spaceBetween={device === 'mobile' ? 10 : 20}
                                 slidesPerView={'auto'}
                                 // slidesOffsetBefore={device==='mobile' ? 30 : (window.innerWidth-1200)/2}
-                                slidesOffsetBefore={device === 'mobile' ? 30 : 150}
-                                slidesOffsetAfter={device === 'mobile' ? 30 : 150}
+                                // slidesOffsetBefore={window.innerWidth === 'mobile' ? (window.innerWidth / 100 * 2.666666) * 30 : window.innerWidth / 100 * 7.8125}
+                                slidesOffsetBefore={window.innerWidth >= 1200 ? (window.innerWidth / 100 * 0.52) * 15 : window.innerWidth >= 720 ? (window.innerWidth / 100 * 2) * 3 : (window.innerWidth / 100 * 2.666666) * 3}
+                                slidesOffsetAfter={window.innerWidth >= 1200 ? (window.innerWidth / 100 * 0.52) * 15 : window.innerWidth >= 720 ? (window.innerWidth / 100 * 2) * 3 : (window.innerWidth / 100 * 2.666666) * 3}
                                 scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
                                 freeMode={true}
                                 updateOnWindowResize={true}
@@ -288,8 +289,10 @@ function ProjectDetail(props) {
                                 modules={[Scrollbar, A11y]}
                                 spaceBetween={device === 'mobile' ? 10 : 20}
                                 slidesPerView={'auto'}
-                                slidesOffsetBefore={device === 'mobile' ? 64 : 150}
-                                slidesOffsetAfter={device === 'mobile' ? 64 : 150}
+                                // slidesOffsetBefore={device === 'mobile' ? 64 : 150}
+                                // slidesOffsetAfter={device === 'mobile' ? 64 : 150}
+                                slidesOffsetBefore={window.innerWidth >= 1200 ? (window.innerWidth / 100 * 0.52) * 15 : window.innerWidth >= 720 ? (window.innerWidth / 100 * 2) * 6.4 : (window.innerWidth / 100 * 2.666666) * 6.4}
+                                slidesOffsetAfter={window.innerWidth >= 1200 ? (window.innerWidth / 100 * 0.52) * 15 : window.innerWidth >= 720 ? (window.innerWidth / 100 * 2) * 6.4 : (window.innerWidth / 100 * 2.666666) * 6.4}
                                 // freeMode={true}
                                 updateOnWindowResize={true}
                                 onSwiper={(swiper) => console.log(swiper)}
