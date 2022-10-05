@@ -28,7 +28,7 @@ export let {heroBoxChangeColor} = heroBoxColor.actions;
 
 let transitionState = createSlice ({
   name: 'transitionState',
-  initialState: "initial",
+  initialState: "site_landing",
   reducers: {
     setTransitionState(state, action) {
           // console.log(state, action.payload);

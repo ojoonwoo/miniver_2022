@@ -69,7 +69,7 @@ if ($action === 'modify') {
                 </div> -->
                 <div class="col">
                     <label for="press-thumb" class="form-label">썸네일</label>
-                    <div class="badge bg-danger" style="width: auto;">사이즈x가이드</div>
+                    <div class="badge bg-danger" style="width: auto;">630 x 630</div>
                     <div class="input-group">
                         <input class="form-control" type="file" id="press-thumb" name="press_thumb[]" accept="image/jpg, image/jpeg, image/png, image/gif" <?= $readonly ?>>
                         <?php

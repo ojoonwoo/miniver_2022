@@ -6,7 +6,6 @@ import { setTransitionState } from './../store';
 import Header from './Header';
 import * as common from './../CommonFunction';
 
-
 function PageTransition(props) {
     const pageAnimate = useAnimation();
     const loaderAnimate = useAnimation();
@@ -16,7 +15,6 @@ function PageTransition(props) {
         return state.currentDevice;
     });
 
-
     let transitionState = useSelector((state) => {
         return state.transitionState;
     });
@@ -24,51 +22,31 @@ function PageTransition(props) {
     let dispatch = useDispatch();
 
     const animateSequence = async () => {
-        // @todo : 코드 수정 필요
-        // desktop 에서는 박스 애니메이션이 부적합해보임
-        if (transitionState === 'initial') {
-            // if(props.variantsName !== 'detail') {
-                await loaderAnimate.set({ y: 0 });
-            // }
-            await pageAnimate.start({ opacity: 1, transition: { duration: 0.1 } });
-            return await loaderAnimate.start({ y: '-100%', transition: { duration: 1 } }); 
-        } else if(transitionState === 'animate') {
-            // if(props.variantsName !== 'detail') {
-                await loaderAnimate.start({ y: 0, transition: { duration: 0.6 } });
-            // }
+        // * 사이트 랜딩시 애니메이션
+        if (transitionState === 'site_landing') {
+            await loaderAnimate.start({ opacity: 1, transition: { duration: 0.6 } });
             await pageAnimate.start({ opacity: 1, transition: { duration: 0.3 } });
-            return await loaderAnimate.start({ y: '-100%', transition: { duration: 1 } });
+            return await loaderAnimate.start({ opacity: 0, transition: { duration: 1 } });
+            // * 페이지 전환시 애니메이션
+        } else if (transitionState === 'page_transition') {
+            await loaderAnimate.start({ opacity: 1, transition: { duration: 0.6 } });
+            await pageAnimate.start({ opacity: 1, transition: { duration: 0.3 } });
+            return await loaderAnimate.start({ opacity: 0, transition: { duration: 1 } });
         } else {
             console.log('애니메이트 시퀀스 none');
         }
     };
 
-   
     useEffect(() => {
-        console.log('*** 트랜지션 스테이트:',transitionState);
+        console.log('*** 트랜지션 스테이트:', transitionState);
         animateSequence();
     }, [transitionState]);
 
     const onScroll = (e) => {
         // console.log(e.target.scrollTop);
-    }
-    
-
-    const containerVariants = {
-        animate: {
-            opacity: 1,
-        },
-        exit: {
-            opacity: 0,
-            transition: {
-                duration: 0.3,
-                delay: 0.3,
-                when: 'afterChildren',
-            },
-        },
     };
 
-    const animationConfiguration = {
+    const pageConfiguration = {
         initial: {
             opacity: 0,
             zIndex: 2,
@@ -76,53 +54,51 @@ function PageTransition(props) {
                 duration: 0.5,
             },
         },
-    };
-    const loaderConf = {
-        initial: {
-            y: '-100%',
+        exit: {
+            opacity: 0,
+            y: '-1vh',
             transition: {
                 duration: 0.3,
             },
         },
-        exit: {
-            y: '-100%',
+    };
+    const loaderConfiguration = {
+        initial: {
+            opacity: 0,
         },
+        // exit: {
+        //     y: '-100%',
+        // },
     };
     useEffect(() => {
-        if(props.goScrollTop) {
+        if (props.goScrollTop) {
             // containerRef.current.scrollTo(0, 0);
             containerRef.current.scrollTo({
                 top: 0,
-                behavior: "smooth",
-                duration: 0.1
+                behavior: 'smooth',
+                duration: 0.1,
             });
-            
         }
-    }, [props.goScrollTop])
+    }, [props.goScrollTop]);
 
     useEffect(() => {
         console.log('transition component', props);
         console.log('page transition mount');
         animateSequence();
-        if (transitionState === 'initial') {
-            dispatch(setTransitionState('animate'));
-        } else if (props.variantsName === 'detail') {
-            // dispatch(setTransitionState('none'));
-            dispatch(setTransitionState('animate'));
-        }
+        dispatch(setTransitionState('page_transition'));
         return () => {
             console.log('page transition unmount');
         };
     }, []);
     return (
-        <motion.div style={{ position: 'absolute', top: 0, left: 0, width: '100%' }} variants={containerVariants} animate="animate" exit="exit" className="site-content">
-            <motion.div variants={loaderConf} initial="initial" animate={loaderAnimate} className="global-loader">
-            </motion.div>
-            <motion.div variants={animationConfiguration} initial="initial" animate={pageAnimate} data-scroll-container ref={containerRef} onScroll={onScroll}>
+        // * 프라그먼트 <></>
+        <>
+            <motion.div variants={loaderConfiguration} initial="initial" animate={loaderAnimate} className="global-loader"></motion.div>
+            <motion.div variants={pageConfiguration} initial="initial" animate={pageAnimate} exit="exit" data-scroll-container ref={containerRef} onScroll={onScroll}>
                 <Header />
                 {props.children}
             </motion.div>
-        </motion.div>
+        </>
     );
 }
 export default PageTransition;
