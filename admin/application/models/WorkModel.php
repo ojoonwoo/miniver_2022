@@ -96,8 +96,8 @@ class WorkModel extends Model {
         $sql = 'INSERT INTO work_info('.$columns.') VALUES('.$values.')';
         $result = mysqli_query($this->my_db, $sql);
 
-        // echo $sql;
-        // exit;
+        echo $sql;
+        exit;
 
         return $result;
     }

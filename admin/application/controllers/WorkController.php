@@ -145,9 +145,6 @@ class WorkController extends Controller {
 
         $upload_results = $this->uploadFiles($project_id, $_FILES);
 
-        // print_r($upload_results);
-        // exit;
-
 
         $merge_array = array_merge($workdata, $upload_results);
 
