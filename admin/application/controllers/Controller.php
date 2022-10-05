@@ -14,10 +14,10 @@ class Controller {
             echo $menu;
             echo "<br/>";
             echo $action;
-            
+
             if($_SESSION['mb_id'] != 'administrator' && $_SESSION['mb_grade'] != '99') {
                 echo "<script>alert('로그인해주세요');</script>";
-                echo "<script>location.replace('"._ROOT_URL.'member/login'."');</script>";
+                // echo "<script>location.replace('"._ROOT_URL.'member/login'."');</script>";
                 exit();
             }
         }
