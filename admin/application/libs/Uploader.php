@@ -28,8 +28,6 @@ class Uploader {
      */
     public function upload(array $files = [], $dir_add) {
 
-        echo "in upload";
-        exit;
         // Normalize the files list.
         $this->dir_add = $dir_add;
         $normalizedFiles = $this->normalizeFiles($files);
@@ -174,7 +172,8 @@ class Uploader {
      * @param string $path Directory path.
      * @return $this
      */
-    private function createDirectory(string $path) {
+    // private function createDirectory(string $path) {
+    private function createDirectory($path) {
         try {
             if (file_exists($path) && !is_dir($path)) {
                 throw new \UnexpectedValueException(
