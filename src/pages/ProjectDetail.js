@@ -35,7 +35,7 @@ function ProjectDetail(props) {
         return state.heroBoxColor;
     });
 
-    const [topBlockHeight, setTopBlockHeight] = useState(null);
+    // const [topBlockHeight, setTopBlockHeight] = useState(null);
 
     // const [rect, ref] = useClientRect();
     const rectRef = useRef(null);
@@ -262,6 +262,7 @@ function ProjectDetail(props) {
                         </div>
                         <div className="project-detail__mockup">
                             <div className="mockup-box">
+                                {/* <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo> */}
                                 <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo>
                             </div>
                         </div>
