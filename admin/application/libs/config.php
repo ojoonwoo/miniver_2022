@@ -31,5 +31,4 @@ if(_SERVICE_ENV === 'DEV') {
 
 
 session_start();
-print_r($_SESSION);
 ?>
