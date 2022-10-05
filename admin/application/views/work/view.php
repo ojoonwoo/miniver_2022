@@ -246,7 +246,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
                     alert('HEX CODE의 길이가 맞지않습니다.');
                     return false;
                 }
-                var regType = /^[A-Za-z0-9]+$/; 
+                var regType = /^[A-Za-z0-9]+$/;
                 if (!regType.test(form.hero_color.value.substr(1,form.hero_color.value.length))) {
                     alert('정확한 HEX CODE를 입력해주세요');
                     return false;

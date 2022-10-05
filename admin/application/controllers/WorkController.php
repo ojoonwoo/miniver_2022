@@ -131,6 +131,8 @@ class WorkController extends Controller {
         // @todo : 프로젝트 폴더명 어떻게 할지 고민.
         $project_id = $model->getLastWorkID()+1;
 
+        exit;
+        
         $workdata = array(
             "work_title"=> htmlspecialchars($_POST['work_title']),
             "work_title_kor"=> htmlspecialchars($_POST['work_title_kor']),
