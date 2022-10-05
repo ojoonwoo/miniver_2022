@@ -27,6 +27,9 @@ class Uploader {
      * @return bool|string[] TRUE on success, or a list of errors on failure.
      */
     public function upload(array $files = [], $dir_add) {
+
+        echo "in upload";
+        exit;
         // Normalize the files list.
         $this->dir_add = $dir_add;
         $normalizedFiles = $this->normalizeFiles($files);
