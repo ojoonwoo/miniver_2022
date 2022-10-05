@@ -823,6 +823,10 @@ select {
                 }
                 .right {
                     flex-basis: auto;
+                    dl {
+                        column-count: 2;
+                        column-gap: 2rem;
+                    }
                 }
                 dl {
                     margin-bottom: 3.6rem;
@@ -833,8 +837,6 @@ select {
                         font-size: 2rem;
                         font-weight: 300;
                         color: $grey2;
-                        column-count: 2;
-                        column-gap: 2rem;
                         line-height: 1.45;
                     }
                 }

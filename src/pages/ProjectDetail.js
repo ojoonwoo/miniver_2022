@@ -56,7 +56,7 @@ function ProjectDetail(props) {
                 params: { idx: params.id },
             });
             setProjectData(result.data);
-            // console.log(result.data);
+            console.log(result.data);
             const relatedWork = await axios({
                 method: 'get',
                 url: '/api/work/getlist',
@@ -255,7 +255,10 @@ function ProjectDetail(props) {
                                 </div>
                                 <div className="right">
                                     <dl>
-                                        <dd>{projectData.work_overview}</dd>
+                                        {projectData.overview_arr && projectData.overview_arr.map((paragraph, index) => (
+                                            <dd key={index}>{paragraph}</dd>
+                                        ))}
+                                        {/* <dd>{projectData.work_overview}</dd> */}
                                     </dl>
                                 </div>
                             </div>
