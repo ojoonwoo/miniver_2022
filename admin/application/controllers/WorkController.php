@@ -131,7 +131,6 @@ class WorkController extends Controller {
         // @todo : 프로젝트 폴더명 어떻게 할지 고민.
         $project_id = $model->getLastWorkID()+1;
 
-        exit;
         
         $workdata = array(
             "work_title"=> htmlspecialchars($_POST['work_title']),
@@ -145,6 +144,10 @@ class WorkController extends Controller {
 
 
         $upload_results = $this->uploadFiles($project_id, $_FILES);
+
+        print_r($upload_results);
+        exit;
+        
 
         $merge_array = array_merge($workdata, $upload_results);
 
