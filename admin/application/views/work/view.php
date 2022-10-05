@@ -83,7 +83,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
         </div>
         <div class="mb-3">
             <label for="logo-img" class="form-label">로고 이미지</label>
-            <div class="badge bg-danger" style="width: auto;">576x576 / .png</div>
+            <div class="badge bg-danger" style="width: auto;">800 x 400 / .png</div>
             <div class="input-group">
                 <input class="form-control" type="file" id="logo-img" name="logo_img[]" accept="image/png" <?= $readonly ?>>
                 <?php
@@ -100,7 +100,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
             <div class="row">
                 <div class="col">
                     <label for="thumb-rectangle" class="form-label">썸네일 직사각형</label>
-                    <div class="badge bg-danger" style="width: auto;">사이즈x가이드</div>
+                    <div class="badge bg-danger" style="width: auto;">800 x 400</div>
                     <div class="input-group">
                         <input class="form-control" type="file" id="thumb-rectangle" name="thumb_rectangle[]" accept="image/jpg, image/jpeg, image/png, image/gif" <?= $readonly ?>>
                         <?php
@@ -132,7 +132,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
         </div>
         <div class="mb-3">
             <label for="hero-source" class="form-label">상세페이지 메인 이미지 또는 영상</label>
-            <div class="badge bg-danger" style="width: auto;">사이즈x가이드</div>
+            <div class="badge bg-danger" style="width: auto;">1920 x 800</div>
             <div class="input-group">
                 <input class="form-control" type="file" id="hero-source" name="hero_source[]" <?= $readonly ?>>
                 <?php
@@ -152,7 +152,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
         </div>
         <div class="mb-3">
             <label for="detail-sources1" class="form-label">상세 주요 이미지 (5개까지 가능)</label>
-            <div class="badge bg-danger" style="width: auto;">사이즈x가이드</div>
+            <div class="badge bg-danger" style="width: auto;">730 x 730 또는 1210 x 730</div>
             <div class="input-group">
                 <input class="form-control" type="file" id="detail-sources1" name="detail_sources1[]" multiple="multiple" accept="image/jpg, image/jpeg, image/png, image/gif, video/mp4" <?= $readonly ?>>
                 <?php
@@ -170,7 +170,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
         </div>
         <div class="mb-3">
             <label for="detail-sources2" class="form-label">하단 목업 이미지</label>
-            <div class="badge bg-danger" style="width: auto;">사이즈x가이드</div>
+            <div class="badge bg-danger" style="width: auto;">1620 x 880</div>
             <div class="input-group">
                 <input class="form-control" type="file" id="detail-sources2" name="detail_sources2[]" accept="image/jpg, image/jpeg, image/png, image/gif, video/mp4" <?= $readonly ?>>
                 <?php
