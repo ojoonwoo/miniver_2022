@@ -10,7 +10,7 @@ class Controller {
         }
 
         // 로그인 체크 훅으로 만들것.
-        if($menu !== 'member' && $action !== 'login') {
+        if($menu !== 'Member' && $action !== 'login') {
             echo $menu;
             echo "<br/>";
             echo $action;
