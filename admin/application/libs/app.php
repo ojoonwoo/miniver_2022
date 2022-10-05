@@ -18,14 +18,16 @@ class app {
         $params['category'] = isset($getParams[2]) && $getParams[2] != '' ? $getParams[2] : null;
         $params['idx'] = isset($getParams[3]) && $getParams[3] != '' ? $getParams[3] : null;
         $params['pageNum'] = isset($getParams[4]) && $getParams[4] != '' ? $getParams[4] : null;
-        if (!file_exists('application/controllers/'. $params['menu'] .'Controller.php')) {
+        // if (!file_exists('application/controllers/'. $params['menu'] .'Controller.php')) {
+            if (!file_exists('application/controllers/'. ucwords($params['menu']) .'Controller.php')) {
             echo "해당 컨트롤러가 존재하지 않습니다.";
             echo "Not Found";
             // not found
             exit();
         }
 
-        $controllerName = '\application\controllers\\'.$params['menu'].'controller';
+        // $controllerName = '\application\controllers\\'.$params['menu'].'controller';
+        $controllerName = '\application\controllers\\'.ucwords($params['menu']).'Controller';
         new $controllerName($params['menu'], $params['action'], $params['category'], $params['idx'], $params['pageNum']);
         
     }
