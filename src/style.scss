@@ -846,7 +846,9 @@ select {
                     cursor: grab;
                 }
                 .swiper-slide {
-                    width: 121rem;
+                    // width: 121rem;
+                    width: auto;
+                    min-width: 73rem;
                 }
 
                 .slideshow-scrollbar {
