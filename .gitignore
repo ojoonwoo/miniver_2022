@@ -23,6 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 
+/admin/application/libs/dbconfig.php
+
 /uploads
 /server/dbconnection.js
 /server/senderInfo.json
