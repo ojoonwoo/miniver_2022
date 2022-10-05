@@ -100,6 +100,7 @@ router.get('/getdetail', function(req, res) {
             returnData['category_names'] = [];
             returnData['detail_sources1_arr'] = returnData['detail_sources1'].includes(', ') ? returnData['detail_sources1'].split(', ') : [returnData['detail_sources1']];
             returnData['detail_sources2_arr'] = returnData['detail_sources2'].includes(', ') ? returnData['detail_sources2'].split(', ') : [returnData['detail_sources2']];
+            returnData['work_overview'] = returnData['work_overview'].replace('&amp;', '&');
             returnData['overview_arr'] =  returnData['work_overview'].split('\r\n\r\n');
 
             const cateQuery = `select category_name from category_info where 1 AND idx IN (${results[0].work_categories})`;
