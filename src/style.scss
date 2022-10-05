@@ -634,10 +634,10 @@ select {
         display: flex;
         align-items: center;
         justify-content: center;
-        .inner {
-            width: 100%;
-            max-width: 1100px;
-            // border: 1px solid red;
+        > .inner {
+            width: auto;
+            border: 1px solid red;
+            padding: 0;
             .title-block {
                 margin-bottom: 10.2rem;
                 .title-num {
