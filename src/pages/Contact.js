@@ -398,7 +398,7 @@ function Contact(props) {
                                                 </div>
                                             </div>
                                         ))}
-                                        <div className="input-box">
+                                        {/* <div className="input-box">
                                             <div className="inner">
                                                 <label>
                                                     <input
@@ -413,7 +413,7 @@ function Contact(props) {
                                                     </div>
                                                 </label>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <button onClick={contactStateHandler}>
                                             <ArrowRight />
                                         </button>
@@ -432,8 +432,17 @@ function Contact(props) {
                                 <div className="input-block">
                                     <div className="inner">
                                         <div className="input-box">
-                                            <div className="inner">
-                                                <input
+                                            <div className="inner full-width">
+                                                <textarea
+                                                    placeholder="입력하기"
+                                                    value={description}
+                                                    onChange={(e) => {
+                                                        inputHandler(e);
+                                                    }}
+                                                    autoComplete="off"
+                                                    spellCheck="false">
+                                                </textarea>
+                                                {/* <input
                                                     type="text"
                                                     placeholder="입력하기"
                                                     value={description}
@@ -442,7 +451,7 @@ function Contact(props) {
                                                     }}
                                                     autoComplete="off"
                                                     spellCheck="false"
-                                                />
+                                                /> */}
                                             </div>
                                         </div>
                                         <button onClick={contactStateHandler}>

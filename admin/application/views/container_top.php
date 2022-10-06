@@ -24,12 +24,17 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="<?=_ROOT_URL?>work/">
-                                Worklist
+                                Work List
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="<?=_ROOT_URL?>press/">
-                                Presslist
+                                Press List
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="<?=_ROOT_URL?>contact/">
+                                Contact List
                             </a>
                         </li>
                     </ul>

@@ -49,10 +49,11 @@ function Home(props) {
     const [homeData, setHomeData] = useState([]);
     useEffect(() => {
         async function getHomeData() {
+            let displayCount = device == 'mobile' ? 3 : 6;
             const result = await axios({
                 method: 'get',
                 url: '/api/work/getlist',
-                params: { cate: 'all' },
+                params: { cate: 'all', limit: displayCount },
             });
             setHomeData(result.data.list);
         }
@@ -69,7 +70,7 @@ function Home(props) {
         //     console.log(res.data.list);
         //     mainWorks = res.data.list;
         // });
-    }, []);
+    }, [device]);
 
     return (
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
