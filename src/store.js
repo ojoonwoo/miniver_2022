@@ -13,6 +13,19 @@ let themeColor = createSlice ({
 
 export let {changeColor} = themeColor.actions;
 
+let menuState = createSlice ({
+  name: 'menuState',
+  initialState: true,
+  reducers: {
+      menuToggle(state, action) {
+          // console.log(state, action.payload);
+          return state = action.payload;
+      }
+  }
+});
+
+export let {menuToggle} = menuState.actions;
+
 let heroBoxColor = createSlice ({
   name: 'heroBoxColor',
   initialState: "",
@@ -85,6 +98,7 @@ export default configureStore({
     heroBoxColor: heroBoxColor.reducer,
     transitionState: transitionState.reducer,
     contactState: contactState.reducer,
-    currentDevice: currentDevice.reducer
+    currentDevice: currentDevice.reducer,
+    menuState: menuState.reducer
   }
 });

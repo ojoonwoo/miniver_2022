@@ -55,11 +55,12 @@ header {
                 position: relative;
                 display: flex;
                 flex-flow: column;
-                justify-content: space-between;
+                // justify-content: space-between;
                 background-color: #000;
                 width: 77%;
                 height: 100vh;
                 padding: 7.75rem 0 4.5rem 6rem;
+                overflow: auto;
                 .nav-block__btn-close {
                     position: absolute;
                     width: 4.4rem;
@@ -119,6 +120,7 @@ header {
                     background: none;
                     height: auto;
                     transform: inherit;
+                    justify-content: space-between;
                     ul {
                         display: flex;
                         align-items: center;
