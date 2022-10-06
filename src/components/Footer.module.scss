@@ -1,9 +1,11 @@
 footer {
+    margin-top: 6.4rem;
     color: #fff;
     .inner {
         width: 100%;
         .logo {
-            display: block;
+            // display: block;
+            display: none;
             svg {
                 fill: #fff;
                 width: 12.4rem;
@@ -59,20 +61,32 @@ footer {
         display: flex;
         flex-flow: column;
         align-items: center;
-        padding: 6.7rem 0 3.8rem;
+        padding: 6.7rem 0 11.2rem;
+        position: relative;
         .inner {
             max-width: 1210px;
             margin: 0 auto;
             .elem-block {
                 width: 100%;
-                margin-bottom: 5rem;
                 display: flex;
+                justify-content: space-between;
                 .logo {
-                    display: none;
+                    // display: none;
+                    display: block;
+                    margin-right: 28.9rem;
+                }
+                .break-wrap {
+                    .footer-elem {
+                        display: block;
+                        margin-bottom: 2.6rem;
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
                 }
                 .footer-elem {
                     margin-bottom: 0;
-                    flex-basis: 25%;
+                    // flex-basis: 25%;
                     .footer-elem__title {
                         font-weight: 700;
                         font-size: 1.8rem;
@@ -106,11 +120,13 @@ footer {
                 }
             }
             .copyright-block {
+                position: absolute;
+                top: 13rem;
                 font-weight: 400;
                 font-size: 1.5rem;
                 line-height: 1.9rem;
                 letter-spacing: -0.03em;
-                text-align: center;
+                // text-align: center;
             }
         }
     }

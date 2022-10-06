@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Footer from './Footer.js';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
+import { menuToggle } from '../store.js';
 
 function Header(props) {
     let device = useSelector((state) => {
@@ -14,6 +15,10 @@ function Header(props) {
         // console.log(state);
         return state.heroBoxColor;
     });
+
+    const dispatch = useDispatch();
+
+
 
     let [menuOpen, setMenuOpen] = useState(false);
 
@@ -32,6 +37,7 @@ function Header(props) {
     useEffect(() => {
         // console.log('메뉴오픈');
         // console.log(menuOpen);
+        dispatch(menuToggle(menuOpen));
     }, [menuOpen]);
 
     return (
