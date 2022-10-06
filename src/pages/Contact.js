@@ -21,6 +21,10 @@ function Contact(props) {
     console.log(contactState);
     let dispatch = useDispatch();
 
+    let device = useSelector((state) => {
+        return state.currentDevice;
+    });
+
     const [categoryData, setCategoryData] = useState([]);
     // console.log(categoryData);
 
@@ -97,7 +101,7 @@ function Contact(props) {
             case 11:
                 // * 전화번호 11자리 일때
                 // * 010, 070, 080
-                // * xxx - xxxx - xxxx로 변환 
+                // * xxx - xxxx - xxxx로 변환
                 phone = contactState.phone.replace(/^(\d{3})(\d{4})(\d{4})$/, `$1-$2-$3`);
                 break;
             case 10:
@@ -107,7 +111,7 @@ function Contact(props) {
                 // * 두번째 숫자가 2보다 크다면
                 // * xxx - xxx - xxxx로 변환
                 console.log(contactState.phone.charAt(1));
-                if(contactState.phone.charAt(1) === '2') {
+                if (contactState.phone.charAt(1) === '2') {
                     phone = contactState.phone.replace(/^(\d{2})(\d{4})(\d{4})$/, `$1-$2-$3`);
                 } else {
                     phone = contactState.phone.replace(/^(\d{3})(\d{3})(\d{4})$/, `$1-$2-$3`);
@@ -136,7 +140,7 @@ function Contact(props) {
                 email: contactState.email,
             },
         });
-        console.log(result);
+        console.log(result.data);
     };
 
     const inputHandler = ({ target }, idx) => {
@@ -373,7 +377,7 @@ function Contact(props) {
                                     <h3 className="title-num">1.</h3>
                                     <h2 className="title">
                                         프로젝트를
-                                        <br />
+                                        {device === 'mobile' ? <br /> : ' '}
                                         문의하고 싶으신가요?
                                     </h2>
                                     <p className="title-desc">* 중복 선택</p>
@@ -414,18 +418,19 @@ function Contact(props) {
                                                 </label>
                                             </div>
                                         </div> */}
-                                        <button onClick={contactStateHandler}>
-                                            <ArrowRight />
-                                        </button>
+
                                     </div>
                                 </div>
+                                <button className='btn-next' onClick={contactStateHandler}>
+                                    <ArrowRight />
+                                </button>
                             </motion.div>
                             <motion.div key="2" className={`survey-item`} data-idx="2" initial="initial" animate={active === 2 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
                                     <h3 className="title-num">2.</h3>
                                     <h2 className="title">
                                         프로젝트의 구체적인 내용을
-                                        <br />
+                                        {device === 'mobile' ? <br /> : ' '}
                                         넣어주세요.
                                     </h2>
                                 </div>
@@ -454,11 +459,11 @@ function Contact(props) {
                                                 /> */}
                                             </div>
                                         </div>
-                                        <button onClick={contactStateHandler}>
-                                            <ArrowRight />
-                                        </button>
                                     </div>
                                 </div>
+                                <button className='btn-next' onClick={contactStateHandler}>
+                                    <ArrowRight />
+                                </button>
                             </motion.div>
                             <motion.div key="3" className={`survey-item`} data-idx="3" initial="initial" animate={active === 3 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
@@ -488,18 +493,18 @@ function Contact(props) {
                                                 <span>만원</span>
                                             </div>
                                         </div>
-                                        <button onClick={contactStateHandler}>
-                                            <ArrowRight />
-                                        </button>
                                     </div>
                                 </div>
+                                <button className='btn-next' onClick={contactStateHandler}>
+                                    <ArrowRight />
+                                </button>
                             </motion.div>
                             <motion.div key="4" className={`survey-item`} data-idx="4" initial="initial" animate={active === 4 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
                                     <h3 className="title-num">4.</h3>
                                     <h2 className="title">
                                         브랜드 또는 회사명을
-                                        <br />
+                                        {device === 'mobile' ? <br /> : ' '}
                                         입력해주세요
                                     </h2>
                                 </div>
@@ -519,7 +524,7 @@ function Contact(props) {
                                                 />
                                             </div>
                                         </div>
-                                        <button onClick={contactStateHandler}>
+                                        <button className='btn-next' onClick={contactStateHandler}>
                                             <ArrowRight />
                                         </button>
                                     </div>
@@ -530,7 +535,7 @@ function Contact(props) {
                                     <h3 className="title-num">5.</h3>
                                     <h2 className="title">
                                         담당자분의 성함과
-                                        <br />
+                                        {device === 'mobile' ? <br /> : ' '}
                                         연락처를 입력해주세요
                                     </h2>
                                 </div>
@@ -573,23 +578,26 @@ function Contact(props) {
                                                 />
                                             </div>
                                         </div>
-                                        <button onClick={contactStateHandler}>
-                                            <ArrowRight />
-                                        </button>
                                     </div>
                                 </div>
+                                <button className='btn-next' onClick={contactStateHandler}>
+                                    <ArrowRight />
+                                </button>
                             </motion.div>
                             <motion.div key="6" className={`survey-item`} data-idx="6" initial="initial" animate={active === 6 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
                                     <h2 className="title">
                                         문의주신 내용에
-                                        <br />
+                                        {device === 'mobile' ? <br /> : ' '}
                                         빠른 회신 드리겠습니다.
                                     </h2>
                                     <h2 className="title">감사합니다.</h2>
                                 </div>
                                 <div className="input-block">
-                                    <div className="inner"></div>
+                                    <div className="inner">
+                                        <div className='btn-portfolio'></div>
+                                        <div className='btn-company_profile'></div>
+                                    </div>
                                 </div>
                             </motion.div>
                         </AnimatePresence>

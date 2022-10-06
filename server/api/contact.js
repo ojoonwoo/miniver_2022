@@ -7,7 +7,7 @@ const mailer = require('./mail');
 
 router.post('/insert', function (req, res) {
     console.log(req.body);
-
+    // let category = contactState.category.toString().replace(/,/g, ', ');
     let categories = req.body.category;
     let description = req.body.description;
     let startDate = req.body.schedule.startDate;
@@ -23,19 +23,34 @@ router.post('/insert', function (req, res) {
     db.query(query, (err, results, fields) => {
         // console.log(fields);
         if (!err) {
+            // * 콘솔 로그는 서버 터미널 창에 표시됨
             // console.log('result', results);
-            res.send('insert 성공');
-            const toEmail = 'hs.ra@minivertising.kr';
+            // console.log('result', categories);
+            // res.send('성공');
+            // res.send('insert 성공');
+            // res.send(returnData);
+            let categoryNameArr = [];
 
-            let emailParam = {
-                toEmail: toEmail,
+            const cateQuery = `select category_name from category_info where 1 AND idx IN (${categories})`;
+            db.query(cateQuery, (err, results, fields) => {
+                console.log('result', results);
+                results.forEach(function (val, idx) {
+                    categoryNameArr.push(val.category_name);
+                });
+                res.json(categoryNameArr);
 
-                subject: '[CONTACT US] 새로운 CONTACT US 글이 등록 되었습니다.',
+                const toEmail = 'hs.ra@minivertising.kr, jw.o@minivertising.kr';
 
-                html: ' 의뢰유형 : ' + categories + '<br>   브랜드 또는 회사명 : ' + company + '<br> 담당자 성함 : ' + name + '<br> 연락처 : ' + phone + '<br> 이메일 : ' + email + '<br> 예산 : ' + budget + '만원<br> 일정 : ' + startDate + ' ~ ' + endDate + '<br> 내용 : ' + description,
-            };
-
-            mailer.sendGmail(emailParam);
+                let emailParam = {
+                    toEmail: toEmail,
+    
+                    subject: '[CONTACT US] 새로운 CONTACT US 글이 등록 되었습니다.',
+    
+                    html: ' 의뢰유형 : ' + categoryNameArr.join(', ') + '<br>   브랜드 또는 회사명 : ' + company + '<br> 담당자 성함 : ' + name + '<br> 연락처 : ' + phone + '<br> 이메일 : ' + email + '<br> 예산 : ' + budget + '만원<br> 일정 : ' + startDate + ' ~ ' + endDate + '<br> 내용 : ' + description,
+                };
+    
+                mailer.sendGmail(emailParam);
+            });
         } else {
             console.log(`query error : ${err}`);
             res.send(err);

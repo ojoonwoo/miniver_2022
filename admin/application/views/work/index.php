@@ -49,7 +49,7 @@ if(count($list) > 0) {
                     <a href="<?=_ROOT_URL?>work/view/<?=$val['idx']?>" class="btn btn-dark" role="button">보기</a>
                     <a href="<?=_ROOT_URL?>work/edit/<?=$val['idx']?>" class="btn btn-danger" role="button">수정</a>
                 </td>
-                <td>
+                <td class="drag-toggle">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                     </svg>
@@ -82,6 +82,7 @@ if(count($list) > 0) {
     })
     var sortable = new Sortable.default(document.querySelectorAll('tbody'), {
         draggable: 'tr',
+        delay: 200,
         classes: {
             'draggable:over': ['draggable--over'],
         },
