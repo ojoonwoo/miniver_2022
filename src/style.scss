@@ -168,6 +168,7 @@ input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
         display: flex;
         align-items: center;
         .surveys {
+            width: 100%;
             .survey-item {
                 .title-block {
                     margin-bottom: 8rem;
@@ -193,7 +194,8 @@ input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
                         letter-spacing: -0.03em;
                     }
                 }
-                &[data-idx='1'] .title-block {
+                &[data-idx='1'] .title-block,
+                &[data-idx='2'] .title-block {
                     margin-bottom: 4rem;
                 }
                 &[data-idx='5'] input {
@@ -237,8 +239,7 @@ input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
                                 height: 20rem;
                                 resize: none;
                                 padding: 1rem;
-                                border-bottom: 1px solid #d9d9d9;
-                                border-top: 1px solid #d9d9d9;
+                                border: 1px solid #d9d9d9;
                                 &:focus {
                                     outline: none;
                                 }
