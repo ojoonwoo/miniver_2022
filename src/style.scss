@@ -64,7 +64,28 @@ textarea,
 select {
     font-family: 'Kumbh Sans', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
     color: inherit;
+    appearance: none;
 }
+textarea {
+    overflow-y: scroll;
+}
+::-webkit-scrollbar-thumb {
+    width: 0px;
+    height: 0px;
+    background-color: rgba(255, 255, 255, 0.35);
+}
+textarea::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 3px;
+}
+input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
+    width: 2px;
+    height: 1px;
+    background-color: #ececec;
+    border-radius: 3px;
+}
+
+
 
 [data-theme] {
     transition: color 1s cubic-bezier(0, 0, 0.2, 1), background-color 1s ease;
@@ -693,6 +714,13 @@ select {
                                 }
                                 input, input[type='text'] {
                                     width: 40rem;
+                                    padding: 1.1rem;
+                                    font-size: 2rem;
+                                    line-height: 2.5rem;
+                                }
+                                textarea {
+                                    width: 80rem;
+                                    height: 26rem;
                                     padding: 1.1rem;
                                     font-size: 2rem;
                                     line-height: 2.5rem;
