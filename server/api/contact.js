@@ -39,7 +39,8 @@ router.post('/insert', function (req, res) {
                 });
                 res.json(categoryNameArr);
 
-                const toEmail = 'hs.ra@minivertising.kr, jw.o@minivertising.kr';
+                // const toEmail = 'hs.ra@minivertising.kr, jw.o@minivertising.kr';
+                const toEmail = 'hs.ra@minivertising.kr';
 
                 let emailParam = {
                     toEmail: toEmail,

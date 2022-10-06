@@ -418,12 +418,11 @@ function Contact(props) {
                                                 </label>
                                             </div>
                                         </div> */}
-
                                     </div>
                                 </div>
-                                <button className='btn-next' onClick={contactStateHandler}>
+                                {/* <button className='btn-next' onClick={contactStateHandler}>
                                     <ArrowRight />
-                                </button>
+                                </button> */}
                             </motion.div>
                             <motion.div key="2" className={`survey-item`} data-idx="2" initial="initial" animate={active === 2 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
@@ -445,8 +444,8 @@ function Contact(props) {
                                                         inputHandler(e);
                                                     }}
                                                     autoComplete="off"
-                                                    spellCheck="false">
-                                                </textarea>
+                                                    spellCheck="false"
+                                                ></textarea>
                                                 {/* <input
                                                     type="text"
                                                     placeholder="입력하기"
@@ -461,9 +460,9 @@ function Contact(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='btn-next' onClick={contactStateHandler}>
+                                {/* <button className="btn-next" onClick={contactStateHandler}>
                                     <ArrowRight />
-                                </button>
+                                </button> */}
                             </motion.div>
                             <motion.div key="3" className={`survey-item`} data-idx="3" initial="initial" animate={active === 3 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
@@ -495,9 +494,9 @@ function Contact(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='btn-next' onClick={contactStateHandler}>
+                                {/* <button className='btn-next' onClick={contactStateHandler}>
                                     <ArrowRight />
-                                </button>
+                                </button> */}
                             </motion.div>
                             <motion.div key="4" className={`survey-item`} data-idx="4" initial="initial" animate={active === 4 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
@@ -524,9 +523,9 @@ function Contact(props) {
                                                 />
                                             </div>
                                         </div>
-                                        <button className='btn-next' onClick={contactStateHandler}>
+                                        {/* <button className='btn-next' onClick={contactStateHandler}>
                                             <ArrowRight />
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
                             </motion.div>
@@ -580,9 +579,9 @@ function Contact(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='btn-next' onClick={contactStateHandler}>
+                                {/* <button className='btn-next' onClick={contactStateHandler}>
                                     <ArrowRight />
-                                </button>
+                                </button> */}
                             </motion.div>
                             <motion.div key="6" className={`survey-item`} data-idx="6" initial="initial" animate={active === 6 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
@@ -595,13 +594,16 @@ function Contact(props) {
                                 </div>
                                 <div className="input-block">
                                     <div className="inner">
-                                        <div className='btn-portfolio'></div>
-                                        <div className='btn-company_profile'></div>
+                                        <div className="btn-portfolio"></div>
+                                        <div className="btn-company_profile"></div>
                                     </div>
                                 </div>
                             </motion.div>
                         </AnimatePresence>
                     </div>
+                    <button className="btn-next" onClick={contactStateHandler}>
+                        <ArrowRight />
+                    </button>
                 </div>
             </div>
             {/* // </motion.div> */}
