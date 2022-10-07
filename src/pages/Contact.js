@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // import Header from '../components/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
-import { ko } from "date-fns/esm/locale";
+import { ko } from 'date-fns/esm/locale';
 import { changeColor, setContactState } from './../store.js';
 import PageTransition from '../components/PageTransition';
 import ArrowRight from '../components/ArrowRight.js';
@@ -38,6 +38,7 @@ function Contact(props) {
     // * step 3 일정 인풋 state
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [DateReadOnly, setDateReadOnly] = useState(true);
     const [budget, setBudget] = useState('');
     // * step 4 브랜드 또는 회사명 인풋 state
     const [company, setCompany] = useState('');
@@ -77,6 +78,13 @@ function Contact(props) {
         }
         return () => {};
     }, [contactState.step]);
+    useEffect(() => {
+        console.log(startDate);
+        if (startDate !== '') {
+            setDateReadOnly(false);
+        }
+        return () => {};
+    }, [startDate]);
 
     const getCategoryData = async () => {
         const result = await axios({
@@ -482,9 +490,24 @@ function Contact(props) {
                                     <div className="inner">
                                         <div className="input-box" id="dateInput">
                                             <div className="inner">
-                                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} locale={ko} placeholderText="0000.00.00" dateFormat="yyyy.MM.dd" minDate={new Date()} />
+                                                <DatePicker
+                                                    selected={startDate}
+                                                    onChange={(date) => setStartDate(date)}
+                                                    locale={ko}
+                                                    placeholderText="0000.00.00"
+                                                    dateFormat="yyyy.MM.dd"
+                                                    minDate={new Date()}
+                                                />
                                                 <span>-</span>
-                                                <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} locale={ko} placeholderText="0000.00.00" dateFormat="yyyy.MM.dd" minDate={new Date()} />
+                                                <DatePicker
+                                                    selected={endDate}
+                                                    onChange={(date) => setEndDate(date)}
+                                                    locale={ko}
+                                                    readOnly={DateReadOnly}
+                                                    placeholderText="0000.00.00"
+                                                    dateFormat="yyyy.MM.dd"
+                                                    minDate={startDate}
+                                                />
                                             </div>
                                         </div>
                                         <div className="input-box" id="budgetInput">
