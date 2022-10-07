@@ -223,8 +223,8 @@ input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
                             margin-bottom: 1rem;
                             input {
                                 font-weight: 400;
-                                font-size: 14px;
-                                line-height: 17px;
+                                font-size: 1.4rem;
+                                line-height: 1.7rem;
                                 color: $white;
                                 width: 20rem;
                                 border-bottom: 1px solid #d9d9d9;
@@ -235,18 +235,27 @@ input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
                             }
                             input[type='text'] {
                                 width: 20rem;
-                                height: 3.6rem;
+                                // height: 3.6rem;
                                 border-bottom: 1px solid #d9d9d9;
                                 padding: 1rem;
                             }
                             textarea {
+                                font-weight: 400;
+                                font-size: 1.4rem;
+                                line-height: 1.7rem;
                                 width: 100%;
                                 height: 20rem;
                                 resize: none;
                                 padding: 1rem;
-                                border: 1px solid #d9d9d9;
+                                border-top: 1px solid #d9d9d9;
+                                border-bottom: 1px solid #d9d9d9;
                                 &:focus {
                                     outline: none;
+                                }
+                                &::placeholder {
+                                    font-weight: 400;
+                                    font-size: 1.4rem;
+                                    line-height: 1.7rem;
                                 }
                             }
                             label {
@@ -259,7 +268,10 @@ input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
                                     top: 0;
                                     left: 0;
                                     &:checked + .btn-checkbox {
-                                        background-color: red;
+                                        background-color: $white;
+                                        color: $black;
+                                        transition: color 0.3s cubic-bezier(0, 0, 0.2, 1), background-color 0.3s ease;
+                                        will-change: color, background-color;
                                     }
                                 }
                                 .btn-checkbox {
@@ -298,6 +310,9 @@ input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
                                             border-bottom: 0;
                                         }
                                     }
+                                    .react-datepicker__current-month {
+                                        font-size: 60px;
+                                    }
                                 }
                             }
                             &#budgetInput {
@@ -324,8 +339,8 @@ input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
         }
         .btn-next {
             position: absolute;
-            right: 0;
-            bottom: 0;
+            right: 2.8rem;
+            bottom: 3.1rem;
             width: 4.4rem;
             height: 4.4rem;
             display: flex;
@@ -734,6 +749,11 @@ input::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
                                     padding: 1.1rem;
                                     font-size: 2rem;
                                     line-height: 2.5rem;
+                                    border: 1px solid d9d9d9;
+                                    &::placeholder {
+                                        font-size: 2rem;
+                                        line-height: 2.5rem;
+                                    }
                                 }
                                 &:last-of-type {
                                     margin-bottom: 0;
