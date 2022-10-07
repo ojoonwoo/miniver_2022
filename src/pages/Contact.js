@@ -482,7 +482,7 @@ function Contact(props) {
                                     <div className="inner">
                                         <div className="input-box" id="dateInput">
                                             <div className="inner">
-                                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}  locale={ko} placeholderText="0000.00.00" dateFormat="yyyy.MM.dd" minDate={new Date()} />
+                                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} locale={ko} placeholderText="0000.00.00" dateFormat="yyyy.MM.dd" minDate={new Date()} />
                                                 <span>-</span>
                                                 <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} locale={ko} placeholderText="0000.00.00" dateFormat="yyyy.MM.dd" minDate={new Date()} />
                                             </div>
