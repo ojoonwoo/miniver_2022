@@ -25,18 +25,15 @@ function Header(props) {
     // ! 모바일 인식 부분 Redux로 전환
     // * 윈도우 리사이즈 반응해서 footer on/off해주는 useEffect
     useEffect(() => {
-        
         if(device==='desktop') {
             setMenuOpen(false);
+            dispatch(menuToggle(false));
         }
-        
         return () => {
         };
-    }, []);
+    }, [device]);
 
     useEffect(() => {
-        // console.log('메뉴오픈');
-        // console.log(menuOpen);
         dispatch(menuToggle(menuOpen));
     }, [menuOpen]);
 

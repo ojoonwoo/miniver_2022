@@ -47,7 +47,6 @@ function PageTransition(props) {
     };
 
     let menuOpened = useSelector((state) => {
-        console.log(state);
         return state.menuState;
     });
 
