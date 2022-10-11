@@ -171,6 +171,7 @@ function Contact(props) {
                 setDescription(target.value);
                 break;
             case 3:
+                target.value = target.value.replace(/[^0-9.]/g, '').replace(/[~!@\#$%^&*\()\-=+_'\s\;<>\/.\`:\"\\,\[\]?|{}]/gi, '');
                 setBudget(target.value);
                 break;
             case 4:
@@ -271,6 +272,7 @@ function Contact(props) {
                         name: contactState.name,
                         phone: contactState.phone,
                         email: contactState.email,
+                        
                     })
                 );
                 break;
@@ -497,6 +499,7 @@ function Contact(props) {
                                                     placeholderText="0000.00.00"
                                                     dateFormat="yyyy.MM.dd"
                                                     minDate={new Date()}
+                                                    onFocus={e => e.target.blur()}
                                                 />
                                                 <span>-</span>
                                                 <DatePicker
@@ -507,13 +510,14 @@ function Contact(props) {
                                                     placeholderText="0000.00.00"
                                                     dateFormat="yyyy.MM.dd"
                                                     minDate={startDate}
+                                                    onFocus={e => e.target.blur()}
                                                 />
                                             </div>
                                         </div>
                                         <div className="input-box" id="budgetInput">
                                             <div className="inner">
                                                 <input
-                                                    type="number"
+                                                    type="tel"
                                                     value={budget}
                                                     onChange={(e) => {
                                                         inputHandler(e);
@@ -595,7 +599,7 @@ function Contact(props) {
                                                 />
                                                 <input
                                                     id="phoneInput"
-                                                    type="text"
+                                                    type="tel"
                                                     placeholder="휴대폰 번호"
                                                     value={phone}
                                                     onChange={(e) => {

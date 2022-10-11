@@ -10,8 +10,11 @@
 }
 
 html {
+    // * width 375일때 기본 폰트 사이즈 10px
     // font-size: 62.5%;
     font-size: 2.666666vw;
+    // * width 320일때 기본 폰트 사이즈 10px
+    // font-size: 3.125vw;
     // font-size: 0.652vw;
     height: 100%;
     overflow: hidden;
@@ -435,6 +438,10 @@ textarea::-webkit-scrollbar-thumb {
             // svg {
             //     margin-top: -0.6rem;
             // }
+            svg {
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 }
@@ -654,6 +661,12 @@ textarea::-webkit-scrollbar-thumb {
         }
     }
 }
+
+// @media (max-height: 740px) {
+//     html {
+//         font-size: 2vw;
+//     }
+// }
 
 @media (min-width: 720px) {
     html {
