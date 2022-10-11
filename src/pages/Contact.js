@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // import Header from '../components/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
+import { ko } from 'date-fns/esm/locale';
 import { changeColor, setContactState } from './../store.js';
 import PageTransition from '../components/PageTransition';
 import ArrowRight from '../components/ArrowRight.js';
@@ -37,6 +38,7 @@ function Contact(props) {
     // * step 3 일정 인풋 state
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [DateReadOnly, setDateReadOnly] = useState(true);
     const [budget, setBudget] = useState('');
     // * step 4 브랜드 또는 회사명 인풋 state
     const [company, setCompany] = useState('');
@@ -76,6 +78,13 @@ function Contact(props) {
         }
         return () => {};
     }, [contactState.step]);
+    useEffect(() => {
+        console.log(startDate);
+        if (startDate !== '') {
+            setDateReadOnly(false);
+        }
+        return () => {};
+    }, [startDate]);
 
     const getCategoryData = async () => {
         const result = await axios({
@@ -162,6 +171,7 @@ function Contact(props) {
                 setDescription(target.value);
                 break;
             case 3:
+                target.value = target.value.replace(/[^0-9.]/g, '').replace(/[~!@\#$%^&*\()\-=+_'\s\;<>\/.\`:\"\\,\[\]?|{}]/gi, '');
                 setBudget(target.value);
                 break;
             case 4:
@@ -262,6 +272,7 @@ function Contact(props) {
                         name: contactState.name,
                         phone: contactState.phone,
                         email: contactState.email,
+                        
                     })
                 );
                 break;
@@ -356,17 +367,17 @@ function Contact(props) {
                 duration: 1,
             },
         },
-        hidden: {
-            y: -10,
-            opacity: 0,
-            display: 'none',
-        },
+        // hidden: {
+        //     y: -10,
+        //     opacity: 0,
+        //     display: 'none',
+        // },
     };
 
     return (
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <PageTransition>
+        <PageTransition variantsName="contact">
             <div id="container" className={props.pageName}>
                 {/* <Header></Header> */}
                 <div className="inner">
@@ -418,12 +429,15 @@ function Contact(props) {
                                                 </label>
                                             </div>
                                         </div> */}
-
                                     </div>
                                 </div>
-                                <button className='btn-next' onClick={contactStateHandler}>
-                                    <ArrowRight />
-                                </button>
+                                {device === 'mobile' ? (
+                                    ''
+                                ) : (
+                                    <button className="btn-next" onClick={contactStateHandler}>
+                                        <ArrowRight />
+                                    </button>
+                                )}
                             </motion.div>
                             <motion.div key="2" className={`survey-item`} data-idx="2" initial="initial" animate={active === 2 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
@@ -445,8 +459,8 @@ function Contact(props) {
                                                         inputHandler(e);
                                                     }}
                                                     autoComplete="off"
-                                                    spellCheck="false">
-                                                </textarea>
+                                                    spellCheck="false"
+                                                ></textarea>
                                                 {/* <input
                                                     type="text"
                                                     placeholder="입력하기"
@@ -461,28 +475,49 @@ function Contact(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='btn-next' onClick={contactStateHandler}>
-                                    <ArrowRight />
-                                </button>
+                                {device === 'mobile' ? (
+                                    ''
+                                ) : (
+                                    <button className="btn-next" onClick={contactStateHandler}>
+                                        <ArrowRight />
+                                    </button>
+                                )}
                             </motion.div>
                             <motion.div key="3" className={`survey-item`} data-idx="3" initial="initial" animate={active === 3 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
                                     <h3 className="title-num">3.</h3>
-                                    <h2 className="title">일정과 예산을 입력해주세요</h2>
+                                    <h2 className="title">일정과 예산을 입력해주세요.</h2>
                                 </div>
                                 <div className="input-block">
                                     <div className="inner">
                                         <div className="input-box" id="dateInput">
                                             <div className="inner">
-                                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="0000.00.00" dateFormat="yyyy.MM.dd" minDate={new Date()} />
+                                                <DatePicker
+                                                    selected={startDate}
+                                                    onChange={(date) => setStartDate(date)}
+                                                    locale={ko}
+                                                    placeholderText="0000.00.00"
+                                                    dateFormat="yyyy.MM.dd"
+                                                    minDate={new Date()}
+                                                    onFocus={e => e.target.blur()}
+                                                />
                                                 <span>-</span>
-                                                <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} placeholderText="0000.00.00" dateFormat="yyyy.MM.dd" minDate={new Date()} />
+                                                <DatePicker
+                                                    selected={endDate}
+                                                    onChange={(date) => setEndDate(date)}
+                                                    locale={ko}
+                                                    readOnly={DateReadOnly}
+                                                    placeholderText="0000.00.00"
+                                                    dateFormat="yyyy.MM.dd"
+                                                    minDate={startDate}
+                                                    onFocus={e => e.target.blur()}
+                                                />
                                             </div>
                                         </div>
                                         <div className="input-box" id="budgetInput">
                                             <div className="inner">
                                                 <input
-                                                    type="number"
+                                                    type="tel"
                                                     value={budget}
                                                     onChange={(e) => {
                                                         inputHandler(e);
@@ -495,9 +530,13 @@ function Contact(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='btn-next' onClick={contactStateHandler}>
-                                    <ArrowRight />
-                                </button>
+                                {device === 'mobile' ? (
+                                    ''
+                                ) : (
+                                    <button className="btn-next" onClick={contactStateHandler}>
+                                        <ArrowRight />
+                                    </button>
+                                )}
                             </motion.div>
                             <motion.div key="4" className={`survey-item`} data-idx="4" initial="initial" animate={active === 4 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
@@ -505,7 +544,7 @@ function Contact(props) {
                                     <h2 className="title">
                                         브랜드 또는 회사명을
                                         {device === 'mobile' ? <br /> : ' '}
-                                        입력해주세요
+                                        입력해주세요.
                                     </h2>
                                 </div>
                                 <div className="input-block">
@@ -524,9 +563,13 @@ function Contact(props) {
                                                 />
                                             </div>
                                         </div>
-                                        <button className='btn-next' onClick={contactStateHandler}>
-                                            <ArrowRight />
-                                        </button>
+                                        {device === 'mobile' ? (
+                                            ''
+                                        ) : (
+                                            <button className="btn-next" onClick={contactStateHandler}>
+                                                <ArrowRight />
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </motion.div>
@@ -536,7 +579,7 @@ function Contact(props) {
                                     <h2 className="title">
                                         담당자분의 성함과
                                         {device === 'mobile' ? <br /> : ' '}
-                                        연락처를 입력해주세요
+                                        연락처를 입력해주세요.
                                     </h2>
                                 </div>
                                 <div className="input-block">
@@ -556,7 +599,7 @@ function Contact(props) {
                                                 />
                                                 <input
                                                     id="phoneInput"
-                                                    type="text"
+                                                    type="tel"
                                                     placeholder="휴대폰 번호"
                                                     value={phone}
                                                     onChange={(e) => {
@@ -580,9 +623,13 @@ function Contact(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <button className='btn-next' onClick={contactStateHandler}>
-                                    <ArrowRight />
-                                </button>
+                                {device === 'mobile' ? (
+                                    ''
+                                ) : (
+                                    <button className="btn-next" onClick={contactStateHandler}>
+                                        <ArrowRight />
+                                    </button>
+                                )}
                             </motion.div>
                             <motion.div key="6" className={`survey-item`} data-idx="6" initial="initial" animate={active === 6 ? 'visible' : ''} exit="hidden" variants={surveyVariants}>
                                 <div className="title-block">
@@ -593,15 +640,22 @@ function Contact(props) {
                                     </h2>
                                     <h2 className="title">감사합니다.</h2>
                                 </div>
-                                <div className="input-block">
+                                {/* <div className="input-block">
                                     <div className="inner">
-                                        <div className='btn-portfolio'></div>
-                                        <div className='btn-company_profile'></div>
+                                        <div className="btn-portfolio"></div>
+                                        <div className="btn-company_profile"></div>
                                     </div>
-                                </div>
+                                </div> */}
                             </motion.div>
                         </AnimatePresence>
                     </div>
+                    {device === 'mobile' ? (
+                        <button className="btn-next" onClick={contactStateHandler}>
+                            <ArrowRight />
+                        </button>
+                    ) : (
+                        ''
+                    )}
                 </div>
             </div>
             {/* // </motion.div> */}

@@ -89,7 +89,7 @@ function PageTransition(props) {
         console.log('transition component', props);
         console.log('page transition mount');
         animateSequence();
-        console.log('클래스네임', props.variantsName)
+        console.log('variants name', props.variantsName)
         if(props.variantsName !== 'home') {
             dispatch(setTransitionState('page_transition'));
         }

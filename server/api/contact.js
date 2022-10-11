@@ -39,7 +39,9 @@ router.post('/insert', function (req, res) {
                 });
                 res.json(categoryNameArr);
 
-                const toEmail = 'hs.ra@minivertising.kr, jw.o@minivertising.kr';
+                // * 자사 문의내용 알림 메일 발송용 메일 코드
+                // const toEmail = 'hs.ra@minivertising.kr, jw.o@minivertising.kr';
+                const toEmail = 'hs.ra@minivertising.kr';
 
                 let emailParam = {
                     toEmail: toEmail,
@@ -50,6 +52,20 @@ router.post('/insert', function (req, res) {
                 };
     
                 mailer.sendGmail(emailParam);
+
+                // * 클라이언트 발송용 메일 코드
+                // const toClient = email;
+                
+                // let clientEmailParam = {
+                //     toEmail: toClient,
+    
+                //     subject: '[미니버타이징] 작성하신 CONTACT US 글이 등록 되었습니다.',
+    
+                //     // html: ' 의뢰유형 : ' + categoryNameArr.join(', ') + '<br>   브랜드 또는 회사명 : ' + company + '<br> 담당자 성함 : ' + name + '<br> 연락처 : ' + phone + '<br> 이메일 : ' + email + '<br> 예산 : ' + budget + '만원<br> 일정 : ' + startDate + ' ~ ' + endDate + '<br> 내용 : ' + description,
+                //     html: '클라이언트에게 발송될 메일 테스트 내용입니다.',
+                // };
+    
+                // mailer.sendGmail(clientEmailParam);
             });
         } else {
             console.log(`query error : ${err}`);
