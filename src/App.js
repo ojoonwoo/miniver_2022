@@ -34,6 +34,10 @@ function App() {
         } else {
             dispatch(setDevice('mobile'));
         }
+
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+
         window.addEventListener('resize', () => {
             // console.log('윈도우 리사이즈');
             winWidth = window.innerWidth;
@@ -43,6 +47,9 @@ function App() {
             } else {
                 dispatch(setDevice('mobile'));
             }
+
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
         });
     }, []);
 

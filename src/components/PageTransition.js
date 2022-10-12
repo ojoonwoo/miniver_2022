@@ -103,7 +103,7 @@ function PageTransition(props) {
         <>
             <motion.div variants={loaderConfiguration} initial="initial" animate={loaderAnimate} className="global-loader"></motion.div>
             {/* <motion.div variants={pageConfiguration} initial="initial" animate={pageAnimate} exit="exit" data-scroll-container ref={containerRef} onScroll={onScroll}> */}
-            <motion.div variants={pageConfiguration} initial="initial" animate={pageAnimate} exit="exit" ref={containerRef} className={menuOpened ? 'page-container menu-open' : 'page-container'}>
+            <motion.div variants={pageConfiguration} initial="initial" animate={pageAnimate} exit="exit" ref={containerRef} className={menuOpened ? 'page-container menu-open' : props.variantsName === 'contact' ? 'page-container scroll-disabled' : 'page-container'}>
                 <Header />
                 {props.children}
             </motion.div>
