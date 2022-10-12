@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 // import Header from '../components/Header';
@@ -272,7 +272,6 @@ function Contact(props) {
                         name: contactState.name,
                         phone: contactState.phone,
                         email: contactState.email,
-                        
                     })
                 );
                 break;
@@ -373,6 +372,12 @@ function Contact(props) {
         //     display: 'none',
         // },
     };
+
+    const DateInput = forwardRef(({ value, onClick }, ref) => (
+        <button onClick={onClick} ref={ref} className={value ? 'selected' : ''}>
+            {value ? value : '0000.00.00'}
+        </button>
+    ));
 
     return (
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeIn', duration: 0.7 }}>
@@ -492,17 +497,25 @@ function Contact(props) {
                                     <div className="inner">
                                         <div className="input-box" id="dateInput">
                                             <div className="inner">
-                                                <DatePicker
+                                                {/* <DatePicker
                                                     selected={startDate}
                                                     onChange={(date) => setStartDate(date)}
                                                     locale={ko}
                                                     placeholderText="0000.00.00"
                                                     dateFormat="yyyy.MM.dd"
                                                     minDate={new Date()}
-                                                    onFocus={e => e.target.blur()}
+                                                    onFocus={(e) => e.target.blur()}
+                                                /> */}
+                                                <DatePicker
+                                                    selected={startDate}
+                                                    onChange={(date) => setStartDate(date)}
+                                                    locale={ko}
+                                                    dateFormat="yyyy.MM.dd"
+                                                    minDate={new Date()}
+                                                    customInput={<DateInput />}
                                                 />
                                                 <span>-</span>
-                                                <DatePicker
+                                                {/* <DatePicker
                                                     selected={endDate}
                                                     onChange={(date) => setEndDate(date)}
                                                     locale={ko}
@@ -510,14 +523,24 @@ function Contact(props) {
                                                     placeholderText="0000.00.00"
                                                     dateFormat="yyyy.MM.dd"
                                                     minDate={startDate}
-                                                    onFocus={e => e.target.blur()}
+                                                    onFocus={(e) => e.target.blur()}
+                                                /> */}
+                                                <DatePicker
+                                                    selected={endDate}
+                                                    onChange={(date) => setEndDate(date)}
+                                                    locale={ko}
+                                                    readOnly={DateReadOnly}
+                                                    dateFormat="yyyy.MM.dd"
+                                                    minDate={startDate}
+                                                    customInput={<DateInput />}
                                                 />
                                             </div>
                                         </div>
                                         <div className="input-box" id="budgetInput">
                                             <div className="inner">
                                                 <input
-                                                    type="tel"
+                                                    type="number"
+                                                    pattern="\d*"
                                                     value={budget}
                                                     onChange={(e) => {
                                                         inputHandler(e);
@@ -610,7 +633,7 @@ function Contact(props) {
                                                 />
                                                 <input
                                                     id="emailInput"
-                                                    type="text"
+                                                    type="email"
                                                     placeholder="이메일 주소"
                                                     value={email}
                                                     onChange={(e) => {

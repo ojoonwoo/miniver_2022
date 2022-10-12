@@ -334,7 +334,8 @@ function ImageVideo(props) {
     let item = '';
     if (props.src.split('.')[1] == 'mp4') {
         item = (
-            <video>
+            // <video>
+            <video autoPlay muted loop>
                 <source src={props.src} type="video/mp4"></source>
             </video>
         );

@@ -311,10 +311,24 @@ textarea::-webkit-scrollbar-thumb {
                                     }
                                     .react-datepicker-wrapper {
                                         width: auto;
-                                        input {
+                                        // input {
+                                        //     width: 9.6rem;
+                                        //     text-align: center;
+                                        //     border-bottom: 0;
+                                        // }
+                                        button {
+                                            font-weight: 400;
+                                            font-size: 1.4rem;
+                                            line-height: 1.7rem;
+                                            // color: #ffffff;
+                                            color: rgba(255, 255, 255, 0.3);
+                                            padding: 1rem;
                                             width: 9.6rem;
                                             text-align: center;
                                             border-bottom: 0;
+                                            &.selected {
+                                                color: $white;
+                                            }
                                         }
                                     }
                                     .react-datepicker-popper {
