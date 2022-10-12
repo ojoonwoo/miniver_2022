@@ -206,6 +206,11 @@ textarea::-webkit-scrollbar-thumb {
                 &[data-idx='2'] .title-block {
                     margin-bottom: 4rem;
                 }
+                &[data-idx='6'] .title-block {
+                    .title {
+                        margin-bottom: 2.4rem;
+                    }
+                }
                 &[data-idx='5'] input {
                     margin-bottom: 0.8rem;
                 }
