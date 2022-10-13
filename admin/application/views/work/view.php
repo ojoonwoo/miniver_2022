@@ -242,19 +242,38 @@ $this_categories = explode(', ', $work_data['work_categories']);
                 }
             }
             if (form.hero_color.value.length !== 0) {
-                if (form.hero_color.value.length !== 7) {
-                    alert('HEX CODE의 길이가 맞지않습니다.');
-                    return false;
-                }
                 var regType = /^[A-Za-z0-9]+$/;
-                if (!regType.test(form.hero_color.value.substr(1,form.hero_color.value.length))) {
+                if (!regType.test(form.hero_color.value.substr(1, form.hero_color.value.length))) {
                     alert('정확한 HEX CODE를 입력해주세요');
                     return false;
                 }
-                if (form.hero_color.value.charAt(0) !== '#') {
-                    alert('맨 앞에 #을 붙여주세요');
+
+                if (form.hero_color.value.length < 6 || form.hero_color.value.length > 7) {
+                    alert('HEX CODE의 길이가 맞지않습니다.');
                     return false;
                 }
+
+                if (form.hero_color.value.length === 6) {
+                    if (form.hero_color.value.includes('#')) {
+                        alert('정확한 HEX CODE를 입력해주세요');
+                        return false;
+                    } else {
+                        form.hero_color.value = '#' + form.hero_color.value;
+                    }
+                }
+
+
+                if (form.hero_color.value.length === 7) {
+                    if (form.hero_color.value.charAt(0) !== '#') {
+                        alert('정확한 HEX CODE를 입력해주세요');
+                        return false;
+                    }
+                }
+
+                // if (form.hero_color.value.charAt(0) !== '#') {
+                //     form.hero_color.value = '#' + form.hero_color.value;
+                //     return false;
+                // }
             }
             // return false
             return true;
