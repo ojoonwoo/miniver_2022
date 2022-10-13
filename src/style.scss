@@ -331,7 +331,26 @@ textarea::-webkit-scrollbar-thumb {
                                             }
                                         }
                                     }
-                                    .react-datepicker-popper {
+                                    .react-datepicker__input-container {
+                                        button {
+                                            font-weight: 400;
+                                            font-size: 1.4rem;
+                                            line-height: 1.7rem;
+                                            // color: #ffffff;
+                                            color: rgba(255, 255, 255, 0.3);
+                                            padding: 1rem;
+                                            width: 9.6rem;
+                                            text-align: center;
+                                            border-bottom: 0;
+                                            &.selected {
+                                                color: $white;
+                                            }
+                                        }
+                                    }
+                                    .react-datepicker__portal {
+                                        height: calc(var(--vh, 1vh) * 100);
+                                    }
+                                    .react-datepicker-popper, .react-datepicker__portal {
                                         &[data-placement^='bottom'] .react-datepicker__triangle::after {
                                             border-bottom-color: $black;
                                         }
@@ -348,8 +367,8 @@ textarea::-webkit-scrollbar-thumb {
                                             .react-datepicker__day,
                                             .react-datepicker__time-name {
                                                 color: $white;
-                                                font-size: 1.4rem;
-                                                margin: 0.4rem;
+                                                font-size:1.6rem;
+                                                margin: 0.8rem;
                                                 font-weight: 400;
                                                 width: 2.2rem;
                                                 line-height: 2.2rem;
@@ -395,9 +414,9 @@ textarea::-webkit-scrollbar-thumb {
                                                 right: -0.5rem;
                                             }
                                             .react-datepicker__navigation {
-                                                width: 2.8rem;
-                                                height: 2.8rem;
-                                                top: 0.2rem;
+                                                width: 4.2rem;
+                                                height: 4.2rem;
+                                                top: 0;
                                                 // border: 0.1rem solid;
                                                 .react-datepicker__navigation-icon {
                                                     top: 0;
@@ -405,19 +424,20 @@ textarea::-webkit-scrollbar-thumb {
                                                 }
                                             }
                                             .react-datepicker__navigation--next {
-                                                right: 0.2rem;
+                                                right: 0;
                                             }
                                             .react-datepicker__navigation--previous {
-                                                left: 0.2rem;
+                                                left: 0;
                                             }
                                             .react-datepicker__month-container {
                                                 .react-datepicker__header {
                                                     background-color: $black;
                                                     color: $white;
-                                                    padding: 1rem 0;
+                                                    padding: 1.4rem 0;
                                                     .react-datepicker__current-month {
-                                                        font-size: 1.4rem;
+                                                        font-size: 1.6rem;
                                                         color: $white;
+                                                        margin-bottom: 0.6rem;
                                                     }
                                                 }
                                             }
@@ -897,10 +917,12 @@ textarea::-webkit-scrollbar-thumb {
                                 &#dateInput {
                                     > .inner {
                                         .react-datepicker-wrapper {
-                                            input {
+                                            input, button {
                                                 width: 19.45rem;
                                                 padding: 1.1rem;
-                                                text-align: left;
+                                                // text-align: left;
+                                                font-size: 2rem;
+                                                line-height: 2.5rem;
                                             }
                                         }
                                         .react-datepicker-popper {

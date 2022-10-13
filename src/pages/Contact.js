@@ -513,6 +513,7 @@ function Contact(props) {
                                                     dateFormat="yyyy.MM.dd"
                                                     minDate={new Date()}
                                                     customInput={<DateInput />}
+                                                    withPortal={device === 'mobile' ? true : false}
                                                 />
                                                 <span>-</span>
                                                 {/* <DatePicker
@@ -533,6 +534,7 @@ function Contact(props) {
                                                     dateFormat="yyyy.MM.dd"
                                                     minDate={startDate}
                                                     customInput={<DateInput />}
+                                                    withPortal={device === 'mobile' ? true : false}
                                                 />
                                             </div>
                                         </div>
