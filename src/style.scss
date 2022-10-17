@@ -48,7 +48,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    &.menu-open {
+    &.menu-open,
+    &.scroll-disabled {
         overflow: hidden;
     }
 }
@@ -128,7 +129,32 @@ textarea::-webkit-scrollbar-thumb {
 .section-hero {
     background-color: #6f6f6f;
     width: 100%;
-    padding-bottom: 100%;
+    height: 100%;
+    // ! dev code
+    // width: 100vw;
+    // height: 100vh;
+    // border: 1px solid red;
+    // position: relative;
+    > div {
+        height: 100vw;
+        -webkit-transform: translate(calc(50vw - 50%),calc(var(--vh, 1vh) * 50 - 50%)) rotate(90deg);
+        transform: translate(calc(50vw - 50%),calc(var(--vh, 1vh) * 50 - 50%)) rotate(90deg);
+        // width: 100vh;
+        width: calc(var(--vh, 1vh) * 100);
+        // position: absolute;
+        // height: 100%;
+        // width: 100%;
+        // top: 0;
+        // left: 0;
+        // right: 0;
+        // bottom: 0;
+        > video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    // ! dev code
 }
 
 .section-work {
@@ -143,8 +169,17 @@ textarea::-webkit-scrollbar-thumb {
     color: $black;
 }
 
+#container.Home {
+    width: 100%;
+    height: 100%;
+}
+
 .Home .contents {
     padding-top: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
 }
 .global-loader {
     position: fixed;
@@ -157,14 +192,16 @@ textarea::-webkit-scrollbar-thumb {
     width: 100vw;
     // z-index: -1;
     pointer-events: none;
-    height: 150vh;
+    height: 100vh;
     // background-color: rgb(255, 216, 64);
 }
+
 #container.Contact {
     background-color: $black;
     color: $white;
     width: 100%;
-    height: 100vh;
+    // height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     > .inner {
         width: 100%;
         height: 100%;
@@ -203,6 +240,11 @@ textarea::-webkit-scrollbar-thumb {
                 &[data-idx='1'] .title-block,
                 &[data-idx='2'] .title-block {
                     margin-bottom: 4rem;
+                }
+                &[data-idx='6'] .title-block {
+                    .title {
+                        margin-bottom: 2.4rem;
+                    }
                 }
                 &[data-idx='5'] input {
                     margin-bottom: 0.8rem;
@@ -304,13 +346,47 @@ textarea::-webkit-scrollbar-thumb {
                                     }
                                     .react-datepicker-wrapper {
                                         width: auto;
-                                        input {
+                                        // input {
+                                        //     width: 9.6rem;
+                                        //     text-align: center;
+                                        //     border-bottom: 0;
+                                        // }
+                                        button {
+                                            font-weight: 400;
+                                            font-size: 1.4rem;
+                                            line-height: 1.7rem;
+                                            // color: #ffffff;
+                                            color: rgba(255, 255, 255, 0.3);
+                                            padding: 1rem;
                                             width: 9.6rem;
                                             text-align: center;
                                             border-bottom: 0;
+                                            &.selected {
+                                                color: $white;
+                                            }
                                         }
                                     }
-                                    .react-datepicker-popper {
+                                    .react-datepicker__input-container {
+                                        button {
+                                            font-weight: 400;
+                                            font-size: 1.4rem;
+                                            line-height: 1.7rem;
+                                            // color: #ffffff;
+                                            color: rgba(255, 255, 255, 0.3);
+                                            padding: 1rem;
+                                            width: 9.6rem;
+                                            text-align: center;
+                                            border-bottom: 0;
+                                            &.selected {
+                                                color: $white;
+                                            }
+                                        }
+                                    }
+                                    .react-datepicker__portal {
+                                        height: calc(var(--vh, 1vh) * 100);
+                                    }
+                                    .react-datepicker-popper,
+                                    .react-datepicker__portal {
                                         &[data-placement^='bottom'] .react-datepicker__triangle::after {
                                             border-bottom-color: $black;
                                         }
@@ -327,8 +403,8 @@ textarea::-webkit-scrollbar-thumb {
                                             .react-datepicker__day,
                                             .react-datepicker__time-name {
                                                 color: $white;
-                                                font-size: 1.4rem;
-                                                margin: 0.4rem;
+                                                font-size: 1.6rem;
+                                                margin: 0.8rem;
                                                 font-weight: 400;
                                                 width: 2.2rem;
                                                 line-height: 2.2rem;
@@ -348,7 +424,10 @@ textarea::-webkit-scrollbar-thumb {
                                                 background-color: $white;
                                                 color: $black;
                                             }
-                                            .react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected {
+                                            .react-datepicker__day--keyboard-selected,
+                                            .react-datepicker__month-text--keyboard-selected,
+                                            .react-datepicker__quarter-text--keyboard-selected,
+                                            .react-datepicker__year-text--keyboard-selected {
                                                 background-color: $white;
                                                 color: $black;
                                             }
@@ -374,9 +453,9 @@ textarea::-webkit-scrollbar-thumb {
                                                 right: -0.5rem;
                                             }
                                             .react-datepicker__navigation {
-                                                width: 2.8rem;
-                                                height: 2.8rem;
-                                                top: 0.2rem;
+                                                width: 4.2rem;
+                                                height: 4.2rem;
+                                                top: 0;
                                                 // border: 0.1rem solid;
                                                 .react-datepicker__navigation-icon {
                                                     top: 0;
@@ -384,19 +463,20 @@ textarea::-webkit-scrollbar-thumb {
                                                 }
                                             }
                                             .react-datepicker__navigation--next {
-                                                right: 0.2rem;
+                                                right: 0;
                                             }
                                             .react-datepicker__navigation--previous {
-                                                left: 0.2rem;
+                                                left: 0;
                                             }
                                             .react-datepicker__month-container {
                                                 .react-datepicker__header {
                                                     background-color: $black;
                                                     color: $white;
-                                                    padding: 1rem 0;
+                                                    padding: 1.4rem 0;
                                                     .react-datepicker__current-month {
-                                                        font-size: 1.4rem;
+                                                        font-size: 1.6rem;
                                                         color: $white;
+                                                        margin-bottom: 0.6rem;
                                                     }
                                                 }
                                             }
@@ -469,6 +549,25 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 #container.ProjectDetail {
+    .play_trigger {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        .play_icon {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2.1rem;
+            height: 2.4rem;
+            transition: ease-in-out 0.2s;
+        }
+    }
     .small-title {
         font-size: 1.6rem;
         font-weight: 700;
@@ -585,7 +684,12 @@ textarea::-webkit-scrollbar-thumb {
         .project-detail__details {
             margin-bottom: 3.6rem;
             .swiper-slide {
-                width: 31.5rem;
+                width: auto;
+                video,
+                img {
+                    min-width: 19.1rem;
+                    max-height: 19.1rem;
+                }
             }
 
             .slideshow-scrollbar {
@@ -620,6 +724,16 @@ textarea::-webkit-scrollbar-thumb {
                         margin-left: 0.7rem;
                         width: 2.6rem;
                     }
+                }
+            }
+        }
+        .project-detail__mockup {
+            width: 100%;
+            .mockup-box {
+                width: 100%;
+                position: relative;
+                > img, video {
+                    width: 100%;
                 }
             }
         }
@@ -662,11 +776,26 @@ textarea::-webkit-scrollbar-thumb {
     }
 }
 
-// @media (max-height: 740px) {
-//     html {
-//         font-size: 2vw;
-//     }
-// }
+@media (max-height: 740px) {
+    #container.Contact {
+        > .inner {
+            .surveys {
+                .survey-item {
+                    &[data-idx='1'] {
+                        .input-block {
+                            > .inner {
+                                .input-box {
+                                    width: auto;
+                                    margin-right: 1rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 @media (min-width: 720px) {
     html {
@@ -690,6 +819,11 @@ textarea::-webkit-scrollbar-thumb {
         padding-top: 29rem;
     }
 
+    .Home .contents {
+        width: auto;
+        height: auto;
+    }
+
     .ProjectDetail .contents {
         padding-top: 0;
     }
@@ -700,7 +834,16 @@ textarea::-webkit-scrollbar-thumb {
     }
 
     .section-hero {
-        padding-bottom: 59.85%;
+        padding-bottom: 56.25%;
+        // ! dev code
+        position: relative;
+        > div {
+            transform: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        // ! dev code
     }
     .section-work > h3 {
         font-size: 3.6rem;
@@ -861,10 +1004,13 @@ textarea::-webkit-scrollbar-thumb {
                                 &#dateInput {
                                     > .inner {
                                         .react-datepicker-wrapper {
-                                            input {
+                                            input,
+                                            button {
                                                 width: 19.45rem;
                                                 padding: 1.1rem;
-                                                text-align: left;
+                                                // text-align: left;
+                                                font-size: 2rem;
+                                                line-height: 2.5rem;
                                             }
                                         }
                                         .react-datepicker-popper {
@@ -1006,6 +1152,12 @@ textarea::-webkit-scrollbar-thumb {
     }
 
     #container.ProjectDetail {
+        .play_trigger {
+            .play_icon {
+                width: 7.7rem;
+                height: 8.7rem;
+            }
+        }
         .small-title {
             font-size: 2.8rem;
         }
@@ -1141,7 +1293,12 @@ textarea::-webkit-scrollbar-thumb {
                 .swiper-slide {
                     // width: 121rem;
                     width: auto;
-                    min-width: 73rem;
+                    // min-width: 73rem;
+                    video,
+                    img {
+                        min-width: 72rem;
+                        max-height: 72rem;
+                    }
                 }
 
                 .slideshow-scrollbar {
@@ -1159,18 +1316,8 @@ textarea::-webkit-scrollbar-thumb {
                 }
             }
             .project-detail__mockup {
-                width: 100%;
                 padding: 0 15rem;
                 margin: 0 auto;
-                .mockup-box {
-                    width: 100%;
-                    > div {
-                        width: 100%;
-                        > img {
-                            width: 100%;
-                        }
-                    }
-                }
             }
             .contact-block {
                 // width: $desktop-container-width;

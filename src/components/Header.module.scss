@@ -42,6 +42,7 @@ header {
             position: absolute;
             left: 0;
             top: 0;
+            // background: rgba(255, 255, 255, 0.79);
             background: rgba(255, 255, 255, 0.79);
             opacity: 0;
             visibility: hidden;
@@ -60,6 +61,7 @@ header {
                 width: 77%;
                 height: 100vh;
                 padding: 7.75rem 0 4.5rem 6rem;
+                // padding: 7.75rem 0 10rem 6rem;
                 overflow: auto;
                 .nav-block__btn-close {
                     position: absolute;
@@ -83,6 +85,18 @@ header {
                             // transition: color 1s ease-in-out;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@media (max-height: 740px) {
+    header {
+        .wrapper {
+            .nav-block {
+                .inner {
+                    padding: 7.75rem 0 10rem 6rem;
                 }
             }
         }
