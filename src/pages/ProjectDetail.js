@@ -74,7 +74,7 @@ function ProjectDetail(props) {
     }, []);
 
     useEffect(() => {
-        if(projectData.hero_color) {
+        if (projectData.hero_color) {
             dispatch(heroBoxChangeColor(projectData.hero_color));
             console.log('hero color is', projectData.hero_color);
         }
@@ -164,9 +164,9 @@ function ProjectDetail(props) {
                     {projectData.category_names && (
                         <div className="project-detail__hero">
                             <div className="hero-box">
-                                <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`}></ImageVideo>
+                                <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`} autoPlay={true}></ImageVideo>
                             </div>
-                            <div className="client-box" style={{color:heroBoxColor}}>
+                            <div className="client-box" style={{ color: heroBoxColor }}>
                                 <h3 className="client-box__title-kr">{projectData.client_name_kor}</h3>
                                 <h2 className="client-box__title">{projectData.client_name}</h2>
                             </div>
@@ -222,8 +222,20 @@ function ProjectDetail(props) {
                                 slidesPerView={'auto'}
                                 // slidesOffsetBefore={device==='mobile' ? 30 : (window.innerWidth-1200)/2}
                                 // slidesOffsetBefore={window.innerWidth === 'mobile' ? (window.innerWidth / 100 * 2.666666) * 30 : window.innerWidth / 100 * 7.8125}
-                                slidesOffsetBefore={window.innerWidth >= 1200 ? (window.innerWidth / 100 * 0.52) * 15 : window.innerWidth >= 720 ? (window.innerWidth / 100 * 2) * 3 : (window.innerWidth / 100 * 2.666666) * 3}
-                                slidesOffsetAfter={window.innerWidth >= 1200 ? (window.innerWidth / 100 * 0.52) * 15 : window.innerWidth >= 720 ? (window.innerWidth / 100 * 2) * 3 : (window.innerWidth / 100 * 2.666666) * 3}
+                                slidesOffsetBefore={
+                                    window.innerWidth >= 1200
+                                        ? (window.innerWidth / 100) * 0.52 * 15
+                                        : window.innerWidth >= 720
+                                        ? (window.innerWidth / 100) * 2 * 3
+                                        : (window.innerWidth / 100) * 2.666666 * 3
+                                }
+                                slidesOffsetAfter={
+                                    window.innerWidth >= 1200
+                                        ? (window.innerWidth / 100) * 0.52 * 15
+                                        : window.innerWidth >= 720
+                                        ? (window.innerWidth / 100) * 2 * 3
+                                        : (window.innerWidth / 100) * 2.666666 * 3
+                                }
                                 scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
                                 freeMode={true}
                                 updateOnWindowResize={true}
@@ -255,9 +267,7 @@ function ProjectDetail(props) {
                                 </div>
                                 <div className="right">
                                     <dl>
-                                        {projectData.overview_arr && projectData.overview_arr.map((paragraph, index) => (
-                                            <dd key={index}>{paragraph}</dd>
-                                        ))}
+                                        {projectData.overview_arr && projectData.overview_arr.map((paragraph, index) => <dd key={index}>{paragraph}</dd>)}
                                         {/* <dd>{projectData.work_overview}</dd> */}
                                     </dl>
                                 </div>
@@ -265,9 +275,7 @@ function ProjectDetail(props) {
                         </div>
                         <div className="project-detail__mockup">
                             <div className="mockup-box">
-                            {projectData.detail_sources2 &&
-                                <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo>
-                            }
+                                {projectData.detail_sources2 && <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo>}
                             </div>
                         </div>
                         <div className="contact-block">
@@ -296,8 +304,20 @@ function ProjectDetail(props) {
                                 slidesPerView={'auto'}
                                 // slidesOffsetBefore={device === 'mobile' ? 64 : 150}
                                 // slidesOffsetAfter={device === 'mobile' ? 64 : 150}
-                                slidesOffsetBefore={window.innerWidth >= 1200 ? (window.innerWidth / 100 * 0.52) * 15 : window.innerWidth >= 720 ? (window.innerWidth / 100 * 2) * 6.4 : (window.innerWidth / 100 * 2.666666) * 6.4}
-                                slidesOffsetAfter={window.innerWidth >= 1200 ? (window.innerWidth / 100 * 0.52) * 15 : window.innerWidth >= 720 ? (window.innerWidth / 100 * 2) * 6.4 : (window.innerWidth / 100 * 2.666666) * 6.4}
+                                slidesOffsetBefore={
+                                    window.innerWidth >= 1200
+                                        ? (window.innerWidth / 100) * 0.52 * 15
+                                        : window.innerWidth >= 720
+                                        ? (window.innerWidth / 100) * 2 * 6.4
+                                        : (window.innerWidth / 100) * 2.666666 * 6.4
+                                }
+                                slidesOffsetAfter={
+                                    window.innerWidth >= 1200
+                                        ? (window.innerWidth / 100) * 0.52 * 15
+                                        : window.innerWidth >= 720
+                                        ? (window.innerWidth / 100) * 2 * 6.4
+                                        : (window.innerWidth / 100) * 2.666666 * 6.4
+                                }
                                 // freeMode={true}
                                 updateOnWindowResize={true}
                                 onSwiper={(swiper) => console.log(swiper)}
@@ -331,18 +351,42 @@ function ProjectDetail(props) {
 }
 
 function ImageVideo(props) {
+
     let item = '';
     if (props.src.split('.')[1] == 'mp4') {
-        item = (
-            // <video>
-            <video autoPlay muted loop>
-                <source src={props.src} type="video/mp4"></source>
-            </video>
-        );
+        if (props.autoPlay === true) {
+            item = (
+                // <video>
+                <video autoPlay muted loop>
+                    <source src={props.src} type="video/mp4"></source>
+                </video>
+            );
+        } else {
+            item = (
+                // <video>
+                <>
+                    <div className="play_trigger" >
+                        <span className="play_icon">
+                            <svg viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M20.8751 10.254C22.2411 11.0173 22.2411 12.9827 20.8751 13.746L3.72551 23.3279C2.39238 24.0727 0.750001 23.109 0.750001 21.5819L0.750002 2.41807C0.750002 0.890963 2.39238 -0.0727432 3.72552 0.672115L20.8751 10.254Z"
+                                    fill="#F0F0F0"
+                                />
+                            </svg>
+                        </span>
+                    </div>
+                    <video>
+                        <source src={props.src} type="video/mp4"></source>
+                    </video>
+                </>
+            );
+        }
     } else {
         item = <img src={props.src} />;
     }
-    return <div>{item}</div>;
+    // return <div>{item}</div>;
+    // * 프라그먼트 사용
+    return <>{item}</>;
 }
 
 // hook으로 빼기
