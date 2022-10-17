@@ -23,7 +23,7 @@ function Home(props) {
     useEffect(() => {
         console.log('홈 마운트');
         dispatch(changeColor('white'));
-        
+
         // let winWidth = window.innerWidth;
         // // * 마운트시에 데스크탑이라면 footer 숨김
         // if (winWidth >= 1200) {
@@ -43,7 +43,6 @@ function Home(props) {
             // window.removeEventListener('resize', a);
             console.log('홈 언마운트');
         };
-        
     }, []);
 
     const [homeData, setHomeData] = useState([]);
@@ -80,23 +79,26 @@ function Home(props) {
                 <div className="contents">
                     {/* <Header /> */}
                     <div className="section-hero">
+                        <div>
+                            <video autoPlay muted='true' loop preload='auto'>
+                                <source src={`/works/2/hero_source/9b5218308d3a8bdcae1c7559f288cef0.mp4`} type="video/mp4"></source>
+                            </video>
+                        </div>
                     </div>
                     <div className="section-work">
-                        <h3>
-                            We are a creative agency
-                        </h3>
+                        <h3>We are a creative agency</h3>
                         <div>
                             <div className="grid-inner">
-                                {homeData.map((item) =>
+                                {homeData.map((item) => (
                                     <WorkBox key={item.idx} item={item} />
-                                )}
+                                ))}
                             </div>
                         </div>
                     </div>
                 </div>
-                {device==='mobile' ? null : <Footer />}
+                {device === 'mobile' ? null : <Footer />}
             </div>
-        {/* // </motion.div> */}
+            {/* // </motion.div> */}
         </PageTransition>
     );
 }

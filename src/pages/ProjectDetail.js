@@ -156,6 +156,14 @@ function ProjectDetail(props) {
         }, 1000);
     };
 
+    // TODO: videoRef 각 비디오마다 동적으로 들어가도록
+    const videoRef = useRef(null);
+    // TODO: handlePlay 각 비디오 ref를 props로 받아서 함수 재활용
+    function handlePlay() {
+        videoRef.current.play();
+        console.log('hi');
+    }
+
     return (
         <PageTransition variantsName="detail" goScrollTop={goScrollTop}>
             {/* // <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
@@ -252,7 +260,8 @@ function ProjectDetail(props) {
                                 {projectData.detail_sources1_arr &&
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
                                         <SwiperSlide key={index}>
-                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`}></ImageVideo>
+                                            {/* <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`}></ImageVideo> */}
+                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={videoRef} handlePlay={handlePlay}></ImageVideo>
                                         </SwiperSlide>
                                     ))}
                                 <div className="slideshow-scrollbar"></div>
@@ -275,7 +284,10 @@ function ProjectDetail(props) {
                         </div>
                         <div className="project-detail__mockup">
                             <div className="mockup-box">
-                                {projectData.detail_sources2 && <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo>}
+                                {/* {projectData.detail_sources2 && <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo>} */}
+                                {projectData.detail_sources2 && (
+                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={videoRef} handlePlay={handlePlay}></ImageVideo>
+                                )}
                             </div>
                         </div>
                         <div className="contact-block">
@@ -351,7 +363,6 @@ function ProjectDetail(props) {
 }
 
 function ImageVideo(props) {
-
     let item = '';
     if (props.src.split('.')[1] == 'mp4') {
         if (props.autoPlay === true) {
@@ -365,7 +376,10 @@ function ImageVideo(props) {
             item = (
                 // <video>
                 <>
-                    <div className="play_trigger" >
+                    <video ref={props.videoRef}>
+                        <source src={props.src} type="video/mp4"></source>
+                    </video>
+                    <div className="play_trigger" onClick={props.handlePlay}>
                         <span className="play_icon">
                             <svg viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -375,9 +389,6 @@ function ImageVideo(props) {
                             </svg>
                         </span>
                     </div>
-                    <video>
-                        <source src={props.src} type="video/mp4"></source>
-                    </video>
                 </>
             );
         }
