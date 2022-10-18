@@ -80,7 +80,8 @@ function Home(props) {
                     {/* <Header /> */}
                     <div className="section-hero">
                         <div>
-                            <video autoPlay muted='true' loop preload='auto'>
+                            <div className='video_poster-box' style={{backgroundImage: "url('/works/2/hero_source/poster.jpg')"}}></div>
+                            <video loop="true" muted="true" autoPlay="true" playsInline="true" preload="auto" crossorigin="anonymous">
                                 <source src={`/works/2/hero_source/9b5218308d3a8bdcae1c7559f288cef0.mp4`} type="video/mp4"></source>
                             </video>
                         </div>
