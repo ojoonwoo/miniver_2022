@@ -148,12 +148,15 @@ function ProjectDetail(props) {
     //     // })
     // }
 
+    const containerRef = useRef(null);
     const goTopHandler = () => {
-        setScrollTop(true);
-        console.log(goScrollTop);
-        setTimeout(function () {
-            setScrollTop(false);
-        }, 1000);
+        // setScrollTop(true);
+            // setScrollTop(false);
+            containerRef.current.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+                duration: 0.1,
+            });
     };
 
     // TODO: videoRef 각 비디오마다 동적으로 들어가도록
@@ -165,9 +168,9 @@ function ProjectDetail(props) {
     }
 
     return (
-        <PageTransition variantsName="detail" goScrollTop={goScrollTop}>
+        <PageTransition variantsName="detail">
             {/* // <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
-            <div id="container" className={props.pageName}>
+            <div id="container" className={props.pageName} ref={containerRef}>
                 <div className="contents" ref={contentRef}>
                     {projectData.category_names && (
                         <div className="project-detail__hero">

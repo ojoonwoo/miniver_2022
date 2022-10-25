@@ -70,10 +70,12 @@ footer {
         align-items: center;
         padding: 6.7rem 0 11.2rem;
         position: relative;
+        height: auto;
         .inner {
             max-width: 1210px;
             margin: 0 auto;
             display: block;
+            height: auto;
             .elem-block {
                 width: 100%;
                 display: flex;

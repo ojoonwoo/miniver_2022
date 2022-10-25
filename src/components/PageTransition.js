@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, useScroll } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTransitionState } from './../store';
@@ -9,7 +9,6 @@ import * as common from './../CommonFunction';
 function PageTransition(props) {
     const pageAnimate = useAnimation();
     const loaderAnimate = useAnimation();
-    const containerRef = useRef();
 
     let device = useSelector((state) => {
         return state.currentDevice;
@@ -47,7 +46,6 @@ function PageTransition(props) {
     };
 
     let menuOpened = useSelector((state) => {
-        console.log(state);
         return state.menuState;
     });
 
@@ -75,20 +73,23 @@ function PageTransition(props) {
         //     y: '-100%',
         // },
     };
-    useEffect(() => {
-        if (props.goScrollTop) {
-            // containerRef.current.scrollTo(0, 0);
-            containerRef.current.scrollTo({
-                top: 0,
-                behavior: 'smooth',
-                duration: 0.1,
-            });
-        }
-    }, [props.goScrollTop]);
+    // useEffect(() => {
+    //     if (props.goScrollTop) {
+            
+    //         containerRef.current.scrollTo({
+    //             top: 0,
+    //             behavior: 'smooth',
+    //             duration: 0.1,
+    //         });
+    //     }
+    // }, [props.goScrollTop]);
+    
 
     useEffect(() => {
-        console.log('transition component', props);
-        console.log('page transition mount');
+        // console.log(props.children);
+        // console.log('--------');
+        // console.log('transition component', props);
+        // console.log('page transition mount');
         animateSequence();
         console.log('variants name', props.variantsName)
         if(props.variantsName !== 'home') {
@@ -103,7 +104,7 @@ function PageTransition(props) {
         <>
             <motion.div variants={loaderConfiguration} initial="initial" animate={loaderAnimate} className="global-loader"></motion.div>
             {/* <motion.div variants={pageConfiguration} initial="initial" animate={pageAnimate} exit="exit" data-scroll-container ref={containerRef} onScroll={onScroll}> */}
-            <motion.div variants={pageConfiguration} initial="initial" animate={pageAnimate} exit="exit" ref={containerRef} className={menuOpened ? 'page-container menu-open' : props.variantsName === 'contact' ? 'page-container scroll-disabled' : 'page-container'}>
+            <motion.div variants={pageConfiguration} initial="initial" animate={pageAnimate} exit="exit" className={menuOpened ? 'page-container menu-open' : props.variantsName === 'contact' ? 'page-container scroll-disabled' : 'page-container'}>
                 <Header />
                 {props.children}
             </motion.div>
