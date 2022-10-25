@@ -16,6 +16,7 @@
     "framer-motion": "^6.3.11",
     "gsap": "^3.11.3",
     "http-proxy-middleware": "^2.0.6",
+    "lottie-web": "^5.9.6",
     "mysql": "^2.18.1",
     "node-sass": "^7.0.1",
     "nodemailer": "^6.7.8",
