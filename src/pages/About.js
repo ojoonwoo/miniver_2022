@@ -6,9 +6,12 @@ import { useEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import PageTransition from '../components/PageTransition';
-gsap.registerPlugin(ScrollTrigger);
+// import lottie from 'lottie-web';
+import Lottie from 'lottie-react';
+import animationData from '../about_title_animation.json';
 
 function About(props) {
+    gsap.registerPlugin(ScrollTrigger);
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
@@ -16,6 +19,7 @@ function About(props) {
     let dispatch = useDispatch();
 
     useEffect(() => {
+        // const container = document.querySelector('#anim-container');
         console.log('어바웃 마운트');
         dispatch(changeColor('black'));
 
@@ -41,10 +45,16 @@ function About(props) {
             },
         });
 
-        tl.addLabel('start')
-            .addLabel('scale-down')
-            .to('.ani-box._01', { scale: 0.42 })
-            .addLabel('end');
+        // lottie.loadAnimation({
+        //     container: container,
+        //     renderer: 'svg',
+        //     // loop: true,
+        //     autoplay: true,
+        //     // animationData: '/public/about_title_animation.json'
+        //     animationData: animationData
+        // })
+
+        tl.addLabel('start').addLabel('scale-down').to('.ani-box._01', { scale: 0.42 }).addLabel('end');
 
         return () => {
             console.log('어바웃 언마운트');
@@ -58,7 +68,8 @@ function About(props) {
             <div id="container" className={props.pageName}>
                 <div className="inner">
                     <div className="cover-section">
-                        <h2>궁극의 크리에이티브</h2>
+                        {/* <div id="anim-container"></div> */}
+                        <Lottie animationData={animationData} loop={true} />
                     </div>
                     <div id="scroll-animation_container">
                         <div className="inner">
@@ -70,7 +81,9 @@ function About(props) {
                                 </p>
                                 <div className="desc-block">
                                     <p className="desc">잘빠진 디자인, 세련된 영상, 전환율까지 고려한 사이트 제작 필요 맞춤 형태의 광고제작도 잘 한다지만 남다르게 소비될 아이디어를 요청해보세요.</p>
-                                    <p className="desc">깊이 있게 관찰하여 제안합니다. 새로운 전략으로 브랜드가 사랑 받을아이디어를 기어코 가지고 옵니다. 당신의 브랜드가 잘 되는 것이 우리의 일입니다.</p>
+                                    <p className="desc">
+                                        깊이 있게 관찰하여 제안합니다. 새로운 전략으로 브랜드가 사랑 받을아이디어를 기어코 가지고 옵니다. 당신의 브랜드가 잘 되는 것이 우리의 일입니다.
+                                    </p>
                                 </div>
                             </div>
                         </div>
