@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import WorkBox from '../components/WorkBox';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { motion, useScroll, useSpring, useTransform, MotionValue, useInView, useAnimation, useMotionValue } from 'framer-motion';
+import { AnimatePresence, motion, useAnimation, useAnimationControls, useMotionValue } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 
 function Home(props) {
@@ -32,21 +32,21 @@ function Home(props) {
         };
     }, []);
 
-    const [homeData, setHomeData] = useState([]);
-    useEffect(() => {
-        async function getHomeData() {
-            let displayCount = device == 'mobile' ? 3 : 6;
-            const result = await axios({
-                method: 'get',
-                url: '/api/work/getlist',
-                params: { cate: 'all', limit: displayCount },
-            });
-            setHomeData(result.data.list);
-        }
-        getHomeData();
+    // const [homeData, setHomeData] = useState([]);
+    // useEffect(() => {
+    //     async function getHomeData() {
+    //         let displayCount = device == 'mobile' ? 3 : 6;
+    //         const result = await axios({
+    //             method: 'get',
+    //             url: '/api/work/getlist',
+    //             params: { cate: 'all', limit: displayCount },
+    //         });
+    //         setHomeData(result.data.list);
+    //     }
+    //     getHomeData();
 
     
-    }, [device]);
+    // }, [device]);
 
     const [currentSection, setCurrentSection] = useState(1);
     const [currentWork, setCurrentWork] = useState(1);
@@ -55,7 +55,6 @@ function Home(props) {
     const containerRef = useRef(null);
     const contentsRef = useRef(null);
     const slideContentsRef = useRef(null);
-    const [windowResized, setWindowResized] = useState(null);
 
     const sectionY = useMotionValue(0);
     const workY = useMotionValue(0);
@@ -63,15 +62,28 @@ function Home(props) {
     const [currentSectionY, setCurrentSectionY] = useState(0);
     const [currentWorkY, setCurrentWorkY] = useState(0);
 
+    const mainWorkData = [
+        {
+            id: 1,
+            title: "Y22 Weight Campaign",
+            client: "royal canin",
+            type: 'website'
+        },
+        {
+            id: 2,
+            title: "Y22 Weight Campaign2",
+            client: "bioderma",
+            type: 'film'
+        },
+    ];
+
     useEffect(() => {
         const sectionLength = Math.floor(contentsRef.current.clientHeight/window.innerHeight);
-        const workLength = 5;
+        const workLength = mainWorkData.length;
         const slideBoxHeight = slideContentsRef.current.clientHeight;
 
-        // console.log('eff wheel', currentWorkY);
 
         const wheelHandler = (e) => {
-            // console.log('wheel handler', currentWorkY);
             e.preventDefault();
             const distance = e.deltaY;
             const direction = distance > 0 ? 'DOWN' : 'UP';
@@ -115,92 +127,70 @@ function Home(props) {
         };
         scrollRef.current.addEventListener('wheel', wheelHandler);
         return () => {
-            // scrollRef.current.removeEventListener('wheel', wheelHandler);
+            scrollRef.current.removeEventListener('wheel', wheelHandler);
         };
     }, [currentSection, currentWork, currentWorkY, currentSectionY]);
-
 
     
     useEffect(() => {
         let timeout;
-        // console.log('eff!!!!');
         const latestWinHeight = window.innerHeight;
-        // const latestBoxHeight = slideContentsRef.current.clientHeight;
         window.addEventListener('resize', () => {
-            setAnimationComplete(false);
-            clearTimeout(timeout);
-            const winHeight = window.innerHeight;
-            console.log('win resize', latestWinHeight, winHeight);
-            // const boxHeight = slideContentsRef.current.clientHeight;
-            const changePer = (latestWinHeight-winHeight)/latestWinHeight;
-            // const changePerBox = (latestBoxHeight-boxHeight)/latestBoxHeight;
-            // console.log(latestWinHeight, winHeight);
-            // console.log(sectionY.current);
-            const resizeSectionY = currentSectionY-(currentSectionY*changePer);
-            // const resizeWorkY = currentWorkY-(currentWorkY*changePer);
-
-            const resizeWorkY = currentWorkY - (currentWorkY*changePer);
-
-
-            console.log('resizeWorkY', resizeWorkY);
-
-            // setCurrentWorkY(currentWorkY);
-            // setCurrentWorkY(resizeWorkY);
-            
-            workAnimate.start({
-                y: resizeWorkY,
-                transition: {
-                    duration: 0,
-                    onComplete: function() {
-                        // setCurrentWorkY(resizeWorkY);
-                        // setCurrentWorkY(currentWorkY - currentWorkY);
-                        // setCurrentWorkY(currentWorkY - resizeWorkY);
-                        // setCurrentWorkY(currentWorkY*changePer);
-                        setCurrentWorkY(resizeWorkY);
-                        setAnimationComplete(true);
-                    }
-                }
-            });
-            sectionAnimate.start({
-                y: resizeSectionY,
-                transition: {
-                    duration: 0,
-                    onComplete: function() {
-                        // setCurrentSectionY(currentSectionY);
-                        // setCurrentSectionY(sectionMoveY);
-                        setCurrentSectionY(resizeSectionY);
-                        setAnimationComplete(true);
-                    }
-                }
-            });
-            setWindowResized(true);
+            if(timeout) {
+                clearTimeout(timeout)
+            }
             timeout = setTimeout(() => {
-                setWindowResized(false);
+                setAnimationComplete(false);
+                const winHeight = window.innerHeight;
+                const changePer = (latestWinHeight-winHeight)/latestWinHeight;
+                const resizeSectionY = currentSectionY - (currentSectionY*changePer);
+                const resizeWorkY = currentWorkY - (currentWorkY*changePer);
+
+                
+                workAnimate.start({
+                    y: resizeWorkY,
+                    transition: {
+                        duration: 0,
+                        onComplete: function() {
+                            setCurrentWorkY(resizeWorkY);
+                            setAnimationComplete(true);
+                        }
+                    }
+                });
+                sectionAnimate.start({
+                    y: resizeSectionY,
+                    transition: {
+                        duration: 0,
+                        onComplete: function() {
+                            setCurrentSectionY(resizeSectionY);
+                            setAnimationComplete(true);
+                        }
+                    }
+                });
             }, 200);
         });
     }, [currentWorkY, currentSectionY]);
 
     const sectionAnimate = useAnimation();
     const workAnimate = useAnimation();
-    // function mainSectionMove(direction, distance) {
-    //     console.log(direction, distance);
-    //     // on animating prevent scroll
-    //     let next = -1;
-    //     if(direction === 'UP') {
-    //         next = 1;
-    //     } else {
-    //         next = -1;
-    //     }
-    //     let move = (currentSection*window.innerHeight)*next;
-    //     console.log(move);
+    const typoFlowAnimate = useAnimation();
+    const typoShowAnimate = useAnimation();
 
-    //     animateSequence(direction, move);
-    // }
+    useEffect(() => {
+        animateSequenceWork();
+    }, [currentSection, currentWork]);
 
+    const animateSequenceWork = async () => {
+        return await typoShowAnimate.start({
+            y: 0,
+            transition: {
+                duration: 0.8,
+            }
+        })
+    
+        
+    };
     const animateSequence = async (direction, move, type) => {
-        // todo
-        // state 연산 타이밍
-        // get current y 
 
         setAnimationComplete(false);
         if(type === 'work') {
@@ -243,29 +233,80 @@ function Home(props) {
         
     };
 
-    
 
-    function WorkSection({id}) {
+    function WorkSection({work}) {
         return (
             <div className="work-slide">
                 <figure>
                     <motion.div>
                         <img src={`assets/main_work_01.jpg`}></img>
                     </motion.div>
-                    <figcaption>Y22 Weight Campaign</figcaption>
+                    <figcaption>{work.title}</figcaption>
                 </figure>
             </div>
         );
     }
-    function WorkTypo({id}) {
+    function WorkTypo({work}) {
         return (
             <motion.div className="typo-element">
-                <motion.div className="type-line-01">
-                    ROYAL CANIN
-                </motion.div>
-                <motion.div className="type-line-02">
-                    WEBSITE
-                </motion.div>
+                <div className="typo-wrap">
+                    <motion.div className="typo-line typo-line-01" initial={{y: '-100%'}} animate={work.id===currentWork ? typoShowAnimate : false}>
+                        <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '-100%'} : false} transition={
+                            {
+                                delay: 1,
+                                duration: 30,
+                                repeat: Infinity,
+                                ease: 'linear'
+                            }
+                        }>
+                            <span>{work.client}</span>
+                            <span>{work.client}</span>
+                            <span>{work.client}</span>
+                        </motion.div>
+                        <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '-100%'} : false} transition={
+                            {
+                                delay: 1,
+                                duration: 30,
+                                repeat: Infinity,
+                                ease: 'linear'
+                            }
+                        }>
+                            <span>{work.client}</span>
+                            <span>{work.client}</span>
+                            <span>{work.client}</span>
+                        </motion.div>
+                    </motion.div>
+                </div>
+                <div className="typo-wrap">
+                    <motion.div className="typo-line typo-line-02" initial={{y: '100%'}} animate={work.id===currentWork ? typoShowAnimate : false}>
+                        <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '100%'} : false} transition={
+                            {
+                                delay: 1,
+                                duration: 30,
+                                repeat: Infinity,
+                                ease: 'linear'
+                            }
+                        }>
+                            <span>{work.type}</span>
+                            <span>{work.type}</span>
+                            <span>{work.type}</span>
+                            <span>{work.type}</span>
+                        </motion.div>
+                        <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '100%'} : false} transition={
+                            {
+                                delay: 1,
+                                duration: 30,
+                                repeat: Infinity,
+                                ease: 'linear'
+                            }
+                        }>    
+                            <span>{work.type}</span>
+                            <span>{work.type}</span>
+                            <span>{work.type}</span>
+                            <span>{work.type}</span>
+                        </motion.div>
+                    </motion.div>
+                </div>
             </motion.div>
         );
     }
@@ -289,15 +330,15 @@ function Home(props) {
                         <div className="main-section section-work">
                             <div className="work-scroll-container">
                                 <div className="work-info-typo">
-                                    {[1, 2, 3, 4, 5].map((work) => (
-                                        <WorkTypo key={work} id={work} />
+                                    {mainWorkData.map((work) => (
+                                        <WorkTypo key={work.id} work={work} />
                                     ))}
                                 </div>
                                 <div className="work-slide-wrapper">
                                     <div className="wrapper-inner">
                                         <motion.div className="slide-contents" animate={workAnimate} ref={slideContentsRef}>
-                                            {[1, 2, 3, 4, 5].map((work) => (
-                                                <WorkSection key={work} id={work} />
+                                            {mainWorkData.map((work) => (
+                                                <WorkSection key={work.id} work={work} />
                                             ))}
                                         </motion.div>
                                     </div>

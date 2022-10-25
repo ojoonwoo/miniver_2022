@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;500;700&family=Noto+Sans+KR:wght@300;400;700&display=swap');
 @import './_variable.scss';
 // $grey: #666666;
 // $black: #000000;
@@ -921,8 +921,61 @@ textarea::-webkit-scrollbar-thumb {
         line-height: 1.2;
         font-weight: 700;
     }
-    .work-info-typo, .work-info-desc {
-        display: none;
+    .work-info-typo {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+    }
+    .work-info-typo .typo-element {
+        overflow: hidden;
+        width: 100vw;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        font-size: 0;
+        // opacity: 0;
+    }
+    .work-info-typo .typo-element span {
+        display: inline-block;
+        margin-right: 10rem;
+        text-transform: uppercase;
+    }
+    .work-info-typo .typo-element .typo-line {
+        font-size: 20rem;
+        font-weight: 500;
+        white-space: nowrap;
+        text-align: center;
+        width: 100%;
+        letter-spacing: -0.1rem;
+        display: flex;
+        justify-content: flex-start;
+        
+    }
+    .work-info-typo .typo-element .typo-wrap {
+        overflow: hidden;
+    }
+    .work-info-typo .typo-element .typo-line .typo-slide {        
+        // -webkit-animation-timing-function: linear;
+        // animation-timing-function: linear;
+        // -webkit-animation-iteration-count: infinite;
+        // animation-iteration-count: infinite;
+        will-change: transform;
+    }
+    .work-info-typo .typo-element .typo-line .typo-slide.rtl {
+    }
+    .work-info-typo .typo-element .typo-line .typo-slide.ltr {
+    }
+    .work-info-typo .typo-element .typo-line-01 {
+        margin-bottom: -1rem;
+    }
+    .work-info-typo .typo-element .typo-line-02 {
+        font-size: 16rem;
+        -webkit-text-stroke: 1px #ffffff;
+        -webkit-text-fill-color: transparent;
+        justify-content: flex-end;
+        margin-top: -1rem;
     }
     .section-work .work-slide figure > div {
         height: 100%;
