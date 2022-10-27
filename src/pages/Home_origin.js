@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 // import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -56,7 +56,6 @@ function Home(props) {
     const contentsRef = useRef(null);
     const slideContentsRef = useRef(null);
     const footerRef = useRef(null);
-    const [workImageHeight, setWorkImageHeight] = useState(0);
 
     const [currentSectionY, setCurrentSectionY] = useState(0);
     const [currentWorkY, setCurrentWorkY] = useState(0);
@@ -71,84 +70,52 @@ function Home(props) {
         },
         {
             id: 2,
-            title: "Humidifying Helmet",
+            title: "Y22 Weight Campaign2",
             client: "bioderma",
-            type: 'Viral Video',
-            backgroundColor: '#2B43B2'
+            type: 'film',
+            backgroundColor: '#333333'
         },
         {
             id: 3,
-            title: "Milka SNS",
-            client: "MILKA",
-            type: 'Social media',
-            backgroundColor: '#2C2762'
-        },
-        {
-            id: 4,
-            title: "Namyang 55th Anniversary Retro Campaign",
-            client: "NAMYANG",
-            type: 'website',
-            backgroundColor: '#9C1423'
-        },
-        {
-            id: 5,
-            title: "Cold Brew Launching",
-            client: "NESCAFE DOLCEGUSTO",
-            type: 'Viral Video',
-            backgroundColor: '#1D2548'
+            title: "Y22 Weight Campaign3",
+            client: "Dolce Gusto",
+            type: 'sns',
+            backgroundColor: '#B827FD'
         },
     ];
 
     useEffect(() => {
-        const boxH = device==='mobile' ? Math.round(window.innerHeight - window.innerHeight*0.578) : Math.round(window.innerHeight - window.innerHeight*0.33);
-        setWorkImageHeight(boxH);
-    }, [device]);
-    useLayoutEffect(() => {
-        const sectionLength = 4;
+        const sectionLength = device==='mobile' ? 3 : 4;
         const workLength = mainWorkData.length;
-        const slideBoxHeight = Math.round(slideContentsRef.current.clientHeight);
+        const slideBoxHeight = slideContentsRef.current.clientHeight;
         const footerHeight = footerRef.current.clientHeight;
 
-        let touchstartY, touchendY = 0;
-        let distance;
-        const scrollHandler = (e) => {
+
+        const wheelHandler = (e) => {
             e.preventDefault();
-            switch(e.type) {
-                case "wheel":
-                    distance = e.deltaY;
-                    break;
-                case "touchstart":
-                    touchstartY = e.changedTouches[0].screenY;
-                    break;
-                case "touchend":
-                    touchendY = e.changedTouches[0].screenY;
-                    distance = touchstartY-touchendY
-                    break;
-            }
-            pageScrollHandler(distance);            
-        }
-        scrollRef.current.addEventListener('wheel', scrollHandler);
-        scrollRef.current.addEventListener('touchstart', scrollHandler);
-        scrollRef.current.addEventListener('touchend', scrollHandler);
-            
-
-
-        const pageScrollHandler = (distance) => {
+            const distance = e.deltaY;
             const direction = distance > 0 ? 'DOWN' : 'UP';
-            if(!animationCompleted) return false;
 
+            console.log(distance);
+            console.log(currentSection, currentWork);
+
+            
             if(Math.abs(distance) > 20) {
                 if(direction === 'UP' && currentSection < 2)
                     return false;
                 if(direction === 'DOWN' && currentSection >= sectionLength)
                     return false;
 
+                if(!animationCompleted) return false;
 
-                let move, type, action;
+                let move;
+                let type;
+                let action;
 
                 if((direction === 'UP' && currentWork === 1) || (direction === 'DOWN' && currentWork === workLength)) {
                     action = 'section';
                 }
+                
 
                 if(currentSection === 2 && action !== 'section') {
                     if(direction === 'UP') {
@@ -173,19 +140,19 @@ function Home(props) {
                     }
                     type = 'section';
                 }
-
+                
                 animateSequence(direction, move, type);
-                scrollRef.current.removeEventListener('wheel,', scrollHandler);
-                scrollRef.current.removeEventListener('touchstart', scrollHandler);
-                scrollRef.current.removeEventListener('touchend', scrollHandler);
+                scrollRef.current.removeEventListener('wheel', wheelHandler);
             }
-        }
+        };
+        scrollRef.current.addEventListener('wheel', wheelHandler);
         return () => {
+            // scrollRef.current.removeEventListener('wheel', wheelHandler);
         };
     }, [currentSection, currentWork, currentWorkY, currentSectionY]);
 
     
-    useLayoutEffect(() => {
+    useEffect(() => {
         let timeout;
         const latestWinHeight = window.innerHeight;
         window.addEventListener('resize', () => {
@@ -197,7 +164,7 @@ function Home(props) {
                 const winHeight = window.innerHeight;
                 const changePer = (latestWinHeight-winHeight)/latestWinHeight;
                 const resizeSectionY = currentSectionY - (currentSectionY*changePer);
-                const resizeWorkY = Math.round(currentWorkY - (currentWorkY*changePer));
+                const resizeWorkY = currentWorkY - (currentWorkY*changePer);
 
                 
                 workAnimate.start({
@@ -220,9 +187,6 @@ function Home(props) {
                         }
                     }
                 });
-                // const boxH = Math.round(window.innerHeight - window.innerHeight*0.578);
-                const boxH = device==='mobile' ? Math.round(window.innerHeight - window.innerHeight*0.578) : Math.round(window.innerHeight - window.innerHeight*0.33);
-                setWorkImageHeight(boxH);
             }, 200);
         });
     }, [currentWorkY, currentSectionY]);
@@ -232,12 +196,11 @@ function Home(props) {
     const bgAnimate = useAnimation();
     const typoShowAnimate = useAnimation();
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         animateSequenceWork();
     }, [currentSection, currentWork]);
 
     const animateSequenceWork = async () => {
-
         await bgAnimate.start({
             background: mainWorkData[currentWork-1]['backgroundColor'],
             transition: {
@@ -249,8 +212,6 @@ function Home(props) {
             opacity: 1,
             transition: {
                 duration: 0.55,
-                onComplete: function() {
-                }
             }
         })
     };
@@ -259,6 +220,16 @@ function Home(props) {
         setAnimationComplete(false);
         if(type === 'work') {
             const nextState = direction==='DOWN' ? currentWork+1 : currentWork-1;
+            // await captionAnimate.start({
+            //     opacity: 0,
+            //     color: '#000000',
+            //     transition: {
+            //         duration: 2,
+            //         onComplete: function() {
+            //             console.log('caption anim comp');
+            //         }
+            //     }
+            // })
             return await workAnimate.start({
                 // y: sectionY.current,
                 y: move,
@@ -284,6 +255,7 @@ function Home(props) {
                         setAnimationComplete(true);
                     }
                 },
+                
             });
         }
         
@@ -292,14 +264,10 @@ function Home(props) {
 
     function WorkSection({work}) {
         return (
-            <div className="work-slide" style={{'width': workImageHeight, 'height': workImageHeight}}>
-            {/* <div className="work-slide"> */}
+            <div className="work-slide">
                 <figure>
                     <div>
-                        {/* 넓이 있어야됨 */}
-                        <img src={`assets/main_work_0${work.id}.jpg`} ></img>
-                        {/* <div style={{'width': '200px', 'height': '200px', 'backgroundColor': '#fff'}}></div> */}
-                        {/* <div className="work-img" style={{'width': '200px', 'height': '200px', 'backgroundImage': 'url(assets/main_work_01.jpg)'}}></div> */}
+                        <img src={`assets/main_work_01.jpg`}></img>
                     </div>
                     <motion.figcaption initial={{y: 20, opacity: 0 }} animate={work.id===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}}>{work.title}</motion.figcaption>
                 </figure>
@@ -313,7 +281,7 @@ function Home(props) {
             {work.id===currentWork &&
                 <motion.div className="typo-element" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} key={work.id}>
                     <div className="typo-wrap">
-                        <motion.div className="typo-line typo-line-01 flow-rtl" initial={{opacity: 0, y: '-50%'}} animate={typoShowAnimate}>
+                        <motion.div className="typo-line typo-line-01 flow-rtl" initial={{y: '-100%'}} animate={typoShowAnimate}>
                             <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '-100%'} : false} transition={
                                 {
                                     delay: 1.2,
@@ -341,7 +309,7 @@ function Home(props) {
                         </motion.div>
                     </div>
                     <div className="typo-wrap">
-                        <motion.div className="typo-line typo-line-02 flow-ltr" initial={{opacity: 0, y: '50%'}} animate={typoShowAnimate}>
+                        <motion.div className="typo-line typo-line-02 flow-ltr" initial={{y: '100%'}} animate={typoShowAnimate}>
                             <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '100%'} : false} transition={
                                 {
                                     delay: 1.2,
@@ -444,7 +412,7 @@ function Home(props) {
                                         <motion.div className="typo-slide" animate={{x: '100%'}} transition={
                                                 {
                                                     delay: 1.2,
-                                                    duration: 35,
+                                                    duration: 30,
                                                     repeat: Infinity,
                                                     ease: 'linear'
                                                 }
@@ -469,7 +437,7 @@ function Home(props) {
                                     <div className="typo-line">
                                         <motion.div className="typo-slide" animate={{x: '-100%'}} transition={
                                                 {
-                                                    delay: 6,
+                                                    delay: 1.2,
                                                     duration: 30,
                                                     repeat: Infinity,
                                                     ease: 'linear'
@@ -480,7 +448,7 @@ function Home(props) {
                                         </motion.div>
                                         <motion.div className="typo-slide" animate={{x: '-100%'}} transition={
                                                 {
-                                                    delay: 6,
+                                                    delay: 1.2,
                                                     duration: 30,
                                                     repeat: Infinity,
                                                     ease: 'linear'
@@ -491,34 +459,6 @@ function Home(props) {
                                         </motion.div>
                                     </div>
                                 </div>
-                                {device === 'mobile' &&
-                                <div className="typo-wrap">
-                                    <div className="typo-line flow-ltr">
-                                        <motion.div className="typo-slide" animate={{x: '100%'}} transition={
-                                                {
-                                                    delay: 6,
-                                                    duration: 30,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                        </motion.div>
-                                        <motion.div className="typo-slide" animate={{x: '100%'}} transition={
-                                                {
-                                                    delay: 6,
-                                                    duration: 30,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                        </motion.div>
-                                    </div>
-                                </div>
-                                }
                             </div>
                         </div>
                         <div ref={footerRef}>
