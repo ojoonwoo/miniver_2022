@@ -34,6 +34,7 @@ function Header(props) {
     }, [device]);
 
     useEffect(() => {
+        // console.log(menuOpen);
         dispatch(menuToggle(menuOpen));
     }, [menuOpen]);
 

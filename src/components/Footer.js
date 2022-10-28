@@ -22,9 +22,7 @@ function Footer() {
                         <div className={`${styles['footer-elem']} email-block`}>
                             <p className={`${styles['footer-elem__title']}`}>Email.</p>
                             <p className={`${styles['footer-elem__desc']}`}>
-                                <a href="mailto:sh.yang@miniv.kr">sh.yang@miniv.kr</a>
-                                <br></br>
-                                <a href="mailto:ky.yang@miniv.kr">ky.yang@miniv.kr</a>
+                                <a href="mailto:contact@miniv.kr">contact@miniv.kr</a>
                             </p>
                         </div>
                         <div className={`${styles['footer-elem']} tel-block`}>
