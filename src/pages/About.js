@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import Draggable from 'gsap/Draggable';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PageTransition from '../components/PageTransition';
@@ -21,7 +22,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 function About(props) {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, Draggable);
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
@@ -33,6 +34,8 @@ function About(props) {
     });
 
     const [workList, setWorkList] = useState([]);
+
+    const sliderRef = useRef(null);
 
     useEffect(() => {
         // const container = document.querySelector('#anim-container');
@@ -129,6 +132,68 @@ function About(props) {
             .to('.ani-block._03 .director-box._02 .text-box .title', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.7' : 'start+=0.7')
             .addLabel('box-02-out', '+=5')
             .to('.ani-block._03 .director-box._02', { autoAlpha: 0, y: '-2rem', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
+
+        // * 원형 슬라이더 부분
+        const turn = 10;
+        let turnCount = 6;
+        gsap.set('.slide', { transformOrigin: 'center 160rem' });
+        gsap.set('#slide1', { rotation: -(2 * turn) });
+        gsap.set('#slide2', { rotation: -turn });
+        gsap.set('#slide4', { rotation: turn });
+        gsap.set('#slide5', { rotation: turn * 2 });
+
+        function slideTurn(direction) {
+            turnCount--;
+            // TODO : 디렉션에 따라 첫번째나 마지막 슬라이드를 -30도로 세팅하거나 30도로 세팅, 햔재의 turnCount로 세팅하는 방식이면 오류남
+            if(direction === 'next') {
+                console.log('슬라이드 넥스트');
+                gsap.set('#slide' + turnCount, { rotation: -(3 * turn) });
+                gsap.to('.slide', 0.2, { rotation: '+=' + turn, delay: 1, ease: 'power2.easeInOut'});
+            } else {
+                console.log('슬라이드 프리브');
+                gsap.set('#slide' + turnCount, { rotation: (3 * turn) });
+                gsap.to('.slide', 0.2, { rotation: '-=' + turn, delay: 1, ease: 'power2.easeInOut'});
+            }
+            // } else {
+            //     gsap.set('#slide' + turnCount, { rotation: (3 * turn) });
+            //     gsap.to('.slide', 1.6, { rotation: '-=' + turn, delay: 1, ease: 'power2.easeInOut', onComplete: slideTurn('prev') });
+            // }
+            // console.log('turnCount:', turnCount, 'rotation:', -(3 * turn));
+            // gsap.set('#slide' + turnCount, { rotation: -(3 * turn) });
+            if (turnCount === 1) {
+                turnCount = 6;
+            }
+        }
+
+        // slideTurn();
+
+        // gsap.set('.slide-wrapper', {
+        //     perspective: 1100,
+        // });
+        console.log(sliderRef.current.clientWidth, sliderRef.current.innerWidth);
+        let proxy = document.createElement("div");
+        Draggable.create(proxy, {
+            allowContextMenu: true,
+            trigger: '.slide-wrapper',
+            type: 'x',
+            inertia: true,
+            onDragEnd : function(e) { 
+                // console.log(this.pointerX);
+                console.log(this.deltaX);
+                let deltaX = this.deltaX;
+                if (Math.abs(deltaX) > 1 && deltaX > 0) {
+                    // drag right
+                    console.log('오른쪽 드래그, deltaX 반올림 값:', Math.abs(deltaX));
+                    slideTurn('next');
+                }
+                if (Math.abs(deltaX) > 1 && deltaX < 0) {
+                    // drag left
+                    console.log('왼쪽 드래그, deltaX 반올림 값:', Math.abs(deltaX));
+                    slideTurn('prev');
+                }
+            }
+        });
+
         return () => {
             console.log('어바웃 언마운트');
         };
@@ -250,7 +315,28 @@ function About(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="slide"></div>
+                            <div className="work-block">
+                                <div className="slide-wrapper" ref={sliderRef}>
+                                    <div className="parent-circle">
+                                        <div className="slide" id="slide1">
+                                            1
+                                        </div>
+                                        <div className="slide" id="slide2">
+                                            2
+                                        </div>
+                                        <div className="slide" id="slide3">
+                                            3
+                                        </div>
+                                        <div className="slide" id="slide4">
+                                            4
+                                        </div>
+                                        {/* 5번 슬라이드는  1번째 슬라이드 카피 */}
+                                        <div className="slide" id="slide5">
+                                            5
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="ani-block _03">
                                 <div className="director-block">
                                     <p className="title">
