@@ -12,6 +12,7 @@ import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PageTransition from '../components/PageTransition';
 import WorkBox from '../components/WorkBox';
+import Footer from '../components/Footer';
 // import lottie from 'lottie-web';
 import Lottie from 'lottie-react';
 import animationData from '../about_title_animation.json';
@@ -1987,6 +1988,9 @@ function About(props) {
                                 )}
                             </div>
                         </div>
+                    </div>
+                    <div>
+                            {device === 'mobile' ? null : <Footer/>}
                     </div>
                 </div>
             </div>
