@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -20,6 +21,7 @@ function Home(props) {
 
     let dispatch = useDispatch();
 
+    const navigate = useNavigate();
     // let [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
@@ -48,18 +50,22 @@ function Home(props) {
     
     // }, [device]);
 
-    const [currentSection, setCurrentSection] = useState(1);
-    const [currentWork, setCurrentWork] = useState(1);
-    const [animationCompleted, setAnimationComplete] = useState(true);
     const scrollRef = useRef(null);
+    const videoRef = useRef(null);
     const containerRef = useRef(null);
     const contentsRef = useRef(null);
     const slideContentsRef = useRef(null);
     const footerRef = useRef(null);
+
+    const [currentSection, setCurrentSection] = useState(1);
+    const [currentWork, setCurrentWork] = useState(1);
+    const [animationCompleted, setAnimationComplete] = useState(true);
     const [workImageHeight, setWorkImageHeight] = useState(0);
+    const [footerHeight, setFooterHeight] = useState(0);
 
     const [currentSectionY, setCurrentSectionY] = useState(0);
     const [currentWorkY, setCurrentWorkY] = useState(0);
+    const [showreelStopped, setShowreelStopped] = useState(false);
 
     const mainWorkData = [
         {
@@ -81,7 +87,7 @@ function Home(props) {
             title: "Milka SNS",
             client: "MILKA",
             type: 'Social media',
-            backgroundColor: '#2C2762'
+            backgroundColor: '#7B5BCD'
         },
         {
             id: 4,
@@ -95,26 +101,29 @@ function Home(props) {
             title: "Cold Brew Launching",
             client: "NESCAFE DOLCEGUSTO",
             type: 'Viral Video',
-            backgroundColor: '#1D2548'
+            backgroundColor: '#FE8900'
         },
     ];
 
-    useEffect(() => {
-        const boxH = device==='mobile' ? Math.round(window.innerHeight - window.innerHeight*0.578) : Math.round(window.innerHeight - window.innerHeight*0.33);
-        setWorkImageHeight(boxH);
-    }, [device]);
     useLayoutEffect(() => {
+        const boxH = device==='mobile' ? Math.round(window.innerHeight - window.innerHeight*0.578) : Math.round(window.innerHeight - window.innerHeight*0.32);
+        setWorkImageHeight(boxH);
+    }, [device, workImageHeight, currentWorkY]);
+    useLayoutEffect(() => {
+        // currentSection default 1
         const sectionLength = 4;
         const workLength = mainWorkData.length;
         const slideBoxHeight = Math.round(slideContentsRef.current.clientHeight);
         const footerHeight = footerRef.current.clientHeight;
+        setFooterHeight(footerHeight);
+
 
         let touchstartY, touchendY = 0;
         let distance;
         const scrollHandler = (e) => {
-            e.preventDefault();
             switch(e.type) {
                 case "wheel":
+                    e.preventDefault();
                     distance = e.deltaY;
                     break;
                 case "touchstart":
@@ -125,7 +134,10 @@ function Home(props) {
                     distance = touchstartY-touchendY
                     break;
             }
-            pageScrollHandler(distance);            
+
+            if(Math.abs(distance) > 20) {
+                pageScrollHandler(distance);            
+            }
         }
         scrollRef.current.addEventListener('wheel', scrollHandler);
         scrollRef.current.addEventListener('touchstart', scrollHandler);
@@ -134,66 +146,77 @@ function Home(props) {
 
 
         const pageScrollHandler = (distance) => {
-            const direction = distance > 0 ? 'DOWN' : 'UP';
             if(!animationCompleted) return false;
+            
+            // if(Math.abs(distance) > 20) {
+            const direction = distance > 0 ? 'DOWN' : 'UP';
+            distance = 0;
+            if(direction === 'UP' && currentSection < 2)
+                return false;
+            if(direction === 'DOWN' && currentSection >= sectionLength)
+                return false;
 
-            if(Math.abs(distance) > 20) {
-                if(direction === 'UP' && currentSection < 2)
-                    return false;
-                if(direction === 'DOWN' && currentSection >= sectionLength)
-                    return false;
+            let move, type, action;
 
-
-                let move, type, action;
-
-                if((direction === 'UP' && currentWork === 1) || (direction === 'DOWN' && currentWork === workLength)) {
-                    action = 'section';
-                }
-
-                if(currentSection === 2 && action !== 'section') {
-                    if(direction === 'UP') {
-                        move = currentWorkY+slideBoxHeight;
-                    } else {
-                        move = currentWorkY-slideBoxHeight;
-                    }
-                    type = 'work';
-                } else {
-                    if(direction === 'UP') {
-                        if(currentSection===sectionLength) {
-                            move = currentSectionY+footerHeight;
-                        } else {
-                            move = currentSectionY+window.innerHeight;
-                        }
-                    } else {
-                        if(currentSection===sectionLength-1) {
-                            move = currentSectionY-footerHeight;
-                        } else {
-                            move = currentSectionY-window.innerHeight;
-                        }
-                    }
-                    type = 'section';
-                }
-
-                animateSequence(direction, move, type);
-                scrollRef.current.removeEventListener('wheel,', scrollHandler);
-                scrollRef.current.removeEventListener('touchstart', scrollHandler);
-                scrollRef.current.removeEventListener('touchend', scrollHandler);
+            if((direction === 'UP' && currentWork === 1) || (direction === 'DOWN' && currentWork === workLength)) {
+                action = 'section';
             }
+
+            if(currentSection === 2 && action !== 'section') {
+                if(direction === 'UP') {
+                    move = currentWorkY+slideBoxHeight;
+                } else {
+                    move = currentWorkY-slideBoxHeight;
+                }
+                type = 'work';
+            } else {
+                if(direction === 'UP') {
+                    if(currentSection===sectionLength) {
+                        move = currentSectionY+footerHeight;
+                    } else {
+                        move = currentSectionY+window.innerHeight;
+                    }
+                } else {
+                    if(currentSection===sectionLength-1) {
+                        move = currentSectionY-footerHeight;
+                    } else {
+                        move = currentSectionY-window.innerHeight;
+                    }
+                }
+                type = 'section';
+            }
+
+            animateSequence(direction, move, type);
+            scrollRef.current.removeEventListener('wheel', scrollHandler);
+            scrollRef.current.removeEventListener('touchstart', scrollHandler);
+            scrollRef.current.removeEventListener('touchend', scrollHandler);
+            // }
         }
         return () => {
         };
-    }, [currentSection, currentWork, currentWorkY, currentSectionY]);
+    }, [currentSection, currentWork, currentWorkY, currentSectionY, workImageHeight]);
 
-    
+    useEffect(() => {
+        // video side effect
+        if(currentSection > 1) {
+            setShowreelStopped(true);
+            videoRef.current.pause();
+        } else {
+            setShowreelStopped(false);
+            videoRef.current.play();
+        }
+        
+    }, [currentSection]);
+
+    let timeout;
     useLayoutEffect(() => {
-        let timeout;
         const latestWinHeight = window.innerHeight;
         window.addEventListener('resize', () => {
             if(timeout) {
                 clearTimeout(timeout)
             }
+            setAnimationComplete(false);
             timeout = setTimeout(() => {
-                setAnimationComplete(false);
                 const winHeight = window.innerHeight;
                 const changePer = (latestWinHeight-winHeight)/latestWinHeight;
                 const resizeSectionY = currentSectionY - (currentSectionY*changePer);
@@ -220,21 +243,22 @@ function Home(props) {
                         }
                     }
                 });
-                // const boxH = Math.round(window.innerHeight - window.innerHeight*0.578);
-                const boxH = device==='mobile' ? Math.round(window.innerHeight - window.innerHeight*0.578) : Math.round(window.innerHeight - window.innerHeight*0.33);
+                const boxH = device==='mobile' ? Math.round(window.innerHeight - window.innerHeight*0.578) : Math.round(window.innerHeight - window.innerHeight*0.32);
                 setWorkImageHeight(boxH);
             }, 200);
         });
-    }, [currentWorkY, currentSectionY]);
+    }, [currentWorkY, currentSectionY, workImageHeight, currentSection, currentWork, device]);
 
     const sectionAnimate = useAnimation();
     const workAnimate = useAnimation();
     const bgAnimate = useAnimation();
     const typoShowAnimate = useAnimation();
 
+    
+
     useLayoutEffect(() => {
         animateSequenceWork();
-    }, [currentSection, currentWork]);
+    }, [currentSection, currentWork, currentWorkY]);
 
     const animateSequenceWork = async () => {
 
@@ -296,16 +320,20 @@ function Home(props) {
             {/* <div className="work-slide"> */}
                 <figure>
                     <div>
-                        {/* 넓이 있어야됨 */}
                         <img src={`assets/main_work_0${work.id}.jpg`} ></img>
-                        {/* <div style={{'width': '200px', 'height': '200px', 'backgroundColor': '#fff'}}></div> */}
-                        {/* <div className="work-img" style={{'width': '200px', 'height': '200px', 'backgroundImage': 'url(assets/main_work_01.jpg)'}}></div> */}
                     </div>
                     <motion.figcaption initial={{y: 20, opacity: 0 }} animate={work.id===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}}>{work.title}</motion.figcaption>
+                    <motion.span initial={{y: 20, opacity: 0 }} animate={work.id===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}}className="work-indicator">{currentWork+'/'+mainWorkData.length}</motion.span>
                 </figure>
             </div>
         );
     }
+    // function FlowTypo({flowProps}) {
+    //     return (
+    //         <motion.div className={`typo-line ${flowProps.addClass}`}>
+    //         </motion.div>
+    //     )
+    // }
     function WorkTypo({work}) {
         return (
             <>
@@ -376,6 +404,148 @@ function Home(props) {
             </>
         );
     }
+
+    const typoSlideVariants = {
+        flow: (custom) => ({
+            x: '-100%',
+            transition: {
+                duration: custom*30,
+                repeat: Infinity,
+                ease: 'linear',
+            }
+        }),
+        flowLTR: (custom) => ({
+            x: '100%',
+            transition: {
+                duration: custom*30,
+                repeat: Infinity,
+                ease: 'linear'
+            }
+        }),
+        stop: {
+            x: 0,
+            transition: {
+                repeat: 0
+            }
+        }
+    }
+
+    const aboutBalloonData = [
+        {
+            "className": "cour",
+            "radius": true,
+            "bgColor": "#EF2318",
+            "item": "궁극의 용감함",
+            "rotate": -10.76,
+            "position": {
+                "mobile": {
+                    "left": "7.3rem",
+                    "top": "3.2rem"
+                },
+                "desktop": {
+                    "left": "43.8rem",
+                    "top": "10rem"
+                }
+            }
+        },
+        {
+            "className": "prod",
+            "radius": false,
+            "bgColor": "#B827FD",
+            "item": "프로덕션",
+            "position": {
+                "mobile": {
+                    "right": "2.6rem",
+                    "top": "3.7rem"
+                },
+                "desktop": {
+                    "right": "31.2rem",
+                    "top": "10rem"
+                }
+            }
+        },
+        {
+            "className": "mnv",
+            "radius": false,
+            "bgColor": "#2C2762",
+            "item": "미니버",
+            "position": {
+                "mobile": {
+                    "left": "12.2rem",
+                    "top": "13.7rem"
+                },
+                "desktop": {
+                    "left": "64.7rem",
+                    "top": "35.7rem"
+                }
+            }
+        },
+        {
+            "className": "crea",
+            "radius": true,
+            "bgColor": "#59C0F4",
+            "item": "크리에이티브",
+            "rotate": 13.66,
+            "position": {
+                "mobile": {
+                    "right": "6.1rem",
+                    "top": "23.7rem"
+                },
+                "desktop": {
+                    "right": "43.2rem",
+                    "top": "37rem"
+                }
+            }
+        },
+        {
+            "className": "crea",
+            "radius": true,
+            "bgColor": "#126DEA",
+            "item": "사용설명서",
+            "position": {
+                "mobile": {
+                    "left": "3.6rem",
+                    "top": "34.7rem"
+                },
+                "desktop": {
+                    "left": "27.6rem",
+                    "top": "62rem"
+                }
+            }
+        },
+        {
+            "className": "arrow",
+            "radius": true,
+            "bgColor": "#FF9212",
+            "position": {
+                "mobile": {
+                    "right": "6.2rem",
+                    "top": "34.7rem"
+                },
+                "desktop": {
+                    "right": "8.7rem",
+                    "top": "62rem"
+                }
+            }
+        }
+    ];
+    function pageMove(page) {
+        navigate(page);
+    }
+    function AboutBalloon({balloon}) {
+        
+        return (
+            <button type="button" className={`about-balloon ${balloon.radius ? 'is-radius' : ''} ${balloon.className}`} style={{backgroundColor: balloon.bgColor, left: balloon.position[device].left, right: balloon.position[device].right, top: balloon.position[device].top, transform: `rotate(${balloon.rotate}deg)`}} onClick={() => balloon.className==="arrow" ? pageMove("/about") : null}>
+                {balloon.className==="arrow" ?
+                <img src="assets/arrow.svg"></img>
+                :
+                <span>
+                    {balloon.item}
+                </span>
+                }
+            </button>
+        )
+    }
     
 
     return (
@@ -387,11 +557,9 @@ function Home(props) {
                 <div className="contents" ref={contentsRef}>
                     <motion.div className="section-container" animate={sectionAnimate} ref={containerRef}>
                         <div className="main-section section-hero">
-                            <div>
-                                <div className='video_poster-box' style={{backgroundImage: "url('/works/2/hero_source/poster.jpg')"}}></div>
-                                {/* <video loop="true" muted="true" autoPlay="true" playsInline="true" preload="auto" crossorigin="anonymous"> */}
-                                <video>
-                                    <source src={`/works/2/hero_source/9b5218308d3a8bdcae1c7559f288cef0.mp4`} type="video/mp4"></source>
+                            <div className="video-container">
+                                <video autoPlay muted={true} loop preload={'auto'} playsInline={true} ref={videoRef}>
+                                    <source src={`assets/showreel.mp4`} type="video/mp4"></source>
                                 </video>
                             </div>
                         </div>
@@ -415,112 +583,62 @@ function Home(props) {
                         </div>
                         <div className="main-section section-about">
                             <div className="about-typo-wrap">
-                                <div className="typo-wrap">
-                                    <div className="typo-line">
-                                        <motion.div className="typo-slide" animate={{x: '-100%'}} transition={
-                                                {
-                                                    delay: 1.2,
-                                                    duration: 30,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE MINIVERTISING</span>
-                                                <span>WE ARE MINIVERTISING</span>
-                                        </motion.div>
-                                        <motion.div className="typo-slide" animate={{x: '-100%'}} transition={
-                                                {
-                                                    delay: 1.2,
-                                                    duration: 30,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE MINIVERTISING</span>
-                                                <span>WE ARE MINIVERTISING</span>
-                                        </motion.div>
+                                <div className="typo-container">
+                                    {/* typography 단축 필요 */}
+                                    {aboutBalloonData.map((balloon, index) => (
+                                        <AboutBalloon key={index} balloon={balloon}/>
+                                    ))}
+                                    <div className="typo-wrap">
+                                        <div className="typo-line">
+                                            <motion.div className="typo-slide" variants={typoSlideVariants} animate={currentSection>=3 ? 'flow' : 'stop'} custom={1}>
+                                                    <span>WE ARE MINIVERTISING</span>
+                                                    <span>WE ARE MINIVERTISING</span>
+                                            </motion.div>
+                                            <motion.div className="typo-slide" variants={typoSlideVariants} animate={currentSection>=3 ? 'flow' : 'stop'} custom={1}>
+                                                    <span>WE ARE MINIVERTISING</span>
+                                                    <span>WE ARE MINIVERTISING</span>
+                                            </motion.div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="typo-wrap">
-                                    <div className="typo-line flow-ltr">
-                                        <motion.div className="typo-slide" animate={{x: '100%'}} transition={
-                                                {
-                                                    delay: 1.2,
-                                                    duration: 35,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                        </motion.div>
-                                        <motion.div className="typo-slide" animate={{x: '100%'}} transition={
-                                                {
-                                                    delay: 1.2,
-                                                    duration: 30,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                        </motion.div>
+                                    <div className="typo-wrap">
+                                        <div className="typo-line flow-ltr">
+                                            <motion.div className="typo-slide" variants={typoSlideVariants} animate={currentSection>=3 ? 'flowLTR' : 'stop'} custom={1}>
+                                                    <span>WE ARE A CREARTIVE AGENCY</span>
+                                                    <span>WE ARE A CREARTIVE AGENCY</span>
+                                            </motion.div>
+                                            <motion.div className="typo-slide" variants={typoSlideVariants} animate={currentSection>=3 ? 'flowLTR' : 'stop'} custom={1}>
+                                                    <span>WE ARE A CREARTIVE AGENCY</span>
+                                                    <span>WE ARE A CREARTIVE AGENCY</span>
+                                            </motion.div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="typo-wrap">
-                                    <div className="typo-line">
-                                        <motion.div className="typo-slide" animate={{x: '-100%'}} transition={
-                                                {
-                                                    delay: 6,
-                                                    duration: 30,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE MINIVERTISING</span>
-                                                <span>WE ARE MINIVERTISING</span>
-                                        </motion.div>
-                                        <motion.div className="typo-slide" animate={{x: '-100%'}} transition={
-                                                {
-                                                    delay: 6,
-                                                    duration: 30,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE MINIVERTISING</span>
-                                                <span>WE ARE MINIVERTISING</span>
-                                        </motion.div>
+                                    <div className="typo-wrap">
+                                        <div className="typo-line">
+                                            <motion.div className="typo-slide" variants={typoSlideVariants} animate={currentSection>=3 ? 'flow' : 'stop'} custom={1.2}>
+                                                    <span>WE ARE MINIVERTISING</span>
+                                                    <span>WE ARE MINIVERTISING</span>
+                                            </motion.div>
+                                            <motion.div className="typo-slide" variants={typoSlideVariants} animate={currentSection>=3 ? 'flow' : 'stop'} custom={1.2}>
+                                                    <span>WE ARE MINIVERTISING</span>
+                                                    <span>WE ARE MINIVERTISING</span>
+                                            </motion.div>
+                                        </div>
                                     </div>
-                                </div>
-                                {device === 'mobile' &&
-                                <div className="typo-wrap">
-                                    <div className="typo-line flow-ltr">
-                                        <motion.div className="typo-slide" animate={{x: '100%'}} transition={
-                                                {
-                                                    delay: 6,
-                                                    duration: 30,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                        </motion.div>
-                                        <motion.div className="typo-slide" animate={{x: '100%'}} transition={
-                                                {
-                                                    delay: 6,
-                                                    duration: 30,
-                                                    repeat: Infinity,
-                                                    ease: 'linear'
-                                                }
-                                            }>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                                <span>WE ARE A CREARTIVE AGENCY</span>
-                                        </motion.div>
+                                    {device === 'mobile' ?
+                                    <div className="typo-wrap">
+                                        <div className="typo-line flow-ltr">
+                                            <motion.div className="typo-slide" variants={typoSlideVariants} animate={currentSection>=3 ? 'flowLTR' : 'stop'} custom={1.2}>
+                                                    <span>WE ARE A CREARTIVE AGENCY</span>
+                                                    <span>WE ARE A CREARTIVE AGENCY</span>
+                                            </motion.div>
+                                            <motion.div className="typo-slide" variants={typoSlideVariants} animate={currentSection>=3 ? 'flowLTR' : 'stop'} custom={1.2}>
+                                                    <span>WE ARE A CREARTIVE AGENCY</span>
+                                                    <span>WE ARE A CREARTIVE AGENCY</span>
+                                            </motion.div>
+                                        </div>
                                     </div>
+                                    : null}
                                 </div>
-                                }
                             </div>
                         </div>
                         <div ref={footerRef}>

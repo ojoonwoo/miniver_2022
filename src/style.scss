@@ -150,40 +150,19 @@ textarea::-webkit-scrollbar-thumb {
     // height: 100vh;
     // border: 1px solid red;
     // position: relative;
-    > div {
-        height: 100vw;
-        -webkit-transform: translate(calc(50vw - 50%), calc(var(--vh, 1vh) * 50 - 50%)) rotate(90deg);
-        transform: translate(calc(50vw - 50%), calc(var(--vh, 1vh) * 50 - 50%)) rotate(90deg);
+    > .video-container {
         // width: 100vh;
-        width: calc(var(--vh, 1vh) * 100);
-        position: relative;
-        // position: absolute;
-        // height: 100%;
-        // width: 100%;
-        // top: 0;
-        // left: 0;
-        // right: 0;
-        // bottom: 0;
-        > .video_poster-box {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            position: relative;
-            z-index: 1;
-        }
-        .page-container > video {
+        height: 100%;
+        > video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: absolute;
+            // position: absolute;
             z-index: 2;
-            left: 0;
-            top: 0;
+            // left: 0;
+            // top: 0;
         }
     }
-    // ! dev code
 }
 
 .typo-line {
@@ -191,6 +170,9 @@ textarea::-webkit-scrollbar-thumb {
     width: 100%;
     display: flex;
     justify-content: flex-start;
+}
+.typo-slide {
+    will-change: transform;
 }
 .typo-slide span {
     display: inline-block;
@@ -286,6 +268,14 @@ textarea::-webkit-scrollbar-thumb {
         line-height: 1.2;
         font-weight: 700;
     }
+    .work-slide .work-indicator {
+        position: absolute;
+        right: 0;
+        bottom: -1.5rem;
+        font-size: 1rem;
+        line-height: 1.2;
+        font-weight: 700;
+    }
     .work-info-typo {
         position: absolute;
         top: calc(calc(var(--vh, 1vh) * 100) * 0.136);
@@ -334,13 +324,6 @@ textarea::-webkit-scrollbar-thumb {
     // }
 }
 
-.section-work > h3 {
-    font-size: 1.5rem;
-    text-align: center;
-    padding: 4.5rem 0 2rem;
-    font-weight: 300;
-    color: $black;
-}
 
 .section-about {
     background-color: #000000;
@@ -356,7 +339,30 @@ textarea::-webkit-scrollbar-thumb {
                 line-height: 0.9;
             }
         }
+        .typo-container {
+            position: relative;
+        }
+        .about-balloon {
+            position: absolute;
+            display: inline-block;
+            z-index: 1;
+            padding: 1rem 2rem;
+            cursor: default;
+            &.is-radius {
+                border-radius: 8rem;
+            }
+            &.arrow {
+                padding: 1.2rem 2rem;
+                cursor: pointer;
+            }
+            span {
+                letter-spacing: -0.01em;
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+        }
     }
+    
 }
 
 #container.Home {
@@ -1610,6 +1616,13 @@ textarea::-webkit-scrollbar-thumb {
             line-height: 1.2;
             font-weight: 700;
         }
+        .work-slide .work-indicator {
+            right: 0;
+            bottom: -3rem;
+            font-size: 2rem;
+            line-height: 1.2;
+            font-weight: 700;
+        }
         .work-info-typo {
             position: absolute;
             top: 50%;
@@ -1658,6 +1671,115 @@ textarea::-webkit-scrollbar-thumb {
             height: 100%;
             max-width: none;
             width: 100%;
+        }
+    }
+
+    .section-about {
+        .about-typo-wrap {
+            .typo-slide {
+                span {
+                    font-size: 30rem;
+                    font-weight: 500;
+                    line-height: 0.9;
+                }
+            }
+            .about-balloon {
+                padding: 2.3rem 4rem;
+                &.is-radius {
+                    border-radius: 8rem;
+                }
+                &.arrow {
+                    padding: 3.4rem 5.3rem;
+                    cursor: pointer;
+                    img {
+                        width: 8.3rem;
+                    }
+                }
+                span {
+                    letter-spacing: -0.01em;
+                    font-size: 3rem;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    #container.About {
+        // ! 임시코드
+        .box {
+            background-color: lightgrey;
+            width: 100%;
+            height: 30rem;
+        }
+        > .inner {
+            padding-top: 33.6rem;
+            padding-bottom: 22.3rem;
+        }
+        .title-block {
+            margin-bottom: 6rem;
+            .sub-title {
+                font-weight: 700;
+                font-size: 3.1rem;
+                line-height: 3.8rem;
+                text-align: center;
+                letter-spacing: -0.03em;
+                color: $black;
+                margin-bottom: 3.1rem;
+            }
+            .title {
+                font-weight: 700;
+                font-size: 3.8rem;
+                line-height: 4.4rem;
+                text-align: center;
+                letter-spacing: -0.03em;
+                color: $black;
+            }
+        }
+        .video-block {
+            width: 100%;
+            padding-top: 38.227513227513228%;
+            background-color: lightgray;
+            margin-bottom: 15.3rem;
+        }
+        .do-block {
+            margin-bottom: 13rem;
+            .inner {
+                width: 100%;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+        }
+        .team-block {
+            margin-bottom: 24.4rem;
+            .inner {
+                width: 100%;
+                max-width: 1100px;
+                margin: 0 auto;
+                .box {
+                    background: none;
+                    ul {
+                        width: 100%;
+                        height: 100%;
+                        li {
+                            background-color: lightgray;
+                            height: 100%;
+                            width: 26rem;
+                            margin-right: 2rem;
+                            display: inline-block;
+                        }
+                        li:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+        .client-block {
+            .inner {
+                width: 100%;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
         }
     }
 
