@@ -564,35 +564,145 @@ textarea::-webkit-scrollbar-thumb {
                     width: 100%;
                     height: 100vh;
                     background-color: $white;
-                    .slide-wrapper {
+                    // .slide-wrapper {
+                    //     width: 100%;
+                    //     height: 25rem;
+                    //     // overflow: hidden;
+                    //     border: 1px solid green;
+                    //     .parent-circle {
+                    //         width: 100rem;
+                    //         height: 100rem;
+                    //         border: solid 1px red;
+                    //         border-radius: 50%;
+                    //         position: relative;
+                    //         left: 50%;
+                    //         transform: translateX(-50%);
+                    //         transform-origin: center center;
+                    //         top: 23.5rem;
+                    //         .slide {
+                    //             width: 22.5rem;
+                    //             height: 22.5rem;
+                    //             position: absolute;
+                    //             color: blue;
+                    //             text-align: center;
+                    //             line-height: 60px;
+                    //             font-size: 24px;
+                    //             top: -22.5rem;
+                    //             left: 50%;
+                    //             transform: translateX(-50%);
+                    //             border: 1px solid blue;
+                    //         }
+                    //     }
+                    // }
+                    .slider-section {
+                        position: relative;
+                        display: flex;
                         width: 100%;
                         height: 25rem;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        /* min-height: 100vh; */
                         overflow: hidden;
-                        border: 1px solid green;
-                        .parent-circle {
-                            width: 320rem;
-                            height: 320rem;
-                            border: solid 1px red;
-                            border-radius: 50%;
-                            position: relative;
-                            left: 50%;
-                            transform: translateX(-50%);
-                            transform-origin: center center;
-                            top: 23.5rem;
-                            .slide {
-                                width: 22.5rem;
+                        border: 1px solid red;
+                        /* transform: scale(0.2); */
+                        .circular-slider-container {
+                            width: 100%;
+                            height: 22.5rem;
+                            overflow: hidden;
+                            border: 1px solid blue;
+                            .circular-slider {
+                                width: 100%;
                                 height: 22.5rem;
-                                position: absolute;
-                                color: blue;
-                                text-align: center;
-                                line-height: 60px;
-                                font-size: 24px;
-                                top: -22.5rem;
-                                left: 50%;
-                                transform: translateX(-50%);
-                                border: 1px solid blue;
+                                overflow: hidden;
+                                border: 1px solid green;
+                                .slide-container {
+                                    width: 100vw;
+                                    height: 100%;
+                                    position: absolute;
+                                    left: 0;
+                                    /* overflow: hidden; */
+                                    .support-area {
+                                        background-color: #f5f5f5;
+                                        border-top-left-radius: 50%;
+                                        border-top-right-radius: 50%;
+                                        display: block;
+                                        height: calc(60vh * 2);
+                                        width: calc(60vh * 2);
+                                        position: fixed;
+                                        bottom: -75vh;
+                                        left: 50%;
+                                        transform: translate(-50%, 0);
+                                        .inner-circle {
+                                            position: absolute;
+                                            top: 50%;
+                                            left: 50%;
+                                            transform: translate(-50%, -50%);
+                                            width: 115%;
+                                            height: 115%;
+                                            border-radius: 50%;
+                                            background-color: #f5f5f5;
+                                            opacity: 0.3;
+                                        }
+                                    }
+                                    .center-position {
+                                        position: absolute;
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        width: 22.5rem;
+                                        height: 22.5rem;
+                                        .slide-wrapper {
+                                            transform: rotate(-10deg);
+                                            transform-origin: center 160rem;
+                                            .slide.dummy {
+                                                transform: rotate(-10deg);
+                                            }
+                                            .slide {
+                                                position: absolute;
+                                                top: 0;
+                                                left: 0;
+                                                padding: 7px;
+                                                border-radius: 16px;
+                                                background-color: #c5c5c5;
+                                                width: 22.5rem;
+                                                height: 22.5rem;
+                                                transform-origin: center 160rem;
+                                                &.is-active {
+                                                    /* background-color: #ec001a; */
+                                                    // background: url(../assets/card_highlight.png) 83% 62% / 346% 200% no-repeat #ec001a;
+                                                }
+                                                .card {
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    /* border-radius: 16px; */
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
+                    }
+                    .circular-slider .slide .card .desc {
+                        /* padding-top: 87%; */
+                        padding: 87% 15px 0;
+                        text-align: center;
+                        color: #ffffff;
+                    }
+                    .circular-slider .slide .card .desc p {
+                        font-size: 22px;
+                        /* font-size: 2vh; */
+                        font-size: calc(10px + 1.2vh);
+                        font-weight: 700;
+                        line-height: 1.26;
+                        letter-spacing: -0.05em;
+                    }
+                    .circular-slider .slide .card .desc span {
+                        display: block;
+                        font-size: 16px;
+                        /* font-size: 1.6vh; */
+                        font-size: calc(10px + 0.8vh);
+                        font-weight: 500;
+                        margin-top: 10px;
                     }
                 }
                 .ani-block._03 .director-block {

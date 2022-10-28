@@ -35,7 +35,7 @@ function About(props) {
 
     const [workList, setWorkList] = useState([]);
 
-    const sliderRef = useRef(null);
+    const sliderWrapperRef = useRef(null);
 
     useEffect(() => {
         // const container = document.querySelector('#anim-container');
@@ -134,66 +134,107 @@ function About(props) {
             .to('.ani-block._03 .director-box._02', { autoAlpha: 0, y: '-2rem', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
 
         // * 원형 슬라이더 부분
-        const turn = 10;
-        let turnCount = 6;
-        gsap.set('.slide', { transformOrigin: 'center 160rem' });
-        gsap.set('#slide1', { rotation: -(2 * turn) });
-        gsap.set('#slide2', { rotation: -turn });
-        gsap.set('#slide4', { rotation: turn });
-        gsap.set('#slide5', { rotation: turn * 2 });
+        console.log(sliderWrapperRef);
+        // function circularSliderSizing() {
 
-        function slideTurn(direction) {
-            turnCount--;
-            // TODO : 디렉션에 따라 첫번째나 마지막 슬라이드를 -30도로 세팅하거나 30도로 세팅, 햔재의 turnCount로 세팅하는 방식이면 오류남
-            if(direction === 'next') {
-                console.log('슬라이드 넥스트');
-                gsap.set('#slide' + turnCount, { rotation: -(3 * turn) });
-                gsap.to('.slide', 0.2, { rotation: '+=' + turn, delay: 1, ease: 'power2.easeInOut'});
-            } else {
-                console.log('슬라이드 프리브');
-                gsap.set('#slide' + turnCount, { rotation: (3 * turn) });
-                gsap.to('.slide', 0.2, { rotation: '-=' + turn, delay: 1, ease: 'power2.easeInOut'});
-            }
-            // } else {
-            //     gsap.set('#slide' + turnCount, { rotation: (3 * turn) });
-            //     gsap.to('.slide', 1.6, { rotation: '-=' + turn, delay: 1, ease: 'power2.easeInOut', onComplete: slideTurn('prev') });
-            // }
-            // console.log('turnCount:', turnCount, 'rotation:', -(3 * turn));
-            // gsap.set('#slide' + turnCount, { rotation: -(3 * turn) });
-            if (turnCount === 1) {
-                turnCount = 6;
-            }
-        }
+            // let vh = window.innerHeight;
+            // var $container = $('.circular-slider-container');
+            // var cardHeight = vh*$container.data('cardHeight');
+            // var circleOrigin = cardHeight*$container.data('circleOrigin');
+            // var cardWidth = cardHeight/$container.data('cardWidth');
+            // $container.css('height', cardHeight);
+            
+            // $('.slider-section').css('height', vh);
+            // $('.circular-slider').css('height', cardHeight);
+            // $('.center-position').css({
+            //     'width': cardWidth,
+            //     'height': cardHeight+(vh*0.05)
+            // });
+            // $('.slide-wrapper').css({
+            //     'transform-origin': '50% '+circleOrigin+'px',
+            //     '-moz-transform-origin': '50% '+circleOrigin+'px',
+            //     '-ms-transform-origin': '50% '+circleOrigin+'px',
+            //     '-webkit-transform-origin': '50% '+circleOrigin+'px',
+            //     'transform': 'rotate('+0+'deg)'
+            // });
+            // $('.slide').css({
+            //     'width': cardWidth,
+            //     'height': cardHeight,
+            //     'transform-origin': '50% '+circleOrigin+'px',
+            //     'transform-origin': '50% '+circleOrigin+'px',
+            //     '-moz-transform-origin': '50% '+circleOrigin+'px',
+            //     '-ms-transform-origin': '50% '+circleOrigin+'px',
+            //     '-webkit-transform-origin': '50% '+circleOrigin+'px',
+            // });
+        // }
+        // const turn = 10;
+        // let turnCount = 6;
+        // gsap.set('.slide', { transformOrigin: 'center 160rem' });
+        // gsap.set('#slide1', { rotation: -(2 * turn) });
+        // gsap.set('#slide2', { rotation: -turn });
+        // gsap.set('#slide4', { rotation: turn });
+        // gsap.set('#slide5', { rotation: turn * 2 });
+
+        // function slideTurn(direction) {
+        //     turnCount--;
+        //     // TODO : 디렉션에 따라 첫번째나 마지막 슬라이드를 -30도로 세팅하거나 30도로 세팅, 햔재의 turnCount로 세팅하는 방식이면 오류남
+        //     if (direction === 'next') {
+        //         console.log('슬라이드 넥스트');
+        //         gsap.set('#slide' + turnCount, { rotation: -(3 * turn) });
+        //         gsap.to('.slide', 0.2, { rotation: '+=' + turn, delay: 1, ease: 'power2.easeInOut' });
+        //     } else {
+        //         console.log('슬라이드 프리브');
+        //         gsap.set('#slide' + turnCount, { rotation: 3 * turn });
+        //         gsap.to('.slide', 0.2, { rotation: '-=' + turn, delay: 1, ease: 'power2.easeInOut' });
+        //     }
+        //     // } else {
+        //     //     gsap.set('#slide' + turnCount, { rotation: (3 * turn) });
+        //     //     gsap.to('.slide', 1.6, { rotation: '-=' + turn, delay: 1, ease: 'power2.easeInOut', onComplete: slideTurn('prev') });
+        //     // }
+        //     // console.log('turnCount:', turnCount, 'rotation:', -(3 * turn));
+        //     // gsap.set('#slide' + turnCount, { rotation: -(3 * turn) });
+        //     if (turnCount === 1) {
+        //         turnCount = 6;
+        //     }
+        // }
 
         // slideTurn();
 
         // gsap.set('.slide-wrapper', {
         //     perspective: 1100,
         // });
-        console.log(sliderRef.current.clientWidth, sliderRef.current.innerWidth);
-        let proxy = document.createElement("div");
-        Draggable.create(proxy, {
-            allowContextMenu: true,
-            trigger: '.slide-wrapper',
-            type: 'x',
-            inertia: true,
-            onDragEnd : function(e) { 
-                // console.log(this.pointerX);
-                console.log(this.deltaX);
-                let deltaX = this.deltaX;
-                if (Math.abs(deltaX) > 1 && deltaX > 0) {
-                    // drag right
-                    console.log('오른쪽 드래그, deltaX 반올림 값:', Math.abs(deltaX));
-                    slideTurn('next');
-                }
-                if (Math.abs(deltaX) > 1 && deltaX < 0) {
-                    // drag left
-                    console.log('왼쪽 드래그, deltaX 반올림 값:', Math.abs(deltaX));
-                    slideTurn('prev');
-                }
-            }
-        });
+        // console.log(sliderRef.current.clientWidth, sliderRef.current.innerWidth);
+        // let proxy = document.createElement('div');
+        // Draggable.create(proxy, {
+        //     allowContextMenu: true,
+        //     trigger: '.slide-wrapper',
+        //     type: 'x',
+        //     inertia: true,
+        //     onDragEnd: function (e) {
+        //         // console.log(this.pointerX);
+        //         console.log(this.deltaX);
+        //         let deltaX = this.deltaX;
+        //         if (Math.abs(deltaX) > 1 && deltaX > 0) {
+        //             // drag right
+        //             console.log('오른쪽 드래그, deltaX 반올림 값:', Math.abs(deltaX));
+        //             slideTurn('next');
+        //         }
+        //         if (Math.abs(deltaX) > 1 && deltaX < 0) {
+        //             // drag left
+        //             console.log('왼쪽 드래그, deltaX 반올림 값:', Math.abs(deltaX));
+        //             slideTurn('prev');
+        //         }
+        //     },
+        // });
 
+        const slideAngle = 10;
+        console.log(sliderWrapperRef.current.children);
+        for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
+            let $this = sliderWrapperRef.current.children[index];
+            console.log(sliderWrapperRef.current.children[index]);
+
+            gsap.set($this, {'transform': 'rotate('+slideAngle*index+'deg)'});
+        }
         return () => {
             console.log('어바웃 언마운트');
         };
@@ -316,7 +357,46 @@ function About(props) {
                                 </div>
                             </div>
                             <div className="work-block">
-                                <div className="slide-wrapper" ref={sliderRef}>
+                                <div className="slider-section">
+                                    <div className="circular-slider-container" data-circle-origin="2.8">
+                                        <div className="circular-slider">
+                                            <div className="slide-container">
+                                                {/* <div className="support-area">
+                                                    <div className="inner-circle"></div>
+                                                </div> */}
+                                                <div className="center-position">
+                                                    <div className="slide-wrapper" ref={sliderWrapperRef}>
+                                                        <div className="slide">
+                                                            <div className="card">
+                                                                {/* <div className="desc"></div> */}
+                                                                1
+                                                            </div>
+                                                        </div>
+                                                        <div className="slide is-active">
+                                                            <div className="card">
+                                                                {/* <div className="desc"></div> */}
+                                                                2
+                                                            </div>
+                                                        </div>
+                                                        <div className="slide">
+                                                            <div className="card">
+                                                                {/* <div className="desc"></div> */}
+                                                                3
+                                                            </div>
+                                                        </div>
+                                                        <div className="slide">
+                                                            <div className="card">
+                                                                {/* <div className="desc"></div> */}
+                                                                4
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <div className="slide-wrapper" ref={sliderRef}>
                                     <div className="parent-circle">
                                         <div className="slide" id="slide1">
                                             1
@@ -330,12 +410,11 @@ function About(props) {
                                         <div className="slide" id="slide4">
                                             4
                                         </div>
-                                        {/* 5번 슬라이드는  1번째 슬라이드 카피 */}
                                         <div className="slide" id="slide5">
                                             5
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="ani-block _03">
                                 <div className="director-block">
