@@ -324,7 +324,6 @@ textarea::-webkit-scrollbar-thumb {
     // }
 }
 
-
 .section-about {
     background-color: #000000;
     .about-typo-wrap {
@@ -362,7 +361,6 @@ textarea::-webkit-scrollbar-thumb {
             }
         }
     }
-    
 }
 
 #container.Home {
@@ -570,6 +568,9 @@ textarea::-webkit-scrollbar-thumb {
                     width: 100%;
                     height: 100vh;
                     background-color: $white;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
                     // .slide-wrapper {
                     //     width: 100%;
                     //     height: 25rem;
@@ -604,23 +605,23 @@ textarea::-webkit-scrollbar-thumb {
                         position: relative;
                         display: flex;
                         width: 100%;
-                        height: 25rem;
+                        height: 30rem;
                         flex-wrap: wrap;
                         align-items: center;
                         /* min-height: 100vh; */
                         overflow: hidden;
-                        border: 1px solid red;
+                        // border: 1px solid red;
                         /* transform: scale(0.2); */
                         .circular-slider-container {
                             width: 100%;
                             height: 22.5rem;
                             overflow: hidden;
-                            border: 1px solid blue;
+                            // border: 1px solid blue;
                             .circular-slider {
                                 width: 100%;
                                 height: 22.5rem;
                                 overflow: hidden;
-                                border: 1px solid green;
+                                // border: 1px solid green;
                                 .slide-container {
                                     width: 100vw;
                                     height: 100%;
@@ -666,20 +667,17 @@ textarea::-webkit-scrollbar-thumb {
                                                 position: absolute;
                                                 top: 0;
                                                 left: 0;
-                                                padding: 7px;
-                                                border-radius: 16px;
                                                 background-color: #c5c5c5;
                                                 width: 22.5rem;
                                                 height: 22.5rem;
                                                 transform-origin: center 160rem;
                                                 &.is-active {
-                                                    /* background-color: #ec001a; */
-                                                    // background: url(../assets/card_highlight.png) 83% 62% / 346% 200% no-repeat #ec001a;
+                                                    // background-color: #ec001a;
                                                 }
                                                 .card {
                                                     width: 100%;
                                                     height: 100%;
-                                                    /* border-radius: 16px; */
+                                                    background: url(./img_development.jpg) center / cover no-repeat;
                                                 }
                                             }
                                         }
@@ -709,6 +707,21 @@ textarea::-webkit-scrollbar-thumb {
                         font-size: calc(10px + 0.8vh);
                         font-weight: 500;
                         margin-top: 10px;
+                    }
+                    .text-section {
+                        text-align: center;
+                        > .inner {
+                            .desc {
+                                span {
+                                    display: block;
+                                    font-weight: 400;
+                                    font-size: 1.2rem;
+                                    line-height: 1.42;
+                                    letter-spacing: -0.03em;
+                                    color: $black;
+                                }
+                            }
+                        }
                     }
                 }
                 .ani-block._03 .director-block {

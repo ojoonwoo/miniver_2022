@@ -138,35 +138,35 @@ function About(props) {
         console.log(sliderWrapperRef);
         // function circularSliderSizing() {
 
-            // let vh = window.innerHeight;
-            // var $container = $('.circular-slider-container');
-            // var cardHeight = vh*$container.data('cardHeight');
-            // var circleOrigin = cardHeight*$container.data('circleOrigin');
-            // var cardWidth = cardHeight/$container.data('cardWidth');
-            // $container.css('height', cardHeight);
-            
-            // $('.slider-section').css('height', vh);
-            // $('.circular-slider').css('height', cardHeight);
-            // $('.center-position').css({
-            //     'width': cardWidth,
-            //     'height': cardHeight+(vh*0.05)
-            // });
-            // $('.slide-wrapper').css({
-            //     'transform-origin': '50% '+circleOrigin+'px',
-            //     '-moz-transform-origin': '50% '+circleOrigin+'px',
-            //     '-ms-transform-origin': '50% '+circleOrigin+'px',
-            //     '-webkit-transform-origin': '50% '+circleOrigin+'px',
-            //     'transform': 'rotate('+0+'deg)'
-            // });
-            // $('.slide').css({
-            //     'width': cardWidth,
-            //     'height': cardHeight,
-            //     'transform-origin': '50% '+circleOrigin+'px',
-            //     'transform-origin': '50% '+circleOrigin+'px',
-            //     '-moz-transform-origin': '50% '+circleOrigin+'px',
-            //     '-ms-transform-origin': '50% '+circleOrigin+'px',
-            //     '-webkit-transform-origin': '50% '+circleOrigin+'px',
-            // });
+        // let vh = window.innerHeight;
+        // var $container = $('.circular-slider-container');
+        // var cardHeight = vh*$container.data('cardHeight');
+        // var circleOrigin = cardHeight*$container.data('circleOrigin');
+        // var cardWidth = cardHeight/$container.data('cardWidth');
+        // $container.css('height', cardHeight);
+
+        // $('.slider-section').css('height', vh);
+        // $('.circular-slider').css('height', cardHeight);
+        // $('.center-position').css({
+        //     'width': cardWidth,
+        //     'height': cardHeight+(vh*0.05)
+        // });
+        // $('.slide-wrapper').css({
+        //     'transform-origin': '50% '+circleOrigin+'px',
+        //     '-moz-transform-origin': '50% '+circleOrigin+'px',
+        //     '-ms-transform-origin': '50% '+circleOrigin+'px',
+        //     '-webkit-transform-origin': '50% '+circleOrigin+'px',
+        //     'transform': 'rotate('+0+'deg)'
+        // });
+        // $('.slide').css({
+        //     'width': cardWidth,
+        //     'height': cardHeight,
+        //     'transform-origin': '50% '+circleOrigin+'px',
+        //     'transform-origin': '50% '+circleOrigin+'px',
+        //     '-moz-transform-origin': '50% '+circleOrigin+'px',
+        //     '-ms-transform-origin': '50% '+circleOrigin+'px',
+        //     '-webkit-transform-origin': '50% '+circleOrigin+'px',
+        // });
         // }
         // const turn = 10;
         // let turnCount = 6;
@@ -228,14 +228,71 @@ function About(props) {
         //     },
         // });
 
+        // * variables
         const slideAngle = 10;
-        console.log(sliderWrapperRef.current.children);
-        for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
-            let $this = sliderWrapperRef.current.children[index];
-            console.log(sliderWrapperRef.current.children[index]);
 
-            gsap.set($this, {'transform': 'rotate('+slideAngle*index+'deg)'});
+        // * 원형 슬라이드 세팅
+        function circularSliderSetting() {
+            // * 슬라이드들 초기 각도 세팅
+            for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
+                let $this = sliderWrapperRef.current.children[index];
+                console.log(sliderWrapperRef.current.children[index]);
+
+                gsap.set($this, { transform: 'rotate(' + slideAngle * index + 'deg)' });
+                $this.dataset.elRotation = slideAngle * index;
+            }
+
+            // * Draggable 세팅
+            Draggable.create('.slide-wrapper', {
+                type: 'rotation',
+                // dragResistance: 0.78,
+                edgeResistance: 0.3,
+                force3D: true,
+                dragClickable: false,
+                bounds: {
+                    maxRotation: -(slideAngle * 3),
+                    minRotation: 0,
+                },
+                onClick: function () {},
+                onDragStart: function () {},
+                onMove: function () {},
+                onDragEnd: function () {
+                    customSnap(this.rotation);
+                },
+            });
         }
+        circularSliderSetting();
+
+        // * 원형 슬라이드 드래그 종료 후 가장 인접한 각도로 세팅해주는 함수
+        function customSnap(value) {
+            let $nextEl = '';
+            let snapVal = Math.round(value / slideAngle) * slideAngle;
+            let rotaVal = 0;
+            gsap.to('.slide-wrapper', { duration: 0.25, rotation: snapVal, ease: 'back.out(1.7)' });
+            for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
+                let $this = sliderWrapperRef.current.children[index];
+                rotaVal = $this.dataset.elRotation;
+                if (Math.abs(snapVal) == rotaVal) {
+                    $nextEl = $this;
+                }
+            }
+            // console.log(snapVal, rotaVal);
+            activeClassChange($nextEl);
+        }
+
+        // * 액티브 클래스 부여 함수
+        function activeClassChange($nextEl) {
+            // * 자바스크립트 형제요소 추출용 변수
+            const siblings = (el) => [...el.parentElement.children].filter((node) => node != el);
+
+            $nextEl.classList.add('is-active');
+            
+            let siblingArr = siblings($nextEl);
+            siblingArr.forEach((el) => {
+                el.classList.remove('is-active');
+            });
+        }
+
         return () => {
             console.log('어바웃 언마운트');
         };
@@ -368,28 +425,16 @@ function About(props) {
                                                 <div className="center-position">
                                                     <div className="slide-wrapper" ref={sliderWrapperRef}>
                                                         <div className="slide">
-                                                            <div className="card">
-                                                                {/* <div className="desc"></div> */}
-                                                                1
-                                                            </div>
+                                                            <div className="card">{/* <div className="desc"></div> */}1</div>
                                                         </div>
                                                         <div className="slide is-active">
-                                                            <div className="card">
-                                                                {/* <div className="desc"></div> */}
-                                                                2
-                                                            </div>
+                                                            <div className="card">{/* <div className="desc"></div> */}2</div>
                                                         </div>
                                                         <div className="slide">
-                                                            <div className="card">
-                                                                {/* <div className="desc"></div> */}
-                                                                3
-                                                            </div>
+                                                            <div className="card">{/* <div className="desc"></div> */}3</div>
                                                         </div>
                                                         <div className="slide">
-                                                            <div className="card">
-                                                                {/* <div className="desc"></div> */}
-                                                                4
-                                                            </div>
+                                                            <div className="card">{/* <div className="desc"></div> */}4</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -416,6 +461,18 @@ function About(props) {
                                         </div>
                                     </div>
                                 </div> */}
+                                <div className="text-section">
+                                    <div className="inner">
+                                        <p className="desc">
+                                            <span>최초의 기획 의도를 마지막 결과물까지</span>
+                                            <span>크리에이티브 날을 세울 수 있는 이유</span>
+                                            <span><strong>미니버타이징은 자체 프로덕션과</strong></span>
+                                            <span><strong>웹개발, 코딩, 콘텐츠 기획을 통해</strong></span>
+                                            <span><strong>하나의 유기체로 활동하는 것이</strong></span>
+                                            <span><strong>당연한 덕목이라 여깁니다</strong></span>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                             <div className="ani-block _03">
                                 <div className="director-block">
@@ -1989,9 +2046,7 @@ function About(props) {
                             </div>
                         </div>
                     </div>
-                    <div>
-                            {device === 'mobile' ? null : <Footer/>}
-                    </div>
+                    <div>{device === 'mobile' ? null : <Footer />}</div>
                 </div>
             </div>
             {/* // </motion.div> */}
