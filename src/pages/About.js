@@ -35,6 +35,7 @@ function About(props) {
     });
 
     const [workList, setWorkList] = useState([]);
+    const [activeSlide, setActiveSlide] = useState('development');
 
     const sliderWrapperRef = useRef(null);
 
@@ -107,7 +108,7 @@ function About(props) {
                 trigger: '#scroll-animation_container .ani-block._03',
                 pin: true,
                 start: 'top top',
-                end: 'bottom+=2000 top',
+                end: 'bottom+=1000 top',
                 // markers: true,
                 scrub: true,
             },
@@ -134,8 +135,21 @@ function About(props) {
             .addLabel('box-02-out', '+=5')
             .to('.ani-block._03 .director-box._02', { autoAlpha: 0, y: '-2rem', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
 
+        let tl4 = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#scroll-animation_container .work-block',
+                start: 'top-=50 top',
+                end: 'bottom top',
+                // markers: true,
+                onLeaveBack: function () {
+                    tl4.reverse();
+                },
+            },
+        });
+        tl4.addLabel('start').to(window.innerWidth < 1200 ? '.text-section .desc span' : '.text-section .desc .text-box', { autoAlpha: 1, y: 0, stagger: 0.1 }, 'start');
+
         // * 원형 슬라이더 부분
-        console.log(sliderWrapperRef);
+        // console.log(sliderWrapperRef);
         // function circularSliderSizing() {
 
         // let vh = window.innerHeight;
@@ -286,7 +300,8 @@ function About(props) {
             const siblings = (el) => [...el.parentElement.children].filter((node) => node != el);
 
             $nextEl.classList.add('is-active');
-            
+            // console.log($nextEl.dataset.workCategory);
+            setActiveSlide($nextEl.dataset.workCategory);
             let siblingArr = siblings($nextEl);
             siblingArr.forEach((el) => {
                 el.classList.remove('is-active');
@@ -297,6 +312,18 @@ function About(props) {
             console.log('어바웃 언마운트');
         };
     }, []);
+
+    useEffect(() => {
+        console.log('현재 액티브 슬라이드', activeSlide);
+        // switch (activeSlide) {
+        //     case value:
+
+        //         break;
+
+        //     default:
+        //         break;
+        // }
+    }, [activeSlide]);
 
     const goTopHandler = () => {
         window.scrollTo({
@@ -416,7 +443,7 @@ function About(props) {
                             </div>
                             <div className="work-block">
                                 <div className="slider-section">
-                                    <div className="circular-slider-container" data-circle-origin="2.8">
+                                    <div className="circular-slider-container">
                                         <div className="circular-slider">
                                             <div className="slide-container">
                                                 {/* <div className="support-area">
@@ -424,17 +451,17 @@ function About(props) {
                                                 </div> */}
                                                 <div className="center-position">
                                                     <div className="slide-wrapper" ref={sliderWrapperRef}>
-                                                        <div className="slide">
-                                                            <div className="card">{/* <div className="desc"></div> */}1</div>
+                                                        <div className="slide" data-work-category="video">
+                                                            <div className="card">{/* <div className="desc"></div> */}</div>
                                                         </div>
-                                                        <div className="slide is-active">
-                                                            <div className="card">{/* <div className="desc"></div> */}2</div>
+                                                        <div className="slide is-active" data-work-category="development">
+                                                            <div className="card">{/* <div className="desc"></div> */}</div>
                                                         </div>
-                                                        <div className="slide">
-                                                            <div className="card">{/* <div className="desc"></div> */}3</div>
+                                                        <div className="slide" data-work-category="product-manager">
+                                                            <div className="card">{/* <div className="desc"></div> */}</div>
                                                         </div>
-                                                        <div className="slide">
-                                                            <div className="card">{/* <div className="desc"></div> */}4</div>
+                                                        <div className="slide" data-work-category="designer">
+                                                            <div className="card">{/* <div className="desc"></div> */}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -464,12 +491,29 @@ function About(props) {
                                 <div className="text-section">
                                     <div className="inner">
                                         <p className="desc">
-                                            <span>최초의 기획 의도를 마지막 결과물까지</span>
-                                            <span>크리에이티브 날을 세울 수 있는 이유</span>
-                                            <span><strong>미니버타이징은 자체 프로덕션과</strong></span>
-                                            <span><strong>웹개발, 코딩, 콘텐츠 기획을 통해</strong></span>
-                                            <span><strong>하나의 유기체로 활동하는 것이</strong></span>
-                                            <span><strong>당연한 덕목이라 여깁니다</strong></span>
+                                            <div className='text-box'>
+                                                <span>최초의 기획 의도를 마지막 결과물까지</span>
+                                                {device === 'mobile' ? '' : ' '}
+                                                <span>크리에이티브 날을 세울 수 있는 이유</span>
+                                            </div>
+                                            <div className='text-box'>
+                                                <span>
+                                                    <strong>미니버타이징은 자체 프로덕션과</strong>
+                                                </span>
+                                                {device === 'mobile' ? '' : ' '}
+                                                <span>
+                                                    <strong>웹개발, 코딩, 콘텐츠 기획을 통해</strong>
+                                                </span>
+                                            </div>
+                                            <div className='text-box'>
+                                                <span>
+                                                    <strong>하나의 유기체로 활동하는 것이</strong>
+                                                </span>
+                                                {device === 'mobile' ? '' : ' '}
+                                                <span>
+                                                    <strong>당연한 덕목이라 여깁니다</strong>
+                                                </span>
+                                            </div>
                                         </p>
                                     </div>
                                 </div>
