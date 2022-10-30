@@ -93,8 +93,10 @@ function About(props) {
             },
         });
         tl2.addLabel('start')
+            .set('.ani-box._03 .typo', { scale: window.innerWidth < 1200 ? 20 : 8})
             .addLabel('typo-scale-down')
-            .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 1 }, 'typo-scale-down')
+            // .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 1 }, 'typo-scale-down')
+            .to('.ani-box._03 .typo', { scale: 1, duration: 1 }, 'typo-scale-down')
             .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 0.3 })
             .addLabel('show-typo1')
             .to('.ani-box._03 .typo._02', { autoAlpha: 1, duration: 0.5 }, 'show-typo1')
@@ -244,6 +246,8 @@ function About(props) {
 
         // * variables
         const slideAngle = 10;
+        const slideWrapperAngle = -50;
+        let lastSlideWrapperAngle = 0;
 
         // * 원형 슬라이드 세팅
         function circularSliderSetting() {
@@ -253,6 +257,7 @@ function About(props) {
                 console.log(sliderWrapperRef.current.children[index]);
 
                 gsap.set($this, { transform: 'rotate(' + slideAngle * index + 'deg)' });
+                gsap.set('.slide-wrapper', { transform: 'rotate(' + slideWrapperAngle + 'deg)' });
                 $this.dataset.elRotation = slideAngle * index;
             }
 
@@ -264,12 +269,37 @@ function About(props) {
                 force3D: true,
                 dragClickable: false,
                 bounds: {
-                    maxRotation: -(slideAngle * 3),
+                    // maxRotation: -(slideAngle * 7),
+                    maxRotation: -360,
                     minRotation: 0,
                 },
                 onClick: function () {},
                 onDragStart: function () {},
-                onMove: function () {},
+                onMove: function () {
+                    let direction = this.getDirection();
+                    console.log('움직인 방향', this.getDirection());
+                    console.log('마지막각도', lastSlideWrapperAngle);
+                    console.log('로테이트', this.rotation);
+                    console.log('슬라이드 앵글', slideAngle);
+                    console.log('움직인 각도', Math.abs(slideWrapperAngle - this.rotation));
+                    if (Math.abs(slideWrapperAngle - this.rotation) > 5) {
+                        console.log('클론 슬라이드 추가 해야함', direction);
+                        switch (direction) {
+                            case 'clockwise':
+                                // TODO: 시계방향, 제일 첫번째 슬라이드를 맨 마지막 슬라이드 뒤에 붙여야함
+                                console.log('시계방향');
+                                break;
+
+                            case 'counter-clockwise':
+                                // TODO: 반시계방향, 제일 마지막 슬라이드를 첫번째 슬라이드 얖에 붙여야함
+                                console.log('반시계방향');
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                },
                 onDragEnd: function () {
                     customSnap(this.rotation);
                 },
@@ -281,6 +311,7 @@ function About(props) {
         function customSnap(value) {
             let $nextEl = '';
             let snapVal = Math.round(value / slideAngle) * slideAngle;
+            lastSlideWrapperAngle = snapVal;
             let rotaVal = 0;
             gsap.to('.slide-wrapper', { duration: 0.25, rotation: snapVal, ease: 'back.out(1.7)' });
             for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
@@ -341,8 +372,31 @@ function About(props) {
                 <div className="inner">
                     <div className="cover-section">
                         {/* <div id="anim-container"></div> */}
-                        <div className="title">
+                        <div className="title-block">
                             <Lottie animationData={animationData} loop={true} />
+                        </div>
+                        <div className="desc-block">
+                            <p className="desc">
+                                브랜드는 기억되길 바라면서
+                                <br />
+                                튀는 것은 부담스러운 심리
+                                <br />
+                                세일즈는 올라가길 원하면서
+                                <br />
+                                광고는 비슷해야 안심되는 아이러니
+                            </p>
+                            <p className="desc">
+                                <strong>
+                                    하지만 광고가 가야 할 길은
+                                    <br />
+                                    결국 뇌리에 상품을 남기는 것<br />
+                                    비슷하거나 평범함을 경계한다
+                                    <br />
+                                    새롭게 그리하여 용감하게
+                                    <br />
+                                    이것이 미니버타이징의 철학입니다
+                                </strong>
+                            </p>
                         </div>
                     </div>
                     <div id="scroll-animation_container">
@@ -463,6 +517,18 @@ function About(props) {
                                                         <div className="slide" data-work-category="designer">
                                                             <div className="card">{/* <div className="desc"></div> */}</div>
                                                         </div>
+                                                        <div className="slide" data-work-category="video">
+                                                            <div className="card">{/* <div className="desc"></div> */}</div>
+                                                        </div>
+                                                        <div className="slide is-active" data-work-category="development">
+                                                            <div className="card">{/* <div className="desc"></div> */}</div>
+                                                        </div>
+                                                        <div className="slide" data-work-category="product-manager">
+                                                            <div className="card">{/* <div className="desc"></div> */}</div>
+                                                        </div>
+                                                        <div className="slide" data-work-category="designer">
+                                                            <div className="card">{/* <div className="desc"></div> */}</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -490,13 +556,13 @@ function About(props) {
                                 </div> */}
                                 <div className="text-section">
                                     <div className="inner">
-                                        <p className="desc">
-                                            <div className='text-box'>
+                                        <div className="desc">
+                                            <div className="text-box">
                                                 <span>최초의 기획 의도를 마지막 결과물까지</span>
                                                 {device === 'mobile' ? '' : ' '}
                                                 <span>크리에이티브 날을 세울 수 있는 이유</span>
                                             </div>
-                                            <div className='text-box'>
+                                            <div className="text-box">
                                                 <span>
                                                     <strong>미니버타이징은 자체 프로덕션과</strong>
                                                 </span>
@@ -505,7 +571,7 @@ function About(props) {
                                                     <strong>웹개발, 코딩, 콘텐츠 기획을 통해</strong>
                                                 </span>
                                             </div>
-                                            <div className='text-box'>
+                                            <div className="text-box">
                                                 <span>
                                                     <strong>하나의 유기체로 활동하는 것이</strong>
                                                 </span>
@@ -514,7 +580,7 @@ function About(props) {
                                                     <strong>당연한 덕목이라 여깁니다</strong>
                                                 </span>
                                             </div>
-                                        </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
