@@ -93,7 +93,7 @@ function About(props) {
             },
         });
         tl2.addLabel('start')
-            .set('.ani-box._03 .typo', { scale: window.innerWidth < 1200 ? 20 : 8})
+            .set('.ani-box._03 .typo', { scale: window.innerWidth < 1200 ? 20 : 8 })
             .addLabel('typo-scale-down')
             // .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 1 }, 'typo-scale-down')
             .to('.ani-box._03 .typo', { scale: 1, duration: 1 }, 'typo-scale-down')
@@ -246,7 +246,7 @@ function About(props) {
 
         // * variables
         const slideAngle = 10;
-        const slideWrapperAngle = -50;
+        const slideWrapperAngle = -10;
         let lastSlideWrapperAngle = 0;
 
         // * 원형 슬라이드 세팅
@@ -257,9 +257,9 @@ function About(props) {
                 console.log(sliderWrapperRef.current.children[index]);
 
                 gsap.set($this, { transform: 'rotate(' + slideAngle * index + 'deg)' });
-                gsap.set('.slide-wrapper', { transform: 'rotate(' + slideWrapperAngle + 'deg)' });
                 $this.dataset.elRotation = slideAngle * index;
             }
+            gsap.set('.slide-wrapper', { transform: 'rotate(' + slideWrapperAngle + 'deg)' });
 
             // * Draggable 세팅
             Draggable.create('.slide-wrapper', {
@@ -268,11 +268,11 @@ function About(props) {
                 edgeResistance: 0.3,
                 force3D: true,
                 dragClickable: false,
-                bounds: {
-                    // maxRotation: -(slideAngle * 7),
-                    maxRotation: -360,
-                    minRotation: 0,
-                },
+                // bounds: {
+                //     // maxRotation: -(slideAngle * 3),
+                //     // maxRotation: -360,
+                //     // minRotation: 0,
+                // },
                 onClick: function () {},
                 onDragStart: function () {},
                 onMove: function () {
@@ -322,22 +322,24 @@ function About(props) {
                 }
             }
             // console.log(snapVal, rotaVal);
-            activeClassChange($nextEl);
+            // TODO: 원형 슬라이드를 컴포넌트화 했으나 그 후,  액티브 클래스 부여 함수 작동 안됨. 수정해야함
+            // activeClassChange($nextEl);
         }
 
         // * 액티브 클래스 부여 함수
-        function activeClassChange($nextEl) {
-            // * 자바스크립트 형제요소 추출용 변수
-            const siblings = (el) => [...el.parentElement.children].filter((node) => node != el);
+        // function activeClassChange($nextEl) {
+        //     // * 자바스크립트 형제요소 추출용 변수
+        //     const siblings = (el) => [...el.parentElement.children].filter((node) => node != el);
 
-            $nextEl.classList.add('is-active');
-            // console.log($nextEl.dataset.workCategory);
-            setActiveSlide($nextEl.dataset.workCategory);
-            let siblingArr = siblings($nextEl);
-            siblingArr.forEach((el) => {
-                el.classList.remove('is-active');
-            });
-        }
+        //     $nextEl.classList.add('is-active');
+        //     console.log($nextEl);
+        //     // console.log($nextEl.dataset.workCategory);
+        //     setActiveSlide($nextEl.dataset.workCategory);
+        //     let siblingArr = siblings($nextEl);
+        //     siblingArr.forEach((el) => {
+        //         el.classList.remove('is-active');
+        //     });
+        // }
 
         return () => {
             console.log('어바웃 언마운트');
@@ -363,6 +365,17 @@ function About(props) {
             duration: window.innerHeight * 0.1,
         });
     };
+
+    let [workCategoryData, setWorkCategoryData] = useState(['video', 'development', 'product-manager', 'designer','video', 'development', 'product-manager', 'designer','video', 'development', 'product-manager', 'designer','video', 'development', 'product-manager', 'designer','video', 'development', 'product-manager', 'designer','video', 'development', 'product-manager', 'designer','video', 'development', 'product-manager', 'designer','video', 'development', 'product-manager', 'designer','video', 'development', 'product-manager', 'designer']);
+
+    function WorkSlide({ workCategory, index }) {
+        const slideAngle = 10;
+        return (
+            <div className={`slide`} data-work-category={workCategory} data-el-rotation={index * slideAngle} style={{'transform': 'rotate('+index*slideAngle+'deg)'}}>
+                <div className="card">{/* <div className="desc"></div> */}</div>
+            </div>
+        );
+    }
 
     return (
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ease: 'easeIn', duration: 0.7 }} exit={{ opacity: 0 }}>
@@ -505,30 +518,21 @@ function About(props) {
                                                 </div> */}
                                                 <div className="center-position">
                                                     <div className="slide-wrapper" ref={sliderWrapperRef}>
-                                                        <div className="slide" data-work-category="video">
-                                                            <div className="card">{/* <div className="desc"></div> */}</div>
+                                                        {/* <div className="slide" data-work-category="video">
+                                                            <div className="card"></div>
                                                         </div>
                                                         <div className="slide is-active" data-work-category="development">
-                                                            <div className="card">{/* <div className="desc"></div> */}</div>
+                                                            <div className="card"></div>
                                                         </div>
                                                         <div className="slide" data-work-category="product-manager">
-                                                            <div className="card">{/* <div className="desc"></div> */}</div>
+                                                            <div className="card"></div>
                                                         </div>
                                                         <div className="slide" data-work-category="designer">
-                                                            <div className="card">{/* <div className="desc"></div> */}</div>
-                                                        </div>
-                                                        <div className="slide" data-work-category="video">
-                                                            <div className="card">{/* <div className="desc"></div> */}</div>
-                                                        </div>
-                                                        <div className="slide is-active" data-work-category="development">
-                                                            <div className="card">{/* <div className="desc"></div> */}</div>
-                                                        </div>
-                                                        <div className="slide" data-work-category="product-manager">
-                                                            <div className="card">{/* <div className="desc"></div> */}</div>
-                                                        </div>
-                                                        <div className="slide" data-work-category="designer">
-                                                            <div className="card">{/* <div className="desc"></div> */}</div>
-                                                        </div>
+                                                            <div className="card"></div>
+                                                        </div> */}
+                                                        {workCategoryData.map((workCategory, index) => (
+                                                            <WorkSlide key={index} index={index} workCategory={workCategory} />
+                                                        ))}
                                                     </div>
                                                 </div>
                                             </div>
