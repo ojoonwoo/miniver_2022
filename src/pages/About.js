@@ -140,7 +140,7 @@ function About(props) {
         let tl4 = gsap.timeline({
             scrollTrigger: {
                 trigger: '#scroll-animation_container .work-block',
-                start: 'top-=50 top',
+                start: window.innerWidth < 1200 ? 'top-=300 top' : 'top top',
                 end: 'bottom top',
                 // markers: true,
                 onLeaveBack: function () {
