@@ -670,7 +670,6 @@ function About(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="scroll-animation_bg"></div>
                         </div>
                     </div>
                     <div className="client-block">
