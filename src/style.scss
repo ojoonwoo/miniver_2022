@@ -2177,11 +2177,12 @@ textarea::-webkit-scrollbar-thumb {
                 .right {
                     flex-basis: auto;
                     dl {
-                        column-count: 2;
-                        column-gap: 2rem;
+                        // column-count: 2;
+                        // column-gap: 2rem;
                     }
                 }
                 dl {
+                    display: flex;
                     margin-bottom: 3.6rem;
                     dt {
                         margin-bottom: 1.6rem;
@@ -2191,6 +2192,9 @@ textarea::-webkit-scrollbar-thumb {
                         font-weight: 300;
                         color: $grey2;
                         line-height: 1.45;
+                        &:nth-child(2) {
+                            margin-left: 2rem;
+                        }
                     }
                 }
             }
