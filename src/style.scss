@@ -171,16 +171,11 @@ textarea::-webkit-scrollbar-thumb {
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2;
-            opacity: 0;
-            width: 5rem;
+            opacity: 0.1;
+            width: 2rem;
             img {
                 margin: 0 auto;
-            }
-            .img-pause {
                 width: 2rem;
-            }
-            .img-play {
-                width: 2.5rem;
             }
         }
         &:hover .video-btns {
@@ -1720,14 +1715,12 @@ textarea::-webkit-scrollbar-thumb {
             height: 100%;
             position: absolute;
             .video-btns {
+                width: 5rem;
                 &:hover {
                     opacity: 1;
                 }
-                .img-pause {
+                img {
                     width: 4rem;
-                }
-                .img-play {
-                    width: 5rem;
                 }
             }
         }

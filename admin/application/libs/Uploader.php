@@ -6,7 +6,7 @@ class Uploader {
     const UPLOAD_DIR = _MNV_ROOT.'uploads/';
     const UPLOAD_DIR_ACCESS_MODE = 0777;
     // const UPLOAD_MAX_FILE_SIZE = 10485760;
-    const UPLOAD_MAX_FILE_SIZE = 20971520;
+    const UPLOAD_MAX_FILE_SIZE = 31457280;
     const UPLOAD_ALLOWED_MIME_TYPES = [
         'image/jpeg',
         'image/jpg',

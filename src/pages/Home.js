@@ -213,12 +213,12 @@ function Home(props) {
         
     }, [currentSection]);
     function playToggle() {
+        setShowreelStopped(!showreelStopped);
         if(showreelStopped) {
             videoRef.current.play();
         } else {
             videoRef.current.pause();
         }
-        setShowreelStopped(!showreelStopped);
     }
     function muteToggle() {
         setShowreelMute(!showreelMuted);
@@ -595,11 +595,7 @@ function Home(props) {
                         <div className="main-section section-hero">
                             <div className="video-container" onClick={() => playToggle()}>
                                 <div className="video-btns">
-                                    {showreelStopped===false ?
-                                    <img src="/assets/video_btn_pause.svg" className="img-pause"></img>
-                                    : 
-                                    <img src="/assets/video_btn_play.svg" className="img-play"></img>
-                                    }
+                                    <img src={`/assets/video_btn_${showreelStopped===true ? 'play' : 'pause'}.svg`}></img>
                                 </div>
                                 <button type="button" className="mute-controls" onClick={(e) => {e.stopPropagation(); muteToggle()}}>
                                     <div className="equalizer">

@@ -300,7 +300,7 @@ function ProjectDetail(props) {
                             <div className="mockup-box">
                                 {/* {projectData.detail_sources2 && <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo>} */}
                                 {projectData.detail_sources2 && (
-                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={videoRef} handlePlay={handlePlay}></ImageVideo>
+                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={videoRef} videoPaused={videoPaused} handlePlay={handlePlay}></ImageVideo>
                                 )}
                             </div>
                         </div>
