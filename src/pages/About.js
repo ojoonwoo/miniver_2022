@@ -64,8 +64,8 @@ function About(props) {
                 // end: '+=500', // end after scrolling 500px beyond the start
                 // start: 'center center',
                 // end: 'bottom top',
-                end: 'bottom top',
-                markers: true,
+                end: 'bottom+=1500 top',
+                // markers: true,
                 scrub: true,
                 // scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
                 // snap: {
@@ -79,33 +79,48 @@ function About(props) {
         tl.addLabel('start')
             .to('.ani-box._01 .title', { autoAlpha: 0, duration: 0.3, delay: 0.3 }, 'start')
             // .set('#scroll-animation_container', { backgroundColor: '#ffffff' })
+            .addLabel('scale-down')
             .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 1 }, 'scale-down')
             .to('.ani-box._01 .desc-block .desc', { autoAlpha: 1, duration: 0.2 }, 'scale-down+=0.2')
             .to('.ani-box._01 .desc-block .desc', { fontSize: window.innerWidth < 1200 ? 1.2 + 'rem' : 2.5 + 'rem', duration: 0.5 }, 'scale-down+=0.5')
-            // .to('.scroll-animation_bg', { autoAlpha: 1, duration: 0.5 });
-
-        let tl2 = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#scroll-animation_container .ani-block._02',
-                pin: true,
-                start: 'top top',
-                end: 'bottom top',
-                markers: true,
-                scrub: true,
-            },
-        });
-        tl2.addLabel('start')
-            // .set('.ani-box._03 .typo', { scale: window.innerWidth < 1200 ? 20 : 8 })
+            // .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 1 }, 'scale-up')
+            .addLabel('bg-in', '+=0.8')
+            .to('.ani-box._01 .desc-block .desc', { autoAlpha: 0, duration: 0.3 }, 'bg-in')
+            .to('.ani-box._01', { height: 100+'%', duration: 0.4 })
+            .to('.ani-box._01', { width: 100+'%', duration: 0.4 })
+            .set('.ani-box._03', { autoAlpha: 1 })
             .addLabel('typo-scale-down')
-            // .to('.scroll-animation_bg', { autoAlpha: 0, duration: 1 }, 'typo-scale-down')
+            .to('.ani-box._01', { autoAlpha: 0, duration: 1 }, 'typo-scale-down')
             .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 4 }, 'typo-scale-down')
-            // .to('.ani-box._03 .typo', { scale: 1, duration: 1 }, 'typo-scale-down')
-            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 1.2 })
+            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 0.5 })
             .addLabel('show-typo1')
             .to('.ani-box._03 .typo._02', { autoAlpha: 1, duration: 0.5 }, 'show-typo1')
-            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -100, duration: 1.2 })
+            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -100, duration: 0.5 })
             .addLabel('show-typo2')
             .to('.ani-box._03 .typo._03', { autoAlpha: 1, duration: 0.5 }, 'show-typo2');
+
+        // let tl2 = gsap.timeline({
+        //     scrollTrigger: {
+        //         trigger: '#scroll-animation_container .ani-block._02',
+        //         pin: true,
+        //         start: 'top top',
+        //         end: 'bottom top',
+        //         markers: true,
+        //         scrub: true,
+        //     },
+        // });
+        // tl2.addLabel('start')
+        //     // .set('.ani-box._03 .typo', { scale: window.innerWidth < 1200 ? 20 : 8 })
+        //     .addLabel('typo-scale-down')
+        //     // .to('.scroll-animation_bg', { autoAlpha: 0, duration: 1 }, 'typo-scale-down')
+        //     .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 4 }, 'typo-scale-down')
+        //     // .to('.ani-box._03 .typo', { scale: 1, duration: 1 }, 'typo-scale-down')
+        //     .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 1.2 })
+        //     .addLabel('show-typo1')
+        //     .to('.ani-box._03 .typo._02', { autoAlpha: 1, duration: 0.5 }, 'show-typo1')
+        //     .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -100, duration: 1.2 })
+        //     .addLabel('show-typo2')
+        //     .to('.ani-box._03 .typo._03', { autoAlpha: 1, duration: 0.5 }, 'show-typo2');
         // .set('#scroll-animation_container', { backgroundColor: '#000000' });
 
         let tl3 = gsap.timeline({
@@ -114,7 +129,7 @@ function About(props) {
                 // start: window.innerWidth < 1200 ? 'top-=300 top' : 'top top',
                 start: 'top top',
                 end: 'bottom top',
-                markers: true,
+                // markers: true,
                 onLeaveBack: function () {
                     tl3.reverse();
                 },
@@ -126,13 +141,13 @@ function About(props) {
             scrollTrigger: {
                 trigger: '#scroll-animation_container .ani-block._03',
                 start: 'top top',
-                end: 'bottom+=1000 top',
+                end: 'bottom+=500 top',
                 // markers: true,
                 pin: true,
                 scrub: true,
             },
         });
-        tl3_1.addLabel('start').to('.slide-wrapper', { rotate: -10, duration: 1 }).to('.slide-wrapper', { rotate: -20, duration: 1 }).to('.slide-wrapper', { rotate: -30, duration: 1 });
+        tl3_1.addLabel('start', '+=1').to('.slide-wrapper', { rotate: -10, duration: 1 }, 'start').to('.slide-wrapper', { rotate: -20, duration: 1 }).to('.slide-wrapper', { rotate: -30, duration: 1 });
 
         let tl4 = gsap.timeline({
             scrollTrigger: {
@@ -260,84 +275,84 @@ function About(props) {
         // });
 
         // * variables
-        const slideAngle = 10;
-        const slideWrapperAngle = 0;
+        // const slideAngle = 10;
+        // const slideWrapperAngle = 0;
 
         // * 원형 슬라이드 세팅
-        function circularSliderSetting() {
-            // * 슬라이드들 초기 각도 세팅
-            for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
-                let $this = sliderWrapperRef.current.children[index];
-                console.log(sliderWrapperRef.current.children[index]);
+        // function circularSliderSetting() {
+        //     // * 슬라이드들 초기 각도 세팅
+        //     for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
+        //         let $this = sliderWrapperRef.current.children[index];
+        //         console.log(sliderWrapperRef.current.children[index]);
 
-                gsap.set($this, { transform: 'rotate(' + slideAngle * index + 'deg)' });
-                $this.dataset.elRotation = slideAngle * index;
-            }
-            gsap.set('.slide-wrapper', { transform: 'rotate(' + slideWrapperAngle + 'deg)' });
+        //         gsap.set($this, { transform: 'rotate(' + slideAngle * index + 'deg)' });
+        //         $this.dataset.elRotation = slideAngle * index;
+        //     }
+        //     gsap.set('.slide-wrapper', { transform: 'rotate(' + slideWrapperAngle + 'deg)' });
 
-            // * Draggable 세팅
-            Draggable.create('.slide-wrapper', {
-                type: 'rotation',
-                // dragResistance: 0.78,
-                edgeResistance: 0.3,
-                force3D: true,
-                dragClickable: false,
-                bounds: {
-                    maxRotation: -(slideAngle * 3),
-                    // maxRotation: -360,
-                    minRotation: 0,
-                },
-                onClick: function () {},
-                onDragStart: function () {},
-                onMove: function () {
-                    let direction = this.getDirection();
-                    console.log('움직인 방향', this.getDirection());
-                    // console.log('마지막각도', lastSlideWrapperAngle);
-                    console.log('로테이트', this.rotation);
-                    console.log('슬라이드 앵글', slideAngle);
-                    console.log('움직인 각도', Math.abs(slideWrapperAngle - this.rotation));
-                    if (Math.abs(slideWrapperAngle - this.rotation) > 5) {
-                        console.log('클론 슬라이드 추가 해야함', direction);
-                        switch (direction) {
-                            case 'clockwise':
-                                // TODO: 시계방향, 제일 첫번째 슬라이드를 맨 마지막 슬라이드 뒤에 붙여야함
-                                console.log('시계방향');
-                                break;
+        //     // * Draggable 세팅
+        //     Draggable.create('.slide-wrapper', {
+        //         type: 'rotation',
+        //         // dragResistance: 0.78,
+        //         edgeResistance: 0.3,
+        //         force3D: true,
+        //         dragClickable: false,
+        //         bounds: {
+        //             maxRotation: -(slideAngle * 3),
+        //             // maxRotation: -360,
+        //             minRotation: 0,
+        //         },
+        //         onClick: function () {},
+        //         onDragStart: function () {},
+        //         onMove: function () {
+        //             let direction = this.getDirection();
+        //             console.log('움직인 방향', this.getDirection());
+        //             // console.log('마지막각도', lastSlideWrapperAngle);
+        //             console.log('로테이트', this.rotation);
+        //             console.log('슬라이드 앵글', slideAngle);
+        //             console.log('움직인 각도', Math.abs(slideWrapperAngle - this.rotation));
+        //             if (Math.abs(slideWrapperAngle - this.rotation) > 5) {
+        //                 console.log('클론 슬라이드 추가 해야함', direction);
+        //                 switch (direction) {
+        //                     case 'clockwise':
+        //                         // TODO: 시계방향, 제일 첫번째 슬라이드를 맨 마지막 슬라이드 뒤에 붙여야함
+        //                         console.log('시계방향');
+        //                         break;
 
-                            case 'counter-clockwise':
-                                // TODO: 반시계방향, 제일 마지막 슬라이드를 첫번째 슬라이드 얖에 붙여야함
-                                console.log('반시계방향');
-                                break;
+        //                     case 'counter-clockwise':
+        //                         // TODO: 반시계방향, 제일 마지막 슬라이드를 첫번째 슬라이드 얖에 붙여야함
+        //                         console.log('반시계방향');
+        //                         break;
 
-                            default:
-                                break;
-                        }
-                    }
-                },
-                onDragEnd: function () {
-                    customSnap(this.rotation);
-                },
-            });
-        }
-        circularSliderSetting();
+        //                     default:
+        //                         break;
+        //                 }
+        //             }
+        //         },
+        //         onDragEnd: function () {
+        //             customSnap(this.rotation);
+        //         },
+        //     });
+        // }
+        // circularSliderSetting();
 
         // * 원형 슬라이드 드래그 종료 후 가장 인접한 각도로 세팅해주는 함수
-        function customSnap(value) {
-            let $nextEl = '';
-            let snapVal = Math.round(value / slideAngle) * slideAngle;
-            let rotaVal = 0;
-            gsap.to('.slide-wrapper', { duration: 0.25, rotation: snapVal, ease: 'back.out(1.7)' });
-            for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
-                let $this = sliderWrapperRef.current.children[index];
-                rotaVal = $this.dataset.elRotation;
-                if (Math.abs(snapVal) == rotaVal) {
-                    $nextEl = $this;
-                }
-            }
-            // console.log(snapVal, rotaVal);
-            // TODO: 원형 슬라이드를 컴포넌트화 했으나 그 후,  액티브 클래스 부여 함수 작동 안됨. 수정해야함
-            // activeClassChange($nextEl);
-        }
+        // function customSnap(value) {
+        //     let $nextEl = '';
+        //     let snapVal = Math.round(value / slideAngle) * slideAngle;
+        //     let rotaVal = 0;
+        //     gsap.to('.slide-wrapper', { duration: 0.25, rotation: snapVal, ease: 'back.out(1.7)' });
+        //     for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
+        //         let $this = sliderWrapperRef.current.children[index];
+        //         rotaVal = $this.dataset.elRotation;
+        //         if (Math.abs(snapVal) == rotaVal) {
+        //             $nextEl = $this;
+        //         }
+        //     }
+        //     // console.log(snapVal, rotaVal);
+        //     // TODO: 원형 슬라이드를 컴포넌트화 했으나 그 후,  액티브 클래스 부여 함수 작동 안됨. 수정해야함
+        //     // activeClassChange($nextEl);
+        // }
 
         // * 액티브 클래스 부여 함수
         // function activeClassChange($nextEl) {
@@ -503,8 +518,6 @@ function About(props) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="ani-block _02">
                                 <div className="ani-box _03">
                                     <div className="typo-element">
                                         <div className="typo-wrap">
@@ -521,6 +534,23 @@ function About(props) {
                                     </div>
                                 </div>
                             </div>
+                            {/* <div className="ani-block _02">
+                                <div className="ani-box _03">
+                                    <div className="typo-element">
+                                        <div className="typo-wrap">
+                                            <div className="typo _01">
+                                                <span>미니버타이징은</span>
+                                            </div>
+                                            <div className="typo _02">
+                                                <span>대행사니까</span>
+                                            </div>
+                                            <div className="typo _03">
+                                                <span>프로덕션입니다.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> */}
                             <div className="ani-block _03">
                                 <div className="work-block">
                                     <div className="slider-section">
