@@ -108,6 +108,35 @@ function About(props) {
         let tl3 = gsap.timeline({
             scrollTrigger: {
                 trigger: '#scroll-animation_container .ani-block._03',
+                // start: window.innerWidth < 1200 ? 'top-=300 top' : 'top top',
+                start: 'top top',
+                end: 'bottom top',
+                markers: true,
+                onLeaveBack: function () {
+                    tl3.reverse();
+                },
+            },
+        });
+        tl3.addLabel('start').to(window.innerWidth < 1200 ? '.text-section .desc span' : '.text-section .desc .text-box', { autoAlpha: 1, y: 0, stagger: 0.1 }, 'start');
+
+        let tl3_1 = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#scroll-animation_container .ani-block._03',
+                start: 'top top',
+                end: 'bottom+=1000 top',
+                // markers: true,
+                pin: true,
+                scrub: true,
+            },
+        });
+        tl3_1.addLabel('start')
+        .to('.slide-wrapper', {rotate: -10, duration: 1})
+        .to('.slide-wrapper', {rotate: -20, duration: 1})
+        .to('.slide-wrapper', {rotate: -30, duration: 1})
+
+        let tl4 = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#scroll-animation_container .ani-block._04',
                 pin: true,
                 start: 'top top',
                 end: 'bottom+=1000 top',
@@ -116,40 +145,26 @@ function About(props) {
             },
         });
 
-        tl3.addLabel('start', '+=2')
-            .to('.ani-block._03 .director-box._01', { autoAlpha: 1, y: 0, duration: 1 }, 'start')
-            .to('.ani-block._03 .director-box._01 .img-box', { autoAlpha: 1, duration: 1 }, 'start+=0.4')
-            .to('.ani-block._03 .director-box._01 .img-box', { y: 0, duration: 1 }, 'start+=0.5')
-            .to('.ani-block._03 .director-box._01 .text-box .desc', { autoAlpha: 1, duration: 1 }, 'start+=0.5')
-            .to('.ani-block._03 .director-box._01 .text-box .desc', { y: 0, duration: 1 }, 'start+=0.6')
-            .to('.ani-block._03 .director-box._01 .text-box .title', { autoAlpha: 1, duration: 1 }, 'start+=0.6')
-            .to('.ani-block._03 .director-box._01 .text-box .title', { y: 0, duration: 1 }, 'start+=0.7')
+        tl4.addLabel('start', '+=2')
+            .to('.ani-block._04 .director-box._01', { autoAlpha: 1, y: 0, duration: 1 }, 'start')
+            .to('.ani-block._04 .director-box._01 .img-box', { autoAlpha: 1, duration: 1 }, 'start+=0.4')
+            .to('.ani-block._04 .director-box._01 .img-box', { y: 0, duration: 1 }, 'start+=0.5')
+            .to('.ani-block._04 .director-box._01 .text-box .desc', { autoAlpha: 1, duration: 1 }, 'start+=0.5')
+            .to('.ani-block._04 .director-box._01 .text-box .desc', { y: 0, duration: 1 }, 'start+=0.6')
+            .to('.ani-block._04 .director-box._01 .text-box .title', { autoAlpha: 1, duration: 1 }, 'start+=0.6')
+            .to('.ani-block._04 .director-box._01 .text-box .title', { y: 0, duration: 1 }, 'start+=0.7')
             .addLabel('box-01-out', '+=5')
             .addLabel('box-02-in', '+=8')
-            .to('.ani-block._03 .director-box._01', { autoAlpha: 0, y: '-2rem', duration: 3 }, 'box-01-out')
-            .to('.ani-block._03 .director-box._02', { autoAlpha: 1, y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in' : 'start')
-            .to('.ani-block._03 .director-box._02 .img-box', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.4' : 'start+=0.4')
-            .to('.ani-block._03 .director-box._02 .img-box', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.5' : 'start+=0.5')
-            .to('.ani-block._03 .director-box._02 .text-box .desc', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.5' : 'start+=0.5')
-            .to('.ani-block._03 .director-box._02 .text-box .desc', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
-            .to('.ani-block._03 .director-box._02 .text-box .title', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
-            .to('.ani-block._03 .director-box._02 .text-box .title', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.7' : 'start+=0.7')
+            .to('.ani-block._04 .director-box._01', { autoAlpha: 0, y: '-2rem', duration: 3 }, 'box-01-out')
+            .to('.ani-block._04 .director-box._02', { autoAlpha: 1, y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in' : 'start')
+            .to('.ani-block._04 .director-box._02 .img-box', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.4' : 'start+=0.4')
+            .to('.ani-block._04 .director-box._02 .img-box', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.5' : 'start+=0.5')
+            .to('.ani-block._04 .director-box._02 .text-box .desc', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.5' : 'start+=0.5')
+            .to('.ani-block._04 .director-box._02 .text-box .desc', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
+            .to('.ani-block._04 .director-box._02 .text-box .title', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
+            .to('.ani-block._04 .director-box._02 .text-box .title', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.7' : 'start+=0.7')
             .addLabel('box-02-out', '+=5')
-            .to('.ani-block._03 .director-box._02', { autoAlpha: 0, y: '-2rem', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
-
-        let tl4 = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#scroll-animation_container .work-block',
-                start: window.innerWidth < 1200 ? 'top-=300 top' : 'top top',
-                end: 'bottom top',
-                // markers: true,
-                onLeaveBack: function () {
-                    tl4.reverse();
-                },
-            },
-        });
-        tl4.addLabel('start').to(window.innerWidth < 1200 ? '.text-section .desc span' : '.text-section .desc .text-box', { autoAlpha: 1, y: 0, stagger: 0.1 }, 'start');
-
+            .to('.ani-block._04 .director-box._02', { autoAlpha: 0, y: '-2rem', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
         // * 원형 슬라이더 부분
         // console.log(sliderWrapperRef);
         // function circularSliderSizing() {
@@ -246,8 +261,7 @@ function About(props) {
 
         // * variables
         const slideAngle = 10;
-        const slideWrapperAngle = -10;
-        let lastSlideWrapperAngle = 0;
+        const slideWrapperAngle = 0;
 
         // * 원형 슬라이드 세팅
         function circularSliderSetting() {
@@ -268,17 +282,17 @@ function About(props) {
                 edgeResistance: 0.3,
                 force3D: true,
                 dragClickable: false,
-                // bounds: {
-                //     // maxRotation: -(slideAngle * 3),
-                //     // maxRotation: -360,
-                //     // minRotation: 0,
-                // },
+                bounds: {
+                    maxRotation: -(slideAngle * 3),
+                    // maxRotation: -360,
+                    minRotation: 0,
+                },
                 onClick: function () {},
                 onDragStart: function () {},
                 onMove: function () {
                     let direction = this.getDirection();
                     console.log('움직인 방향', this.getDirection());
-                    console.log('마지막각도', lastSlideWrapperAngle);
+                    // console.log('마지막각도', lastSlideWrapperAngle);
                     console.log('로테이트', this.rotation);
                     console.log('슬라이드 앵글', slideAngle);
                     console.log('움직인 각도', Math.abs(slideWrapperAngle - this.rotation));
@@ -311,7 +325,6 @@ function About(props) {
         function customSnap(value) {
             let $nextEl = '';
             let snapVal = Math.round(value / slideAngle) * slideAngle;
-            lastSlideWrapperAngle = snapVal;
             let rotaVal = 0;
             gsap.to('.slide-wrapper', { duration: 0.25, rotation: snapVal, ease: 'back.out(1.7)' });
             for (let index = 0; index < sliderWrapperRef.current.children.length; index++) {
@@ -366,44 +379,7 @@ function About(props) {
         });
     };
 
-    let [workCategoryData, setWorkCategoryData] = useState([
-        'video',
-        'development',
-        'product-manager',
-        'designer',
-        'video',
-        'development',
-        'product-manager',
-        'designer',
-        'video',
-        'development',
-        'product-manager',
-        'designer',
-        'video',
-        'development',
-        'product-manager',
-        'designer',
-        'video',
-        'development',
-        'product-manager',
-        'designer',
-        'video',
-        'development',
-        'product-manager',
-        'designer',
-        'video',
-        'development',
-        'product-manager',
-        'designer',
-        'video',
-        'development',
-        'product-manager',
-        'designer',
-        'video',
-        'development',
-        'product-manager',
-        'designer',
-    ]);
+    let [workCategoryData, setWorkCategoryData] = useState(['video', 'development', 'product-manager', 'designer']);
 
     function WorkSlide({ workCategory, index }) {
         const slideAngle = 10;
@@ -545,17 +521,18 @@ function About(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="work-block">
-                                <div className="slider-section">
-                                    <div className="circular-slider-container">
-                                        <div className="circular-slider">
-                                            <div className="slide-container">
-                                                {/* <div className="support-area">
+                            <div className="ani-block _03">
+                                <div className="work-block">
+                                    <div className="slider-section">
+                                        <div className="circular-slider-container">
+                                            <div className="circular-slider">
+                                                <div className="slide-container">
+                                                    {/* <div className="support-area">
                                                     <div className="inner-circle"></div>
                                                 </div> */}
-                                                <div className="center-position">
-                                                    <div className="slide-wrapper" ref={sliderWrapperRef}>
-                                                        {/* <div className="slide" data-work-category="video">
+                                                    <div className="center-position">
+                                                        <div className="slide-wrapper" ref={sliderWrapperRef}>
+                                                            {/* <div className="slide" data-work-category="video">
                                                             <div className="card"></div>
                                                         </div>
                                                         <div className="slide is-active" data-work-category="development">
@@ -567,16 +544,16 @@ function About(props) {
                                                         <div className="slide" data-work-category="designer">
                                                             <div className="card"></div>
                                                         </div> */}
-                                                        {workCategoryData.map((workCategory, index) => (
-                                                            <WorkSlide key={index} index={index} workCategory={workCategory} />
-                                                        ))}
+                                                            {workCategoryData.map((workCategory, index) => (
+                                                                <WorkSlide key={index} index={index} workCategory={workCategory} />
+                                                            ))}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                {/* <div className="slide-wrapper" ref={sliderRef}>
+                                    {/* <div className="slide-wrapper" ref={sliderRef}>
                                     <div className="parent-circle">
                                         <div className="slide" id="slide1">
                                             1
@@ -595,37 +572,38 @@ function About(props) {
                                         </div>
                                     </div>
                                 </div> */}
-                                <div className="text-section">
-                                    <div className="inner">
-                                        <div className="desc">
-                                            <div className="text-box">
-                                                <span>최초의 기획 의도를 마지막 결과물까지</span>
-                                                {device === 'mobile' ? '' : ' '}
-                                                <span>크리에이티브 날을 세울 수 있는 이유</span>
-                                            </div>
-                                            <div className="text-box">
-                                                <span>
-                                                    <strong>미니버타이징은 자체 프로덕션과</strong>
-                                                </span>
-                                                {device === 'mobile' ? '' : ' '}
-                                                <span>
-                                                    <strong>웹개발, 코딩, 콘텐츠 기획을 통해</strong>
-                                                </span>
-                                            </div>
-                                            <div className="text-box">
-                                                <span>
-                                                    <strong>하나의 유기체로 활동하는 것이</strong>
-                                                </span>
-                                                {device === 'mobile' ? '' : ' '}
-                                                <span>
-                                                    <strong>당연한 덕목이라 여깁니다</strong>
-                                                </span>
+                                    <div className="text-section">
+                                        <div className="inner">
+                                            <div className="desc">
+                                                <div className="text-box">
+                                                    <span>최초의 기획 의도를 마지막 결과물까지</span>
+                                                    {device === 'mobile' ? '' : ' '}
+                                                    <span>크리에이티브 날을 세울 수 있는 이유</span>
+                                                </div>
+                                                <div className="text-box">
+                                                    <span>
+                                                        <strong>미니버타이징은 자체 프로덕션과</strong>
+                                                    </span>
+                                                    {device === 'mobile' ? '' : ' '}
+                                                    <span>
+                                                        <strong>웹개발, 코딩, 콘텐츠 기획을 통해</strong>
+                                                    </span>
+                                                </div>
+                                                <div className="text-box">
+                                                    <span>
+                                                        <strong>하나의 유기체로 활동하는 것이</strong>
+                                                    </span>
+                                                    {device === 'mobile' ? '' : ' '}
+                                                    <span>
+                                                        <strong>당연한 덕목이라 여깁니다</strong>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="ani-block _03">
+                            <div className="ani-block _04">
                                 <div className="director-block">
                                     <p className="title">
                                         우주에

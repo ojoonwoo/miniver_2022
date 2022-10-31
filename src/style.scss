@@ -545,9 +545,9 @@ textarea::-webkit-scrollbar-thumb {
                         justify-content: center;
                         background-color: $white;
                         // border: 1px solid blue;
-    
+
                         overflow: hidden;
-    
+
                         .typo-element {
                             display: flex;
                             width: 100%;
@@ -559,11 +559,11 @@ textarea::-webkit-scrollbar-thumb {
                                 // border: 1px solid red;
                                 .typo {
                                     font-weight: 900;
-                                    
+
                                     // font-size: 26rem;
                                     // font-size: 4rem;
                                     font-size: 70rem;
-    
+
                                     line-height: 1.22;
                                     text-align: center;
                                     letter-spacing: -0.03em;
@@ -595,140 +595,143 @@ textarea::-webkit-scrollbar-thumb {
                         }
                     }
                 }
-                .work-block {
-                    width: 100%;
-                    height: 55rem;
-                    // border: 1px solid red;
-                    background-color: $white;
-                    // display: flex;
-                    // justify-content: center;
-                    // flex-direction: column;
-                    // .slide-wrapper {
-                    //     width: 100%;
-                    //     height: 25rem;
-                    //     // overflow: hidden;
-                    //     border: 1px solid green;
-                    //     .parent-circle {
-                    //         width: 100rem;
-                    //         height: 100rem;
-                    //         border: solid 1px red;
-                    //         border-radius: 50%;
-                    //         position: relative;
-                    //         left: 50%;
-                    //         transform: translateX(-50%);
-                    //         transform-origin: center center;
-                    //         top: 23.5rem;
-                    //         .slide {
-                    //             width: 22.5rem;
-                    //             height: 22.5rem;
-                    //             position: absolute;
-                    //             color: blue;
-                    //             text-align: center;
-                    //             line-height: 60px;
-                    //             font-size: 24px;
-                    //             top: -22.5rem;
-                    //             left: 50%;
-                    //             transform: translateX(-50%);
-                    //             border: 1px solid blue;
-                    //         }
-                    //     }
-                    // }
-                    .slider-section {
-                        position: relative;
-                        display: flex;
+                .ani-block._03 {
+                    .work-block {
                         width: 100%;
-                        height: 30rem;
-                        flex-wrap: wrap;
-                        align-items: center;
-                        /* min-height: 100vh; */
-                        overflow: hidden;
+                        // height: 55rem;
+                        height: 100vh;
                         // border: 1px solid red;
-                        /* transform: scale(0.2); */
-                        .circular-slider-container {
+                        background-color: $white;
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        // .slide-wrapper {
+                        //     width: 100%;
+                        //     height: 25rem;
+                        //     // overflow: hidden;
+                        //     border: 1px solid green;
+                        //     .parent-circle {
+                        //         width: 100rem;
+                        //         height: 100rem;
+                        //         border: solid 1px red;
+                        //         border-radius: 50%;
+                        //         position: relative;
+                        //         left: 50%;
+                        //         transform: translateX(-50%);
+                        //         transform-origin: center center;
+                        //         top: 23.5rem;
+                        //         .slide {
+                        //             width: 22.5rem;
+                        //             height: 22.5rem;
+                        //             position: absolute;
+                        //             color: blue;
+                        //             text-align: center;
+                        //             line-height: 60px;
+                        //             font-size: 24px;
+                        //             top: -22.5rem;
+                        //             left: 50%;
+                        //             transform: translateX(-50%);
+                        //             border: 1px solid blue;
+                        //         }
+                        //     }
+                        // }
+                        .slider-section {
+                            position: relative;
+                            display: flex;
                             width: 100%;
-                            height: 22.5rem;
+                            height: 30rem;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            /* min-height: 100vh; */
                             overflow: hidden;
-                            // border: 1px solid blue;
-                            .circular-slider {
+                            // border: 1px solid red;
+                            /* transform: scale(0.2); */
+                            .circular-slider-container {
                                 width: 100%;
                                 height: 22.5rem;
                                 overflow: hidden;
-                                // border: 1px solid green;
-                                .slide-container {
-                                    width: 100vw;
-                                    height: 100%;
-                                    position: absolute;
-                                    left: 0;
-                                    /* overflow: hidden; */
-                                    .support-area {
-                                        background-color: #f5f5f5;
-                                        border-top-left-radius: 50%;
-                                        border-top-right-radius: 50%;
-                                        display: block;
-                                        height: calc(60vh * 2);
-                                        width: calc(60vh * 2);
-                                        position: fixed;
-                                        bottom: -75vh;
-                                        left: 50%;
-                                        transform: translate(-50%, 0);
-                                        .inner-circle {
-                                            position: absolute;
-                                            top: 50%;
-                                            left: 50%;
-                                            transform: translate(-50%, -50%);
-                                            width: 115%;
-                                            height: 115%;
-                                            border-radius: 50%;
-                                            background-color: #f5f5f5;
-                                            opacity: 0.3;
-                                        }
-                                    }
-                                    .center-position {
+                                // border: 1px solid blue;
+                                .circular-slider {
+                                    width: 100%;
+                                    height: 22.5rem;
+                                    overflow: hidden;
+                                    // border: 1px solid green;
+                                    .slide-container {
+                                        width: 100vw;
+                                        height: 100%;
                                         position: absolute;
-                                        left: 50%;
-                                        transform: translateX(-50%);
-                                        width: 22.5rem;
-                                        height: 22.5rem;
-                                        .slide-wrapper {
-                                            // transform: rotate(-10deg);
-                                            // transform: rotate(-50deg);
-                                            transform-origin: center 160rem;
-                                            // .slide.dummy {
-                                            //     transform: rotate(-10deg);
-                                            // }
-                                            .slide {
+                                        left: 0;
+                                        /* overflow: hidden; */
+                                        .support-area {
+                                            background-color: #f5f5f5;
+                                            border-top-left-radius: 50%;
+                                            border-top-right-radius: 50%;
+                                            display: block;
+                                            height: calc(60vh * 2);
+                                            width: calc(60vh * 2);
+                                            position: fixed;
+                                            bottom: -75vh;
+                                            left: 50%;
+                                            transform: translate(-50%, 0);
+                                            .inner-circle {
                                                 position: absolute;
-                                                top: 0;
-                                                left: 0;
-                                                background-color: #c5c5c5;
-                                                width: 22.5rem;
-                                                height: 22.5rem;
+                                                top: 50%;
+                                                left: 50%;
+                                                transform: translate(-50%, -50%);
+                                                width: 115%;
+                                                height: 115%;
+                                                border-radius: 50%;
+                                                background-color: #f5f5f5;
+                                                opacity: 0.3;
+                                            }
+                                        }
+                                        .center-position {
+                                            position: absolute;
+                                            left: 50%;
+                                            transform: translateX(-50%);
+                                            width: 22.5rem;
+                                            height: 22.5rem;
+                                            .slide-wrapper {
+                                                // transform: rotate(-10deg);
+                                                // transform: rotate(-50deg);
                                                 transform-origin: center 160rem;
-                                                &.is-active {
-                                                    // background-color: #ec001a;
-                                                }
-                                                .card {
-                                                    width: 100%;
-                                                    height: 100%;
-                                                }
-                                                &[data-work-category='video'] {
-                                                    .card {
-                                                        background: url(./assets/img_video.jpg) center / cover no-repeat;
+                                                // .slide.dummy {
+                                                //     transform: rotate(-10deg);
+                                                // }
+                                                .slide {
+                                                    position: absolute;
+                                                    top: 0;
+                                                    left: 0;
+                                                    background-color: #c5c5c5;
+                                                    width: 22.5rem;
+                                                    height: 22.5rem;
+                                                    transform-origin: center 160rem;
+                                                    &.is-active {
+                                                        // background-color: #ec001a;
                                                     }
-                                                }
-                                                &[data-work-category='development'] {
                                                     .card {
-                                                        background: url(./assets/img_development.jpg) center / cover no-repeat;
+                                                        width: 100%;
+                                                        height: 100%;
                                                     }
-                                                }
-                                                &[data-work-category='product-manager'] {
-                                                    .card {
-                                                        background: url(./assets/img_product-manager.jpg) center / cover no-repeat;
+                                                    &[data-work-category='video'] {
+                                                        .card {
+                                                            background: url(./assets/img_video.jpg) center / cover no-repeat;
+                                                        }
                                                     }
-                                                }
-                                                &[data-work-category='designer'] {
-                                                    .card {
-                                                        background: url(./assets/img_designer.jpg) center / cover no-repeat;
+                                                    &[data-work-category='development'] {
+                                                        .card {
+                                                            background: url(./assets/img_development.jpg) center / cover no-repeat;
+                                                        }
+                                                    }
+                                                    &[data-work-category='product-manager'] {
+                                                        .card {
+                                                            background: url(./assets/img_product-manager.jpg) center / cover no-repeat;
+                                                        }
+                                                    }
+                                                    &[data-work-category='designer'] {
+                                                        .card {
+                                                            background: url(./assets/img_designer.jpg) center / cover no-repeat;
+                                                        }
                                                     }
                                                 }
                                             }
@@ -737,130 +740,137 @@ textarea::-webkit-scrollbar-thumb {
                                 }
                             }
                         }
-                    }
-                    .circular-slider .slide .card .desc {
-                        /* padding-top: 87%; */
-                        padding: 87% 15px 0;
-                        text-align: center;
-                        color: #ffffff;
-                    }
-                    .circular-slider .slide .card .desc p {
-                        font-size: 22px;
-                        /* font-size: 2vh; */
-                        font-size: calc(10px + 1.2vh);
-                        font-weight: 700;
-                        line-height: 1.26;
-                        letter-spacing: -0.05em;
-                    }
-                    .circular-slider .slide .card .desc span {
-                        display: block;
-                        font-size: 16px;
-                        /* font-size: 1.6vh; */
-                        font-size: calc(10px + 0.8vh);
-                        font-weight: 500;
-                        margin-top: 10px;
-                    }
-                    .text-section {
-                        text-align: center;
-                        > .inner {
-                            .desc {
-                                .text-box {
-                                    span {
-                                        display: block;
-                                        font-weight: 400;
-                                        font-size: 1.2rem;
-                                        line-height: 1.42;
-                                        letter-spacing: -0.03em;
-                                        color: $black;
+                        .circular-slider .slide .card .desc {
+                            /* padding-top: 87%; */
+                            padding: 87% 15px 0;
+                            text-align: center;
+                            color: #ffffff;
+                        }
+                        .circular-slider .slide .card .desc p {
+                            font-size: 22px;
+                            /* font-size: 2vh; */
+                            font-size: calc(10px + 1.2vh);
+                            font-weight: 700;
+                            line-height: 1.26;
+                            letter-spacing: -0.05em;
+                        }
+                        .circular-slider .slide .card .desc span {
+                            display: block;
+                            font-size: 16px;
+                            /* font-size: 1.6vh; */
+                            font-size: calc(10px + 0.8vh);
+                            font-weight: 500;
+                            margin-top: 10px;
+                        }
+                        .text-section {
+                            text-align: center;
+                            > .inner {
+                                .desc {
+                                    .text-box {
+                                        span {
+                                            display: block;
+                                            font-weight: 400;
+                                            font-size: 1.2rem;
+                                            line-height: 1.42;
+                                            letter-spacing: -0.03em;
+                                            color: $black;
 
-                                        opacity: 0;
-                                        visibility: hidden;
-                                        transform: translateY(1rem);
+                                            opacity: 0;
+                                            visibility: hidden;
+                                            transform: translateY(1rem);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-                .ani-block._03 .director-block {
+
+                .ani-block._04 {
                     width: 100%;
                     height: 100vh;
-                    background-color: $black;
-                    padding: 0 3.2rem;
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    > .title {
-                        font-weight: 900;
-                        font-size: 5.8rem;
-                        line-height: 1.21;
-                        letter-spacing: -0.03em;
-                        color: $white;
+                    // border: 1px solid blue;
+                    .director-block {
+                        width: 100%;
+                        height: 100%;
+                        background-color: $black;
+                        padding: 0 3.2rem;
                         position: relative;
-                        z-index: 1;
-                    }
-                    .director-info__wrapper {
-                        position: absolute;
-                        z-index: 2;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        .director-box {
-                            position: absolute;
-                            background-color: $black;
-                            left: 0;
-                            top: 0;
-                            padding: 2rem;
+                        display: flex;
+                        align-items: center;
+                        // border: 1px solid red;
+                        > .title {
+                            font-weight: 900;
+                            font-size: 5.8rem;
+                            line-height: 1.21;
+                            letter-spacing: -0.03em;
                             color: $white;
-                            opacity: 0;
-                            transform: translateY(2rem);
-                            visibility: hidden;
-                            border: 1px solid $black;
-                            &:first-child {
-                                position: relative;
-                                z-index: 3;
-                                .img-box {
-                                    background-image: url(https://pbs.twimg.com/profile_images/2805749215/3b0b44abb3c2afceadc3d642c1829cc8_400x400.jpeg);
-                                }
-                            }
-                            &:nth-child(2) {
-                                z-index: 4;
-                                .img-box {
-                                    background-image: url(https://mblogthumb-phinf.pstatic.net/20151020_4/becauselmsc_1445332793483xS8bq_PNG/downloadfile-2.png?type=w2);
-                                }
-                            }
-                            .img-box {
-                                width: 100%;
-                                min-width: 22.5rem;
-                                padding-bottom: 100%;
-                                background-color: lightgray;
-                                margin-bottom: 1.5rem;
-                                transform: translateY(2rem);
+                            position: relative;
+                            z-index: 1;
+                        }
+                        .director-info__wrapper {
+                            position: absolute;
+                            z-index: 2;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            .director-box {
+                                position: absolute;
+                                background-color: $black;
+                                left: 0;
+                                top: 0;
+                                padding: 2rem;
+                                color: $white;
                                 opacity: 0;
+                                transform: translateY(2rem);
                                 visibility: hidden;
-                                background-position: center;
-                                background-size: cover;
-                                background-repeat: no-repeat;
-                            }
-                            .text-box {
-                                text-align: center;
-                                .desc {
-                                    font-weight: 400;
-                                    font-size: 1.2rem;
-                                    line-height: 1.25;
-                                    letter-spacing: -0.03em;
-                                    margin-bottom: 0.8rem;
-                                    transform: translateY(2rem);
-                                    opacity: 0;
-                                    visibility: hidden;
+                                border: 1px solid $black;
+                                &:first-child {
+                                    position: relative;
+                                    z-index: 3;
+                                    .img-box {
+                                        background-image: url(https://pbs.twimg.com/profile_images/2805749215/3b0b44abb3c2afceadc3d642c1829cc8_400x400.jpeg);
+                                    }
                                 }
-                                .title {
-                                    font-weight: 700;
-                                    font-size: 1.5rem;
-                                    line-height: 1.46;
-                                    letter-spacing: -0.03em;
+                                &:nth-child(2) {
+                                    z-index: 4;
+                                    .img-box {
+                                        background-image: url(https://mblogthumb-phinf.pstatic.net/20151020_4/becauselmsc_1445332793483xS8bq_PNG/downloadfile-2.png?type=w2);
+                                    }
+                                }
+                                .img-box {
+                                    width: 100%;
+                                    min-width: 22.5rem;
+                                    padding-bottom: 100%;
+                                    background-color: lightgray;
+                                    margin-bottom: 1.5rem;
                                     transform: translateY(2rem);
                                     opacity: 0;
                                     visibility: hidden;
+                                    background-position: center;
+                                    background-size: cover;
+                                    background-repeat: no-repeat;
+                                }
+                                .text-box {
+                                    text-align: center;
+                                    .desc {
+                                        font-weight: 400;
+                                        font-size: 1.2rem;
+                                        line-height: 1.25;
+                                        letter-spacing: -0.03em;
+                                        margin-bottom: 0.8rem;
+                                        transform: translateY(2rem);
+                                        opacity: 0;
+                                        visibility: hidden;
+                                    }
+                                    .title {
+                                        font-weight: 700;
+                                        font-size: 1.5rem;
+                                        line-height: 1.46;
+                                        letter-spacing: -0.03em;
+                                        transform: translateY(2rem);
+                                        opacity: 0;
+                                        visibility: hidden;
+                                    }
                                 }
                             }
                         }
@@ -2295,51 +2305,53 @@ textarea::-webkit-scrollbar-thumb {
                             }
                         }
                     }
-                    .work-block {
-                        height: 130rem;
-                        .slider-section {
-                            height: 92rem;
-                            .circular-slider-container {
-                                height: 65rem;
-                                .circular-slider {
+                    .ani-block._03 {
+                        .work-block {
+                            height: 130rem;
+                            .slider-section {
+                                height: 92rem;
+                                .circular-slider-container {
                                     height: 65rem;
-                                    .slide-container {
-                                        .center-position {
-                                            width: 65rem;
-                                            height: 65rem;
-                                            .slide-wrapper {
-                                                transform-origin: center 460rem;
-                                                .slide {
-                                                    width: 65rem;
-                                                    height: 65rem;
+                                    .circular-slider {
+                                        height: 65rem;
+                                        .slide-container {
+                                            .center-position {
+                                                width: 65rem;
+                                                height: 65rem;
+                                                .slide-wrapper {
                                                     transform-origin: center 460rem;
+                                                    .slide {
+                                                        width: 65rem;
+                                                        height: 65rem;
+                                                        transform-origin: center 460rem;
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
-                        .text-section {
-                            > .inner {
-                                .desc {
-                                    .text-box {
-                                        opacity: 0;
-                                        visibility: hidden;
-                                        transform: translateY(2rem);
-                                        span {
-                                            display: inline-block;
-                                            opacity: 1;
-                                            visibility: visible;
-                                            transform: none;
-                                            font-size: 2.3rem;
+                            .text-section {
+                                > .inner {
+                                    .desc {
+                                        .text-box {
+                                            opacity: 0;
+                                            visibility: hidden;
+                                            transform: translateY(2rem);
+                                            span {
+                                                display: inline-block;
+                                                opacity: 1;
+                                                visibility: visible;
+                                                transform: none;
+                                                font-size: 2.3rem;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    .ani-block._03 {
+                    .ani-block._04 {
                         .director-block {
                             justify-content: center;
                             > .title {
