@@ -185,14 +185,14 @@ textarea::-webkit-scrollbar-thumb {
             z-index: 4;
             cursor: pointer;
             position: absolute;
-            left: 12rem;
-            bottom: 4.5rem;
+            left: 0;
+            bottom: 0;
             display: flex;
             padding: 3rem;
             align-items: flex-end;
             .equalizer {
                 margin-right: 0.65rem;
-                padding-bottom: 0.5rem;
+                padding-bottom: 0.3rem;
                 display: flex;
                 align-items: flex-end;
                 span {
@@ -207,7 +207,8 @@ textarea::-webkit-scrollbar-thumb {
                 }
             }
             p {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
+                font-weight: 500;
                 color: #ffffff;
             }
         }
@@ -1722,6 +1723,23 @@ textarea::-webkit-scrollbar-thumb {
                 }
                 img {
                     width: 4rem;
+                }
+            }
+            .mute-controls {
+                left: 12rem;
+                bottom: 4.5rem;
+                padding: 3rem;
+                .equalizer {
+                    margin-right: 0.65rem;
+                    padding-bottom: 0.5rem;
+                    span {
+                        width: 2px;
+                        height: 10px;
+                        margin-right: 2px;
+                    }
+                }
+                p {
+                    font-size: 1.4rem;
                 }
             }
         }
