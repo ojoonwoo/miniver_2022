@@ -929,6 +929,13 @@ textarea::-webkit-scrollbar-thumb {
                         }
                     }
                 }
+                .contact-block {
+                    .left .small-title {
+                        font-weight: 700;
+                    }
+                    background-color: $white;
+                    padding: 2.8rem 3rem;
+                }
                 .company_profile-block {
                     width: 100%;
                     padding: 8.7rem 0 8.4rem 3rem;
@@ -1507,27 +1514,27 @@ textarea::-webkit-scrollbar-thumb {
                 margin-top: 6rem;
             }
         }
-        .contact-block {
-            padding: 2.8rem 3rem 0;
-            .inner {
-                .small-title {
-                    margin-bottom: 1.2rem;
-                }
-                .right {
-                    span {
-                        font-weight: 300;
-                        font-size: 1.2rem;
-                        line-height: 1;
-                        letter-spacing: -0.03em;
-                    }
-                    svg {
-                        margin-bottom: 0.2rem;
-                        margin-left: 0.7rem;
-                        width: 2.6rem;
-                    }
-                }
-            }
-        }
+        // .contact-block {
+        //     padding: 2.8rem 3rem 0;
+        //     .inner {
+        //         .small-title {
+        //             margin-bottom: 1.2rem;
+        //         }
+        //         .right {
+        //             span {
+        //                 font-weight: 300;
+        //                 font-size: 1.2rem;
+        //                 line-height: 1;
+        //                 letter-spacing: -0.03em;
+        //             }
+        //             svg {
+        //                 margin-bottom: 0.2rem;
+        //                 margin-left: 0.7rem;
+        //                 width: 2.6rem;
+        //             }
+        //         }
+        //     }
+        // }
         .project-detail__mockup {
             width: 100%;
             .mockup-box {
@@ -1562,6 +1569,28 @@ textarea::-webkit-scrollbar-thumb {
             font-weight: 400;
             font-size: 1rem;
             letter-spacing: -0.01em;
+        }
+    }
+}
+.contact-block {
+    font-size: 1.6rem;
+    padding: 2.8rem 3rem 0;
+    .inner {
+        .small-title {
+            margin-bottom: 1.2rem;
+        }
+        .right {
+            span {
+                font-weight: 300;
+                font-size: 1.2rem;
+                line-height: 1;
+                letter-spacing: -0.03em;
+            }
+            svg {
+                margin-bottom: 0.2rem;
+                margin-left: 0.7rem;
+                width: 2.6rem;
+            }
         }
     }
 }
@@ -2093,7 +2122,8 @@ textarea::-webkit-scrollbar-thumb {
             // padding-bottom: 43.8%;
             padding-bottom: 41.67%;
             .client-box {
-                width: 100%;
+                // width: 100%;
+                width: auto;
                 margin: 0 auto;
                 left: 15rem;
                 bottom: 7.7rem;
@@ -2197,38 +2227,38 @@ textarea::-webkit-scrollbar-thumb {
                 padding: 0 15rem;
                 margin: 0 auto;
             }
-            .contact-block {
-                // width: $desktop-container-width;
-                width: 100%;
-                padding: $desktop-container-padding;
-                padding-top: 5.6rem;
-                padding-bottom: 5.6rem;
-                margin: 0 auto;
-                // padding: 4.5rem 0 0;
-                .inner {
-                    display: flex;
-                    .left {
-                        flex-basis: 27.3rem;
-                        flex-shrink: 0;
-                        .small-title {
-                            margin-bottom: 0;
-                        }
-                    }
-                    .right {
-                        flex-basis: auto;
-                        span {
-                            font-weight: 700;
-                            font-size: 2rem;
-                            line-height: 1.45;
-                            letter-spacing: -0.03em;
-                        }
-                        svg {
-                            width: 4.1rem;
-                            margin-left: 1.8rem;
-                        }
-                    }
-                }
-            }
+            // .contact-block {
+            //     // width: $desktop-container-width;
+            //     width: 100%;
+            //     padding: $desktop-container-padding;
+            //     padding-top: 5.6rem;
+            //     padding-bottom: 5.6rem;
+            //     margin: 0 auto;
+            //     // padding: 4.5rem 0 0;
+            //     .inner {
+            //         display: flex;
+            //         .left {
+            //             flex-basis: 27.3rem;
+            //             flex-shrink: 0;
+            //             .small-title {
+            //                 margin-bottom: 0;
+            //             }
+            //         }
+            //         .right {
+            //             flex-basis: auto;
+            //             span {
+            //                 font-weight: 700;
+            //                 font-size: 2rem;
+            //                 line-height: 1.45;
+            //                 letter-spacing: -0.03em;
+            //             }
+            //             svg {
+            //                 width: 4.1rem;
+            //                 margin-left: 1.8rem;
+            //             }
+            //         }
+            //     }
+            // }
         }
         .project-detail__bottom-block {
             // opacity: 0;
@@ -2258,6 +2288,39 @@ textarea::-webkit-scrollbar-thumb {
                 font-size: 2.5rem;
                 font-weight: 700;
                 margin-top: 3.6rem;
+            }
+        }
+    }
+
+    .contact-block {
+        // width: $desktop-container-width;
+        width: 100%;
+        padding: $desktop-container-padding;
+        padding-top: 5.6rem;
+        padding-bottom: 5.6rem;
+        margin: 0 auto;
+        // padding: 4.5rem 0 0;
+        .inner {
+            display: flex;
+            .left {
+                flex-basis: 27.3rem;
+                flex-shrink: 0;
+                .small-title {
+                    margin-bottom: 0;
+                }
+            }
+            .right {
+                flex-basis: auto;
+                span {
+                    font-weight: 700;
+                    font-size: 2rem;
+                    line-height: 1.45;
+                    letter-spacing: -0.03em;
+                }
+                svg {
+                    width: 4.1rem;
+                    margin-left: 1.8rem;
+                }
             }
         }
     }
@@ -2454,6 +2517,19 @@ textarea::-webkit-scrollbar-thumb {
                                     }
                                 }
                             }
+                        }
+                    }
+                    .contact-block {
+                        .left {
+                            flex-basis: 27.3rem;
+                        }
+                        .left .small-title {
+                            font-weight: 700;
+                        }
+                        padding: 5.6rem 15rem;
+                        width: 100%;
+                        .small-title {
+                            font-size: 2.8rem;
                         }
                     }
                     .company_profile-block {

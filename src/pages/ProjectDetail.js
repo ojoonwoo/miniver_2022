@@ -151,7 +151,12 @@ function ProjectDetail(props) {
     const goTopHandler = () => {
         // setScrollTop(true);
             // setScrollTop(false);
-            containerRef.current.scrollTo({
+            // containerRef.current.scrollTo({
+            //     top: 0,
+            //     behavior: 'smooth',
+            //     duration: 0.1,
+            // });
+            window.scrollTo({
                 top: 0,
                 behavior: 'smooth',
                 duration: 0.1,
