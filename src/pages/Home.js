@@ -212,13 +212,16 @@ function Home(props) {
         }
         
     }, [currentSection]);
-    function playToggle(directState) {
+    function playToggle() {
         if(showreelStopped) {
             videoRef.current.play();
         } else {
             videoRef.current.pause();
         }
         setShowreelStopped(!showreelStopped);
+    }
+    function muteToggle() {
+        setShowreelMute(!showreelMuted);
     }
 
     let timeout;
@@ -418,6 +421,26 @@ function Home(props) {
         );
     }
 
+    function getRandomValue() {
+        const num = Math.random();
+        return num;
+    }
+    const [showreelMuted, setShowreelMute] = useState(true);
+    const videoEqualizerVariants = {
+        unmute: () => ({
+            scaleY: getRandomValue(),
+            transition: {
+                repeat: Infinity,
+                duration: 0.55,
+                ease: 'linear',
+                type: 'spring',
+            }
+        }),
+        mute: {
+            scaleY: 0.2
+        }
+    };
+
     const typoSlideVariants = {
         flow: (custom) => ({
             x: '-100%',
@@ -572,13 +595,22 @@ function Home(props) {
                         <div className="main-section section-hero">
                             <div className="video-container" onClick={() => playToggle()}>
                                 <div className="video-btns">
-                                    {showreelStopped ?
-                                    <img src="/assets/video_btn_play.svg" className="img-play"></img>
-                                    : 
+                                    {showreelStopped===false ?
                                     <img src="/assets/video_btn_pause.svg" className="img-pause"></img>
+                                    : 
+                                    <img src="/assets/video_btn_play.svg" className="img-play"></img>
                                     }
                                 </div>
-                                <video autoPlay muted={true} loop preload={'auto'} playsInline={true} ref={videoRef}>
+                                <button type="button" className="mute-controls" onClick={(e) => {e.stopPropagation(); muteToggle()}}>
+                                    <div className="equalizer">
+                                        <motion.span variants={videoEqualizerVariants} animate={showreelMuted ? 'mute' : 'unmute'}></motion.span>
+                                        <motion.span variants={videoEqualizerVariants} animate={showreelMuted ? 'mute' : 'unmute'}></motion.span>
+                                        <motion.span variants={videoEqualizerVariants} animate={showreelMuted ? 'mute' : 'unmute'}></motion.span>
+                                        <motion.span variants={videoEqualizerVariants} animate={showreelMuted ? 'mute' : 'unmute'}></motion.span>
+                                    </div>
+                                    <p>{showreelMuted ? 'UNMUTE' : 'MUTE'}</p>
+                                </button>
+                                <video autoPlay muted={showreelMuted} loop preload={'auto'} playsInline={true} ref={videoRef}>
                                     <source src={`/assets/showreel.mp4`} type="video/mp4"></source>
                                 </video>
                             </div>
