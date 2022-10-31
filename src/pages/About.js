@@ -93,10 +93,10 @@ function About(props) {
             },
         });
         tl2.addLabel('start')
-            .set('.ani-box._03 .typo', { scale: window.innerWidth < 1200 ? 20 : 8 })
+            // .set('.ani-box._03 .typo', { scale: window.innerWidth < 1200 ? 20 : 8 })
             .addLabel('typo-scale-down')
-            // .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 1 }, 'typo-scale-down')
-            .to('.ani-box._03 .typo', { scale: 1, duration: 1 }, 'typo-scale-down')
+            .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 4 }, 'typo-scale-down')
+            // .to('.ani-box._03 .typo', { scale: 1, duration: 1 }, 'typo-scale-down')
             .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 0.3 })
             .addLabel('show-typo1')
             .to('.ani-box._03 .typo._02', { autoAlpha: 1, duration: 0.5 }, 'show-typo1')

@@ -530,56 +530,63 @@ textarea::-webkit-scrollbar-thumb {
                         }
                     }
                 }
-                .ani-box._03 {
+                .ani-block._02 {
                     width: 100%;
-                    min-height: 100vh;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    height: 100vh;
                     background-color: $white;
-                    // border: 1px solid blue;
-
-                    overflow: hidden;
-
-                    .typo-element {
-                        display: flex;
+                    .ani-box._03 {
                         width: 100%;
-                        // border: 1px solid red;
-                        .typo-wrap {
-                            position: relative;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: $white;
+                        // border: 1px solid blue;
+    
+                        overflow: hidden;
+    
+                        .typo-element {
+                            display: flex;
                             width: 100%;
-                            // transform: translateY(100% * 0.1);
                             // border: 1px solid red;
-                            .typo {
-                                font-weight: 900;
-                                
-                                // font-size: 26rem;
-                                font-size: 4rem;
-
-                                line-height: 1.22;
-                                text-align: center;
-                                letter-spacing: -0.03em;
-                                color: $black;
-                                opacity: 0;
-                                visibility: hidden;
-                                position: absolute;
-                                left: 50%;
-                                transform: translateX(-50%);
-                                display: inline-block;
-                                span {
+                            .typo-wrap {
+                                position: relative;
+                                width: 100%;
+                                // transform: translateY(100% * 0.1);
+                                // border: 1px solid red;
+                                .typo {
+                                    font-weight: 900;
+                                    
+                                    // font-size: 26rem;
+                                    // font-size: 4rem;
+                                    font-size: 70rem;
+    
+                                    line-height: 1.22;
+                                    text-align: center;
+                                    letter-spacing: -0.03em;
+                                    color: $black;
+                                    opacity: 0;
+                                    visibility: hidden;
+                                    position: absolute;
+                                    left: 50%;
+                                    top: 50%;
+                                    transform: translate(-50%, -50%);
                                     display: inline-block;
-                                }
-                                &:first-child {
-                                    opacity: 1;
-                                    visibility: visible;
-                                    top: 0;
-                                    position: relative;
-                                }
-                                &:nth-child(2) {
-                                    top: 100%;
-                                }
-                                &:nth-child(3) {
-                                    top: 200%;
+                                    span {
+                                        display: inline-block;
+                                    }
+                                    &:first-child {
+                                        opacity: 1;
+                                        visibility: visible;
+                                        // top: 0;
+                                        position: relative;
+                                    }
+                                    &:nth-child(2) {
+                                        top: 150%;
+                                    }
+                                    &:nth-child(3) {
+                                        top: 250%;
+                                    }
                                 }
                             }
                         }
@@ -2271,12 +2278,15 @@ textarea::-webkit-scrollbar-thumb {
                             }
                         }
                     }
-                    .ani-box._03 {
-                        .typo-element {
-                            .typo-wrap {
-                                .typo {
-                                    // font-size: 60rem;
-                                    font-size: 13rem;
+                    .ani-block._02 {
+                        .ani-box._03 {
+                            .typo-element {
+                                .typo-wrap {
+                                    .typo {
+                                        // font-size: 60rem;
+                                        // font-size: 13rem;
+                                        font-size: 100rem;
+                                    }
                                 }
                             }
                         }
