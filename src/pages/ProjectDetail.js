@@ -177,6 +177,30 @@ function ProjectDetail(props) {
             setVideoPause(true);
         }
     }
+    function swiperSize() {
+        let size;
+        if(window.innerWidth >= 1200) {
+            size = (window.innerWidth / 100) * 0.52 * 15;
+        } else if(window.innerWidth < 1200 && window.innerWidth >= 720) {
+            size = (window.innerWidth / 100) * 2 * 3;
+        } else {
+            size = (window.innerWidth / 100) * 2.666666 * 3;
+        }
+        console.log(size);
+        return size;
+    }
+    function swiperSizeBottom() {
+        let size;
+        if(window.innerWidth >= 1200) {
+            size = (window.innerWidth / 100) * 0.52 * 15;
+        } else if(window.innerWidth < 1200 && window.innerWidth >= 720) {
+            size = (window.innerWidth / 100) * 2 * 6.4;
+        } else {
+            size = (window.innerWidth / 100) * 2.666666 * 3;
+        }
+        console.log("bottom", size);
+        return size;
+    }
 
     return (
         <PageTransition variantsName="detail">
@@ -245,18 +269,15 @@ function ProjectDetail(props) {
                                 // slidesOffsetBefore={device==='mobile' ? 30 : (window.innerWidth-1200)/2}
                                 // slidesOffsetBefore={window.innerWidth === 'mobile' ? (window.innerWidth / 100 * 2.666666) * 30 : window.innerWidth / 100 * 7.8125}
                                 slidesOffsetBefore={
-                                    window.innerWidth >= 1200
-                                        ? (window.innerWidth / 100) * 0.52 * 15
-                                        : window.innerWidth >= 720
-                                        ? (window.innerWidth / 100) * 2 * 3
-                                        : (window.innerWidth / 100) * 2.666666 * 3
+                                    // window.innerWidth >= 1200
+                                    //     ? (window.innerWidth / 100) * 0.52 * 15
+                                    //     : window.innerWidth >= 720
+                                    //     ? (window.innerWidth / 100) * 2 * 3
+                                    //     : (window.innerWidth / 100) * 2.666666 * 3
+                                    swiperSize
                                 }
                                 slidesOffsetAfter={
-                                    window.innerWidth >= 1200
-                                        ? (window.innerWidth / 100) * 0.52 * 15
-                                        : window.innerWidth >= 720
-                                        ? (window.innerWidth / 100) * 2 * 3
-                                        : (window.innerWidth / 100) * 2.666666 * 3
+                                    swiperSize
                                 }
                                 scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
                                 freeMode={true}
@@ -331,18 +352,20 @@ function ProjectDetail(props) {
                                 // slidesOffsetBefore={device === 'mobile' ? 64 : 150}
                                 // slidesOffsetAfter={device === 'mobile' ? 64 : 150}
                                 slidesOffsetBefore={
-                                    window.innerWidth >= 1200
-                                        ? (window.innerWidth / 100) * 0.52 * 15
-                                        : window.innerWidth >= 720
-                                        ? (window.innerWidth / 100) * 2 * 6.4
-                                        : (window.innerWidth / 100) * 2.666666 * 6.4
+                                    // window.innerWidth >= 1200
+                                    //     ? (window.innerWidth / 100) * 0.52 * 15
+                                    //     : window.innerWidth >= 720
+                                    //     ? (window.innerWidth / 100) * 2 * 6.4
+                                    //     : (window.innerWidth / 100) * 2.666666 * 6.4
+                                    swiperSizeBottom
                                 }
                                 slidesOffsetAfter={
-                                    window.innerWidth >= 1200
-                                        ? (window.innerWidth / 100) * 0.52 * 15
-                                        : window.innerWidth >= 720
-                                        ? (window.innerWidth / 100) * 2 * 6.4
-                                        : (window.innerWidth / 100) * 2.666666 * 6.4
+                                    // window.innerWidth >= 1200
+                                    //     ? (window.innerWidth / 100) * 0.52 * 15
+                                    //     : window.innerWidth >= 720
+                                    //     ? (window.innerWidth / 100) * 2 * 6.4
+                                    //     : (window.innerWidth / 100) * 2.666666 * 6.4
+                                    swiperSizeBottom
                                 }
                                 // freeMode={true}
                                 updateOnWindowResize={true}
