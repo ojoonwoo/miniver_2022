@@ -69,6 +69,7 @@ function Home(props) {
 
     const mainWorkData = [
         {
+            idx: 1,
             id: 1,
             title: "Y22 Weight Campaign",
             client: "royal canin",
@@ -76,13 +77,15 @@ function Home(props) {
             backgroundColor: '#AF2833'
         },
         {
-            id: 2,
+            idx: 2,
+            id: 6,
             title: "Humidifying Helmet",
             client: "bioderma",
             type: 'Viral Video',
             backgroundColor: '#2B43B2'
         },
         {
+            idx: 3,
             id: 3,
             title: "Milka SNS",
             client: "MILKA",
@@ -90,14 +93,16 @@ function Home(props) {
             backgroundColor: '#7B5BCD'
         },
         {
-            id: 4,
+            idx: 4,
+            id: 5,
             title: "Namyang 55th Anniversary Retro Campaign",
             client: "NAMYANG",
             type: 'website',
             backgroundColor: '#9C1423'
         },
         {
-            id: 5,
+            idx: 5,
+            id: 4,
             title: "Cold Brew Launching",
             client: "NESCAFE DOLCEGUSTO",
             type: 'Viral Video',
@@ -207,6 +212,17 @@ function Home(props) {
         }
         
     }, [currentSection]);
+    function playToggle() {
+        setShowreelStopped(!showreelStopped);
+        if(showreelStopped) {
+            videoRef.current.play();
+        } else {
+            videoRef.current.pause();
+        }
+    }
+    function muteToggle() {
+        setShowreelMute(!showreelMuted);
+    }
 
     let timeout;
     useLayoutEffect(() => {
@@ -318,12 +334,12 @@ function Home(props) {
         return (
             <div className="work-slide" style={{'width': workImageHeight, 'height': workImageHeight}}>
             {/* <div className="work-slide"> */}
-                <figure>
+                <figure onClick={() => pageMove(`/project/${work.id}`)}>
                     <div>
-                        <img src={`assets/main_work_0${work.id}.jpg`} ></img>
+                        <img src={`/assets/main_work_0${work.idx}.jpg`} ></img>
                     </div>
-                    <motion.figcaption initial={{y: 20, opacity: 0 }} animate={work.id===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}}>{work.title}</motion.figcaption>
-                    <motion.span initial={{y: 20, opacity: 0 }} animate={work.id===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}}className="work-indicator">{currentWork+'/'+mainWorkData.length}</motion.span>
+                    <motion.figcaption initial={{y: 20, opacity: 0 }} animate={work.idx===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}}>{work.title}</motion.figcaption>
+                    <motion.span initial={{y: 20, opacity: 0 }} animate={work.idx===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}}className="work-indicator">{currentWork+'/'+mainWorkData.length}</motion.span>
                 </figure>
             </div>
         );
@@ -338,11 +354,11 @@ function Home(props) {
         return (
             <>
             <AnimatePresence>
-            {work.id===currentWork &&
-                <motion.div className="typo-element" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} key={work.id}>
+            {work.idx===currentWork &&
+                <motion.div className="typo-element" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} key={work.idx}>
                     <div className="typo-wrap">
                         <motion.div className="typo-line typo-line-01 flow-rtl" initial={{opacity: 0, y: '-50%'}} animate={typoShowAnimate}>
-                            <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '-100%'} : false} transition={
+                            <motion.div className="typo-slide" animate={work.idx===currentWork ? {x: '-100%'} : false} transition={
                                 {
                                     delay: 1.2,
                                     duration: 30,
@@ -354,7 +370,7 @@ function Home(props) {
                                 <span>{work.client}</span>
                                 <span>{work.client}</span>
                             </motion.div>
-                            <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '-100%'} : false} transition={
+                            <motion.div className="typo-slide" animate={work.idx===currentWork ? {x: '-100%'} : false} transition={
                                 {
                                     delay: 1.2,
                                     duration: 30,
@@ -370,7 +386,7 @@ function Home(props) {
                     </div>
                     <div className="typo-wrap">
                         <motion.div className="typo-line typo-line-02 flow-ltr" initial={{opacity: 0, y: '50%'}} animate={typoShowAnimate}>
-                            <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '100%'} : false} transition={
+                            <motion.div className="typo-slide" animate={work.idx===currentWork ? {x: '100%'} : false} transition={
                                 {
                                     delay: 1.2,
                                     duration: 30,
@@ -383,7 +399,7 @@ function Home(props) {
                                 <span>{work.type}</span>
                                 <span>{work.type}</span>
                             </motion.div>
-                            <motion.div className="typo-slide" animate={work.id===currentWork ? {x: '100%'} : false} transition={
+                            <motion.div className="typo-slide" animate={work.idx===currentWork ? {x: '100%'} : false} transition={
                                 {
                                     delay: 1.2,
                                     duration: 30,
@@ -404,6 +420,26 @@ function Home(props) {
             </>
         );
     }
+
+    function getRandomValue() {
+        const num = Math.random();
+        return num;
+    }
+    const [showreelMuted, setShowreelMute] = useState(true);
+    const videoEqualizerVariants = {
+        unmute: () => ({
+            scaleY: getRandomValue(),
+            transition: {
+                repeat: Infinity,
+                duration: 0.55,
+                ease: 'linear',
+                type: 'spring',
+            }
+        }),
+        mute: {
+            scaleY: 0.2
+        }
+    };
 
     const typoSlideVariants = {
         flow: (custom) => ({
@@ -537,7 +573,7 @@ function Home(props) {
         return (
             <button type="button" className={`about-balloon ${balloon.radius ? 'is-radius' : ''} ${balloon.className}`} style={{backgroundColor: balloon.bgColor, left: balloon.position[device].left, right: balloon.position[device].right, top: balloon.position[device].top, transform: `rotate(${balloon.rotate}deg)`}} onClick={() => balloon.className==="arrow" ? pageMove("/about") : null}>
                 {balloon.className==="arrow" ?
-                <img src="assets/arrow.svg"></img>
+                <img src="/assets/arrow.svg"></img>
                 :
                 <span>
                     {balloon.item}
@@ -557,9 +593,21 @@ function Home(props) {
                 <div className="contents" ref={contentsRef}>
                     <motion.div className="section-container" animate={sectionAnimate} ref={containerRef}>
                         <div className="main-section section-hero">
-                            <div className="video-container">
-                                <video autoPlay muted={true} loop preload={'auto'} playsInline={true} ref={videoRef}>
-                                    <source src={`assets/showreel.mp4`} type="video/mp4"></source>
+                            <div className="video-container" onClick={() => playToggle()}>
+                                <div className="video-btns">
+                                    <img src={`/assets/video_btn_${showreelStopped===true ? 'play' : 'pause'}.svg`}></img>
+                                </div>
+                                <button type="button" className="mute-controls" onClick={(e) => {e.stopPropagation(); muteToggle()}}>
+                                    <div className="equalizer">
+                                        <motion.span variants={videoEqualizerVariants} animate={showreelMuted ? 'mute' : 'unmute'}></motion.span>
+                                        <motion.span variants={videoEqualizerVariants} animate={showreelMuted ? 'mute' : 'unmute'}></motion.span>
+                                        <motion.span variants={videoEqualizerVariants} animate={showreelMuted ? 'mute' : 'unmute'}></motion.span>
+                                        <motion.span variants={videoEqualizerVariants} animate={showreelMuted ? 'mute' : 'unmute'}></motion.span>
+                                    </div>
+                                    <p>{showreelMuted ? 'UNMUTE' : 'MUTE'}</p>
+                                </button>
+                                <video autoPlay muted={showreelMuted} loop preload={'auto'} playsInline={true} ref={videoRef}>
+                                    <source src={`/assets/showreel.mp4`} type="video/mp4"></source>
                                 </video>
                             </div>
                         </div>
@@ -567,14 +615,14 @@ function Home(props) {
                             <motion.div className="work-scroll-container" animate={bgAnimate}>
                                 <div className="work-info-typo">
                                     {mainWorkData.map((work) => (
-                                        <WorkTypo key={work.id} work={work} />
+                                        <WorkTypo key={work.idx} work={work} />
                                     ))}
                                 </div>
                                 <div className="work-slide-wrapper">
                                     <div className="wrapper-inner">
                                         <motion.div className="slide-contents" animate={workAnimate} ref={slideContentsRef}>
                                             {mainWorkData.map((work) => (
-                                                <WorkSection key={work.id} work={work} />
+                                                <WorkSection key={work.idx} work={work} />
                                             ))}
                                         </motion.div>
                                     </div>

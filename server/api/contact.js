@@ -41,7 +41,8 @@ router.post('/insert', function (req, res) {
 
                 // * 자사 문의내용 알림 메일 발송용 메일 코드
                 // const toEmail = 'hs.ra@minivertising.kr, jw.o@minivertising.kr';
-                const toEmail = 'hs.ra@minivertising.kr';
+                // const toEmail = 'hs.ra@minivertising.kr';
+                const toEmail = 'contact@miniv.kr';
 
                 let emailParam = {
                     toEmail: toEmail,

@@ -8,7 +8,6 @@ import PageTransition from '../components/PageTransition';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import WorkBox from '../components/WorkBox';
-import * as common from './../CommonFunction';
 import useResizeObserver from '@react-hook/resize-observer';
 import { heroBoxChangeColor } from './../store.js';
 
@@ -152,7 +151,12 @@ function ProjectDetail(props) {
     const goTopHandler = () => {
         // setScrollTop(true);
             // setScrollTop(false);
-            containerRef.current.scrollTo({
+            // containerRef.current.scrollTo({
+            //     top: 0,
+            //     behavior: 'smooth',
+            //     duration: 0.1,
+            // });
+            window.scrollTo({
                 top: 0,
                 behavior: 'smooth',
                 duration: 0.1,
@@ -162,9 +166,40 @@ function ProjectDetail(props) {
     // TODO: videoRef 각 비디오마다 동적으로 들어가도록
     const videoRef = useRef(null);
     // TODO: handlePlay 각 비디오 ref를 props로 받아서 함수 재활용
+    const [videoPaused, setVideoPause] = useState(true);
+
     function handlePlay() {
-        videoRef.current.play();
-        console.log('hi');
+        if(videoPaused) {
+            videoRef.current.play();
+            setVideoPause(false);
+        } else {
+            videoRef.current.pause();
+            setVideoPause(true);
+        }
+    }
+    function swiperSize() {
+        let size;
+        if(window.innerWidth >= 1200) {
+            size = (window.innerWidth / 100) * 0.52 * 15;
+        } else if(window.innerWidth < 1200 && window.innerWidth >= 720) {
+            size = (window.innerWidth / 100) * 2 * 3;
+        } else {
+            size = (window.innerWidth / 100) * 2.666666 * 3;
+        }
+        console.log(size);
+        return size;
+    }
+    function swiperSizeBottom() {
+        let size;
+        if(window.innerWidth >= 1200) {
+            size = (window.innerWidth / 100) * 0.52 * 15;
+        } else if(window.innerWidth < 1200 && window.innerWidth >= 720) {
+            size = (window.innerWidth / 100) * 2 * 6.4;
+        } else {
+            size = (window.innerWidth / 100) * 2.666666 * 3;
+        }
+        console.log("bottom", size);
+        return size;
     }
 
     return (
@@ -234,18 +269,15 @@ function ProjectDetail(props) {
                                 // slidesOffsetBefore={device==='mobile' ? 30 : (window.innerWidth-1200)/2}
                                 // slidesOffsetBefore={window.innerWidth === 'mobile' ? (window.innerWidth / 100 * 2.666666) * 30 : window.innerWidth / 100 * 7.8125}
                                 slidesOffsetBefore={
-                                    window.innerWidth >= 1200
-                                        ? (window.innerWidth / 100) * 0.52 * 15
-                                        : window.innerWidth >= 720
-                                        ? (window.innerWidth / 100) * 2 * 3
-                                        : (window.innerWidth / 100) * 2.666666 * 3
+                                    // window.innerWidth >= 1200
+                                    //     ? (window.innerWidth / 100) * 0.52 * 15
+                                    //     : window.innerWidth >= 720
+                                    //     ? (window.innerWidth / 100) * 2 * 3
+                                    //     : (window.innerWidth / 100) * 2.666666 * 3
+                                    swiperSize
                                 }
                                 slidesOffsetAfter={
-                                    window.innerWidth >= 1200
-                                        ? (window.innerWidth / 100) * 0.52 * 15
-                                        : window.innerWidth >= 720
-                                        ? (window.innerWidth / 100) * 2 * 3
-                                        : (window.innerWidth / 100) * 2.666666 * 3
+                                    swiperSize
                                 }
                                 scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
                                 freeMode={true}
@@ -264,7 +296,7 @@ function ProjectDetail(props) {
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
                                         <SwiperSlide key={index}>
                                             {/* <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`}></ImageVideo> */}
-                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={videoRef} handlePlay={handlePlay}></ImageVideo>
+                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={videoRef} videoPaused={videoPaused} handlePlay={handlePlay}></ImageVideo>
                                         </SwiperSlide>
                                     ))}
                                 <div className="slideshow-scrollbar"></div>
@@ -289,7 +321,7 @@ function ProjectDetail(props) {
                             <div className="mockup-box">
                                 {/* {projectData.detail_sources2 && <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo>} */}
                                 {projectData.detail_sources2 && (
-                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={videoRef} handlePlay={handlePlay}></ImageVideo>
+                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={videoRef} videoPaused={videoPaused} handlePlay={handlePlay}></ImageVideo>
                                 )}
                             </div>
                         </div>
@@ -320,18 +352,20 @@ function ProjectDetail(props) {
                                 // slidesOffsetBefore={device === 'mobile' ? 64 : 150}
                                 // slidesOffsetAfter={device === 'mobile' ? 64 : 150}
                                 slidesOffsetBefore={
-                                    window.innerWidth >= 1200
-                                        ? (window.innerWidth / 100) * 0.52 * 15
-                                        : window.innerWidth >= 720
-                                        ? (window.innerWidth / 100) * 2 * 6.4
-                                        : (window.innerWidth / 100) * 2.666666 * 6.4
+                                    // window.innerWidth >= 1200
+                                    //     ? (window.innerWidth / 100) * 0.52 * 15
+                                    //     : window.innerWidth >= 720
+                                    //     ? (window.innerWidth / 100) * 2 * 6.4
+                                    //     : (window.innerWidth / 100) * 2.666666 * 6.4
+                                    swiperSizeBottom
                                 }
                                 slidesOffsetAfter={
-                                    window.innerWidth >= 1200
-                                        ? (window.innerWidth / 100) * 0.52 * 15
-                                        : window.innerWidth >= 720
-                                        ? (window.innerWidth / 100) * 2 * 6.4
-                                        : (window.innerWidth / 100) * 2.666666 * 6.4
+                                    // window.innerWidth >= 1200
+                                    //     ? (window.innerWidth / 100) * 0.52 * 15
+                                    //     : window.innerWidth >= 720
+                                    //     ? (window.innerWidth / 100) * 2 * 6.4
+                                    //     : (window.innerWidth / 100) * 2.666666 * 6.4
+                                    swiperSizeBottom
                                 }
                                 // freeMode={true}
                                 updateOnWindowResize={true}
@@ -384,12 +418,17 @@ function ImageVideo(props) {
                     </video>
                     <div className="play_trigger" onClick={props.handlePlay}>
                         <span className="play_icon">
-                            <svg viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            {props.videoPaused===true ?
+                            <img src="/assets/video_btn_play.svg"></img>
+                            :
+                            <img src="/assets/video_btn_pause.svg"></img>
+                            }
+                            {/* <svg viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M20.8751 10.254C22.2411 11.0173 22.2411 12.9827 20.8751 13.746L3.72551 23.3279C2.39238 24.0727 0.750001 23.109 0.750001 21.5819L0.750002 2.41807C0.750002 0.890963 2.39238 -0.0727432 3.72552 0.672115L20.8751 10.254Z"
                                     fill="#F0F0F0"
                                 />
-                            </svg>
+                            </svg> */}
                         </span>
                     </div>
                 </>

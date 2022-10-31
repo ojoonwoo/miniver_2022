@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { changeColor } from './../store.js';
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -1484,7 +1485,7 @@ function About(props) {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="company_profile-block">
+                            {/* <div className="company_profile-block">
                                 <div className="text-block">
                                     <p className="title">
                                         지금,
@@ -1502,6 +1503,21 @@ function About(props) {
                                 <button type="button" className="btn-company_profile">
                                     소개서 받기
                                 </button>
+                            </div> */}
+                            <div className="contact-block">
+                                <div className="inner">
+                                    <div className="left">
+                                        <p className="small-title">Contact</p>
+                                    </div>
+                                    <div className="right">
+                                        <Link to="/contact">
+                                            <span>프로젝트 문의하기</span>
+                                            <svg viewBox="0 0 29 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1 5.97348H27.375L22.4989 1" stroke="#404040" strokeLinecap="round" />
+                                            </svg>
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
                             <div className="portfolio-block">
                                 <p className="small-title">
