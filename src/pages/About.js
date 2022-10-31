@@ -97,10 +97,10 @@ function About(props) {
             .addLabel('typo-scale-down')
             .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 4 }, 'typo-scale-down')
             // .to('.ani-box._03 .typo', { scale: 1, duration: 1 }, 'typo-scale-down')
-            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 0.3 })
+            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 1.2 })
             .addLabel('show-typo1')
             .to('.ani-box._03 .typo._02', { autoAlpha: 1, duration: 0.5 }, 'show-typo1')
-            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -100, duration: 0.3 })
+            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -100, duration: 1.2 })
             .addLabel('show-typo2')
             .to('.ani-box._03 .typo._03', { autoAlpha: 1, duration: 0.5 }, 'show-typo2');
         // .set('#scroll-animation_container', { backgroundColor: '#000000' });
