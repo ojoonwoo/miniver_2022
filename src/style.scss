@@ -27,7 +27,6 @@ body {
     height: 100%;
     // ! dev
     // -ms-overflow-style: none;
-    // overflow: hidden;
     // -ms-scroll-chaining: none;
     // overscroll-behavior: none;
     // !
@@ -43,6 +42,9 @@ body {
     letter-spacing: -0.01em;
     color: $black;
 }
+body.scroll-blocking {
+    overflow: hidden;
+}
 
 figure {
     margin: 0;
@@ -51,12 +53,11 @@ figure {
 // [data-scroll-container] {
 .page-container {
     height: 100%;
-    // overflow: hidden auto;
-    // -ms-scroll-chaining: none;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    // overflow: hidden auto;
     &.menu-open,
     &.scroll-disabled {
         overscroll-behavior: none;
@@ -452,6 +453,7 @@ textarea::-webkit-scrollbar-thumb {
 
 #container.About {
     overflow: inherit;
+    // overflow: hidden auto;
     > .inner {
         width: 100%;
         // height: 100%;
