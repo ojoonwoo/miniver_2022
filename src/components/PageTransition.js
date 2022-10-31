@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTransitionState } from './../store';
 import Header from './Header';
-import * as common from './../CommonFunction';
 
 function PageTransition(props) {
     const pageAnimate = useAnimation();
@@ -24,13 +23,13 @@ function PageTransition(props) {
         // * 사이트 랜딩시 애니메이션
         if (transitionState === 'site_landing') {
             await loaderAnimate.start({ opacity: 1, transition: { duration: 0.6 } });
-            await pageAnimate.start({ opacity: 1, transition: { duration: 0.3 } });
-            return await loaderAnimate.start({ opacity: 0, transition: { duration: 1 } });
+            await pageAnimate.start({ opacity: 1, transition: { duration: 0.3, onComplete: function() {window.scrollTo(0, 0)} } });
+            return await loaderAnimate.start({ opacity: 0, transition: { duration: 1, } });
             // * 페이지 전환시 애니메이션
         } else if (transitionState === 'page_transition') {
             await loaderAnimate.start({ opacity: 1, transition: { duration: 0.6 } });
-            await pageAnimate.start({ opacity: 1, transition: { duration: 0.3 } });
-            return await loaderAnimate.start({ opacity: 0, transition: { duration: 1 } });
+            await pageAnimate.start({ opacity: 1, transition: { duration: 0.3, onComplete: function() {window.scrollTo(0, 0)} } });
+            return await loaderAnimate.start({ opacity: 0, transition: { duration: 1, } });
         } else {
             console.log('애니메이트 시퀀스 none');
         }

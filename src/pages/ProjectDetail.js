@@ -8,7 +8,6 @@ import PageTransition from '../components/PageTransition';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import WorkBox from '../components/WorkBox';
-import * as common from './../CommonFunction';
 import useResizeObserver from '@react-hook/resize-observer';
 import { heroBoxChangeColor } from './../store.js';
 
