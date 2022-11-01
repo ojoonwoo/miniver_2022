@@ -54,6 +54,18 @@ function About(props) {
             setWorkList(workList.data.list);
         }
         getProjectData();
+
+        let posterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.poster-section',
+                start: 'top-=500 top',
+                end: 'bottom top',
+                markers: true,
+            },
+        });
+        posterTl.addLabel('start')
+        .to('.poster-section', {backgroundPosition: '40% center',  duration: 8, ease: 'linear'}, 'start')
+
         let tl = gsap.timeline({
             // yes, we can add it to an entire timeline!
             scrollTrigger: {
@@ -64,7 +76,7 @@ function About(props) {
                 // end: '+=500', // end after scrolling 500px beyond the start
                 // start: 'center center',
                 // end: 'bottom top',
-                end: 'bottom+=1500 top',
+                end: 'bottom+=3000 top',
                 // markers: true,
                 scrub: true,
                 // scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
@@ -76,8 +88,8 @@ function About(props) {
                 // },
             },
         });
-        tl.addLabel('start')
-            .to('.ani-box._01 .title', { autoAlpha: 0, duration: 0.3, delay: 0.3 }, 'start')
+        tl.addLabel('start', '+=0.3')
+            .to('.ani-box._01 .title', { autoAlpha: 0, duration: 1, }, 'start')
             // .set('#scroll-animation_container', { backgroundColor: '#ffffff' })
             .addLabel('scale-down')
             .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 1 }, 'scale-down')
@@ -86,12 +98,12 @@ function About(props) {
             // .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 1 }, 'scale-up')
             .addLabel('bg-in', '+=0.8')
             .to('.ani-box._01 .desc-block .desc', { autoAlpha: 0, duration: 0.3 }, 'bg-in')
-            .to('.ani-box._01', { height: 100+'%', duration: 0.4 })
-            .to('.ani-box._01', { width: 100+'%', duration: 0.4 })
+            .to('.ani-box._01', { height: 100+'%', duration: 0.8 })
+            .to('.ani-box._01', { width: 100+'%', duration: 0.8 })
             .set('.ani-box._03', { autoAlpha: 1 })
             .addLabel('typo-scale-down')
             .to('.ani-box._01', { autoAlpha: 0, duration: 1 }, 'typo-scale-down')
-            .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 4 }, 'typo-scale-down')
+            .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 3 }, 'typo-scale-down')
             .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 0.5 })
             .addLabel('show-typo1')
             .to('.ani-box._03 .typo._02', { autoAlpha: 1, duration: 0.5 }, 'show-typo1')
@@ -141,7 +153,7 @@ function About(props) {
             scrollTrigger: {
                 trigger: '#scroll-animation_container .ani-block._03',
                 start: 'top top',
-                end: 'bottom+=500 top',
+                end: 'bottom+=1000 top',
                 // markers: true,
                 pin: true,
                 scrub: true,
@@ -154,7 +166,7 @@ function About(props) {
                 trigger: '#scroll-animation_container .ani-block._04',
                 pin: true,
                 start: 'top top',
-                end: 'bottom+=1000 top',
+                end: 'bottom+=1500 top',
                 // markers: true,
                 scrub: true,
             },
@@ -439,6 +451,9 @@ function About(props) {
                                 </strong>
                             </p>
                         </div>
+                    </div>
+                    <div className='poster-section'>
+
                     </div>
                     <div id="scroll-animation_container">
                         <div className="inner">
