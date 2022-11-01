@@ -60,7 +60,7 @@ function About(props) {
                 trigger: '.poster-section',
                 start: 'top-=500 top',
                 end: 'bottom top',
-                markers: true,
+                // markers: true,
             },
         });
         posterTl.addLabel('start')
@@ -1555,9 +1555,9 @@ function About(props) {
                     </div>
                     <div className="portfolio-block">
                         <p className="small-title">
-                            미니버타이징의
+                            MINIVERTISING
                             <br />
-                            포트폴리오 확인하기
+                            PROJECT
                         </p>
                         <div className="box-container">
                             <Swiper
