@@ -269,6 +269,7 @@ function ProjectDetail(props) {
                         }
                     </div>
                     } */}
+                    {projectData.detail_sources1_arr &&
                     <motion.div animate={otherAnimation} className="project-detail__middle-block">
                         <div className="project-detail__details">
                             <Swiper
@@ -289,7 +290,7 @@ function ProjectDetail(props) {
                                 slidesOffsetAfter={
                                     swiperSize
                                 }
-                                scrollbar={{ el: '.slideshow-scrollbar', dragSize: 100, draggable: false }}
+                                scrollbar={{ el: '.slideshow-scrollbar', dragSize: device==='mobile' ? 24 : 100, draggable: false }}
                                 freeMode={false}
                                 updateOnWindowResize={true}
                                 onSwiper={(swiper) => console.log(swiper)}
@@ -302,7 +303,7 @@ function ProjectDetail(props) {
                                     // }
                                 }}
                             >
-                                {projectData.detail_sources1_arr &&
+                                    {
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
                                         <SwiperSlide key={index}>
                                             <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={ (el) => (videoRef.current['details1'][index] = el)} videoPaused={videoPaused} handlePlay={() => handlePlay('details1', index)}></ImageVideo>
@@ -348,6 +349,7 @@ function ProjectDetail(props) {
                             </div>
                         </div>
                     </motion.div>
+                    }
                     <motion.div animate={otherAnimation} className="project-detail__bottom-block">
                         <p className="small-title">Related Work</p>
                         <div className="box-container">
