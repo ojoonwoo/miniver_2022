@@ -5,9 +5,8 @@ const mailSender = {
   // 메일발송 함수
   sendGmail: function (param) {
     var transporter = nodemailer.createTransport({
-      service: 'gmail',
       port: 587,
-      host: 'smtp.gmail.com',
+      host: 'smtp.worksmobile.com',  
       secure: false,  
       requireTLS: true,
       auth: {
