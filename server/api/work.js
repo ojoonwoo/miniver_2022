@@ -67,7 +67,7 @@ router.get('/getlist', function(req, res) {
         where += ` and idx <> '${excludeIdx}'`;
     }
 
-    where += `order by work_order asc, work_register_date desc`;
+    where += ` order by work_order asc, work_register_date desc`;
 
     if(count) {
         where += ` limit ${count}`;
