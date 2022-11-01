@@ -453,7 +453,6 @@ function About(props) {
                         </div>
                     </div>
                     <div className='poster-section'>
-
                     </div>
                     <div id="scroll-animation_container">
                         <div className="inner">
@@ -469,7 +468,7 @@ function About(props) {
                                             잘빠진 디자인, 세련된 영상, 전환율까지 고려한 사이트 제작 필요 맞춤 형태의 광고제작도 잘 한다지만 남다르게 소비될 아이디어를 요청해보세요.
                                         </p>
                                         <p className="desc">
-                                            깊이 있게 관찰하여 제안합니다. 새로운 전략으로 브랜드가 사랑 받을아이디어를 기어코 가지고 옵니다. 당신의 브랜드가 잘 되는 것이 우리의 일입니다.
+                                            깊이 있게 관찰하여 제안합니다. 새로운 전략으로 브랜드가 사랑 받을 아이디어를 기어코 가지고 옵니다. 당신의 브랜드가 잘 되는 것이 우리의 일입니다.
                                         </p>
                                     </div>
                                 </div>
