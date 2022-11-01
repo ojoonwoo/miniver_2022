@@ -185,7 +185,7 @@ function ProjectDetail(props) {
             videoRef.current[area][index].play();
             setPlayVideo(videoRef.current[area][index]);
         }
-        // setVideoPause(false);
+        setVideoPause(!videoPaused);
 
         // if(videoPaused) {
         //     Object.keys(videoRef.current).forEach(function(key) {
@@ -319,7 +319,7 @@ function ProjectDetail(props) {
                                     {
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
                                         <SwiperSlide key={index}>
-                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={ (el) => (videoRef.current['details1'][index] = el)} playingVideo={playingVideo} handlePlay={() => handlePlay('details1', index)}></ImageVideo>
+                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={ (el) => (videoRef.current['details1'][index] = el)} videoPaused={videoPaused} handlePlay={() => handlePlay('details1', index)}></ImageVideo>
                                         </SwiperSlide>
                                     ))}
                                 <div className="slideshow-scrollbar"></div>
@@ -342,7 +342,7 @@ function ProjectDetail(props) {
                         <div className="project-detail__mockup">
                             <div className="mockup-box">
                                 {projectData.detail_sources2 && (
-                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={ (el) => (videoRef.current['details2'][0] = el)} playingVideo={playingVideo} handlePlay={() => handlePlay('details2', 0)}></ImageVideo>
+                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={ (el) => (videoRef.current['details2'][0] = el)} videoPaused={videoPaused} handlePlay={() => handlePlay('details2', 0)}></ImageVideo>
                                 )}
                             </div>
                         </div>
@@ -432,7 +432,7 @@ function ImageVideo(props) {
             item = (
                 // <video>
                 <video ref={props.videoRef} autoPlay muted loop playsInline={true}>
-                    <source src={props.src} type="video/mp4"></source>
+                    <source src={`${props.src}#t=0.4`} type="video/mp4"></source>
                 </video>
             );
         } else {
@@ -440,7 +440,7 @@ function ImageVideo(props) {
                 // <video>
                 <>
                     <video ref={props.videoRef} playsInline={true}>
-                        <source src={props.src} type="video/mp4"></source>
+                        <source src={`${props.src}#t=0.4`} type="video/mp4"></source>
                     </video>
                     {/* <div className="play_trigger" onClick={props.handlePlay}> */}
                     <div className="play_trigger" onClick={() => localFired()}>
