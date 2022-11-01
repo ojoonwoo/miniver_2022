@@ -192,14 +192,14 @@ textarea::-webkit-scrollbar-thumb {
             padding: 3rem;
             align-items: flex-end;
             .equalizer {
-                margin-right: 0.65rem;
-                padding-bottom: 0.3rem;
+                margin-right: 0.45rem;
+                padding-bottom: 0.2rem;
                 display: flex;
                 align-items: flex-end;
                 span {
-                    width: 2px;
-                    height: 10px;
-                    margin-right: 2px;
+                    width: 0.2rem;
+                    height: 0.7rem;
+                    margin-right: 0.14rem;
                     background-color: #ffffff;
                     transform-origin: 50% 100%;
                     &:last-child {
@@ -208,7 +208,7 @@ textarea::-webkit-scrollbar-thumb {
                 }
             }
             p {
-                font-size: 1.2rem;
+                font-size: 1rem;
                 font-weight: 500;
                 color: #ffffff;
             }
@@ -1500,7 +1500,7 @@ textarea::-webkit-scrollbar-thumb {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.3);
+        // background-color: rgba(0, 0, 0, 0.3);
         .play_icon {
             opacity: 0;
             display: block;
@@ -1508,10 +1508,12 @@ textarea::-webkit-scrollbar-thumb {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 2.1rem;
-            height: 2.4rem;
+            width: 3.6rem;
+            // height: 2.4rem;
             transition: ease-in-out 0.2s;
             img {
+                width: 100%;
+                height: 100%;
                 max-width: 100%;
                 min-width: 100% !important;
             }
@@ -2223,7 +2225,7 @@ textarea::-webkit-scrollbar-thumb {
     #container.ProjectDetail {
         .play_trigger {
             .play_icon {
-                width: 4.7rem;
+                width: 6rem;
                 // height: 8.7rem;
                 height: auto;
             }
@@ -2338,7 +2340,7 @@ textarea::-webkit-scrollbar-thumb {
                     flex-shrink: 0;
                 }
                 .right {
-                    flex-basis: auto;
+                    flex-basis: 100%;
                     dl {
                         // column-count: 2;
                         // column-gap: 2rem;

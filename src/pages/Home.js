@@ -605,9 +605,9 @@ function Home(props) {
                     <motion.div className="section-container" animate={sectionAnimate} ref={containerRef}>
                         <div className="main-section section-hero">
                             <div className="video-container" onClick={() => playToggle()}>
-                                <div className="video-btns">
+                                {/* <div className="video-btns">
                                     <img src={`/assets/video_btn_${showreelStopped===true ? 'play' : 'pause'}.svg`}></img>
-                                </div>
+                                </div> */}
                                 <button type="button" className="mute-controls" onClick={(e) => {e.stopPropagation(); muteToggle()}}>
                                     <div className="equalizer">
                                         <motion.span variants={videoEqualizerVariants} animate={showreelMuted ? 'mute' : 'unmute'}></motion.span>

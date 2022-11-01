@@ -164,16 +164,26 @@ function ProjectDetail(props) {
     };
 
     // TODO: videoRef 각 비디오마다 동적으로 들어가도록
-    const videoRef = useRef(null);
+    const videoRef = useRef({
+        "details1": [],
+        "details2": []
+    });
     // TODO: handlePlay 각 비디오 ref를 props로 받아서 함수 재활용
     const [videoPaused, setVideoPause] = useState(true);
 
-    function handlePlay() {
+    function handlePlay(area, index) {
         if(videoPaused) {
-            videoRef.current.play();
+            Object.keys(videoRef.current).forEach(function(key) {
+                videoRef.current[key].forEach(function(element, idx) {
+                    element.pause();
+                });
+            });
+            videoRef.current[area][index].play();
             setVideoPause(false);
         } else {
-            videoRef.current.pause();
+            // console.log(videoRef.current);
+            // videoRef.current.pause();
+            videoRef.current[area][index].pause();
             setVideoPause(true);
         }
     }
@@ -279,8 +289,8 @@ function ProjectDetail(props) {
                                 slidesOffsetAfter={
                                     swiperSize
                                 }
-                                scrollbar={{ el: '.slideshow-scrollbar', draggable: false }}
-                                freeMode={true}
+                                scrollbar={{ el: '.slideshow-scrollbar', dragSize: 100, draggable: false }}
+                                freeMode={false}
                                 updateOnWindowResize={true}
                                 onSwiper={(swiper) => console.log(swiper)}
                                 onSlideChange={() => console.log('slide change')}
@@ -295,8 +305,7 @@ function ProjectDetail(props) {
                                 {projectData.detail_sources1_arr &&
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
                                         <SwiperSlide key={index}>
-                                            {/* <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`}></ImageVideo> */}
-                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={videoRef} videoPaused={videoPaused} handlePlay={handlePlay}></ImageVideo>
+                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={ (el) => (videoRef.current['details1'][index] = el)} videoPaused={videoPaused} handlePlay={() => handlePlay('details1', index)}></ImageVideo>
                                         </SwiperSlide>
                                     ))}
                                 <div className="slideshow-scrollbar"></div>
@@ -312,16 +321,14 @@ function ProjectDetail(props) {
                                 <div className="right">
                                     <dl>
                                         {projectData.overview_arr && projectData.overview_arr.map((paragraph, index) => <dd key={index}>{paragraph}</dd>)}
-                                        {/* <dd>{projectData.work_overview}</dd> */}
                                     </dl>
                                 </div>
                             </div>
                         </div>
                         <div className="project-detail__mockup">
                             <div className="mockup-box">
-                                {/* {projectData.detail_sources2 && <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`}></ImageVideo>} */}
                                 {projectData.detail_sources2 && (
-                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={videoRef} videoPaused={videoPaused} handlePlay={handlePlay}></ImageVideo>
+                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={ (el) => (videoRef.current['details2'][0] = el)} videoPaused={videoPaused} handlePlay={() => handlePlay('details2', 0)}></ImageVideo>
                                 )}
                             </div>
                         </div>
@@ -346,7 +353,7 @@ function ProjectDetail(props) {
                         <div className="box-container">
                             <Swiper
                                 // install Swiper modules
-                                modules={[Scrollbar, A11y]}
+                                modules={[A11y]}
                                 spaceBetween={device === 'mobile' ? 10 : 20}
                                 slidesPerView={'auto'}
                                 // slidesOffsetBefore={device === 'mobile' ? 64 : 150}
