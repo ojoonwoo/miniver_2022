@@ -485,7 +485,7 @@ textarea::-webkit-scrollbar-thumb {
             height: 100vh;
             background-image: url(./assets/img_poster_mobile.jpg);
             // background-position: center;
-            background-position: 60% center;
+            background-position: 50% center;
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -926,6 +926,7 @@ textarea::-webkit-scrollbar-thumb {
                         > .title {
                             font-weight: 900;
                             font-size: 5.8rem;
+                            font-family: 'Noto Sans KR';
                             line-height: 1.21;
                             letter-spacing: -0.03em;
                             color: $white;
@@ -2514,7 +2515,7 @@ textarea::-webkit-scrollbar-thumb {
             .poster-section {
                 height: 155.6rem;
                 background-image: url(./assets/img_poster_desktop.jpg);
-                background-position: 60% center;
+                background-position: 50% center;
             }
             #scroll-animation_container {
                 > .inner {
@@ -2626,13 +2627,17 @@ textarea::-webkit-scrollbar-thumb {
                             > .title {
                                 font-size: 16rem;
                                 text-align: center;
-                                line-height: 1.25;
+                                line-height: 1.4;
                             }
                             .director-info__wrapper {
                                 display: flex;
+                                margin-bottom: -2rem;
                                 .director-box {
-                                    padding: 3rem 3rem 3rem 1.5rem;
+                                    padding: 2.8rem 6rem 2.8rem 1.5rem;
                                     position: relative;
+                                    .img-box {
+                                        width: 37rem;
+                                    }
                                     .text-box {
                                         .desc {
                                             font-size: 1.8rem;
@@ -2642,7 +2647,7 @@ textarea::-webkit-scrollbar-thumb {
                                         }
                                     }
                                     &:first-child {
-                                        padding: 3rem 1.5rem 3rem 3rem;
+                                        padding: 2.8rem 1.5rem 2.8rem 6rem;
                                     }
                                 }
                             }

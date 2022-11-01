@@ -76,7 +76,7 @@ function About(props) {
                 // end: '+=500', // end after scrolling 500px beyond the start
                 // start: 'center center',
                 // end: 'bottom top',
-                end: 'bottom+=3000 top',
+                end: 'bottom+=2000 top',
                 // markers: true,
                 scrub: true,
                 // scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
@@ -1555,9 +1555,7 @@ function About(props) {
                     </div>
                     <div className="portfolio-block">
                         <p className="small-title">
-                            MINIVERTISING
-                            <br />
-                            PROJECT
+                            Minivertising Project
                         </p>
                         <div className="box-container">
                             <Swiper
