@@ -13,10 +13,14 @@ import Contact from './pages/Contact';
 import Header from './components/Header';
 import { setDevice } from './store.js';
 
+import RouteChangeTracker from './components/RouteChangeTracker';
+
+
 import './reset.css';
 import './style.scss';
 
 function App() {
+    // RouteChangeTracker();
     // let dispatch = useDispatch();
     // * Redux store를 가져와주는 useSelector()
     let themeColor = useSelector((state) => {
@@ -55,6 +59,7 @@ function App() {
 
     return (
         <div className="App" data-theme={themeColor}>
+            <RouteChangeTracker location={location}/>
             <AnimatePresence>
                 {/* <Header /> */}
                 <Routes key={location.pathname} location={location}>

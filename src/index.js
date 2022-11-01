@@ -4,8 +4,14 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 import store from './store.js';
+
+ReactGA.initialize('UA-93879621-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
