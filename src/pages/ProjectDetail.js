@@ -23,6 +23,7 @@ function ProjectDetail(props) {
     const location = useLocation();
     const [heroBoxPosition, setBoxPosition] = useState(null);
     const [goScrollTop, setScrollTop] = useState(false);
+
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
@@ -54,8 +55,10 @@ function ProjectDetail(props) {
                 url: '/api/work/getdetail',
                 params: { idx: params.id },
             });
+
             setProjectData(result.data);
-            console.log(result.data);
+            
+
             const relatedWork = await axios({
                 method: 'get',
                 url: '/api/work/getlist',
@@ -169,10 +172,24 @@ function ProjectDetail(props) {
         "details2": []
     });
     // TODO: handlePlay 각 비디오 ref를 props로 받아서 함수 재활용
-    const [videoPaused, setVideoPause] = useState(true);
+    // const [videoPaused, setVideoPause] = useState(true);
+    // const [videoPaused, setVideoPause] = useState({
+    //     "details1": [],
+    //     "details2": []
+    // });
     const [playingVideo, setPlayVideo] = useState(null);
-
+    const [playingVideoId, setPlayingVideoId] = useState(null);
+    // useEffect(() => {
+    //     let itemList = videoPaused.details1.slice();
+    //     if(projectData.detail_sources1_arr) {
+    //         projectData.detail_sources1_arr.map((item, index) => {
+    //             itemList[index] = true;
+    //         });
+    //         setVideoPause({"details": itemList});
+    //     }
+    // }, [projectData]);
     function handlePlay(area, index) {
+
         Object.keys(videoRef.current).forEach(function(key) {
             videoRef.current[key].forEach(function(element, idx) {
                 element.pause();
@@ -181,11 +198,14 @@ function ProjectDetail(props) {
         if(videoRef.current[area][index] == playingVideo) {
             videoRef.current[area][index].pause();
             setPlayVideo(null);
+            setPlayingVideoId(null);
         } else {
             videoRef.current[area][index].play();
             setPlayVideo(videoRef.current[area][index]);
+            setPlayingVideoId(area+'_'+index);
         }
-        setVideoPause(!videoPaused);
+        // videoPaused.details1[index]
+        // setVideoPause(!videoPaused);
 
         // if(videoPaused) {
         //     Object.keys(videoRef.current).forEach(function(key) {
@@ -290,36 +310,19 @@ function ProjectDetail(props) {
                                 modules={[Scrollbar, FreeMode, A11y]}
                                 spaceBetween={device === 'mobile' ? 10 : 20}
                                 slidesPerView={'auto'}
-                                // slidesOffsetBefore={device==='mobile' ? 30 : (window.innerWidth-1200)/2}
-                                // slidesOffsetBefore={window.innerWidth === 'mobile' ? (window.innerWidth / 100 * 2.666666) * 30 : window.innerWidth / 100 * 7.8125}
-                                slidesOffsetBefore={
-                                    // window.innerWidth >= 1200
-                                    //     ? (window.innerWidth / 100) * 0.52 * 15
-                                    //     : window.innerWidth >= 720
-                                    //     ? (window.innerWidth / 100) * 2 * 3
-                                    //     : (window.innerWidth / 100) * 2.666666 * 3
-                                    swiperSize
-                                }
-                                slidesOffsetAfter={
-                                    swiperSize
-                                }
-                                scrollbar={{ el: '.slideshow-scrollbar', dragSize: device==='mobile' ? 24 : 100, draggable: false }}
+                                slidesOffsetBefore={swiperSize}
+                                slidesOffsetAfter={swiperSize}
+                                scrollbar={{ el: '.slideshow-scrollbar', dragSize: device==='mobile' ? (0.02666*window.innerWidth)*20.5/projectData.detail_sources1_arr.length : (0.0052*window.innerWidth)*46.8/projectData.detail_sources1_arr.length, draggable: false }}
                                 freeMode={false}
                                 updateOnWindowResize={true}
                                 onSwiper={(swiper) => console.log(swiper)}
                                 onSlideChange={() => console.log('slide change')}
-                                onResize={(swiper) => {
-                                    // if(device==='desktop') {
-                                    //     swiper.params.slidesOffsetAfter = (window.innerWidth-1200)/2;
-                                    //     swiper.params.slidesOffsetBefore = (window.innerWidth-1200)/2;
-                                    //     swiper.update();
-                                    // }
-                                }}
+                                onResize={(swiper) => {}}
                             >
                                     {
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
                                         <SwiperSlide key={index}>
-                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={ (el) => (videoRef.current['details1'][index] = el)} videoPaused={videoPaused} handlePlay={() => handlePlay('details1', index)}></ImageVideo>
+                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={ (el) => (videoRef.current['details1'][index] = el)} playingVideoId={playingVideoId} playingVideoIdProps={`details1_${index}`} handlePlay={() => handlePlay('details1', index)}></ImageVideo>
                                         </SwiperSlide>
                                     ))}
                                 <div className="slideshow-scrollbar"></div>
@@ -342,7 +345,7 @@ function ProjectDetail(props) {
                         <div className="project-detail__mockup">
                             <div className="mockup-box">
                                 {projectData.detail_sources2 && (
-                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={ (el) => (videoRef.current['details2'][0] = el)} videoPaused={videoPaused} handlePlay={() => handlePlay('details2', 0)}></ImageVideo>
+                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={ (el) => (videoRef.current['details2'][0] = el)} playingVideoId={playingVideoId} playingVideoIdProps={`details2_0`} handlePlay={() => handlePlay('details2', 0)}></ImageVideo>
                                 )}
                             </div>
                         </div>
@@ -371,41 +374,17 @@ function ProjectDetail(props) {
                                 modules={[A11y]}
                                 spaceBetween={device === 'mobile' ? 10 : 20}
                                 slidesPerView={'auto'}
-                                // slidesOffsetBefore={device === 'mobile' ? 64 : 150}
-                                // slidesOffsetAfter={device === 'mobile' ? 64 : 150}
-                                slidesOffsetBefore={
-                                    // window.innerWidth >= 1200
-                                    //     ? (window.innerWidth / 100) * 0.52 * 15
-                                    //     : window.innerWidth >= 720
-                                    //     ? (window.innerWidth / 100) * 2 * 6.4
-                                    //     : (window.innerWidth / 100) * 2.666666 * 6.4
-                                    swiperSizeBottom
-                                }
-                                slidesOffsetAfter={
-                                    // window.innerWidth >= 1200
-                                    //     ? (window.innerWidth / 100) * 0.52 * 15
-                                    //     : window.innerWidth >= 720
-                                    //     ? (window.innerWidth / 100) * 2 * 6.4
-                                    //     : (window.innerWidth / 100) * 2.666666 * 6.4
-                                    swiperSizeBottom
-                                }
+                                slidesOffsetBefore={swiperSizeBottom}
+                                slidesOffsetAfter={swiperSizeBottom}
                                 // freeMode={true}
                                 updateOnWindowResize={true}
                                 onSwiper={(swiper) => console.log(swiper)}
                                 onSlideChange={() => console.log('slide change')}
-                                onResize={(swiper) => {
-                                    // if(device==='desktop') {
-                                    //     swiper.params.slidesOffsetAfter = (window.innerWidth-1200)/2;
-                                    //     swiper.params.slidesOffsetBefore = (window.innerWidth-1200)/2;
-                                    //     swiper.update();
-                                    // }
-                                }}
+                                onResize={(swiper) => {}}
                             >
                                 {relatedWork.map((slideContent, index) => (
                                     <SwiperSlide className="related-box" key={index}>
-                                        {/* <div className="related-box" key={item.idx}> */}
                                         <WorkBox item={slideContent} />
-                                        {/* </div> */}
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
@@ -427,7 +406,6 @@ function ImageVideo(props) {
         props.handlePlay();
     }
     if (props.src.split('.')[1] == 'mp4') {
-        console.log(props.playingVideo);
         if (props.autoPlay === true) {
             item = (
                 // <video>
@@ -445,10 +423,10 @@ function ImageVideo(props) {
                     {/* <div className="play_trigger" onClick={props.handlePlay}> */}
                     <div className="play_trigger" onClick={() => localFired()}>
                         <span className="play_icon">
-                            {props.videoPaused===true ?
-                            <img src="/assets/video_btn_play.svg"></img>
-                            :
+                            {props.playingVideoId===props.playingVideoIdProps ?
                             <img src="/assets/video_btn_pause.svg"></img>
+                            :
+                            <img src="/assets/video_btn_play.svg"></img>
                             }
                             {/* <svg viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
