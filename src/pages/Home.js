@@ -28,9 +28,11 @@ function Home(props) {
         console.log('홈 마운트');
         console.log('props', props);
         dispatch(changeColor('white'));
+        document.body.classList.toggle('scroll-blocking');
 
         return () => {
             console.log('홈 언마운트');
+            document.body.classList.toggle('scroll-blocking');
         };
     }, []);
 
@@ -126,13 +128,19 @@ function Home(props) {
         let touchstartY, touchendY = 0;
         let distance;
         const scrollHandler = (e) => {
+            e.stopPropagation();
             switch(e.type) {
                 case "wheel":
                     e.preventDefault();
+                    // e.stopImmediatePropagation();
                     distance = e.deltaY;
                     break;
                 case "touchstart":
                     touchstartY = e.changedTouches[0].screenY;
+                    break;
+                case "touchmove":
+                    e.preventDefault();
+                    // e.stopImmediatePropagation();
                     break;
                 case "touchend":
                     touchendY = e.changedTouches[0].screenY;
@@ -146,6 +154,7 @@ function Home(props) {
         }
         scrollRef.current.addEventListener('wheel', scrollHandler);
         scrollRef.current.addEventListener('touchstart', scrollHandler);
+        scrollRef.current.addEventListener('touchmove', scrollHandler);
         scrollRef.current.addEventListener('touchend', scrollHandler);
             
 
@@ -194,6 +203,7 @@ function Home(props) {
             animateSequence(direction, move, type);
             scrollRef.current.removeEventListener('wheel', scrollHandler);
             scrollRef.current.removeEventListener('touchstart', scrollHandler);
+            scrollRef.current.removeEventListener('touchmove', scrollHandler);
             scrollRef.current.removeEventListener('touchend', scrollHandler);
             // }
         }
@@ -236,7 +246,7 @@ function Home(props) {
                 const winHeight = window.innerHeight;
                 const changePer = (latestWinHeight-winHeight)/latestWinHeight;
                 const resizeSectionY = currentSectionY - (currentSectionY*changePer);
-                const resizeWorkY = Math.round(currentWorkY - (currentWorkY*changePer));
+                const resizeWorkY = currentWorkY - Math.floor(currentWorkY*changePer);
 
                 
                 workAnimate.start({
@@ -259,7 +269,7 @@ function Home(props) {
                         }
                     }
                 });
-                const boxH = device==='mobile' ? Math.round(window.innerHeight - window.innerHeight*0.578) : Math.round(window.innerHeight - window.innerHeight*0.32);
+                const boxH = device==='mobile' ? Math.floor(window.innerHeight - window.innerHeight*0.578) : Math.floor(window.innerHeight - window.innerHeight*0.32);
                 setWorkImageHeight(boxH);
             }, 200);
         });
@@ -339,7 +349,7 @@ function Home(props) {
                         <img src={`/assets/main_work_0${work.idx}.jpg`} ></img>
                     </div>
                     <motion.figcaption initial={{y: 20, opacity: 0 }} animate={work.idx===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}}>{work.title}</motion.figcaption>
-                    <motion.span initial={{y: 20, opacity: 0 }} animate={work.idx===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}}className="work-indicator">{currentWork+'/'+mainWorkData.length}</motion.span>
+                    <motion.span initial={{y: 20, opacity: 0 }} animate={work.idx===currentWork ? {y: 0, opacity: 1, } : {y: 20, opacity: 0}} transition={{delay: 0.7, ease: 'linear'}} className="work-indicator">{currentWork+'/'+mainWorkData.length}</motion.span>
                 </figure>
             </div>
         );
