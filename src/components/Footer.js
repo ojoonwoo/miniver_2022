@@ -32,7 +32,7 @@ function Footer() {
                             </p>
                         </div>
                     </div>
-                    <div className={`${styles['footer-elem']} ${styles['brief-block']}`}>
+                    {/* <div className={`${styles['footer-elem']} ${styles['brief-block']}`}>
                         <a href="">
                             <span className={`${styles['footer-elem__title']}`}>Company Brief</span>
                             <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +43,7 @@ function Footer() {
                                 />
                             </svg>
                         </a>
-                    </div>
+                    </div> */}
                 </div>
                 <div className={`${styles['copyright-block']}`}>
                     <p>ⓒ MINIVERTISING All right Reserved</p>
