@@ -115,6 +115,7 @@ function Home(props) {
     useLayoutEffect(() => {
         const boxH = device==='mobile' ? Math.round(window.innerHeight - window.innerHeight*0.578) : Math.round(window.innerHeight - window.innerHeight*0.32);
         setWorkImageHeight(boxH);
+        showreelChange(device);
     }, [device, workImageHeight, currentWorkY]);
     useLayoutEffect(() => {
         // currentSection default 1
@@ -233,6 +234,7 @@ function Home(props) {
     function muteToggle() {
         setShowreelMute(!showreelMuted);
     }
+    const [showreelState, showreelChange] = useState(null);
 
     let timeout;
     useLayoutEffect(() => {
@@ -280,7 +282,6 @@ function Home(props) {
     const bgAnimate = useAnimation();
     const typoShowAnimate = useAnimation();
 
-    
 
     useLayoutEffect(() => {
         animateSequenceWork();
@@ -616,9 +617,18 @@ function Home(props) {
                                     </div>
                                     <p>{showreelMuted ? 'UNMUTE' : 'MUTE'}</p>
                                 </button>
-                                <video autoPlay muted={showreelMuted} loop preload={'auto'} playsInline={true} ref={videoRef}>
-                                    <source src={`/assets/showreel.mp4`} type="video/mp4"></source>
+                                <video autoPlay muted={showreelMuted} loop preload={'auto'} playsInline={true} ref={videoRef} key={showreelState}>
+                                    <source src={`/assets/showreel_${showreelState}.mp4`} type="video/mp4"></source>
                                 </video>
+                                {/* {showreelState==='mobile'
+                                ?
+                                
+                                :
+                                <video autoPlay muted={showreelMuted} loop preload={'auto'} playsInline={true} ref={videoRef} key={showreelState}>
+                                    <source src={`/assets/showreel_desktop.mp4`} type="video/mp4"></source>
+                                </video>
+                                } */}
+                                
                             </div>
                         </div>
                         <div className="main-section section-work">
