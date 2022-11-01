@@ -170,22 +170,37 @@ function ProjectDetail(props) {
     });
     // TODO: handlePlay 각 비디오 ref를 props로 받아서 함수 재활용
     const [videoPaused, setVideoPause] = useState(true);
+    const [playingVideo, setPlayVideo] = useState(null);
 
     function handlePlay(area, index) {
-        if(videoPaused) {
-            Object.keys(videoRef.current).forEach(function(key) {
-                videoRef.current[key].forEach(function(element, idx) {
-                    element.pause();
-                });
+        Object.keys(videoRef.current).forEach(function(key) {
+            videoRef.current[key].forEach(function(element, idx) {
+                element.pause();
             });
-            videoRef.current[area][index].play();
-            setVideoPause(false);
-        } else {
-            // console.log(videoRef.current);
-            // videoRef.current.pause();
+        });
+        if(videoRef.current[area][index] == playingVideo) {
             videoRef.current[area][index].pause();
-            setVideoPause(true);
+            setPlayVideo(null);
+        } else {
+            videoRef.current[area][index].play();
+            setPlayVideo(videoRef.current[area][index]);
         }
+        // setVideoPause(false);
+
+        // if(videoPaused) {
+        //     Object.keys(videoRef.current).forEach(function(key) {
+        //         videoRef.current[key].forEach(function(element, idx) {
+        //             element.pause();
+        //         });
+        //     });
+        //     videoRef.current[area][index].play();
+        //     setVideoPause(false);
+        // } else {
+        //     // console.log(videoRef.current);
+        //     // videoRef.current.pause();
+        //     videoRef.current[area][index].pause();
+        //     setVideoPause(true);
+        // }
     }
     function swiperSize() {
         let size;
@@ -196,7 +211,6 @@ function ProjectDetail(props) {
         } else {
             size = (window.innerWidth / 100) * 2.666666 * 3;
         }
-        console.log(size);
         return size;
     }
     function swiperSizeBottom() {
@@ -208,7 +222,6 @@ function ProjectDetail(props) {
         } else {
             size = (window.innerWidth / 100) * 2.666666 * 3;
         }
-        console.log("bottom", size);
         return size;
     }
 
@@ -306,7 +319,7 @@ function ProjectDetail(props) {
                                     {
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
                                         <SwiperSlide key={index}>
-                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={ (el) => (videoRef.current['details1'][index] = el)} videoPaused={videoPaused} handlePlay={() => handlePlay('details1', index)}></ImageVideo>
+                                            <ImageVideo src={`/works/${projectData.idx}/detail_sources1/${slideContent}`} videoRef={ (el) => (videoRef.current['details1'][index] = el)} playingVideo={playingVideo} handlePlay={() => handlePlay('details1', index)}></ImageVideo>
                                         </SwiperSlide>
                                     ))}
                                 <div className="slideshow-scrollbar"></div>
@@ -329,7 +342,7 @@ function ProjectDetail(props) {
                         <div className="project-detail__mockup">
                             <div className="mockup-box">
                                 {projectData.detail_sources2 && (
-                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={ (el) => (videoRef.current['details2'][0] = el)} videoPaused={videoPaused} handlePlay={() => handlePlay('details2', 0)}></ImageVideo>
+                                    <ImageVideo src={`/works/${projectData.idx}/detail_sources2/${projectData.detail_sources2}`} videoRef={ (el) => (videoRef.current['details2'][0] = el)} playingVideo={playingVideo} handlePlay={() => handlePlay('details2', 0)}></ImageVideo>
                                 )}
                             </div>
                         </div>
@@ -410,11 +423,15 @@ function ProjectDetail(props) {
 
 function ImageVideo(props) {
     let item = '';
+    function localFired() {
+        props.handlePlay();
+    }
     if (props.src.split('.')[1] == 'mp4') {
+        console.log(props.playingVideo);
         if (props.autoPlay === true) {
             item = (
                 // <video>
-                <video autoPlay muted loop>
+                <video ref={props.videoRef} autoPlay muted loop playsInline={true}>
                     <source src={props.src} type="video/mp4"></source>
                 </video>
             );
@@ -422,10 +439,11 @@ function ImageVideo(props) {
             item = (
                 // <video>
                 <>
-                    <video ref={props.videoRef}>
+                    <video ref={props.videoRef} playsInline={true}>
                         <source src={props.src} type="video/mp4"></source>
                     </video>
-                    <div className="play_trigger" onClick={props.handlePlay}>
+                    {/* <div className="play_trigger" onClick={props.handlePlay}> */}
+                    <div className="play_trigger" onClick={() => localFired()}>
                         <span className="play_icon">
                             {props.videoPaused===true ?
                             <img src="/assets/video_btn_play.svg"></img>

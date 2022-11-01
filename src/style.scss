@@ -1502,7 +1502,7 @@ textarea::-webkit-scrollbar-thumb {
         bottom: 0;
         // background-color: rgba(0, 0, 0, 0.3);
         .play_icon {
-            opacity: 0;
+            // opacity: 0;
             display: block;
             position: absolute;
             top: 50%;
@@ -1520,7 +1520,7 @@ textarea::-webkit-scrollbar-thumb {
         }
         &:hover {
             .play_icon {
-                opacity: 1;
+                // opacity: 1;
             }
         }
     }
@@ -2228,6 +2228,12 @@ textarea::-webkit-scrollbar-thumb {
                 width: 6rem;
                 // height: 8.7rem;
                 height: auto;
+                opacity: 0;
+            }
+            &:hover {
+                .play_icon {
+                    opacity: 1;
+                }
             }
         }
         .small-title {
