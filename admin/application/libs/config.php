@@ -22,9 +22,9 @@ if(_SERVICE_ENV === 'DEV') {
     define('_PUBLIC_URL', 'http://'.$_SERVER['HTTP_HOST'].'/public/');
     define('_ROOT_URL', 'http://'.$_SERVER['HTTP_HOST'].'/');
 
-    define('_WORK_UPLOAD_URL', 'http://dev.minivertising.kr/works/');
+    define('_WORK_UPLOAD_URL', 'http://minivertising.kr/works/');
     define('_WORK_UPLOAD_DIR', _MNV_ROOT.'uploads/work/');
-    define('_PRESS_UPLOAD_URL', 'http://dev.minivertising.kr/journalists/');
+    define('_PRESS_UPLOAD_URL', 'http://minivertising.kr/journalists/');
     define('_PRESS_UPLOAD_DIR', _MNV_ROOT.'uploads/press/');
 }
 
