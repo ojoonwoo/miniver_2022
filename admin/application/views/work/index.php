@@ -13,6 +13,18 @@ require_once _VIEW_DIR.'container_top.php';
 <?php
 if(count($list) > 0) {
 ?>
+    <div class="category-wrap">
+        <a class="cate-sort" href="<?=_ROOT_URL?>work/">ALL</a>
+        <?
+        foreach($this->category_list as $val) {
+        ?>
+        <a class="cate-sort" href="<?=_ROOT_URL?>work/?cate=<?=$val['idx']?>"><?php echo $val['category_name']?></a>
+        <?php
+        }
+        ?>
+    </div>
+<?php
+?>
     <table class="table">
         <thead>
             <tr>
@@ -37,8 +49,8 @@ if(count($list) > 0) {
                     <input type="hidden" name="work_idx" class="work-idx" value="<?=$val['idx']?>">
                 </td>
                 <!-- <td>
-                    <span class="work-order-num"><?=$val['work_order']?></span>
-                    <input type="hidden" name="work_order_num" value="<?=$val['work_order']?>">
+                    <span><?=$val['work_order']?></span>
+                    <input type="hidden" name="work_order" class="work-order" value="<?=$val['work_order']?>">
                 </td> -->
                 <td><?=$val['client_name']?></td>
                 <td><?=$val['work_title']?></td>
@@ -75,7 +87,8 @@ if(count($list) > 0) {
         $('table tbody tr').each(function(idx, row) {
             originArr[idx] = {
                 'idx': $(row).find('.work-idx').val(),
-                'order': idx+1
+                // 'order': idx+1
+                'order': $(row).find('.work-order').val()
             }
         });
         console.log(originArr);
@@ -91,18 +104,7 @@ if(count($list) > 0) {
         //     constrainDimensions: true,
         // },
     });
-  
-    sortable.on('sortable:start', () => console.log('sortable:start'));
-    sortable.on('sortable:sort', () => console.log('sortable:sort'));
-    sortable.on('sortable:sorted', () => console.log('sortable:sorted'));
-    sortable.on('sortable:stop', (e) => {
-        console.log('sortable:stop');
-        
-    });
-    sortable.on('mirror:destroy', (e) => {
-        // console.log('sortable:stop');
-        
-    });
+    
 
     $(document).on('click', '#sortable-trigger', function() {
         if(confirm('현재 정렬된 순서로 업데이트 하시겠습니까?')) {
@@ -116,17 +118,13 @@ if(count($list) > 0) {
     });
 
 
-    // var workSortStatus = {
-    //     enbaled: true,
-    //     idxList: []
-    // };
-
     function updateOrder() {
         var newArr = [];
         $('table tbody tr').each(function(idx, row) {
             newArr[idx] = {
                 'idx': $(row).find('.work-idx').val(),
                 'order': idx+1
+                // 'order': originArr[idx]['order']
             }
         });
 

@@ -12,9 +12,10 @@ class WorkController extends Controller {
 
     // }
     public $category_list = [];
-    public function index($category, $idx, $pageNo) {
+    public function index() {
+        $category = $_GET['cate'];
         $model = new \application\models\WorkModel();
-        $list = $model->selectList($category, $idx, $pageNo);
+        $list = $model->selectList($category);
         $this->category_list = $model->getCategories();
 
         $page_title = "work list";
@@ -59,6 +60,9 @@ class WorkController extends Controller {
         $action = "add";
         $page_title = "work add";
         require_once 'application/views/work/view.php';
+    }
+    public function getList() {
+
     }
     private function uploadFiles($dirIndex, $files) {
 

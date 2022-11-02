@@ -6,8 +6,12 @@ use \mysqli;
 class WorkModel extends Model {
     // methods ... selectList, updateItem, readItem, deleteItem,
 
-    public function selectList($category, $idx, $pageNo) {
-        $sql = 'SELECT * FROM work_info WHERE 1 ORDER BY work_order ASC, work_register_date DESC';
+    public function selectList($category) {
+        $where_cate = "";
+        if($category) {
+            $where_cate = "and work_categories LIKE '%".$category."%'";
+        }
+        $sql = "SELECT * FROM work_info WHERE 1 $where_cate ORDER BY work_order ASC, work_register_date DESC";
         $result = mysqli_query($this->my_db, $sql);
         $res_data = array();
 
