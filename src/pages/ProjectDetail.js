@@ -245,6 +245,16 @@ function ProjectDetail(props) {
         return size;
     }
 
+    function convertHTMLEntity(text){
+        const span = document.createElement('span');
+    
+        return text
+        .replace(/&[#A-Za-z0-9]+;/gi, (entity,position,text)=> {
+            span.innerHTML = entity;
+            return span.innerText;
+        });
+    }
+
     return (
         <PageTransition variantsName="detail">
             {/* // <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
@@ -337,7 +347,7 @@ function ProjectDetail(props) {
                                 </div>
                                 <div className="right">
                                     <dl>
-                                        {projectData.overview_arr && projectData.overview_arr.map((paragraph, index) => <dd key={index}>{paragraph}</dd>)}
+                                        {projectData.overview_arr && projectData.overview_arr.map((paragraph, index) => <dd key={index}>{convertHTMLEntity(paragraph)}</dd>)}
                                     </dl>
                                 </div>
                             </div>
