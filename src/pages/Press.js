@@ -3,6 +3,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 
 import PressBox from './../components/PressBox';
+import Footer from '../components/Footer';
 import { changeColor } from '../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PageTransition from '../components/PageTransition';
@@ -22,6 +23,10 @@ function Project(props) {
     const params = useParams();
     let dispatch = useDispatch();
     const [pressData, setPressData] = useState([]);
+
+    let device = useSelector((state) => {
+        return state.currentDevice;
+    });
 
     useEffect(() => {
         dispatch(changeColor('black'));
@@ -56,6 +61,7 @@ function Project(props) {
                         </div>
                     </div>
                 </div>
+                <>{device === 'mobile' ? null : <Footer />}</>
             </div>
             <Outlet />
         </PageTransition>

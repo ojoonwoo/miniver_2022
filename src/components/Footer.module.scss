@@ -16,6 +16,7 @@ footer {
             svg {
                 fill: #fff;
                 width: 12.4rem;
+                height: 1.7rem;
                 margin-bottom: 1.7rem;
             }
         }
@@ -68,24 +69,26 @@ footer {
         display: flex;
         flex-flow: column;
         align-items: center;
-        padding: 6.7rem 0 11.2rem;
+        // padding: 6.7rem 0 11.2rem;
+        padding: 6.7rem 15rem 11.2rem;
         position: relative;
         height: auto;
         margin-top: 0;
         box-shadow: 10px 0 60px rgba(255, 255, 255, 0.15);
         .inner {
-            max-width: 1210px;
+            // max-width: 1210px;
             margin: 0 auto;
             display: block;
             height: auto;
             .elem-block {
                 width: 100%;
                 display: flex;
-                justify-content: space-between;
+                // justify-content: space-between;
                 .logo {
                     // display: none;
                     display: block;
-                    margin-right: 28.9rem;
+                    // margin-right: 28.9rem;
+                    margin-right: 42.1rem;
                 }
                 .break-wrap {
                     .footer-elem {
@@ -112,6 +115,12 @@ footer {
                         line-height: 1.9rem;
                         letter-spacing: -0.01em;
                     }
+                }
+                .address-block {
+                    margin-right: 14rem;
+                }
+                .email-block {
+                    margin-right: 21.2rem;
                 }
                 .brief-block {
                     margin-bottom: 7.4rem;

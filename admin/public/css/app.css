@@ -31,3 +31,11 @@ header .navbar-brand {
 .contents-wrap {
     padding-bottom: 5rem;
 }
+.contents-wrap h6 {
+    margin-bottom: 1rem;
+}
+
+.empty-para {
+    font-size: 1rem;
+    font-weight: 700;
+}

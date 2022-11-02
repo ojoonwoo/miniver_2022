@@ -23,3 +23,11 @@ table {
 .draggable-mirror {
     background-color: rgba(0, 0, 0, 0.1);
 }
+.category-wrap {
+    padding-top: 0.6rem;
+    margin-bottom: 2rem;
+}
+.cate-sort:hover {
+    background-color: #333333;
+    color: #ffffff;
+}

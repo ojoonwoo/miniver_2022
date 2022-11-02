@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 // import Header from '../components/Header';
+import Footer from '../components/Footer';
 import WorkBox from '../components/WorkBox';
 import { changeColor, changeTransitionMode } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +17,7 @@ function ProjectList(props) {
 
     const params = useParams();
     let dispatch = useDispatch();
+
     const [projectData, setProjectData] = useState([]);
     const [categoryData, setCategoryData] = useState([]);
     
@@ -96,6 +98,8 @@ function ProjectList(props) {
                     </div>
                 </div>
             </div>
+            {/* <Footer /> */}
+            
         </div>
     );
 }

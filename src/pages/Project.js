@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
+import Footer from '../components/Footer';
 import WorkBox from '../components/WorkBox';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +22,10 @@ function Project(props) {
     let dispatch = useDispatch();
     const [projectData, setProjectData] = useState([]);
     const [categoryData, setCategoryData] = useState([]);
+
+    let device = useSelector((state) => {
+        return state.currentDevice;
+    });
     
     useEffect(() => {
         
@@ -100,6 +105,7 @@ function Project(props) {
                         </div>
                     </div>
                 </div>
+                <>{device === 'mobile' ? null : <Footer />}</>
             </div>
             <Outlet />
         </PageTransition>

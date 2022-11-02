@@ -11,6 +11,8 @@ import WorkBox from '../components/WorkBox';
 import useResizeObserver from '@react-hook/resize-observer';
 import { heroBoxChangeColor } from './../store.js';
 
+import Footer from '../components/Footer';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -405,6 +407,7 @@ function ProjectDetail(props) {
                         {/* </div> */}
                     </motion.div>
                 </div>
+                <>{device === 'mobile' ? null : <Footer />}</>
             </div>
         </PageTransition>
     );
