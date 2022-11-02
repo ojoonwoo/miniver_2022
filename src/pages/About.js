@@ -63,8 +63,7 @@ function About(props) {
                 // markers: true,
             },
         });
-        posterTl.addLabel('start')
-        .to('.poster-section', {backgroundPosition: '40% center',  duration: 8, ease: 'linear'}, 'start')
+        posterTl.addLabel('start').to('.poster-section', { backgroundPosition: '40% center', duration: 8, ease: 'linear' }, 'start');
 
         let tl = gsap.timeline({
             // yes, we can add it to an entire timeline!
@@ -89,7 +88,7 @@ function About(props) {
             },
         });
         tl.addLabel('start', '+=0.3')
-            .to('.ani-box._01 .title', { autoAlpha: 0, duration: 1, }, 'start')
+            .to('.ani-box._01 .title', { autoAlpha: 0, duration: 1 }, 'start')
             // .set('#scroll-animation_container', { backgroundColor: '#ffffff' })
             .addLabel('scale-down')
             .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 1 }, 'scale-down')
@@ -98,8 +97,8 @@ function About(props) {
             // .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 1 }, 'scale-up')
             .addLabel('bg-in', '+=0.8')
             .to('.ani-box._01 .desc-block .desc', { autoAlpha: 0, duration: 0.3 }, 'bg-in')
-            .to('.ani-box._01', { height: 100+'%', duration: 0.8 })
-            .to('.ani-box._01', { width: 100+'%', duration: 0.8 })
+            .to('.ani-box._01', { height: 100 + '%', duration: 0.8 })
+            .to('.ani-box._01', { width: 100 + '%', duration: 0.8 })
             .set('.ani-box._03', { autoAlpha: 1 })
             .addLabel('typo-scale-down')
             .to('.ani-box._01', { autoAlpha: 0, duration: 1 }, 'typo-scale-down')
@@ -159,7 +158,11 @@ function About(props) {
                 scrub: true,
             },
         });
-        tl3_1.addLabel('start', '+=1').to('.slide-wrapper', { rotate: -10, duration: 1 }, 'start').to('.slide-wrapper', { rotate: -20, duration: 1 }).to('.slide-wrapper', { rotate: -30, duration: 1 });
+        tl3_1
+            .addLabel('start', '+=1')
+            .to('.slide-wrapper', { rotate: -10, duration: 1 }, 'start')
+            .to('.slide-wrapper', { rotate: -20, duration: 1 })
+            .to('.slide-wrapper', { rotate: -30, duration: 1 });
 
         let tl4 = gsap.timeline({
             scrollTrigger: {
@@ -175,23 +178,25 @@ function About(props) {
         tl4.addLabel('start', '+=2')
             .to('.ani-block._04 .director-box._01', { autoAlpha: 1, y: 0, duration: 1 }, 'start')
             .to('.ani-block._04 .director-box._01 .img-box', { autoAlpha: 1, duration: 1 }, 'start+=0.4')
-            .to('.ani-block._04 .director-box._01 .img-box', { y: 0, duration: 1 }, 'start+=0.5')
-            .to('.ani-block._04 .director-box._01 .text-box .desc', { autoAlpha: 1, duration: 1 }, 'start+=0.5')
-            .to('.ani-block._04 .director-box._01 .text-box .desc', { y: 0, duration: 1 }, 'start+=0.6')
-            .to('.ani-block._04 .director-box._01 .text-box .title', { autoAlpha: 1, duration: 1 }, 'start+=0.6')
-            .to('.ani-block._04 .director-box._01 .text-box .title', { y: 0, duration: 1 }, 'start+=0.7')
-            .addLabel('box-01-out', '+=5')
+            // .to('.ani-block._04 .director-box._01 .img-box', { y: 0, duration: 1 }, 'start+=0.5')
+            .to('.ani-block._04 .director-box._01 .text-box .title', { autoAlpha: 1, duration: 1 }, 'start+=0.5')
+            .to('.ani-block._04 .director-box._01 .text-box .title', { y: 0, duration: 1 }, 'start+=0.6')
+            .to('.ani-block._04 .director-box._01 .text-box .desc', { autoAlpha: 1, duration: 1 }, 'start+=0.6')
+            .to('.ani-block._04 .director-box._01 .text-box .desc', { y: 0, duration: 1 }, 'start+=0.7')
+            .addLabel('box-01-out', window.innerWidth < 1200 ? '+=5' : '+=1')
             .addLabel('box-02-in', '+=8')
-            .to('.ani-block._04 .director-box._01', { autoAlpha: 0, y: '-2rem', duration: 3 }, 'box-01-out')
+            // .to('.ani-block._04 .director-box._01', { autoAlpha: 0, y: '-2rem', duration: 3 }, 'box-01-out')
+            .to(window.innerWidth < 1200 ? '.ani-block._04 .director-box._01' : '.ani-block._04 .director-block > .title', { autoAlpha: 0, y: window.innerWidth < 1200 ? '-2rem' : '-80vh', duration: 3 }, 'box-01-out')
             .to('.ani-block._04 .director-box._02', { autoAlpha: 1, y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in' : 'start')
             .to('.ani-block._04 .director-box._02 .img-box', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.4' : 'start+=0.4')
-            .to('.ani-block._04 .director-box._02 .img-box', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.5' : 'start+=0.5')
-            .to('.ani-block._04 .director-box._02 .text-box .desc', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.5' : 'start+=0.5')
-            .to('.ani-block._04 .director-box._02 .text-box .desc', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
-            .to('.ani-block._04 .director-box._02 .text-box .title', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
-            .to('.ani-block._04 .director-box._02 .text-box .title', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.7' : 'start+=0.7')
-            .addLabel('box-02-out', '+=5')
-            .to('.ani-block._04 .director-box._02', { autoAlpha: 0, y: '-2rem', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
+            // .to('.ani-block._04 .director-box._02 .img-box', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.5' : 'start+=0.5')
+            .to('.ani-block._04 .director-box._02 .text-box .title', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.5' : 'start+=0.5')
+            .to('.ani-block._04 .director-box._02 .text-box .title', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
+            .to('.ani-block._04 .director-box._02 .text-box .desc', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
+            .to('.ani-block._04 .director-box._02 .text-box .desc', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.7' : 'start+=0.7')
+            .addLabel('box-02-out', window.innerWidth < 1200 ? '+=5' : '+=1')
+            // .to('.ani-block._04 .director-box._02', { autoAlpha: 0, y: '-2rem', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
+            .to(window.innerWidth < 1200 ? '.ani-block._04 .director-box._02' : '.ani-block._04 .director-block > .title', { autoAlpha: 0, y: window.innerWidth < 1200 ? '-2rem' : '-80vh', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
         // * 원형 슬라이더 부분
         // console.log(sliderWrapperRef);
         // function circularSliderSizing() {
@@ -452,8 +457,7 @@ function About(props) {
                             </p>
                         </div>
                     </div>
-                    <div className='poster-section'>
-                    </div>
+                    <div className="poster-section"></div>
                     <div id="scroll-animation_container">
                         <div className="inner">
                             <div className="ani-block _01">
@@ -660,25 +664,21 @@ function About(props) {
                                     </p>
                                     <div className="director-info__wrapper">
                                         <div className="director-box _01">
-                                            <div className="img-box"></div>
-                                            <div className="text-box">
-                                                <p className="desc">
-                                                    대학교때부터 광고 일에 연루되어 <br />
-                                                    크리에이티브하다는 오명을 썼으나 <br />
-                                                    현재는 업으로 삼고 대행사 대표로 일하고 있다
-                                                </p>
-                                                <p className="title">디렉터 양선혜</p>
+                                            <div className="inner">
+                                                <div className="img-box"></div>
+                                                <div className="text-box">
+                                                    <p className="title">디렉터 양선혜</p>
+                                                    <p className="desc">대학교때부터 광고 일에 연루되어 크리에이티브하다는 오명을 썼으나 현재는 업으로 삼고 대행사 대표로 일하고 있다.</p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="director-box _02">
-                                            <div className="img-box"></div>
-                                            <div className="text-box">
-                                                <p className="desc">
-                                                    자신의 머리카락은 못 잡지만 <br />
-                                                    크리에이티브는 잘 잡는 편이다 <br />
-                                                    빡빡한 마케팅에 설탕 같은 존재가 되고자 한다
-                                                </p>
-                                                <p className="title">디렉터 양건영</p>
+                                            <div className="inner">
+                                                <div className="img-box"></div>
+                                                <div className="text-box">
+                                                    <p className="title">디렉터 양건영</p>
+                                                    <p className="desc">자신의 머리카락은 못 잡지만 크리에이티브는 잘 잡는 편이다. 빡빡한 마케팅에 설탕 같은 존재가 되고자 한다.</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1553,9 +1553,7 @@ function About(props) {
                         </div>
                     </div>
                     <div className="portfolio-block">
-                        <p className="small-title">
-                            Minivertising Project
-                        </p>
+                        <p className="small-title">Minivertising Project</p>
                         <div className="box-container">
                             <Swiper
                                 // install Swiper modules
