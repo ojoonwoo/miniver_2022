@@ -62,6 +62,7 @@ if(count($list) > 0) {
                 <td>
                     <?=$val['idx']?>
                     <input type="hidden" name="work_idx" class="work-idx" value="<?=$val['idx']?>">
+                    <input type="hidden" name="work_order" class="work-order" value="<?=$val['work_order']?>">
                 </td>
                 <!-- <td>
                     <span><?=$val['work_order']?></span>
@@ -70,7 +71,7 @@ if(count($list) > 0) {
                 <td><?=$val['client_name']?></td>
                 <td><?=$val['work_title']?></td>
                 <td><?=$val['work_category_names']?></td>
-                <td><img src="<?=_WORK_UPLOAD_URL.$val['idx'].'/thumb_rectangle/'.$val['thumb_rectangle']?>" style="width: 6rem;"></td>
+                <td><img src="<?=_WORK_UPLOAD_URL.$val['idx'].'/thumb_rectangle/'.$val['thumb_rectangle']?>" style="width: 4rem;"></td>
                 <td><?=$val['work_visible'] ? "노출" : "비노출" ?></td>
                 <td>
                     <a href="<?=_ROOT_URL?>work/view/<?=$val['idx']?>" class="btn btn-dark" role="button">보기</a>
