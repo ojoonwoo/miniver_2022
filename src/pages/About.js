@@ -11,6 +11,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import Draggable from 'gsap/Draggable';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SmoothScrollbar from 'smooth-scrollbar';
 import PageTransition from '../components/PageTransition';
 import WorkBox from '../components/WorkBox';
 import Footer from '../components/Footer';
@@ -55,6 +56,24 @@ function About(props) {
         }
         getProjectData();
 
+        // SmoothScrollbar Setup
+        const scroller = document.querySelector('[data-scrollbar]');
+        const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
+        // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document });
+
+        // SmoothScrollbar와 ScrollTrigger 연동
+        ScrollTrigger.scrollerProxy('[data-scrollbar]', {
+            scrollTop(value) {
+              if (arguments.length) {
+                bodyScrollBar.scrollTop = value;
+              }
+              return bodyScrollBar.scrollTop;
+            }
+        });
+        bodyScrollBar.addListener(ScrollTrigger.update);
+        // bodyScrollBar.addListener(ScrollTrigger.refresh); 
+        ScrollTrigger.defaults({ scroller: scroller });
+
         let posterTl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.poster-section',
@@ -91,6 +110,7 @@ function About(props) {
             .to('.ani-box._01 .title', { autoAlpha: 0, duration: 1 }, 'start')
             // .set('#scroll-animation_container', { backgroundColor: '#ffffff' })
             .addLabel('scale-down')
+            .set('.ani-box._02 .typo-wrap', { autoAlpha: 1}, 'scale-down')
             .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 1 }, 'scale-down')
             .to('.ani-box._01 .desc-block .desc', { autoAlpha: 1, duration: 0.2 }, 'scale-down+=0.2')
             .to('.ani-box._01 .desc-block .desc', { fontSize: window.innerWidth < 1200 ? 1.2 + 'rem' : 2.5 + 'rem', duration: 0.5 }, 'scale-down+=0.5')
@@ -186,7 +206,11 @@ function About(props) {
             .addLabel('box-01-out', window.innerWidth < 1200 ? '+=5' : '+=1')
             .addLabel('box-02-in', '+=8')
             // .to('.ani-block._04 .director-box._01', { autoAlpha: 0, y: '-2rem', duration: 3 }, 'box-01-out')
-            .to(window.innerWidth < 1200 ? '.ani-block._04 .director-box._01' : '.ani-block._04 .director-block > .title', { autoAlpha: 0, y: window.innerWidth < 1200 ? '-2rem' : '-80vh', duration: 3 }, 'box-01-out')
+            .to(
+                window.innerWidth < 1200 ? '.ani-block._04 .director-box._01' : '.ani-block._04 .director-block > .title',
+                { autoAlpha: 0, y: window.innerWidth < 1200 ? '-2rem' : '-80vh', duration: 3 },
+                'box-01-out'
+            )
             .to('.ani-block._04 .director-box._02', { autoAlpha: 1, y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in' : 'start')
             .to('.ani-block._04 .director-box._02 .img-box', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.4' : 'start+=0.4')
             // .to('.ani-block._04 .director-box._02 .img-box', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.5' : 'start+=0.5')
@@ -196,7 +220,11 @@ function About(props) {
             .to('.ani-block._04 .director-box._02 .text-box .desc', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.7' : 'start+=0.7')
             .addLabel('box-02-out', window.innerWidth < 1200 ? '+=5' : '+=1')
             // .to('.ani-block._04 .director-box._02', { autoAlpha: 0, y: '-2rem', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
-            .to(window.innerWidth < 1200 ? '.ani-block._04 .director-box._02' : '.ani-block._04 .director-block > .title', { autoAlpha: 0, y: window.innerWidth < 1200 ? '-2rem' : '-80vh', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
+            .to(
+                window.innerWidth < 1200 ? '.ani-block._04 .director-box._02' : '.ani-block._04 .director-block > .title',
+                { autoAlpha: 0, y: window.innerWidth < 1200 ? '-2rem' : '-80vh', duration: 3 },
+                window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out'
+            );
         // * 원형 슬라이더 부분
         // console.log(sliderWrapperRef);
         // function circularSliderSizing() {
@@ -426,7 +454,7 @@ function About(props) {
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ease: 'easeIn', duration: 0.7 }} exit={{ opacity: 0 }}>
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <PageTransition>
-            <div id="container" className={props.pageName}>
+            <div id="container" className={props.pageName} data-scrollbar>
                 <div className="inner">
                     <div className="cover-section">
                         {/* <div id="anim-container"></div> */}
