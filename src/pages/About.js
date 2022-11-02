@@ -542,7 +542,7 @@ function About(props) {
                                                 <span>대행사니까</span>
                                             </div>
                                             <div className="typo _03">
-                                                <span>프로덕션입니다.</span>
+                                                <span>프로덕션입니다</span>
                                             </div>
                                         </div>
                                     </div>
