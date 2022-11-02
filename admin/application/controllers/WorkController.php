@@ -15,7 +15,9 @@ class WorkController extends Controller {
     public function index() {
         $category = $_GET['cate'];
         $model = new \application\models\WorkModel();
-        $list = $model->selectList($category);
+        // $list = $model->selectList($category);
+        $list = $this->getWorkList($category);
+
         $this->category_list = $model->getCategories();
 
         $page_title = "work list";
@@ -61,8 +63,12 @@ class WorkController extends Controller {
         $page_title = "work add";
         require_once 'application/views/work/view.php';
     }
-    public function getList() {
+    public function getWorkList($category) {
+        $model = new \application\models\WorkModel();
 
+        $list = $model->selectList($category);
+
+        return $list;
     }
     private function uploadFiles($dirIndex, $files) {
 

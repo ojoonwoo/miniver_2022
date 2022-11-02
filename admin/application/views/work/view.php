@@ -186,6 +186,16 @@ $this_categories = explode(', ', $work_data['work_categories']);
                 ?>
             </div>
         </div>
+        <div class="mb-3">
+            <label for="related-works" class="form-label">연관 프로젝트</label>
+            <div class="input-group">
+                <ul class="related-work-list">
+                    <!-- 기본 워크 리스트 출력 -->
+                    <!-- 검색, 또는 필터에 따라 리스트 변경 -->
+                </ul>
+                <!-- 검색 기능 -->
+            </div>
+        </div>
         <?php
         if ($action === 'modify' || $action === 'add') {
         ?>
@@ -197,6 +207,9 @@ $this_categories = explode(', ', $work_data['work_categories']);
         ?>
     </form>
     <script>
+        $(document).on('click', '#detail-source-add', function() {
+
+        });
         function formCheck(form, action) {
             if ($.trim(form.work_title.value).length < 1 || $.trim(form.work_title_kor.value).length < 1) {
                 alert('프로젝트 제목을 입력해주세요');
@@ -242,38 +255,19 @@ $this_categories = explode(', ', $work_data['work_categories']);
                 }
             }
             if (form.hero_color.value.length !== 0) {
-                var regType = /^[A-Za-z0-9]+$/;
-                if (!regType.test(form.hero_color.value.substr(1, form.hero_color.value.length))) {
-                    alert('정확한 HEX CODE를 입력해주세요');
-                    return false;
-                }
-
-                if (form.hero_color.value.length < 6 || form.hero_color.value.length > 7) {
+                if (form.hero_color.value.length !== 7) {
                     alert('HEX CODE의 길이가 맞지않습니다.');
                     return false;
                 }
-
-                if (form.hero_color.value.length === 6) {
-                    if (form.hero_color.value.includes('#')) {
-                        alert('정확한 HEX CODE를 입력해주세요');
-                        return false;
-                    } else {
-                        form.hero_color.value = '#' + form.hero_color.value;
-                    }
+                var regType = /^[A-Za-z0-9]+$/;
+                if (!regType.test(form.hero_color.value.substr(1,form.hero_color.value.length))) {
+                    alert('정확한 HEX CODE를 입력해주세요');
+                    return false;
                 }
-
-
-                if (form.hero_color.value.length === 7) {
-                    if (form.hero_color.value.charAt(0) !== '#') {
-                        alert('정확한 HEX CODE를 입력해주세요');
-                        return false;
-                    }
+                if (form.hero_color.value.charAt(0) !== '#') {
+                    alert('맨 앞에 #을 붙여주세요');
+                    return false;
                 }
-
-                // if (form.hero_color.value.charAt(0) !== '#') {
-                //     form.hero_color.value = '#' + form.hero_color.value;
-                //     return false;
-                // }
             }
             // return false
             return true;
