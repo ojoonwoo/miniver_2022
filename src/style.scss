@@ -964,42 +964,44 @@ textarea::-webkit-scrollbar-thumb {
                                         background-image: url(./assets/about_director_ky.jpg);
                                     }
                                 }
-                                .img-box {
-                                    width: 100%;
-                                    min-width: 22.5rem;
-                                    padding-bottom: 100%;
-                                    background-color: lightgray;
-                                    margin-bottom: 1.5rem;
-                                    transform: translateY(2rem);
-                                    opacity: 0;
-                                    visibility: hidden;
-                                    background-position: center;
-                                    background-size: cover;
-                                    background-repeat: no-repeat;
-                                }
-                                .text-box {
-                                    text-align: center;
-                                    .desc {
-                                        font-weight: 400;
-                                        font-size: 1.2rem;
-                                        line-height: 1.25;
-                                        letter-spacing: -0.03em;
-                                        margin-bottom: 0.8rem;
-                                        transform: translateY(2rem);
+                                > .inner {
+                                    .img-box {
+                                        width: 100%;
+                                        min-width: 22.5rem;
+                                        padding-top: 100%;
+                                        background-color: lightgray;
+                                        margin-bottom: 1.1rem;
+                                        // transform: translateY(2rem);
                                         opacity: 0;
                                         visibility: hidden;
+                                        background-position: center;
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
                                     }
-                                    .title {
-                                        font-weight: 700;
-                                        font-size: 1.5rem;
-                                        line-height: 1.46;
-                                        letter-spacing: -0.03em;
-                                        transform: translateY(2rem);
-                                        opacity: 0;
-                                        visibility: hidden;
+                                    .text-box {
+                                        text-align: left;
+                                        .desc {
+                                            font-weight: 400;
+                                            font-size: 1.2rem;
+                                            line-height: 1.25;
+                                            letter-spacing: -0.03em;
+                                            transform: translateY(0.5rem);
+                                            opacity: 0;
+                                            visibility: hidden;
+                                        }
+                                        .title {
+                                            font-weight: 700;
+                                            font-size: 1.5rem;
+                                            line-height: 1.46;
+                                            letter-spacing: -0.03em;
+                                            transform: translateY(0.5rem);
+                                            opacity: 0;
+                                            visibility: hidden;
+                                            margin-bottom: 0.5rem;
+                                        }
                                     }
                                 }
-                            }
+                            }   
                         }
                     }
                 }
@@ -2634,6 +2636,7 @@ textarea::-webkit-scrollbar-thumb {
                     .ani-block._04 {
                         .director-block {
                             justify-content: center;
+                            position: relative;
                             > .title {
                                 font-size: 16rem;
                                 text-align: center;
@@ -2642,22 +2645,42 @@ textarea::-webkit-scrollbar-thumb {
                             .director-info__wrapper {
                                 display: flex;
                                 margin-bottom: -2rem;
+                                width: 100%;
+                                position: absolute;
+                                bottom: 0;
                                 .director-box {
-                                    padding: 2.8rem 6rem 2.8rem 1.5rem;
+                                    padding: 0 1.5rem;
+                                    width: 50%;
+                                    height: 76vh;
                                     position: relative;
-                                    .img-box {
+                                    display: flex;
+                                    justify-content: flex-start;
+                                    background-color: $black;
+                                    border: none;
+                                    > .inner {
                                         width: 37rem;
-                                    }
-                                    .text-box {
-                                        .desc {
-                                            font-size: 1.8rem;
+                                        .img-box {
+                                            width: 37rem;
+                                            height: 37rem;
+                                            margin-bottom: 2rem;
                                         }
-                                        .title {
-                                            font-size: 2rem;
+                                        .text-box {
+                                            text-align: left;
+                                            .desc {
+                                                font-size: 1.8rem;
+                                                word-break: break-all;
+                                                line-height: 1.5;
+                                            }
+                                            .title {
+                                                font-size: 2.2rem;
+                                                line-height: 1.45;
+                                                margin-bottom: 1.5rem;
+                                            }
                                         }
                                     }
                                     &:first-child {
-                                        padding: 2.8rem 1.5rem 2.8rem 6rem;
+                                        // padding: 0 1.5rem 2.8rem 6rem;
+                                        justify-content: flex-end;
                                     }
                                 }
                             }
