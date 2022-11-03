@@ -65,7 +65,7 @@ function About(props) {
         // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
         // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document });
         scroller = document.querySelector('[data-scrollbar]');
-        bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
+        bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: false });
 
         // SmoothScrollbar와 ScrollTrigger 연동
         ScrollTrigger.scrollerProxy('[data-scrollbar]', {
