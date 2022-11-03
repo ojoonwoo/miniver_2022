@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { changeColor } from './../store.js';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
 import gsap from 'gsap';
@@ -41,6 +41,10 @@ function About(props) {
 
     const sliderWrapperRef = useRef(null);
 
+    const goTopRef = useRef(null);
+    let scroller;
+    let bodyScrollBar;
+
     useEffect(() => {
         // const container = document.querySelector('#anim-container');
         console.log('어바웃 마운트');
@@ -57,9 +61,11 @@ function About(props) {
         getProjectData();
 
         // SmoothScrollbar Setup
-        const scroller = document.querySelector('[data-scrollbar]');
-        const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
+        // const scroller = document.querySelector('[data-scrollbar]');
+        // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
         // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document });
+        scroller = document.querySelector('[data-scrollbar]');
+        bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
 
         // SmoothScrollbar와 ScrollTrigger 연동
         ScrollTrigger.scrollerProxy('[data-scrollbar]', {
@@ -73,6 +79,8 @@ function About(props) {
         bodyScrollBar.addListener(ScrollTrigger.update);
         // bodyScrollBar.addListener(ScrollTrigger.refresh); 
         ScrollTrigger.defaults({ scroller: scroller });
+
+        goTopRef.current.addEventListener('click', goTopHandler);
 
         let posterTl = gsap.timeline({
             scrollTrigger: {
@@ -432,11 +440,12 @@ function About(props) {
     }, [activeSlide]);
 
     const goTopHandler = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-            duration: window.innerHeight * 0.1,
-        });
+        bodyScrollBar.scrollTo(0, 0);
+        // window.scrollTo({
+        //     top: 0,
+        //     behavior: 'smooth',
+        //     duration: window.innerHeight * 0.1,
+        // });
     };
 
     let [workCategoryData, setWorkCategoryData] = useState(['video', 'development', 'product-manager', 'designer']);
@@ -1621,7 +1630,8 @@ function About(props) {
                             </Swiper>
                         </div>
                         {device === 'mobile' ? (
-                            <button type="button" className="go-top" onClick={goTopHandler}>
+                            // <button type="button" className="go-top" onClick={goTopHandler}>
+                            <button type="button" className="go-top" ref={goTopRef}>
                                 Back to top
                             </button>
                         ) : (
