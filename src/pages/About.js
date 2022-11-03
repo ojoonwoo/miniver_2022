@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { changeColor } from './../store.js';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
 import gsap from 'gsap';
@@ -40,14 +40,13 @@ function About(props) {
     const [activeSlide, setActiveSlide] = useState('development');
 
     const sliderWrapperRef = useRef(null);
+    const scrollContainerRef = useRef(null);
 
-    const goTopRef = useRef(null);
     let scroller;
     let bodyScrollBar;
 
     useEffect(() => {
         // const container = document.querySelector('#anim-container');
-        console.log('어바웃 마운트');
         dispatch(changeColor('black'));
         async function getProjectData() {
             const workList = await axios({
@@ -64,11 +63,15 @@ function About(props) {
         // const scroller = document.querySelector('[data-scrollbar]');
         // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
         // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document });
-        scroller = document.querySelector('[data-scrollbar]');
-        bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: false });
+        // scroller = document.querySelector('[data-scrollbar]');
+        scroller = scrollContainerRef.current;
+        bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: false, thumbMinSize: 1 });
+        // @todo 스타일 커스텀!!
+
 
         // SmoothScrollbar와 ScrollTrigger 연동
-        ScrollTrigger.scrollerProxy('[data-scrollbar]', {
+        // ScrollTrigger.scrollerProxy('[data-scrollbar]', {
+        ScrollTrigger.scrollerProxy(scrollContainerRef.current, {
             scrollTop(value) {
               if (arguments.length) {
                 bodyScrollBar.scrollTop = value;
@@ -79,8 +82,6 @@ function About(props) {
         bodyScrollBar.addListener(ScrollTrigger.update);
         // bodyScrollBar.addListener(ScrollTrigger.refresh); 
         ScrollTrigger.defaults({ scroller: scroller });
-
-        goTopRef.current.addEventListener('click', goTopHandler);
 
         let posterTl = gsap.timeline({
             scrollTrigger: {
@@ -463,7 +464,7 @@ function About(props) {
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ease: 'easeIn', duration: 0.7 }} exit={{ opacity: 0 }}>
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <PageTransition>
-            <div id="container" className={props.pageName} data-scrollbar>
+            <div id="container" className={props.pageName} data-scrollbar ref={scrollContainerRef}>
                 <div className="inner">
                     <div className="cover-section">
                         {/* <div id="anim-container"></div> */}
@@ -1630,8 +1631,7 @@ function About(props) {
                             </Swiper>
                         </div>
                         {device === 'mobile' ? (
-                            // <button type="button" className="go-top" onClick={goTopHandler}>
-                            <button type="button" className="go-top" ref={goTopRef}>
+                            <button type="button" className="go-top" onClick={goTopHandler}>
                                 Back to top
                             </button>
                         ) : (

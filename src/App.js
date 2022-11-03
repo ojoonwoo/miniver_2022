@@ -10,7 +10,6 @@ import ProjectDetail from './pages/ProjectDetail';
 import Press from './pages/Press';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
-import Header from './components/Header';
 import { setDevice } from './store.js';
 
 import RouteChangeTracker from './components/RouteChangeTracker';
