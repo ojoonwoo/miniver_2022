@@ -41,6 +41,7 @@ function About(props) {
 
     const sliderWrapperRef = useRef(null);
     const scrollContainerRef = useRef(null);
+    const goTopRef = useRef(null);
 
     let scroller;
     let bodyScrollBar;
@@ -79,6 +80,8 @@ function About(props) {
               return bodyScrollBar.scrollTop;
             }
         });
+        goTopRef.current.addEventListener('click', goTopHandler);
+
         bodyScrollBar.addListener(ScrollTrigger.update);
         // bodyScrollBar.addListener(ScrollTrigger.refresh); 
         ScrollTrigger.defaults({ scroller: scroller });
@@ -1631,7 +1634,7 @@ function About(props) {
                             </Swiper>
                         </div>
                         {device === 'mobile' ? (
-                            <button type="button" className="go-top" onClick={goTopHandler}>
+                            <button type="button" className="go-top" ref={goTopRef}>
                                 Back to top
                             </button>
                         ) : (
