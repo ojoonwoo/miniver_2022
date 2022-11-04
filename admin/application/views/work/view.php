@@ -249,10 +249,10 @@ $this_categories = explode(', ', $work_data['work_categories']);
                     alert('상세 주요 이미지1 을 올려주세요');
                     return false;
                 }
-                if (document.getElementsByName('detail_sources2[]')[0].files.length < 1) {
-                    alert('상세 주요 이미지2 를 올려주세요');
-                    return false;
-                }
+                // if (document.getElementsByName('detail_sources2[]')[0].files.length < 1) {
+                //     alert('상세 주요 이미지2 를 올려주세요');
+                //     return false;
+                // }
             }
             if (form.hero_color.value.length !== 0) {
                 if (form.hero_color.value.length !== 7) {
