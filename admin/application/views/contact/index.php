@@ -31,6 +31,7 @@ if(count($list) > 0) {
         <tbody>
 <?php
     foreach($list as $val) {
+    $description = str_replace(array("\r\n", "\n"), "<br>", $val['project_description']);
 ?>
             <tr>
                 <td>
@@ -39,7 +40,7 @@ if(count($list) > 0) {
                 <td><?=$val['contact_category_names']?></td>
                 <td><?=$val['company_name']?></td>
                 <td><?=$val['manager_name']?></td>
-                <td><?=$val['project_description']?></td>
+                <td><?=$description?></td>
                 <td><?=$val['manager_phone']?></td>
                 <td><?=$val['manager_email']?></td>
                 <td><?=$val['project_start_date'] . ' ~ ' . $val['project_end_date']?></td>

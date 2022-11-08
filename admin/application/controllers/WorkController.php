@@ -30,7 +30,7 @@ class WorkController extends Controller {
         $this->category_list = $model->getCategories();
         $action = "read";
         $page_title = "work view";
-        
+
 
         require_once 'application/views/work/view.php';
     }
@@ -40,14 +40,14 @@ class WorkController extends Controller {
             $url = _ROOT_URL.'work/';
             echo "<script>location.replace('".$url."')</script>";
         }
-
+        
         $model = new \application\models\WorkModel();
         $work_data = $model->getDetail($index);
+        $list = $this->getWorkList('');
         $this->category_list = $model->getCategories();
 
         $action = "modify";
         $page_title = "work edit";
-        
 
         require_once 'application/views/work/view.php';
     }

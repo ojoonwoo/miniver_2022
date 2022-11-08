@@ -18,7 +18,6 @@ if ($action === 'modify') {
 }
 
 $this_categories = explode(', ', $work_data['work_categories']);
-
 ?>
 <style>
     .form-label {
@@ -188,12 +187,59 @@ $this_categories = explode(', ', $work_data['work_categories']);
         </div>
         <div class="mb-3">
             <label for="related-works" class="form-label">연관 프로젝트</label>
-            <div class="input-group">
-                <ul class="related-work-list">
-                    <!-- 기본 워크 리스트 출력 -->
-                    <!-- 검색, 또는 필터에 따라 리스트 변경 -->
-                </ul>
-                <!-- 검색 기능 -->
+            <!-- 연관 프로젝트 카테고리 -->
+            <div class="related-work-cate mb-2">
+                <button type="button" class="btn btn-dark active">ALL</button>
+                <?
+                foreach ($this->category_list as $category) {
+                ?>
+                    <button type="button" class="btn btn-light"><?php echo $category['category_name'] ?></button>
+                <?php
+                }
+                ?>
+            </div>
+            <div class="related-work-list mb-2">
+                <div class="card">
+                    <div class="list-group list-group-flush" style="max-height: 20rem; overflow-y:scroll;">
+                        <!-- 기본 워크 리스트 출력 -->
+                        <!-- 검색, 또는 필터에 따라 리스트 변경 -->
+                        <!-- 연관 프로젝트 리스트 -->
+                        <!-- <label class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="로얄캐닌">
+                            로얄캐닌
+                        </label> -->
+                        <!-- <?
+                                if (count($list) > 0) {
+                                    foreach ($list as $val) {
+                                ?>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="<?= $val['work_title'] ?>">
+                                    <?= $val['work_title'] ?>
+                                </label>
+                        <?php
+                                    } // end foreach
+                                } else {
+                                    echo "<p class='empty-para'>등록된 아이템이 없습니다.</p>";
+                                }
+                        ?> -->
+                    </div>
+                </div>
+            </div>
+            <!-- 검색 기능 -->
+        </div>
+        <div class="mb-3">
+            <div class="selected-work-list">
+                <label class="form-label">선택된 프로젝트</label>
+                <div class="input-group">
+                    <!-- <span class="input-group-text">영어</span> -->
+                    <div class="badge-group fs-5">
+                        <span class="badge rounded-pill bg-dark">로얄캐닌</span>
+                        <span class="badge rounded-pill bg-dark">스타벅스앳홈</span>
+                        <span class="badge rounded-pill bg-dark">씨에라</span>
+                        <span class="badge rounded-pill bg-dark">런드리고</span>
+                    </div>
+                    <input type="hidden" id="selected-work" name="selected-work" value="">
+                </div>
             </div>
         </div>
         <?php
@@ -207,9 +253,22 @@ $this_categories = explode(', ', $work_data['work_categories']);
         ?>
     </form>
     <script>
-        $(document).on('click', '#detail-source-add', function() {
+        var list = <? echo json_encode($list) ?>;
+        console.log(list);
+        $(document).ready(function() {
+            var target = $('.related-work-list .list-group');
+            var listItem;
+            list.forEach(function(element, index) {
+                listItem = "<label class='list-group-item'>"
+                listItem += "<input class='form-check-input me-1' type='checkbox' value='"+element.idx+"'>"+element.work_title
+                listItem += "</label>"
+                target.append(listItem);
+            });
+        })
+        // $(document).on('click', '#detail-source-add', function() {
 
-        });
+        // });
+
         function formCheck(form, action) {
             if ($.trim(form.work_title.value).length < 1 || $.trim(form.work_title_kor.value).length < 1) {
                 alert('프로젝트 제목을 입력해주세요');
@@ -260,7 +319,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
                     return false;
                 }
                 var regType = /^[A-Za-z0-9]+$/;
-                if (!regType.test(form.hero_color.value.substr(1,form.hero_color.value.length))) {
+                if (!regType.test(form.hero_color.value.substr(1, form.hero_color.value.length))) {
                     alert('정확한 HEX CODE를 입력해주세요');
                     return false;
                 }
@@ -269,6 +328,8 @@ $this_categories = explode(', ', $work_data['work_categories']);
                     return false;
                 }
             }
+
+            // * 밸류 배열 인풋 밸류에 세팅
             // return false
             return true;
         }
