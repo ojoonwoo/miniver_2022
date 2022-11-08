@@ -19,7 +19,7 @@ function Contact(props) {
     let contactState = useSelector((state) => {
         return state.contactState;
     });
-    console.log(contactState);
+    // console.log(contactState);
     let dispatch = useDispatch();
 
     let device = useSelector((state) => {
@@ -79,7 +79,7 @@ function Contact(props) {
         return () => {};
     }, [contactState.step]);
     useEffect(() => {
-        console.log(startDate);
+        // console.log(startDate);
         if (startDate !== '') {
             setDateReadOnly(false);
         }
@@ -93,14 +93,14 @@ function Contact(props) {
         });
 
         setCategoryData(result.data.list);
-        console.log(result.data.list);
+        // console.log(result.data.list);
     };
 
     const insertContactData = async () => {
-        console.log(contactState);
+        // console.log(contactState);
         let category = contactState.category.toString().replace(/,/g, ', ');
         let phone = '';
-        console.log(contactState.phone.length);
+        // console.log(contactState.phone.length);
         // ! 앞의 두자리 01
         // ! 02, 070, 080, 1566
         // ! 9자리면 맨 뒤 부터 4 - 3 -
@@ -119,7 +119,7 @@ function Contact(props) {
                 // * x2 - xxxx - xxxx로 변환
                 // * 두번째 숫자가 2보다 크다면
                 // * xxx - xxx - xxxx로 변환
-                console.log(contactState.phone.charAt(1));
+                // console.log(contactState.phone.charAt(1));
                 if (contactState.phone.charAt(1) === '2') {
                     phone = contactState.phone.replace(/^(\d{2})(\d{4})(\d{4})$/, `$1-$2-$3`);
                 } else {
@@ -134,7 +134,7 @@ function Contact(props) {
             default:
                 break;
         }
-        console.log(phone);
+        // console.log(phone);
         const result = await axios({
             method: 'post',
             url: '/api/contact/insert',
@@ -149,13 +149,13 @@ function Contact(props) {
                 email: contactState.email,
             },
         });
-        console.log(result.data);
+        // console.log(result.data);
     };
 
     const inputHandler = ({ target }, idx) => {
-        console.log(target);
-        console.log(target.value);
-        console.log(target.checked);
+        // console.log(target);
+        // console.log(target.value);
+        // console.log(target.checked);
         switch (contactState.step) {
             case 1:
                 // console.log(idx);
@@ -178,7 +178,7 @@ function Contact(props) {
                 setCompany(target.value);
                 break;
             case 5:
-                console.log(target.id);
+                // console.log(target.id);
                 switch (target.id) {
                     case 'nameInput':
                         // target.value = target.value.replace(/^?[a-zA-Zㄱ-힣|\s]/g, '');
@@ -256,7 +256,7 @@ function Contact(props) {
             default:
                 break;
         }
-        console.log(contactState.step);
+        // console.log(contactState.step);
         // ! 중복되는 부분 수정해야함
         switch (contactState.step) {
             case 1:
@@ -349,7 +349,7 @@ function Contact(props) {
             default:
                 break;
         }
-        console.log(contactState.step);
+        // console.log(contactState.step);
     };
 
     const surveyVariants = {

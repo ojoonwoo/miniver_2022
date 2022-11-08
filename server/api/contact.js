@@ -33,7 +33,7 @@ router.post('/insert', function (req, res) {
 
             const cateQuery = `select category_name from category_info where 1 AND idx IN (${categories})`;
             db.query(cateQuery, (err, results, fields) => {
-                console.log('result', results);
+                // console.log('result', results);
                 results.forEach(function (val, idx) {
                     categoryNameArr.push(val.category_name);
                 });
@@ -44,12 +44,15 @@ router.post('/insert', function (req, res) {
                 // const toEmail = 'hs.ra@minivertising.kr';
                 const toEmail = 'contact@miniv.kr';
 
+                // * 메일용 본문 컨버전 (줄바꿈 텍스트 형식으로 적용되도록 변환)
+                let mailDescription = description.replace(/(\n|\r\n)/g, '<br>');
+
                 let emailParam = {
                     toEmail: toEmail,
     
                     subject: '[CONTACT US] 새로운 CONTACT US 글이 등록 되었습니다.',
     
-                    html: ' 의뢰유형 : ' + categoryNameArr.join(', ') + '<br>   브랜드 또는 회사명 : ' + company + '<br> 담당자 성함 : ' + name + '<br> 연락처 : ' + phone + '<br> 이메일 : ' + email + '<br> 예산 : ' + budget + '만원<br> 일정 : ' + startDate + ' ~ ' + endDate + '<br> 내용 : ' + description,
+                    html: ' 의뢰유형 : ' + categoryNameArr.join(', ') + '<br>   브랜드 또는 회사명 : ' + company + '<br> 담당자 성함 : ' + name + '<br> 연락처 : ' + phone + '<br> 이메일 : ' + email + '<br> 예산 : ' + budget + '만원<br> 일정 : ' + startDate + ' ~ ' + endDate + '<br> 내용 : ' + mailDescription,
                 };
     
                 mailer.sendGmail(emailParam);

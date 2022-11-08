@@ -80,7 +80,9 @@ function About(props) {
               return bodyScrollBar.scrollTop;
             }
         });
-        goTopRef.current.addEventListener('click', goTopHandler);
+        if(device === 'mobile') {
+            goTopRef.current.addEventListener('click', goTopHandler);
+        }
 
         bodyScrollBar.addListener(ScrollTrigger.update);
         // bodyScrollBar.addListener(ScrollTrigger.refresh); 
