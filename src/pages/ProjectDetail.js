@@ -12,6 +12,7 @@ import useResizeObserver from '@react-hook/resize-observer';
 import { heroBoxChangeColor } from './../store.js';
 
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -59,14 +60,34 @@ function ProjectDetail(props) {
             });
 
             setProjectData(result.data);
-            
-
-            const relatedWork = await axios({
-                method: 'get',
-                url: '/api/work/getlist',
-                params: { cate: result.data.work_categories.substring(0, 1), exclude: result.data.idx, limit: 3 },
-            });
-            setRelatedWork(relatedWork.data.list);
+            let related_work;
+            if(result.data.related_work) {
+            // * 연관 프로젝트가 세팅되어있을때
+                related_work = result.data.related_work;
+                console.log('hihi');
+                console.log(related_work);
+                const relatedWork = await axios({
+                    method: 'get',
+                    url: '/api/work/getrelatedlist',
+                    params: { idx: related_work, limit: 3 },
+                });
+                console.log(relatedWork.data.list);
+                setRelatedWork(relatedWork.data.list);
+            } else {
+            // * 연관 프로젝트가 세팅되어있지않을때
+                related_work = result.data.work_categories.substring(0, 1);
+                console.log(related_work);
+                const relatedWork = await axios({
+                    method: 'get',
+                    url: '/api/work/getlist',
+                    params: { cate: related_work, exclude: result.data.idx, limit: 3 },
+                });
+                console.log(relatedWork.data.list);
+                setRelatedWork(relatedWork.data.list);
+            }
+            // console.log(related_work);
+            // console.log(relatedWork.data.list);
+            // setRelatedWork(relatedWork.data.list);
         }
         getProjectData();
 
@@ -261,6 +282,7 @@ function ProjectDetail(props) {
         <PageTransition variantsName="detail">
             {/* // <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
             <div id="container" className={props.pageName} ref={containerRef}>
+                <Header />
                 <div className="contents" ref={contentRef}>
                     {projectData.category_names && (
                         <div className="project-detail__hero">
