@@ -15,9 +15,11 @@ if ($action === 'modify') {
     $form_action = _ROOT_URL . "work/itemInsert";
 } else {
     $readonly = "readonly";
+    $pointerNone = "style='pointer-events: none;'";
 }
 
 $this_categories = explode(', ', $work_data['work_categories']);
+$related_work = explode(', ', $work_data['related_work']);
 ?>
 <style>
     .form-label {
@@ -189,12 +191,18 @@ $this_categories = explode(', ', $work_data['work_categories']);
             <label for="related-works" class="form-label">연관 프로젝트</label>
             <!-- 연관 프로젝트 카테고리 -->
             <div class="related-work-cate mb-2">
-                <button type="button" class="btn btn-dark active">ALL</button>
                 <?
-                foreach ($this->category_list as $category) {
+                if (count($list) > 0) {
                 ?>
-                    <button type="button" class="btn btn-light"><?php echo $category['category_name'] ?></button>
+                    <button type="button" class="btn btn-dark cate-sort active" <?= $pointerNone ?>>ALL</button>
+                    <?
+                    foreach ($this->category_list as $category) {
+                    ?>
+                        <button type="button" class="btn btn-light cate-sort" <?= $pointerNone ?> data-cate=<?= $category['idx'] ?>><?php echo $category['category_name'] ?></button>
                 <?php
+                    }
+                } else {
+                    echo "<p class='empty-para'>등록된 아이템이 없습니다.</p>";
                 }
                 ?>
             </div>
@@ -208,37 +216,23 @@ $this_categories = explode(', ', $work_data['work_categories']);
                             <input class="form-check-input me-1" type="checkbox" value="로얄캐닌">
                             로얄캐닌
                         </label> -->
-                        <!-- <?
-                                if (count($list) > 0) {
-                                    foreach ($list as $val) {
-                                ?>
-                                <label class="list-group-item">
-                                    <input class="form-check-input me-1" type="checkbox" value="<?= $val['work_title'] ?>">
-                                    <?= $val['work_title'] ?>
-                                </label>
-                        <?php
-                                    } // end foreach
-                                } else {
-                                    echo "<p class='empty-para'>등록된 아이템이 없습니다.</p>";
-                                }
-                        ?> -->
                     </div>
                 </div>
             </div>
             <!-- 검색 기능 -->
         </div>
         <div class="mb-3">
-            <div class="selected-work-list">
+            <div class="selected-related-work-list">
                 <label class="form-label">선택된 프로젝트</label>
                 <div class="input-group">
                     <!-- <span class="input-group-text">영어</span> -->
                     <div class="badge-group fs-5">
-                        <span class="badge rounded-pill bg-dark">로얄캐닌</span>
-                        <span class="badge rounded-pill bg-dark">스타벅스앳홈</span>
+                        <!-- <span class="badge rounded-pill bg-dark">로얄캐닌</span> -->
+                        <!-- <span class="badge rounded-pill bg-dark">스타벅스앳홈</span>
                         <span class="badge rounded-pill bg-dark">씨에라</span>
-                        <span class="badge rounded-pill bg-dark">런드리고</span>
+                        <span class="badge rounded-pill bg-dark">런드리고</span> -->
                     </div>
-                    <input type="hidden" id="selected-work" name="selected-work" value="">
+                    <input type="hidden" id="selected-related-work" name="selected_related_work" value="">
                 </div>
             </div>
         </div>
@@ -253,18 +247,130 @@ $this_categories = explode(', ', $work_data['work_categories']);
         ?>
     </form>
     <script>
-        var list = <? echo json_encode($list) ?>;
-        console.log(list);
-        $(document).ready(function() {
-            var target = $('.related-work-list .list-group');
-            var listItem;
-            list.forEach(function(element, index) {
-                listItem = "<label class='list-group-item'>"
-                listItem += "<input class='form-check-input me-1' type='checkbox' value='"+element.idx+"'>"+element.work_title
-                listItem += "</label>"
-                target.append(listItem);
+        // * 오리진 배열
+        var originListArr = <? echo json_encode($list) ?>;
+        // * 선택된 프로젝트 리스트 배열
+        var selectListArr = new Array();
+
+        // * Edit의 경우
+        <?php
+        if ($action === 'modify' || $action === 'read') {
+        ?>
+            originListArr = originListArr.filter(function(element) {
+                return element.idx !== "<?= $work_data['idx'] ?>"
             });
+            selectListArr = <? echo json_encode($related_work) ?>;
+            selectListArr = selectListArr.filter(i => i.length !== 0);
+        <?php
+        }
+        ?>
+        console.log(selectListArr);
+        // * 프린트용 배열 : 오리진 배열 깊은 복사
+        var printListArr = JSON.parse(JSON.stringify(originListArr));
+
+        // console.log(selectListArr);
+        $(document).ready(function() {
+            var relatedWorkList = $('.related-work-list .list-group');
+            var relatedWorkBadgeList = $('.selected-related-work-list .badge-group');
+            var listItem;
+            <?php
+            $uploadUrl = _WORK_UPLOAD_URL
+            ?>
+            printListArr.forEach(function(element, index) {
+                listItem = "<label class='list-group-item d-flex align-items-center' <?= $pointerNone ?>>"
+                // * 셀렉트 배열에 프로젝트 idx 값이 있다면 sort된 새로운 프린트 배열을 뿌려줄때 checked 상태로 뿌림.
+                if (selectListArr.length > 0 && selectListArr.indexOf(element.idx) !== -1) {
+                    listItem += "<input class='form-check-input me-3' type='checkbox' checked data-idx='" + element.idx + "' value='" + element.idx + "'>"
+                } else {
+                    listItem += "<input class='form-check-input me-3' type='checkbox' data-idx='" + element.idx + "' value='" + element.idx + "'>"
+                }
+                listItem += "<div class='d-flex align-items-center'>"
+                listItem += "<img class='me-3' style='width: 12rem' src='<?= $uploadUrl ?>" + element.idx + "/hero_source/" + element.hero_source + "' alt=''>"
+                listItem += "<span>" + element.work_title + "</span>"
+                listItem += "</div>"
+                listItem += "</label>"
+
+                relatedWorkList.append(listItem);
+            });
+            if (selectListArr.length > 0) {
+                selectListArr.forEach(function(element, index) {
+                    console.log(element);
+                    var badge = '<span class="badge rounded-pill bg-dark me-1" data-idx=' + element + '>' + relatedWorkList.find('.form-check-input[data-idx="' + element + '"]').closest('label').text() + '</span>';
+                    relatedWorkBadgeList.append(badge);
+                });
+            }
         })
+
+        // * 연관 프로젝트 체크시 선택된 프로젝트 뱃지 세팅
+        $(document).on('click', '.related-work-list .form-check-input', function() {
+            var $this = $(this);
+            var target = $('.selected-related-work-list .badge-group');
+            var badge = '<span class="badge rounded-pill bg-dark me-1" data-idx=' + $this.val() + '>' + $this.closest('label').text() + '</span>';
+            if ($this.is(':checked')) {
+                console.log('체크');
+                // * 셀렉트 배열에 체크한 프로젝트가 없다면 선택된 프로젝트 뱃지 추가, 셀렉트 배열에 추가
+                if (selectListArr.indexOf($this.val()) === -1) {
+                    target.append(badge);
+                    selectListArr.push($this.val());
+                }
+                console.log('선택된 프로젝트 배열:', selectListArr);
+            } else {
+                if (target.children('[data-idx="' + $this.val() + '"]')) {
+                    console.log('체크해제');
+                    // console.log($this.val());
+                    target.children('[data-idx="' + $this.val() + '"]').remove();
+                    selectListArr = selectListArr.filter(function(element) {
+                        return element !== $this.val()
+                    });
+                    console.log('선택된 프로젝트 배열:', selectListArr);
+                } else {
+                    console.log('에러');
+                }
+            }
+        });
+
+        // * 연관 프로젝트 카테고리 클릭시 세팅
+        $(document).on('click', '.related-work-cate .cate-sort', function() {
+            var $this = $(this);
+            var target = $('.related-work-list .list-group');
+            if ($this.data('cate')) {
+                printListArr = originListArr.filter(function(element) {
+                    // console.log(element.work_categories.includes($this.data('cate')));
+                    if (element.work_categories.indexOf($this.data('cate')) !== -1) {
+                        return element;
+                    }
+                })
+            } else {
+                printListArr = JSON.parse(JSON.stringify(originListArr));
+            }
+            $this.siblings('.cate-sort').removeClass('active').removeClass('btn-dark');
+            $this.removeClass('btn-light').addClass('active').addClass('btn-dark');
+            target.empty();
+
+            if (printListArr.length !== 0) {
+                <?php
+                $uploadUrl = _WORK_UPLOAD_URL
+                ?>
+                printListArr.forEach(function(element, index) {
+                    listItem = "<label class='list-group-item d-flex align-items-center'>"
+                    // * 셀렉트 배열에 프로젝트 idx 값이 있다면 sort된 새로운 프린트 배열을 뿌려줄때 checked 상태로 뿌림.
+                    if (selectListArr.indexOf(element.idx) !== -1) {
+                        listItem += "<input class='form-check-input me-3' type='checkbox' checked data-idx='" + element.idx + "' value='" + element.idx + "'>"
+                    } else {
+                        listItem += "<input class='form-check-input me-3' type='checkbox' data-idx='" + element.idx + "' value='" + element.idx + "'>"
+                    }
+                    listItem += "<div class='d-flex align-items-center'>"
+                    listItem += "<img class='me-3' style='width: 12rem' src='<?= $uploadUrl ?>" + element.idx + "/hero_source/" + element.hero_source + "' alt=''>"
+                    listItem += "<span>" + element.work_title + "</span>"
+                    listItem += "</div>"
+                    listItem += "</label>"
+                    target.append(listItem);
+                });
+            } else {
+                listItem = "<span class='list-group-item'>등록된 프로젝트가 없습니다.</span>"
+                target.append(listItem);
+            }
+        });
         // $(document).on('click', '#detail-source-add', function() {
 
         // });
@@ -313,7 +419,7 @@ $this_categories = explode(', ', $work_data['work_categories']);
                 //     return false;
                 // }
             }
-            if (form.hero_color.value.length !== 0) {
+            if (form.hero_color.value.length > 0) {
                 if (form.hero_color.value.length !== 7) {
                     alert('HEX CODE의 길이가 맞지않습니다.');
                     return false;
@@ -330,6 +436,12 @@ $this_categories = explode(', ', $work_data['work_categories']);
             }
 
             // * 밸류 배열 인풋 밸류에 세팅
+            if (selectListArr.length > 0) {
+                var selectList = selectListArr.sort().join(', ');
+                console.log(selectList);
+                $('#selected-related-work').val(selectList);
+                // console.log("hi", form.selected_work.value);
+            }
             // return false
             return true;
         }

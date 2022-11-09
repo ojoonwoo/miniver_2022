@@ -27,6 +27,7 @@ class WorkController extends Controller {
     public function view($index) {
         $model = new \application\models\WorkModel();
         $work_data = $model->getDetail($index);
+        $list = $this->getWorkList('');
         $this->category_list = $model->getCategories();
         $action = "read";
         $page_title = "work view";
@@ -57,8 +58,9 @@ class WorkController extends Controller {
             return false;
         }
         $model = new \application\models\WorkModel();
-
+        $list = $this->getWorkList('');
         $this->category_list = $model->getCategories();
+
         $action = "add";
         $page_title = "work add";
         require_once 'application/views/work/view.php';
@@ -150,6 +152,7 @@ class WorkController extends Controller {
             "client_name_kor"=> htmlspecialchars($_POST['client_name_kor']),
             "work_overview"=> htmlspecialchars($_POST['work_overview']),
             "hero_color"=> htmlspecialchars($_POST['hero_color']),
+            "related_work"=> htmlspecialchars($_POST['selected_related_work']),
         );
 
 
@@ -196,6 +199,7 @@ class WorkController extends Controller {
             "client_name_kor"=> htmlspecialchars($_POST['client_name_kor']),
             "work_overview"=> htmlspecialchars($_POST['work_overview']),
             "hero_color"=> htmlspecialchars($_POST['hero_color']),
+            "related_work"=> htmlspecialchars($_POST['selected_related_work']),
         );
 
         
