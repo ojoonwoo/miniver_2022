@@ -118,6 +118,32 @@ router.get('/getdetail', function(req, res) {
         }
     });
 });
+router.get('/getrelatedlist', function(req, res) {
+    // related list 가져오기
+    const idx = req.query.idx;
+    const count = (req.query.limit) && req.query.limit;
+
+    let where = '';
+
+    where = `(${idx})`;
+
+    if(count) {
+        where += ` limit ${count}`;
+    }
+
+    const query = `select * from work_info where 1 AND idx IN${where}`;
+
+    console.log(query);
+
+    db.query(query, (err, results, fields) => {
+        if(!err) {
+            res.json({ list: results });
+        } else {
+            console.log(`query error : ${err}`);
+            res.send(err);
+        }
+    });
+});
 
 // export default router;
 module.exports = router;
