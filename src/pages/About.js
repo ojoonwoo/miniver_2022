@@ -18,6 +18,7 @@ import Footer from '../components/Footer';
 // import lottie from 'lottie-web';
 import Lottie from 'lottie-react';
 import animationData from '../about_title_animation.json';
+import Header from '../components/Header';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -470,6 +471,7 @@ function About(props) {
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <PageTransition>
             <div id="container" className={props.pageName} data-scrollbar ref={scrollContainerRef}>
+                <Header />
                 <div className="inner">
                     <div className="cover-section">
                         {/* <div id="anim-container"></div> */}

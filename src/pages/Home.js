@@ -8,6 +8,7 @@ import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence, motion, useAnimation, useAnimationControls, useMotionValue } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
+import Header from '../components/Header';
 
 function Home(props) {
     let themeColor = useSelector((state) => {
@@ -600,6 +601,7 @@ function Home(props) {
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <PageTransition variantsName="home">
             <div id="container" className={props.pageName} ref={scrollRef}>
+            <Header />    
             {/* <div id="container" className={props.pageName}> */}
                 <div className="contents" ref={contentsRef}>
                     <motion.div className="section-container" animate={sectionAnimate} ref={containerRef}>

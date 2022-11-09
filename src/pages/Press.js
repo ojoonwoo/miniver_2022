@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import { changeColor } from '../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PageTransition from '../components/PageTransition';
+import Header from '../components/Header';
 import { Routes, Route, useLocation, Link, Outlet, useParams, useNavigate } from 'react-router-dom';
 
 // todo
@@ -51,6 +52,7 @@ function Project(props) {
         <PageTransition>
             <div id="container" className={props.pageName}>
                 {/* <Header color="black"/> */}
+                <Header />
                 <div className="contents">
                     <div className="grid-inner">
                         <h1 className="page-title">Press</h1>

@@ -8,6 +8,7 @@ import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from '../components/CategoryItem';
 import PageTransition from '../components/PageTransition';
+import Header from '../components/Header';
 import { Routes, Route, useLocation, Link, Outlet, useParams, useNavigate } from 'react-router-dom';
 
 // todo
@@ -86,7 +87,7 @@ function Project(props) {
         // <div id="container" className={props.pageName}>
         <PageTransition>
             <div id="container" className="Project">
-                {/* <Header color="black"/> */}
+                <Header />
                 <div className="contents">
                     <div className="grid-inner">
                         <h1 className="page-title">Project</h1>
