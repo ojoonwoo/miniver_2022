@@ -9,6 +9,7 @@ import { motion, useAnimation } from 'framer-motion';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Draggable from 'gsap/Draggable';
+import TextPlugin from 'gsap/TextPlugin';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SmoothScrollbar from 'smooth-scrollbar';
@@ -26,7 +27,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 function About(props) {
-    gsap.registerPlugin(ScrollTrigger, Draggable);
+    gsap.registerPlugin(ScrollTrigger, Draggable, TextPlugin);
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
@@ -67,7 +68,7 @@ function About(props) {
         // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document });
         // scroller = document.querySelector('[data-scrollbar]');
         scroller = scrollContainerRef.current;
-        bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: false, thumbMinSize: 1 });
+        bodyScrollBar = SmoothScrollbar.init(scroller, { damping: window.innerWidth < 1200 ? 0.04 : 0.1, delegateTo: document, alwaysShowTracks: false, thumbMinSize: 1 });
         // @todo 스타일 커스텀!!
 
 
@@ -126,24 +127,31 @@ function About(props) {
             // .set('#scroll-animation_container', { backgroundColor: '#ffffff' })
             .addLabel('scale-down')
             .set('.ani-box._02 .typo-wrap', { autoAlpha: 1}, 'scale-down')
-            .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 1 }, 'scale-down')
+            .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 3 }, 'scale-down')
             .to('.ani-box._01 .desc-block .desc', { autoAlpha: 1, duration: 0.2 }, 'scale-down+=0.2')
-            .to('.ani-box._01 .desc-block .desc', { fontSize: window.innerWidth < 1200 ? 1.2 + 'rem' : 2.5 + 'rem', duration: 0.5 }, 'scale-down+=0.5')
+            .to('.ani-box._01 .desc-block .desc', { fontSize: window.innerWidth < 1200 ? 1.2 + 'rem' : 2.4 + 'rem', duration: 0.5 }, 'scale-down+=0.5')
             // .to('.ani-box._01', { width: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', height: window.innerWidth < 1200 ? 28 + 'rem' : 55 + 'rem', duration: 1 }, 'scale-up')
             .addLabel('bg-in', '+=0.8')
-            .to('.ani-box._01 .desc-block .desc', { autoAlpha: 0, duration: 0.3 }, 'bg-in')
-            .to('.ani-box._01', { height: 100 + '%', duration: 0.8 })
+            .to('.ani-box._01 .desc-block .desc .desc__text._01, .ani-box._01 .desc-block .desc .desc__text._02', { autoAlpha: 0, duration: 0.3 }, 'bg-in')
+            .to('.ani-box._01 .desc-block .desc .desc__text._02', { autoAlpha: 0, duration: 0.3 })
+            .addLabel('accent-typo')
+            .to(".ani-box._01 .desc-block .desc .desc__text._02", {text: {value: ""}, duration: 5, ease: "none"}, 'accent-typo')
+            .set('.ani-box._01 .desc-block .desc .desc__text._03', { position: 'absolute', left: window.innerWidth < 1200 ? 1.5 + 'rem' : 5 + 'rem', bottom: window.innerWidth < 1200 ? 7.5 + 'rem' : 14.7+'rem'}, window.innerWidth < 1200 ? 'accent-typo' : 'accent-typo+=0.38')
+            .to('.ani-box._01 .desc-block .desc .desc__text._03', { bottom: '50%', yPercent: 50, left: '50%', xPercent:-50, duration: 1}, window.innerWidth < 1200 ? 'accent-typo' : 'accent-typo+=1')
+            .addLabel('bg-out')
+            .to('.ani-box._01 .desc-block .desc .desc__text._03', { autoAlpha: 0, duration: 0.3 }, 'bg-out')
+            .to('.ani-box._01', { height: 100 + '%', duration: 0.8 }, 'bg-out')
             .to('.ani-box._01', { width: 100 + '%', duration: 0.8 })
             .set('.ani-box._03', { autoAlpha: 1 })
             .addLabel('typo-scale-down')
             .to('.ani-box._01', { autoAlpha: 0, duration: 1 }, 'typo-scale-down')
             .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 3 }, 'typo-scale-down')
-            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 0.5 })
+            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 0.8 })
             .addLabel('show-typo1')
-            .to('.ani-box._03 .typo._02', { autoAlpha: 1, duration: 0.5 }, 'show-typo1')
-            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -100, duration: 0.5 })
+            .to('.ani-box._03 .typo._02', { autoAlpha: 1, duration: 0.8 }, 'show-typo1')
+            .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -100, duration: 0.8 })
             .addLabel('show-typo2')
-            .to('.ani-box._03 .typo._03', { autoAlpha: 1, duration: 0.5 }, 'show-typo2');
+            .to('.ani-box._03 .typo._03', { autoAlpha: 1, duration: 0.8 }, 'show-typo2');
 
         // let tl2 = gsap.timeline({
         //     scrollTrigger: {
@@ -233,7 +241,7 @@ function About(props) {
             .to('.ani-block._04 .director-box._02 .text-box .title', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
             .to('.ani-block._04 .director-box._02 .text-box .desc', { autoAlpha: 1, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.6' : 'start+=0.6')
             .to('.ani-block._04 .director-box._02 .text-box .desc', { y: 0, duration: 1 }, window.innerWidth < 1200 ? 'box-02-in+=0.7' : 'start+=0.7')
-            .addLabel('box-02-out', window.innerWidth < 1200 ? '+=5' : '+=1')
+            .addLabel('box-02-out', window.innerWidth < 1200 ? '+=5' : '+=0.3')
             // .to('.ani-block._04 .director-box._02', { autoAlpha: 0, y: '-2rem', duration: 3 }, window.innerWidth < 1200 ? 'box-02-out' : 'box-01-out');
             .to(
                 window.innerWidth < 1200 ? '.ani-block._04 .director-box._02' : '.ani-block._04 .director-block > .title',
@@ -514,10 +522,10 @@ function About(props) {
                                     </p>
                                     <div className="desc-block">
                                         <p className="desc">
-                                            잘빠진 디자인, 세련된 영상, 전환율까지 고려한 사이트 제작 필요 맞춤 형태의 광고제작도 잘 한다지만 남다르게 소비될 아이디어를 요청해보세요.
+                                            <span className='desc__text _01'>잘빠진 디자인, 세련된 영상, 전환율까지 고려한 사이트 제작 필요 맞춤 형태의 광고제작도 잘 한다지만 남다르게 소비될 아이디어를 요청해보세요.</span>
                                         </p>
-                                        <p className="desc">
-                                            깊이 있게 관찰하여 제안합니다. 새로운 전략으로 브랜드가 사랑 받을 아이디어를 기어코 가지고 옵니다. 당신의 브랜드가 잘 되는 것이 우리의 일입니다.
+                                        <p className="desc _02">
+                                            <span className='desc__text _02'>깊이 있게 관찰하여 제안합니다. 새로운 전략으로 브랜드가 사랑 받을 아이디어를 기어코 가지고 옵니다. </span><span className='desc__text _03'>당신의 브랜드가 잘 되는 것이 우리의 일입니다.</span>
                                         </p>
                                     </div>
                                 </div>

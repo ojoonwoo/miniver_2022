@@ -566,9 +566,14 @@ textarea::-webkit-scrollbar-thumb {
                                     opacity: 0;
                                     visibility: hidden;
                                     margin-bottom: 8%;
-                                    word-break: break-all;
                                     &:last-of-type {
                                         margin-bottom: 0;
+                                    }
+                                    .desc__text {
+                                        word-break: break-all;
+                                        &._03 {
+                                            width: max-content;
+                                        }
                                     }
                                 }
                             }
