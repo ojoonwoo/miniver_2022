@@ -124,8 +124,9 @@ router.get('/getrelatedlist', function(req, res) {
     const count = (req.query.limit) && req.query.limit;
 
     let where = '';
+    let limit = '';
 
-    where = `(${idx})`;
+    where = `(${idx}) ORDER BY FIELD (idx,${idx})`;
 
     if(count) {
         where += ` limit ${count}`;
