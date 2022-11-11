@@ -68,7 +68,7 @@ function About(props) {
         // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document });
         // scroller = document.querySelector('[data-scrollbar]');
         scroller = scrollContainerRef.current;
-        bodyScrollBar = SmoothScrollbar.init(scroller, { damping: window.innerWidth < 1200 ? 0.04 : 0.1, delegateTo: document, alwaysShowTracks: false, thumbMinSize: 1 });
+        bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: false, thumbMinSize: 1 });
         // @todo 스타일 커스텀!!
 
 
@@ -146,6 +146,8 @@ function About(props) {
             .addLabel('typo-scale-down')
             .to('.ani-box._01', { autoAlpha: 0, duration: 1 }, 'typo-scale-down')
             .to('.ani-box._03 .typo', { fontSize: window.innerWidth < 1200 ? 4 + 'rem' : 13 + 'rem', duration: 3 }, 'typo-scale-down')
+            .set('.ani-box._02 .typo-wrap', { autoAlpha: 0 }, 'typo-scale-down')
+            .set('#scroll-animation_container', { background: 'none' })
             .to('.ani-box._03 .typo-element .typo-wrap', { yPercent: -50, duration: 0.8 })
             .addLabel('show-typo1')
             .to('.ani-box._03 .typo._02', { autoAlpha: 1, duration: 0.8 }, 'show-typo1')
@@ -205,7 +207,8 @@ function About(props) {
             .addLabel('start', '+=1')
             .to('.slide-wrapper', { rotate: -10, duration: 1 }, 'start')
             .to('.slide-wrapper', { rotate: -20, duration: 1 })
-            .to('.slide-wrapper', { rotate: -30, duration: 1 });
+            .to('.slide-wrapper', { rotate: -30, duration: 1 })
+            .set('#scroll-animation_container', { backgroundColor: '#000000' });
 
         let tl4 = gsap.timeline({
             scrollTrigger: {
