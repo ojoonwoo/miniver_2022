@@ -18,6 +18,7 @@ function PageTransition(props) {
     });
 
     let dispatch = useDispatch();
+    const location = useLocation();
 
     const animateSequence = async () => {
         // * 사이트 랜딩시 애니메이션
@@ -28,7 +29,13 @@ function PageTransition(props) {
             // * 페이지 전환시 애니메이션
         } else if (transitionState === 'page_transition') {
             await loaderAnimate.start({ opacity: 1, transition: { duration: 0.6 } });
-            await pageAnimate.start({ opacity: 1, transition: { duration: 0.3, onComplete: function() {window.scrollTo(0, 0)} } });
+            await pageAnimate.start({ opacity: 1, transition: { duration: 0.3, onComplete: function() {
+                console.log(location.pathname);
+                if(location.pathname !== '/project' && location.pathname !== '/project/') {
+                    // project list 에서는 scroll 유지
+                    window.scrollTo(0, 0);
+                }
+            } } });
             return await loaderAnimate.start({ opacity: 0, transition: { duration: 1, } });
         } else {
             console.log('애니메이트 시퀀스 none');
