@@ -16,7 +16,7 @@ if(_SERVICE_ENV === 'DEV') {
     define('_PRESS_UPLOAD_URL', 'http://'.$_SERVER['HTTP_HOST'].':3000/journalists/');
     define('_PRESS_UPLOAD_DIR', _MNV_ROOT.'uploads/press/');
 } else {
-    define('_MNV_ROOT', '/home/miniver_2022/');
+    define('_MNV_ROOT', '/var/www/html/miniver_2022/');
     define('_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
     define('_VIEW_DIR', _ROOT.'application/views/');
     define('_PUBLIC_URL', 'http://'.$_SERVER['HTTP_HOST'].'/public/');
