@@ -68,6 +68,7 @@ function About(props) {
         // const bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document });
         // scroller = document.querySelector('[data-scrollbar]');
         scroller = scrollContainerRef.current;
+        // bodyScrollBar = SmoothScrollbar.init(scroller, { thumbMinSize:10, speed:2 });
         bodyScrollBar = SmoothScrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: false, thumbMinSize: 1 });
         // @todo 스타일 커스텀!!
 
