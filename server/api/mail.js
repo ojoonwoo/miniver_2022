@@ -7,7 +7,7 @@ const mailSender = {
     var transporter = nodemailer.createTransport({
       port: 587,
       host: 'smtp.worksmobile.com',  
-      secure: true,  
+      secure: false,
       requireTLS: true,
       auth: {
         user: senderInfo.user,
