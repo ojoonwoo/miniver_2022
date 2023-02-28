@@ -8,7 +8,7 @@ const mailSender = {
       port: 587,
       host: 'smtp.worksmobile.com',  
       secure: true,  
-      requireTLS: true,
+      // requireTLS: true,
       auth: {
         user: senderInfo.user,
         pass: senderInfo.pass
