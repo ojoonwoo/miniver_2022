@@ -3,7 +3,8 @@ namespace application\libs;
 
 class Uploader {
 
-    private $UPLOAD_DIR = _MNV_ROOT.'uploads/';
+    // private $UPLOAD_DIR = _MNV_ROOT.'uploads/';
+    private $UPLOAD_DIR = '/var/www/html/miniver_2022/uploads/';
     private $UPLOAD_DIR_ACCESS_MODE = 0777;
     // private UPLOAD_MAX_FILE_SIZE = 10485760;
     private $UPLOAD_MAX_FILE_SIZE = 31457280;
