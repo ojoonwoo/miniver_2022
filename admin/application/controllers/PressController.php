@@ -5,7 +5,7 @@ namespace application\controllers;
 class PressController extends Controller
 {
     private $uploader;
-    
+
     public function index()
     {
         $model = new \application\models\PressModel();
@@ -52,7 +52,8 @@ class PressController extends Controller
 
         $this->uploader = new \application\libs\Uploader();
         // @todo : 프로젝트 폴더명 어떻게 할지 고민.
-        $press_id = $model->getLastPressID() + 1;
+        // $press_id = $model->getLastPressID() + 1;
+        $press_id = $model->getLastPressID();
 
         $pressdata = array(
             "press_title" => htmlspecialchars($_POST['press_title']),

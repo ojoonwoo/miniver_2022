@@ -88,10 +88,12 @@ class PressModel extends Model {
         return $result;
     }
     public function getLastPressID() {
-        $sql = 'SELECT idx FROM press_info WHERE 1 ORDER BY idx DESC LIMIT 1';
+        // $sql = 'SELECT idx FROM press_info WHERE 1 ORDER BY idx DESC LIMIT 1';
+        $sql = 'SHOW TABLE STATUS LIKE "press_info"';
         $result = mysqli_query($this->my_db, $sql);
         $data = mysqli_fetch_assoc($result);
-        $id = $data['idx'];
+        // $id = $data['idx'];
+        $id = $data['Auto_increment'];
         return $id;
     }
     public function getDetail($index) {
