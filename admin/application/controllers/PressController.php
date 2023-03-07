@@ -4,6 +4,8 @@ namespace application\controllers;
 
 class PressController extends Controller
 {
+    private $uploader;
+    
     public function index()
     {
         $model = new \application\models\PressModel();
@@ -79,9 +81,9 @@ class PressController extends Controller
     }
     private function uploadFiles($dirIndex, $files) {
 
-        echo "in";
+        // echo "in";
 
-        exit;
+        // exit;
         $this->uploader = new \application\libs\Uploader();
 
         $upload_results = array();
