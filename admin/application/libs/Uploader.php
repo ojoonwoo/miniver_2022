@@ -3,11 +3,11 @@ namespace application\libs;
 
 class Uploader {
 
-    const UPLOAD_DIR = _MNV_ROOT.'uploads/';
-    const UPLOAD_DIR_ACCESS_MODE = 0777;
-    // const UPLOAD_MAX_FILE_SIZE = 10485760;
-    const UPLOAD_MAX_FILE_SIZE = 31457280;
-    const UPLOAD_ALLOWED_MIME_TYPES = [
+    private $UPLOAD_DIR = _MNV_ROOT.'uploads/';
+    private $UPLOAD_DIR_ACCESS_MODE = 0777;
+    // private UPLOAD_MAX_FILE_SIZE = 10485760;
+    private $UPLOAD_MAX_FILE_SIZE = 31457280;
+    private $UPLOAD_ALLOWED_MIME_TYPES = [
         'image/jpeg',
         'image/jpg',
         'image/png',
@@ -94,24 +94,24 @@ class Uploader {
         switch ($error) {
             case UPLOAD_ERR_OK: /* There is no error, the file can be uploaded. */
                 // Validate the file size.
-                if ($size > self::UPLOAD_MAX_FILE_SIZE) {
+                if ($size > $this->UPLOAD_MAX_FILE_SIZE) {
                     return sprintf('The size of the file "%s" exceeds the maximal allowed size (%s Byte).'
                             , $name
-                            , self::UPLOAD_MAX_FILE_SIZE
+                            , $this->UPLOAD_MAX_FILE_SIZE
                     );
                 }
 
                 // Validate the file type.
-                if (!in_array($type, self::UPLOAD_ALLOWED_MIME_TYPES)) {
+                if (!in_array($type, $this->UPLOAD_ALLOWED_MIME_TYPES)) {
                     return sprintf('The file "%s" is not of a valid MIME type. Allowed MIME types: %s.'
                             , $name
-                            , implode(', ', self::UPLOAD_ALLOWED_MIME_TYPES)
+                            , implode(', ', $this->UPLOAD_ALLOWED_MIME_TYPES)
                     );
                 }
 
                 // Define the upload path.
-                // $uploadDirPath = rtrim(self::UPLOAD_DIR, '/');
-                $uploadDirPath = rtrim(self::UPLOAD_DIR.$this->dir_add, '/');
+                // $uploadDirPath = rtrim($this->UPLOAD_DIR, '/');
+                $uploadDirPath = rtrim($this->UPLOAD_DIR.$this->dir_add, '/');
                 // $uploadPath = $uploadDirPath . '/' . $name;
                 $makeFilename = $this->makeFilename().'.'.explode('/', $type)[1];
                 $uploadPath = $uploadDirPath . '/' . $makeFilename;
@@ -188,7 +188,7 @@ class Uploader {
         }
 
         if (!is_dir($path)) {
-            mkdir($path, self::UPLOAD_DIR_ACCESS_MODE, TRUE);
+            mkdir($path, $this->UPLOAD_DIR_ACCESS_MODE, TRUE);
         }
 
         return $this;
