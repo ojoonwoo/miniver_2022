@@ -79,6 +79,9 @@ class PressController extends Controller
     }
     private function uploadFiles($dirIndex, $files) {
 
+        echo "in";
+
+        exit;
         $this->uploader = new \application\libs\Uploader();
 
         $upload_results = array();
@@ -97,9 +100,6 @@ class PressController extends Controller
                 }
             }
 
-            echo "in";
-
-            exit;
 
             if($ok_file_arr) {
                 $upload_result = $this->uploader->upload($ok_file_arr, $dir_add);
