@@ -136,7 +136,7 @@ class WorkController extends Controller {
 
         $model = new \application\models\WorkModel();
 
-        // $this->uploader = new \application\libs\Uploader();
+        $this->uploader = new \application\libs\Uploader();
         
         $work_categories = htmlspecialchars(implode(', ', $_POST['work_categories']));
 

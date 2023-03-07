@@ -48,10 +48,9 @@ class PressController extends Controller
             exit();
         }
 
-
         $model = new \application\models\PressModel();
 
-        // $this->uploader = new \application\libs\Uploader();
+        $this->uploader = new \application\libs\Uploader();
         // @todo : 프로젝트 폴더명 어떻게 할지 고민.
         $press_id = $model->getLastPressID() + 1;
 
@@ -81,9 +80,6 @@ class PressController extends Controller
     }
     private function uploadFiles($dirIndex, $files) {
 
-        // echo "in";
-
-        // exit;
         $this->uploader = new \application\libs\Uploader();
 
         $upload_results = array();
@@ -101,7 +97,6 @@ class PressController extends Controller
                     $ok_file_arr = $file_arr;
                 }
             }
-
 
             if($ok_file_arr) {
                 $upload_result = $this->uploader->upload($ok_file_arr, $dir_add);
