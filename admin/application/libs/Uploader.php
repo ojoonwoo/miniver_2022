@@ -3,7 +3,8 @@ namespace application\libs;
 
 class Uploader {
 
-    const UPLOAD_DIR = _MNV_ROOT.'uploads/';
+    const UPLOAD_DIR = '/var/www/html/miniver_2022/uploads/';
+    // const UPLOAD_DIR = _MNV_ROOT.'uploads/';
     const UPLOAD_DIR_ACCESS_MODE = 0777;
     // const UPLOAD_MAX_FILE_SIZE = 10485760;
     const UPLOAD_MAX_FILE_SIZE = 31457280;
