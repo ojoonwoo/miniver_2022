@@ -141,7 +141,8 @@ class WorkController extends Controller {
         $work_categories = htmlspecialchars(implode(', ', $_POST['work_categories']));
 
         // @todo : 프로젝트 폴더명 어떻게 할지 고민.
-        $project_id = $model->getLastWorkID()+1;
+        // $project_id = $model->getLastWorkID()+1;
+        $project_id = $model->getLastWorkID();
 
         
         $workdata = array(
