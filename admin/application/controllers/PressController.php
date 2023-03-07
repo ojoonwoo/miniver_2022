@@ -46,6 +46,11 @@ class PressController extends Controller
             exit();
         }
 
+        echo "in";
+
+        exit;
+
+        
         $model = new \application\models\PressModel();
 
         // $this->uploader = new \application\libs\Uploader();
