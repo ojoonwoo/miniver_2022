@@ -46,11 +46,7 @@ class PressController extends Controller
             exit();
         }
 
-        echo "in";
 
-        exit;
-
-        
         $model = new \application\models\PressModel();
 
         // $this->uploader = new \application\libs\Uploader();
@@ -100,6 +96,10 @@ class PressController extends Controller
                     $ok_file_arr = $file_arr;
                 }
             }
+
+            echo "in";
+
+            exit;
 
             if($ok_file_arr) {
                 $upload_result = $this->uploader->upload($ok_file_arr, $dir_add);
