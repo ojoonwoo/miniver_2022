@@ -84,7 +84,7 @@ function Home(props) {
             id: 6,
             title: "Humidifying Helmet",
             client: "bioderma",
-            type: 'Viral Video',
+            type: 'video',
             backgroundColor: '#2B43B2'
         },
         {
@@ -108,7 +108,7 @@ function Home(props) {
             id: 4,
             title: "Cold Brew Launching",
             client: "NESCAFE DOLCEGUSTO",
-            type: 'Viral Video',
+            type: 'video',
             backgroundColor: '#FE8900'
         },
     ];
