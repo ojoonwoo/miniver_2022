@@ -2399,7 +2399,7 @@ textarea::-webkit-scrollbar-thumb {
                         font-weight: 300;
                         color: $grey2;
                         line-height: 1.45;
-                        &:nth-child(2) {
+                        &:nth-child(n+2) {
                             margin-left: 2rem;
                         }
                     }
