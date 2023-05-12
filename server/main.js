@@ -7,11 +7,12 @@ const port = 4000;
 // import api from './api';
 const api = require('./api');
 
+require('dotenv').config();
 
 app.use(bodyParser.json());
 
 
-
+// console.log(process.env);
 
 // app.use('/works', express.static(path.join(__dirname, './../uploads/work')));
 app.use(express.static(path.join(__dirname, '..', '/build')));
