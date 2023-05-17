@@ -33,6 +33,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="<?=_ROOT_URL?>Blog/">
+                                Blog List
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="<?=_ROOT_URL?>contact/">
                                 Contact List
                             </a>
