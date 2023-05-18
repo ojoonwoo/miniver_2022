@@ -20,18 +20,24 @@ if ($action === 'modify') {
 <style>
     .editor-wrap {
         background-color: #fff;
-        border-radius: 20px;
-        box-shadow: 0 -3px 29px -5px rgba(34, 39, 47, .14);
-        margin: 60px auto;
-        max-width: 840px;
+        /* border-radius: 20px; */
+        /* box-shadow: 0 -3px 29px -5px rgba(34, 39, 47, .14); */
+        /* margin: 60px auto; */
+        /* max-width: 840px; */
         min-height: 400px;
-        padding-top: 60px;
+        padding-top: 2rem;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
     }
 </style>
 <div class="page-title pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2" style="text-transform: uppercase;"><?= $page_title ?></h1>
 </div>
 <div class="container-fluid">
+    <div class="mb-3">
+        <label for="blog-title" class="form-label">제목</label>
+        <input type="text" class="form-control" id="blog-title" name="blog_title" <?= $readonly ?> value="">
+    </div>
     <div class="editor-wrap">
         <div id="editorjs"></div>
     </div>
@@ -68,16 +74,45 @@ if ($action === 'modify') {
     // }
 
     function save() {
-        editor.save().then((data) => {
-            console.log(data);
-            console.log(_root_url + '/blog/itemInsert');
+        // editor.save().then((data) => {
+        //     console.log(data);
+        //     console.log(_root_url + '/blog/itemInsert');
+        //     $.ajax({
+        //         url: _root_url + '/blog/itemInsert',
+        //         type: 'POST',
+        //         contentType: 'application/json',
+        //         data: JSON.stringify(data),
+        //         success: function(response) {
+        //             // success logic here
+        //             console.log(response);
+        //         },
+        //         error: function(error) {
+        //             // error handling here
+        //             console.log(error);
+        //         }
+        //     });
+        // });
+        editor.save().then(function(editorData) {
+
+            console.log($('#blog-title').val());
+
+            var additionalData = {
+                title: $('#blog-title').val()
+            }
+
+            var dataToSend = {
+                editorData: editorData,
+                additionalData: additionalData
+            };
+
+            var jsonDataToSend = JSON.stringify(dataToSend);
+
             $.ajax({
                 url: _root_url + '/blog/itemInsert',
                 type: 'POST',
+                data: jsonDataToSend,
                 contentType: 'application/json',
-                data: JSON.stringify(data),
                 success: function(response) {
-                    // success logic here
                     console.log(response);
                 },
                 error: function(error) {

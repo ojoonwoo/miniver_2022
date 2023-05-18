@@ -9,7 +9,7 @@ class BlogController extends Controller
     public function index()
     {
         $model = new \application\models\BlogModel();
-
+        $list = $model->selectList();
         $page_title = "blog list";
 
         require_once 'application/views/blog/index.php';
@@ -48,13 +48,14 @@ class BlogController extends Controller
         }
 
         $model = new \application\models\BlogModel();
-
+        
         $json = file_get_contents('php://input');
         // $blogdata = json_decode($json);
 
+        $data = json_decode($json, true);
 
         // $insert_result = $model->insertBlog($blogdata);
-        $insert_result = $model->insertBlog($json);
+        $insert_result = $model->insertBlog($data);
 
         if ($insert_result) {
             // $url = _ROOT_URL . 'blog';

@@ -15,11 +15,8 @@ require_once _VIEW_DIR . 'container_top.php';
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">타이틀</th>
-                    <th scope="col">썸네일</th>
-                    <th scope="col">링크</th>
-                    <th scope="col">날짜</th>
                     <th scope="col">노출여부</th>
-                    <th scope="col"></th>
+                    <!-- <th scope="col"></th> -->
                 </tr>
             </thead>
             <tbody>
@@ -28,14 +25,11 @@ require_once _VIEW_DIR . 'container_top.php';
                 ?>
                     <tr>
                         <td><?= $val['idx'] ?></td>
-                        <td><?= $val['press_title'] ?></td>
-                        <td><img src="<?= _PRESS_UPLOAD_URL . $val['idx'] . '/press_thumb/' . $val['press_thumb'] ?>" style="width: 16rem;"></td>
-                        <td><?= $val['press_link'] ?></td>
-                        <td><?= $val['press_date'] ?></td>
+                        <td><?= $val['blog_title'] ?></td>
                         <td><?= $val['press_visible'] ? "노출" : "비노출" ?></td>
-                        <td>
+                        <!-- <td>
                             <a href="<?= _ROOT_URL ?>press/edit/<?= $val['idx'] ?>" class="btn btn-danger" role="button">수정</a>
-                        </td>
+                        </td> -->
                     </tr>
                 <?php
                 } // end foreach
