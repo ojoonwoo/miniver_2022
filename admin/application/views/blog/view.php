@@ -8,11 +8,13 @@ require_once _VIEW_DIR . 'container_top.php';
 if ($action === 'modify') {
     $readonly = "";
     $submit_text = "수정";
-    $form_action = _ROOT_URL . "press/itemEdit/" . $press_data['idx'];
+    $form_action = _ROOT_URL . "blog/itemEdit/" . $blog_data['idx'];
+    print_r($blog_data['blog_title']);
+    print_r($blog_data['blog_json']);
 } else if ($action === 'add') {
     $readonly = "";
     $submit_text = "등록";
-    $form_action = _ROOT_URL . "press/itemInsert";
+    $form_action = _ROOT_URL . "blog/itemInsert";
 } else {
     $readonly = "readonly";
 }
@@ -28,6 +30,11 @@ if ($action === 'modify') {
         padding-top: 2rem;
         border: 1px solid #ced4da;
         border-radius: 0.375rem;
+        position: relative;
+    }
+
+    .cdx-notifies {
+        z-index: 200;
     }
 </style>
 <div class="page-title pt-3 pb-2 mb-3 border-bottom">
@@ -36,7 +43,7 @@ if ($action === 'modify') {
 <div class="container-fluid">
     <div class="mb-3">
         <label for="blog-title" class="form-label">제목</label>
-        <input type="text" class="form-control" id="blog-title" name="blog_title" <?= $readonly ?> value="">
+        <input type="text" class="form-control" id="blog-title" name="blog_title" <?= $readonly ?> value="<?= $blog_data['blog_title'] ?>">
     </div>
     <div class="editor-wrap">
         <div id="editorjs"></div>
@@ -57,21 +64,40 @@ if ($action === 'modify') {
                     //         defaultLevel: 3
                 }
             },
+            image: {
+                class: ImageTool,
+                config: {
+                    // endpoints: {
+                    //     byFile: 'http://localhost:4000/upload', // Express.js 서버의 엔드포인트입니다.
+                    //     // ...
+                    // }
+                    uploader: {
+                        uploadByFile(file) {
+                            return uploadImage(file).then((resultUrl) => {
+                                return {
+                                    success: 1,
+                                    file: {
+                                        url: resultUrl
+                                    }
+                                };
+                            });
+                        }
+                    },
+                }
+            }
         },
     });
 
-    // async function save() {
-    //     const data = await editor.save();
-    //     const json = JSON.stringify(data);
-
-    //     fetch('/blog/add', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: json,
-    //     });
-    // }
+    var pageAction = '<?= $action ?>';
+    if (pageAction === 'modify') {
+        editor.isReady
+            .then(() => {
+                editor.render(<?= $blog_data['blog_json'] ?>); // 이 부분에 JSON 데이터를 넣어주세요.
+            })
+            .catch((error) => {
+                console.log('Error: ', error);
+            });
+    }
 
     function save() {
         // editor.save().then((data) => {
@@ -121,6 +147,28 @@ if ($action === 'modify') {
                 }
             });
         });
+    }
+
+    function uploadImage(file) {
+        let form_data = new FormData();
+        form_data.append('file', file);
+
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                data: form_data,
+                type: "POST",
+                // url: '/api/imageUpload',
+                url: _root_url + 'blog/imageUpload',
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (url) {
+                    // resolve(url)
+                    console.log(url);
+                }
+            });
+        })
     }
 </script>
 <!-- end container -->

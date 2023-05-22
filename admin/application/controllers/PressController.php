@@ -98,9 +98,11 @@ class PressController extends Controller
                     $ok_file_arr = $file_arr;
                 }
             }
-
+            print_r($ok_file_arr);
             if($ok_file_arr) {
                 $upload_result = $this->uploader->upload($ok_file_arr, $dir_add);
+                print_r($upload_result);
+                exit;
                 $upload_results[$file_dir] = $upload_result;
             }
         }

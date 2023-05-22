@@ -23,8 +23,8 @@ class Uploader {
     }
 
     /**
-     * Upload the files list.
-     *
+     * Upload the files list.   
+     *  
      * @param array $files (optional) Files list - as received from $_FILES variable.
      * @return bool|string[] TRUE on success, or a list of errors on failure.
      */
@@ -33,7 +33,6 @@ class Uploader {
         // Normalize the files list.
         $this->dir_add = $dir_add;
         $normalizedFiles = $this->normalizeFiles($files);
-
         $uploadResults = array();
         // $uploadResult = "";
         // Upload each file.
@@ -79,12 +78,19 @@ class Uploader {
      * @param array $file A normalized file item - as received from $_FILES variable.
      * @return bool|string TRUE on success, or an error string on failure.
      */
-    private function uploadFile(array $file = []) {
+    public function uploadFile(array $file = [], $dir_add) {
         $name = $file['name'];
         $type = $file['type'];
         $tmpName = $file['tmp_name'];
         $error = $file['error'];
         $size = $file['size'];
+
+        // print_r($file);
+        // exit;
+
+        // if($dir_add) {
+        //     $this->dir_add = $dir_add;
+        // }
 
         /*
          * Validate the file error. The actual upload takes place when the file

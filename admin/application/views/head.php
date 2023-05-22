@@ -34,6 +34,7 @@ if($page_title == '') {
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.3.0"></script>
     <title><?php echo $pg_title ?></title>
     <script>
         var _root_url = "<?=_ROOT_URL?>";

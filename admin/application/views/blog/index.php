@@ -16,7 +16,7 @@ require_once _VIEW_DIR . 'container_top.php';
                     <th scope="col">#</th>
                     <th scope="col">타이틀</th>
                     <th scope="col">노출여부</th>
-                    <!-- <th scope="col"></th> -->
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -27,9 +27,9 @@ require_once _VIEW_DIR . 'container_top.php';
                         <td><?= $val['idx'] ?></td>
                         <td><?= $val['blog_title'] ?></td>
                         <td><?= $val['press_visible'] ? "노출" : "비노출" ?></td>
-                        <!-- <td>
-                            <a href="<?= _ROOT_URL ?>press/edit/<?= $val['idx'] ?>" class="btn btn-danger" role="button">수정</a>
-                        </td> -->
+                        <td>
+                            <a href="<?= _ROOT_URL ?>blog/edit/<?= $val['idx'] ?>" class="btn btn-danger" role="button">수정</a>
+                        </td>
                     </tr>
                 <?php
                 } // end foreach

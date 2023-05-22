@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, '..', '/build')));
 
 app.use('/works', express.static(path.join(__dirname, './../uploads/work')));
 app.use('/journalists', express.static(path.join(__dirname, './../uploads/press')));
+app.use('/blog', express.static(path.join(__dirname, './../uploads/blog')));
 
 // cors 옵션 설정 필요
 app.use('/api', api);

@@ -46,4 +46,24 @@ class BlogModel extends Model
 
         return $result;
     }
+
+    public function getDetail($index) {
+        $sql = 'SELECT * FROM blog_info WHERE idx = "'.$index.'"';
+        $result = mysqli_query($this->my_db, $sql);
+        $data = mysqli_fetch_array($result);
+
+        if($data['idx']) {
+            return $data;
+        } else {
+            return false;
+        }
+    }
+    public function getLastBlogID() {
+        $sql = 'SHOW TABLE STATUS LIKE "blog_info"';
+        $result = mysqli_query($this->my_db, $sql);
+        $data = mysqli_fetch_assoc($result);
+        // $id = $data['idx'];
+        $id = $data['Auto_increment'];
+        return $id;
+    }
 }
