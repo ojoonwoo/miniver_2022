@@ -29,6 +29,7 @@ if(_SERVICE_ENV === 'DEV') {
     define('_PRESS_UPLOAD_URL', 'http://minivertising.kr/journalists/');
     define('_PRESS_UPLOAD_DIR', _MNV_ROOT.'uploads/press/');
 }
+define('_BASE_UPLOAD_DIR', _MNV_ROOT.'uploads/');
 
 
 

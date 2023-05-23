@@ -64,27 +64,33 @@ if ($action === 'modify') {
                     //         defaultLevel: 3
                 }
             },
-            image: {
-                class: ImageTool,
-                config: {
-                    // endpoints: {
-                    //     byFile: 'http://localhost:4000/upload', // Express.js 서버의 엔드포인트입니다.
-                    //     // ...
-                    // }
-                    uploader: {
-                        uploadByFile(file) {
-                            return uploadImage(file).then((resultUrl) => {
-                                return {
-                                    success: 1,
-                                    file: {
-                                        url: resultUrl
-                                    }
-                                };
-                            });
-                        }
-                    },
-                }
-            }
+            // ! blob 형태
+            // ! blob으로 할시에 save 전에 blob to base64로 서버로 전송해서 이미지 저장하는 로직 필요해보임
+            image: SimpleImage
+            // ! 서버 저장 형태
+            // ! 서버에 저장 및 불러오는거라 문제 없지만 메모리 사용이 많이 되기에 재작성시 어떻게 효율적으로 할지 고민 필요
+            // image: {
+            //     class: ImageTool,
+            //     config: {
+            //         // endpoints: {
+            //         //     byFile: 'http://localhost:4000/upload', // Express.js 서버의 엔드포인트입니다.
+            //         //     // ...
+            //         // }
+            //         uploader: {
+            //             uploadByFile(file) {
+            //                 return uploadImage(file).then((resultUrl) => {
+            //                     // console.log(resultUrl);
+            //                     return {
+            //                         success: 1,
+            //                         file: {
+            //                             url: resultUrl
+            //                         }
+            //                     };
+            //                 });
+            //             }
+            //         },
+            //     }
+            // }
         },
     });
 
@@ -152,7 +158,6 @@ if ($action === 'modify') {
     function uploadImage(file) {
         let form_data = new FormData();
         form_data.append('file', file);
-
         return new Promise((resolve, reject) => {
             $.ajax({
                 data: form_data,
@@ -164,9 +169,9 @@ if ($action === 'modify') {
                 enctype: 'multipart/form-data',
                 processData: false,
                 success: function (url) {
-                    // resolve(url)
-                    console.log(url);
-                }
+                    // console.log(url);
+                    resolve(url);
+                },
             });
         })
     }

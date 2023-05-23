@@ -3,8 +3,8 @@ namespace application\libs;
 
 class Uploader {
 
-    private $UPLOAD_DIR = '/var/www/html/miniver_2022/uploads/';
-    // private $UPLOAD_DIR = _MNV_ROOT.'uploads/';
+    // private $UPLOAD_DIR = '/var/www/html/miniver_2022/uploads/';
+    private $UPLOAD_DIR = _BASE_UPLOAD_DIR;
     private $UPLOAD_DIR_ACCESS_MODE = 0777;
     // private $UPLOAD_MAX_FILE_SIZE = 10485760;
     private $UPLOAD_MAX_FILE_SIZE = 31457280;
@@ -33,6 +33,7 @@ class Uploader {
         // Normalize the files list.
         $this->dir_add = $dir_add;
         $normalizedFiles = $this->normalizeFiles($files);
+
         $uploadResults = array();
         // $uploadResult = "";
         // Upload each file.
@@ -85,12 +86,9 @@ class Uploader {
         $error = $file['error'];
         $size = $file['size'];
 
-        // print_r($file);
-        // exit;
-
-        // if($dir_add) {
-        //     $this->dir_add = $dir_add;
-        // }
+        if($dir_add) {
+            $this->dir_add = $dir_add;
+        }
 
         /*
          * Validate the file error. The actual upload takes place when the file

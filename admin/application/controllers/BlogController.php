@@ -75,14 +75,32 @@ class BlogController extends Controller
             exit();
         }
 
+        $return_data = array();
         $model = new \application\models\BlogModel();
         $blog_id = $model->getLastBlogID();
+
+        // ! 임시 코드
+        if(!$blog_id) {
+            $blog_id = 1;
+        }
 
         $this->uploader = new \application\libs\Uploader();
 
         // print_r($_FILES);
         // exit;
-        $upload_results = $this->uploadFiles($blog_id, $_FILES);
+        $upload_result = $this->uploadFiles($blog_id, $_FILES);
+
+
+
+        if($upload_result['result'] && $upload_result['filename']) {
+            $return_data['url'] = _BLOG_UPLOAD_URL.$blog_id.'/'.$upload_result['filename'];
+            // return $return_data['url'];
+            // echo json_encode($return_data['url'], JSON_UNESCAPED_UNICODE);
+            echo $return_data['url'];
+        } else {
+            return 'what';
+            exit;
+        }
 
         // $insert_result = $model->insertBlogImage($upload_results);
     }
@@ -91,8 +109,8 @@ class BlogController extends Controller
 
         $this->uploader = new \application\libs\Uploader();
 
-        $upload_results = array();
-        $return_data = array();
+        $upload_result = array();
+        // $return_data = array();
         /*
         @todo : 1. 코드 개선 필요
         */
@@ -115,48 +133,51 @@ class BlogController extends Controller
         //     // }
         // }
 
-        $dir_add = 'blog/' . $dirIndex . '/';
-        // $upload_result = $this->uploader->uploadFile($_FILES['file'], $dir_add);
-        $upload_result = $this->uploader->upload($_FILES['file'], $dir_add);
-        print_r($upload_result);
-        exit;
+        // todo: 파일명을 덮어 씌울 수 있게끔 하면 좋지 않을까
+        // ? blog/1/# 이미지 업로딩 개수?
+        if(isset($_FILES['file']['name']) && $_FILES['file']['size'] > 0) {
+            $dir_add = 'blog/' . $dirIndex . '/';
+            // $upload_result = $this->uploader->upload($_FILES['file'], $dir_add);
+            $upload_result = $this->uploader->uploadFile($_FILES['file'], $dir_add);
+        }
+
+        return $upload_result;
+
         // $upload_results[$file_dir] = $upload_result;
 
         
-        foreach ($_FILES as $file_dir => $file_arr) {
-            $dir_add = 'blog/' . $dirIndex . '/' . $file_dir . '/';
-            $ok_file_arr = array(
-                "name" => array($file_arr['name']),
-                "type" => array($file_arr['type']),
-                "tmp_name" => array($file_arr['tmp_name']),
-                "error" => array($file_arr['error']),
-                "size" => array($file_arr['size'])
-            );
-            if ($ok_file_arr) {
-                // $upload_result = $this->uploader->upload($ok_file_arr, $dir_add);
-                $upload_result = $this->uploader->upload($_FILES, $dir_add);
-                print_r($upload_result);
-                exit;
-                $upload_results[$file_dir] = $upload_result;
-            }
-        }
+        // foreach ($_FILES as $file_dir => $file_arr) {
+        //     $dir_add = 'blog/' . $dirIndex . '/' . $file_dir . '/';
+        //     $ok_file_arr = array(
+        //         "name" => array($file_arr['name']),
+        //         "type" => array($file_arr['type']),
+        //         "tmp_name" => array($file_arr['tmp_name']),
+        //         "error" => array($file_arr['error']),
+        //         "size" => array($file_arr['size'])
+        //     );
+        //     if ($ok_file_arr) {
+        //         // $upload_result = $this->uploader->upload($ok_file_arr, $dir_add);
+        //         $upload_result = $this->uploader->upload($_FILES, $dir_add);
+        //         $upload_results[$file_dir] = $upload_result;
+        //     }
+        // }
 
-        foreach ($upload_results as $key => $result) {
-            $result_leng = count($result);
-            $filename_str = "";
-            foreach ($result as $iter => $val) {
-                if ($val['result']) {
-                    if ($result_leng > 1 && $result_leng - 1 !== $iter) {
-                        $divide = ", ";
-                    } else {
-                        $divide = "";
-                    }
-                    $filename_str .= $val['filename'] . $divide;
-                    $return_data[$key] = $filename_str;
-                }
-            }
-        }
+        // foreach ($upload_results as $key => $result) {
+        //     $result_leng = count($result);
+        //     $filename_str = "";
+        //     foreach ($result as $iter => $val) {
+        //         if ($val['result']) {
+        //             if ($result_leng > 1 && $result_leng - 1 !== $iter) {
+        //                 $divide = ", ";
+        //             } else {
+        //                 $divide = "";
+        //             }
+        //             $filename_str .= $val['filename'] . $divide;
+        //             $return_data[$key] = $filename_str;
+        //         }
+        //     }
+        // }
 
-        return $return_data;
+        // return $return_data;
     }
 }

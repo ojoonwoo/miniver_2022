@@ -35,6 +35,7 @@ if($page_title == '') {
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-image-editorjs@latest"></script>
     <title><?php echo $pg_title ?></title>
     <script>
         var _root_url = "<?=_ROOT_URL?>";

@@ -25,4 +25,12 @@ module.exports = function(app) {
             changeOrigin: true,
         })
     );
+    app.use(
+        '/blog',
+        createProxyMiddleware({
+            // target: 'https://localhost:4000',
+            target: process.env.API_URL,
+            changeOrigin: true,
+        })
+    );
 };
