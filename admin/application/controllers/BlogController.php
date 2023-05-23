@@ -48,13 +48,55 @@ class BlogController extends Controller
         }
 
         $model = new \application\models\BlogModel();
+        $blog_id = $model->getLastBlogID();
+        // ! 임시 코드
+        if (!$blog_id) {
+            $blog_id = 1;
+        }
 
         $json = file_get_contents('php://input');
         // $blogdata = json_decode($json);
 
         $data = json_decode($json, true);
+        $imageData = $data['imageData'];
+        // print_r($imageData);
 
-        // $insert_result = $model->insertBlog($blogdata);
+        // base 64인 파일 저장
+        foreach ($imageData as $key => &$value) {
+            // print_r($value['data']['url']);
+            $imageDataUrl = $value['data']['url'];
+            $parts = explode('base64,', $imageDataUrl);
+            if (count($parts) > 1) {
+                $base64_image_str = $parts[1]; // 'base64,' 이후 부분
+                $imageDataUrl = $base64_image_str;
+                $imageDataUrl = str_replace(' ', '+', $imageDataUrl);
+                $imageDataUrl = base64_decode($imageDataUrl);
+                // echo $imageDataUrl;
+                $file_save_object = $this->save_image($imageDataUrl, $blog_id);
+                if ($file_save_object['url']) {
+                    $value['data']['url'] = $file_save_object['url'];
+                } else {
+                    echo "file_save_object error";
+                }
+            } else {
+                echo "The string does not contain 'base64,'";
+            }
+        }
+
+        // 에디터 데이터와 이미지 데이터의 ID 값 매칭을 위해 변환
+        $imageDataMapped = [];
+        foreach ($imageData as $item) {
+            $imageDataMapped[$item['id']] = $item;
+        }
+
+        // 이제 array1에서 각 블록을 순회하면서 ID가 일치하는 imageData의 항목을 찾습니다.
+        foreach ($data['editorData']['blocks'] as &$block1) {
+            if (isset($imageDataMapped[$block1['id']])) {
+                // ID가 일치하는 항목이 imageData에 있다면, URL을 대체합니다.
+                $block1['data']['url'] = $imageDataMapped[$block1['id']]['data']['url'];
+            }
+        }
+
         $insert_result = $model->insertBlog($data);
 
         if ($insert_result) {
@@ -69,115 +111,42 @@ class BlogController extends Controller
             echo $insert_result;
         }
     }
-    public function imageUpload()
+    private function save_image($image, $blog_id)
     {
+        $return_object = array();
+        if ($_SERVER['HTTP_HOST'] == 'www.royalcaninevent2020.com' || $_SERVER['HTTP_HOST'] == 'royalcaninevent2020.com') {
+            $uploads_dir = "/storage_data/breed23/uploads/" . $blog_id . "/";
+        } else {
+            $uploads_dir = _BASE_UPLOAD_DIR . "blog/" . $blog_id . "/";
+        }
+
+        if (!is_dir($uploads_dir)) {
+            mkdir($uploads_dir);
+            chmod($uploads_dir, 0777);
+        }
+
+
+        $filename = $this->make_filename();
+        $dest = $uploads_dir . $filename . '.png';
+        $success = file_put_contents($dest, $image);
+
+        if ($success) {
+            $return_object['url'] = _BLOG_UPLOAD_URL . $blog_id . "/" . $filename . '.png';
+        } else {
+            $return_object['error'] = "Y";
+        }
+
+        return $return_object;
+    }
+    private function make_filename()
+    {
+        return md5(uniqid(rand(), true));
+    }
+    public function itemEdit($blog_id) {
         if ($_SERVER['REQUEST_METHOD'] !== "POST") {
             exit();
         }
 
-        $return_data = array();
         $model = new \application\models\BlogModel();
-        $blog_id = $model->getLastBlogID();
-
-        // ! 임시 코드
-        if(!$blog_id) {
-            $blog_id = 1;
-        }
-
-        $this->uploader = new \application\libs\Uploader();
-
-        // print_r($_FILES);
-        // exit;
-        $upload_result = $this->uploadFiles($blog_id, $_FILES);
-
-
-
-        if($upload_result['result'] && $upload_result['filename']) {
-            $return_data['url'] = _BLOG_UPLOAD_URL.$blog_id.'/'.$upload_result['filename'];
-            // return $return_data['url'];
-            // echo json_encode($return_data['url'], JSON_UNESCAPED_UNICODE);
-            echo $return_data['url'];
-        } else {
-            return 'what';
-            exit;
-        }
-
-        // $insert_result = $model->insertBlogImage($upload_results);
-    }
-    private function uploadFiles($dirIndex, $files)
-    {
-
-        $this->uploader = new \application\libs\Uploader();
-
-        $upload_result = array();
-        // $return_data = array();
-        /*
-        @todo : 1. 코드 개선 필요
-        */
-
-        // print_r($_FILES['file']);
-
-        // foreach ($_FILES as $file_dir => $file_arr) {
-        //     $dir_add = 'blog/' . $dirIndex . '/' . $file_dir . '/';
-        //     $ok_file_arr = "";
-        //     if (isset($file_arr['name']) && $file_arr['size'] > 0) {
-        //         $ok_file_arr = $file_arr;
-        //     }
-        //     print_r($ok_file_arr);
-        //     // if ($ok_file_arr) {
-        //     //     // $upload_result = $this->uploader->upload($ok_file_arr, $dir_add);
-        //     //     $upload_result = $this->uploader->upload($_FILES, $dir_add);
-        //     //     print_r($upload_result);
-        //     //     exit;
-        //     //     $upload_results[$file_dir] = $upload_result;
-        //     // }
-        // }
-
-        // todo: 파일명을 덮어 씌울 수 있게끔 하면 좋지 않을까
-        // ? blog/1/# 이미지 업로딩 개수?
-        if(isset($_FILES['file']['name']) && $_FILES['file']['size'] > 0) {
-            $dir_add = 'blog/' . $dirIndex . '/';
-            // $upload_result = $this->uploader->upload($_FILES['file'], $dir_add);
-            $upload_result = $this->uploader->uploadFile($_FILES['file'], $dir_add);
-        }
-
-        return $upload_result;
-
-        // $upload_results[$file_dir] = $upload_result;
-
-        
-        // foreach ($_FILES as $file_dir => $file_arr) {
-        //     $dir_add = 'blog/' . $dirIndex . '/' . $file_dir . '/';
-        //     $ok_file_arr = array(
-        //         "name" => array($file_arr['name']),
-        //         "type" => array($file_arr['type']),
-        //         "tmp_name" => array($file_arr['tmp_name']),
-        //         "error" => array($file_arr['error']),
-        //         "size" => array($file_arr['size'])
-        //     );
-        //     if ($ok_file_arr) {
-        //         // $upload_result = $this->uploader->upload($ok_file_arr, $dir_add);
-        //         $upload_result = $this->uploader->upload($_FILES, $dir_add);
-        //         $upload_results[$file_dir] = $upload_result;
-        //     }
-        // }
-
-        // foreach ($upload_results as $key => $result) {
-        //     $result_leng = count($result);
-        //     $filename_str = "";
-        //     foreach ($result as $iter => $val) {
-        //         if ($val['result']) {
-        //             if ($result_leng > 1 && $result_leng - 1 !== $iter) {
-        //                 $divide = ", ";
-        //             } else {
-        //                 $divide = "";
-        //             }
-        //             $filename_str .= $val['filename'] . $divide;
-        //             $return_data[$key] = $filename_str;
-        //         }
-        //     }
-        // }
-
-        // return $return_data;
     }
 }

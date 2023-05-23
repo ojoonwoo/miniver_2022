@@ -131,27 +131,68 @@ if ($action === 'modify') {
             var additionalData = {
                 title: $('#blog-title').val()
             }
+            var editorData = editorData;
+            var imageData = editorData.blocks.filter(item => item.type === 'image');
 
-            var dataToSend = {
-                editorData: editorData,
-                additionalData: additionalData
-            };
+            // TODO: blob형태 이미지 base64로 변환
+            // imageData.forEach(element => {
+            //     var imgBlobUrl = element.data.url;
+            //     // console.log('imgBlobUrl', imgBlobUrl);
+            //     fetch(imgBlobUrl)
+            //         .then(res => res.blob())
+            //         .then(blob => {
+            //             blobToDataUrl(blob, function(dataUrl) {
+            //                 // console.log(base64); // base64 형태의 이미지
+            //                 // console.log(dataUrl); // blob 겍체의 이미지
+            //                 element.data.url = dataUrl;
+            //                 console.log(element);
+            //                 return element;
+            //             });
+            //         })
+            //         .catch(error => console.error(error));
+            // });
 
-            var jsonDataToSend = JSON.stringify(dataToSend);
-
-            $.ajax({
-                url: _root_url + '/blog/itemInsert',
-                type: 'POST',
-                data: jsonDataToSend,
-                contentType: 'application/json',
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(error) {
-                    // error handling here
-                    console.log(error);
-                }
+            var fetchPromises = imageData.map(element => {
+                var imgBlobUrl = element.data.url;
+                return fetch(imgBlobUrl)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        return new Promise((resolve, reject) => {
+                            blobToDataUrl(blob, function(dataUrl) {
+                                element.data.url = dataUrl;
+                                resolve(element);
+                            });
+                        });
+                    });
             });
+            // TODO: base64로 변환된 이미지 url imageData 배열내 url 자리에 삽입
+            Promise.all(fetchPromises)
+                .then(results => {
+                    // console.log(results); // 이제 results 배열에는 업데이트된 imageData 객체들이 들어있습니다.
+                    var dataToSend = {
+                        editorData: editorData,
+                        imageData: results,
+                        additionalData: additionalData
+                    };
+
+                    var jsonDataToSend = JSON.stringify(dataToSend);
+
+                    $.ajax({
+                        // url: _root_url + '/blog/itemInsert',
+                        url: '<?=$form_action?>',
+                        type: 'POST',
+                        data: jsonDataToSend,
+                        contentType: 'application/json',
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(error) {
+                            // error handling here
+                            console.log(error);
+                        }
+                    });
+                })
+                .catch(error => console.error(error));
         });
     }
 
@@ -168,12 +209,23 @@ if ($action === 'modify') {
                 contentType: false,
                 enctype: 'multipart/form-data',
                 processData: false,
-                success: function (url) {
+                success: function(url) {
                     // console.log(url);
                     resolve(url);
                 },
             });
         })
+    }
+
+    function blobToDataUrl(blob, callback) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var dataUrl = reader.result;
+            // console.log(dataUrl);
+            // var base64 = dataUrl.split(',')[1];
+            callback(dataUrl);
+        };
+        reader.readAsDataURL(blob);
     }
 </script>
 <!-- end container -->
