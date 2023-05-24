@@ -65,7 +65,7 @@ class PressModel extends Model {
 
         return $result;
     }
-    public function updateWork($index, $data) {
+    public function updatePress($index, $data) {
 
         $cv_set = "";
         $column_length = count($data);

@@ -15,7 +15,6 @@ import { Routes, Route, useLocation, Link, Outlet, useParams, useNavigate } from
 // 프로젝트 컨테이너 만들어서 리스트, 뷰 분리
 
 function Project(props) {
-    
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -23,13 +22,13 @@ function Project(props) {
     let dispatch = useDispatch();
     const [projectData, setProjectData] = useState([]);
     const [categoryData, setCategoryData] = useState([]);
+    const [totalProjectCount, setTotalProjectCount] = useState();
 
     let device = useSelector((state) => {
         return state.currentDevice;
     });
-    
+
     useEffect(() => {
-        
         // if(workFlag === true) {
         //     console.log(workFlag);
         //     navigate('/project/'+props.item.idx);
@@ -44,6 +43,7 @@ function Project(props) {
 
         getCategoryData();
         getProjectData(cate);
+        getTotalProjectCount();
         dispatch(changeColor('black'));
 
         console.log('프로젝트 리스트 마운트');
@@ -53,6 +53,17 @@ function Project(props) {
             // alert('project list unmount');
         };
     }, []);
+
+    const getTotalProjectCount = async () => {
+        const cate = 'all';
+        const result = await axios({
+            method: 'get',
+            url: '/api/work/getlist',
+            params: { cate: cate },
+        });
+        console.log(result.data.list);
+        setTotalProjectCount(result.data.list.length);
+    };
 
     const getProjectData = async (cate) => {
         if (!cate) cate = 'all';
@@ -70,7 +81,7 @@ function Project(props) {
             method: 'get',
             url: '/api/work/getcategories',
         });
-        
+
         setCategoryData(result.data.list);
         // console.log(result.data.list);
     };
@@ -81,7 +92,6 @@ function Project(props) {
         window.location.hash = hash;
         getProjectData(cate);
     };
-    
 
     return (
         // <div id="container" className={props.pageName}>
@@ -92,15 +102,21 @@ function Project(props) {
                     <div className="grid-inner">
                         <h1 className="page-title">Project</h1>
                         <div className="categories">
-                            <CategoryItem classActive={(location.hash.split('#')[1] == 'all' || !location.hash) ? 'isActive' : ''} item={{idx: 'all', category_name: 'All'}} onClick={cateClick}/>
+                            <CategoryItem
+                                classActive={location.hash.split('#')[1] == 'all' || !location.hash ? 'isActive' : ''}
+                                item={{ idx: 'all', category_name: 'All', count: totalProjectCount }}
+                                onClick={cateClick}
+                            />
                             {categoryData.map((item) => (
-                                <CategoryItem key={item.idx} classActive={location.hash.split('#')[1] == `${item.idx}` ? 'isActive' : ''} item={item} onClick={cateClick}/>
+                                <CategoryItem key={item.idx} classActive={location.hash.split('#')[1] == `${item.idx}` ? 'isActive' : ''} item={item} onClick={cateClick} />
                             ))}
                         </div>
                         <div className="workbox-container">
-                            {projectData.map((item) =>
-                                // <WorkBox key={item.idx} item={item} desc={true} onClick={props.workboxClick}/>
-                                <WorkBox key={item.idx} item={item} desc={true}/>
+                            {projectData.map(
+                                (item) => (
+                                    // <WorkBox key={item.idx} item={item} desc={true} onClick={props.workboxClick}/>
+                                    <WorkBox key={item.idx} item={item} desc={true} />
+                                )
                                 // <WorkBox key={item.idx} item={item} desc={true} onClick={(e) => {props.workboxClick(item.idx, e)}}/>
                             )}
                         </div>
