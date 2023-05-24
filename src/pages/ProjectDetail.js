@@ -377,6 +377,13 @@ function ProjectDetail(props) {
                                     </dl>
                                 </div>
                             </div>
+                            {projectData.work_site_url &&
+                            <div className="project-detail__url">
+                                <a href={projectData.work_site_url} target="_blank">
+                                    {projectData.work_site_url}
+                                </a>
+                            </div>
+                            }
                         </div>
                         <div className="project-detail__mockup">
                             <div className="mockup-box">

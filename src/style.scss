@@ -1672,6 +1672,17 @@ textarea::-webkit-scrollbar-thumb {
                 // word-break: break-all;
             }
         }
+        .project-detail__url {
+            margin-top: 1.8rem;
+            a {
+                font-size: 1.2rem;
+                font-weight: 300;
+                color: #404040;
+                letter-spacing: -0.05em;
+                text-decoration: underline;
+                text-underline-offset: 0.4rem;
+            }
+        }
         .project-detail__details {
             margin-bottom: 3.6rem;
             .swiper-slide {
@@ -2403,6 +2414,13 @@ textarea::-webkit-scrollbar-thumb {
                             margin-left: 2rem;
                         }
                     }
+                }
+            }
+            .project-detail__url {
+                margin-left: 27.3rem;
+                margin-top: 3rem;
+                a {
+                    font-size: 2rem;
                 }
             }
             .project-detail__details {

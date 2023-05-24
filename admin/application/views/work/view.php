@@ -80,7 +80,11 @@ $related_work = explode(', ', $work_data['related_work']);
         </div>
         <div class="mb-3">
             <label for="work-overview" class="form-label">프로젝트 요약</label>
-            <textarea class="form-control" id="work-overview" name="work_overview" <?= $readonly ?> cols="30" rows="5" <?= $readonly ?>><?= $work_data['work_overview'] ?></textarea>
+            <textarea class="form-control" id="work-overview" name="work_overview" cols="30" rows="5" <?= $readonly ?>><?= $work_data['work_overview'] ?></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="work-site-url" class="form-label">프로젝트 URL</label>
+            <input type="text" class="form-control" id="work-site-url" name="work_site_url" <?= $readonly ?> value="<?= $work_data['work_site_url'] ?>">
         </div>
         <div class="mb-3">
             <label for="logo-img" class="form-label">로고 이미지</label>
