@@ -97,7 +97,8 @@ router.get('/getdetail', function(req, res) {
     db.query(query, (err, results, fields) => {
         if(!err) {
             let returnData = results[0];
-            returnData['category_names'] = [];
+            // returnData['category_names'] = [];
+            returnData['category_data'] = [];
             returnData['detail_sources1_arr'] = returnData['detail_sources1'].includes(', ') ? returnData['detail_sources1'].split(', ') : [returnData['detail_sources1']];
             if(returnData['detail_sources2']) {
                 returnData['detail_sources2_arr'] = returnData['detail_sources2'].includes(', ') ? returnData['detail_sources2'].split(', ') : [returnData['detail_sources2']];
@@ -105,10 +106,14 @@ router.get('/getdetail', function(req, res) {
             returnData['work_overview'] = returnData['work_overview'].replace('&amp;', '&');
             returnData['overview_arr'] =  returnData['work_overview'].split('\r\n\r\n');
 
-            const cateQuery = `select category_name from category_info where 1 AND idx IN (${results[0].work_categories})`;
+            const cateQuery = `select idx, category_name from category_info where 1 AND idx IN (${results[0].work_categories})`;
             db.query(cateQuery, (err, results, fields) => {
                 results.forEach(function(val, idx) {
-                    returnData['category_names'].push(val.category_name);
+                    returnData['category_data'].push({
+                        id: val['idx'],
+                        name: val['category_name'],
+                    });
+                    // returnData['category_names'].push(val.category_name);
                 });
                 res.json(returnData);
             });

@@ -65,7 +65,6 @@ function ProjectDetail(props) {
             if(result.data.related_work) {
             // * 연관 프로젝트가 세팅되어있을때
                 related_work = result.data.related_work;
-                console.log('hihi');
                 console.log(related_work);
                 const relatedWork = await axios({
                     method: 'get',
@@ -285,7 +284,7 @@ function ProjectDetail(props) {
             <div id="container" className={props.pageName} ref={containerRef}>
                 <Header />
                 <div className="contents" ref={contentRef}>
-                    {projectData.category_names && (
+                    {projectData.category_data && (
                         <div className="project-detail__hero">
                             <div className="hero-box">
                                 <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`} autoPlay={true}></ImageVideo>
@@ -304,11 +303,13 @@ function ProjectDetail(props) {
                             <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
                             <p className="page-title project-detail__title">{projectData.work_title}</p>
                             <div className="project-detail_categories">
-                                {projectData.category_names &&
-                                    projectData.category_names.map((value, idx) => (
-                                        <span key={idx} className="project-detail__category">
-                                            #{value}
-                                        </span>
+                                {projectData.category_data &&
+                                    projectData.category_data.map((value, idx) => (
+                                        <Link to={`/project#${value['id']}`}>
+                                            <span key={idx} className="project-detail__category">
+                                                #{value['name']}
+                                            </span>
+                                        </Link>
                                     ))}
                             </div>
                         </div>
@@ -316,8 +317,8 @@ function ProjectDetail(props) {
                             <span>View List</span>
                         </Link>
                     </motion.div>
-                    {/* {projectData.category_names && heroBoxPosition && rectSize !== null && */}
-                    {/* {projectData.category_names && heroBoxPosition && topBlockHeight &&
+                    {/* {projectData.category_data && heroBoxPosition && rectSize !== null && */}
+                    {/* {projectData.category_data && heroBoxPosition && topBlockHeight &&
                     <div className="project-detail__hero">
                         {`project detail boxPosition y: ${heroBoxPosition.y}`}
                         {`project detail topBlockHeight: ${topBlockHeight}`}
