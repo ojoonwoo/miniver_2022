@@ -30,7 +30,7 @@ function PageTransition(props) {
         } else if (transitionState === 'page_transition') {
             await loaderAnimate.start({ opacity: 1, transition: { duration: 0.6 } });
             await pageAnimate.start({ opacity: 1, transition: { duration: 0.3, onComplete: function() {
-                console.log(location.pathname);
+                // console.log(location.pathname);
                 if(location.pathname !== '/project' && location.pathname !== '/project/') {
                     // project list 에서는 scroll 유지
                     window.scrollTo(0, 0);
@@ -38,12 +38,12 @@ function PageTransition(props) {
             } } });
             return await loaderAnimate.start({ opacity: 0, transition: { duration: 1, } });
         } else {
-            console.log('애니메이트 시퀀스 none');
+            // console.log('애니메이트 시퀀스 none');
         }
     };
 
     useEffect(() => {
-        console.log('*** 트랜지션 스테이트:', transitionState);
+        // console.log('*** 트랜지션 스테이트:', transitionState);
         animateSequence();
     }, [transitionState]);
 
@@ -97,12 +97,12 @@ function PageTransition(props) {
         // console.log('transition component', props);
         // console.log('page transition mount');
         animateSequence();
-        console.log('variants name', props.variantsName)
+        // console.log('variants name', props.variantsName)
         if(props.variantsName !== 'home') {
             dispatch(setTransitionState('page_transition'));
         }
         return () => {
-            console.log('page transition unmount');
+            // console.log('page transition unmount');
         };
     }, []);
     return (

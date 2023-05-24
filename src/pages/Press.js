@@ -33,9 +33,9 @@ function Project(props) {
         dispatch(changeColor('black'));
         getPressData();
 
-        console.log('프레스 리스트 마운트');
+        // console.log('프레스 리스트 마운트');
         return () => {
-            console.log('프레스 리스트 언마운트');
+            // console.log('프레스 리스트 언마운트');
         };
     }, []);
 
@@ -45,7 +45,7 @@ function Project(props) {
             url: '/api/press/getlist',
         });
         setPressData(result.data.list);
-        console.log(result.data.list);
+        // console.log(result.data.list);
     };
 
     return (

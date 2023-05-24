@@ -4,9 +4,9 @@ import styles from './PressBox.module.scss';
 function PressBox(props) {
     let rawPressDate = new Date(props.item.press_date);
     // rawPressDate.setHours(rawPressDate.getHours()+9);
-    console.log(rawPressDate);
+    // console.log(rawPressDate);
     let pressDate = rawPressDate.getFullYear() + '.' + (rawPressDate.getMonth() + 1) + '.' + rawPressDate.getDate();
-    console.log(pressDate);
+    // console.log(pressDate);
     // let pressDate = rawPressDate.getFullYear() + "." + rawPressDate.() + "." + rawPressDate.getDay();
 
     let pressTitle = (props.item.press_title).replaceAll("<br>", "\n");

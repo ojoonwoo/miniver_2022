@@ -46,10 +46,10 @@ function Project(props) {
         getTotalProjectCount();
         dispatch(changeColor('black'));
 
-        console.log('프로젝트 리스트 마운트');
+        // console.log('프로젝트 리스트 마운트');
         // alert('project list mount');
         return () => {
-            console.log('프로젝트 리스트 언마운트');
+            // console.log('프로젝트 리스트 언마운트');
             // alert('project list unmount');
         };
     }, []);
@@ -61,7 +61,7 @@ function Project(props) {
             url: '/api/work/getlist',
             params: { cate: cate },
         });
-        console.log(result.data.list);
+        // console.log(result.data.list);
         setTotalProjectCount(result.data.list.length);
     };
 

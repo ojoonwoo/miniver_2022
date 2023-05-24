@@ -51,11 +51,11 @@ function Contact(props) {
     const [active, setActive] = useState(contactState.step);
 
     useEffect(() => {
-        console.log('컨텍트 마운트');
+        // console.log('컨텍트 마운트');
         dispatch(changeColor('white'));
         getCategoryData();
         return () => {
-            console.log('컨텍트 언마운트');
+            // console.log('컨텍트 언마운트');
             dispatch(
                 setContactState({
                     step: 1,
