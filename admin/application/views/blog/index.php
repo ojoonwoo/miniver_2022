@@ -26,7 +26,7 @@ require_once _VIEW_DIR . 'container_top.php';
                     <tr>
                         <td><?= $val['idx'] ?></td>
                         <td><?= $val['blog_title'] ?></td>
-                        <td><?= $val['press_visible'] ? "노출" : "비노출" ?></td>
+                        <td><?= $val['blog_visible'] ? "노출" : "비노출" ?></td>
                         <td>
                             <a href="<?= _ROOT_URL ?>blog/edit/<?= $val['idx'] ?>" class="btn btn-danger" role="button">수정</a>
                         </td>

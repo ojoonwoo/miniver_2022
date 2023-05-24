@@ -167,7 +167,7 @@ class PressController extends Controller
 
         $merge_array = array_merge($pressdata, $upload_results);
 
-        $update_result = $model->updateWork($item_data['idx'], $merge_array);
+        $update_result = $model->updatePress($item_data['idx'], $merge_array);
 
         if($update_result) {
             echo "<script>alert('수정완료')</script>";

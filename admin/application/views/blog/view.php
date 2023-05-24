@@ -9,8 +9,8 @@ if ($action === 'modify') {
     $readonly = "";
     $submit_text = "수정";
     $form_action = _ROOT_URL . "blog/itemEdit/" . $blog_data['idx'];
-    print_r($blog_data['blog_title']);
-    print_r($blog_data['blog_json']);
+    // print_r($blog_data['blog_title']);
+    // print_r($blog_data['blog_json']);
 } else if ($action === 'add') {
     $readonly = "";
     $submit_text = "등록";
@@ -48,6 +48,16 @@ if ($action === 'modify') {
     <div class="editor-wrap">
         <div id="editorjs"></div>
     </div>
+    <?php
+    if ($action !== 'add') {
+    ?>
+        <div class="mb-3">
+            <label for="blog-visible" class="form-label">노출 여부</label>
+            <input type="checkbox" id="blog-visible" name="blog_visible" <?= $readonly ?> value="노출" <?= $blog_data['blog_visible'] === '1' ? 'checked' : '' ?>>
+        </div>
+    <?php
+    }
+    ?>
     <button onClick="save()">Save</button>
 </div>
 <script>
@@ -126,44 +136,32 @@ if ($action === 'modify') {
         // });
         editor.save().then(function(editorData) {
 
-            console.log($('#blog-title').val());
+            // console.log($('#blog-title').val());
 
             var additionalData = {
-                title: $('#blog-title').val()
+                title: $('#blog-title').val(),
+                visible: $('#blog-visible').is(':checked') ? 1 : 0
             }
             var editorData = editorData;
             var imageData = editorData.blocks.filter(item => item.type === 'image');
 
             // TODO: blob형태 이미지 base64로 변환
-            // imageData.forEach(element => {
-            //     var imgBlobUrl = element.data.url;
-            //     // console.log('imgBlobUrl', imgBlobUrl);
-            //     fetch(imgBlobUrl)
-            //         .then(res => res.blob())
-            //         .then(blob => {
-            //             blobToDataUrl(blob, function(dataUrl) {
-            //                 // console.log(base64); // base64 형태의 이미지
-            //                 // console.log(dataUrl); // blob 겍체의 이미지
-            //                 element.data.url = dataUrl;
-            //                 console.log(element);
-            //                 return element;
-            //             });
-            //         })
-            //         .catch(error => console.error(error));
-            // });
-
             var fetchPromises = imageData.map(element => {
                 var imgBlobUrl = element.data.url;
-                return fetch(imgBlobUrl)
-                    .then(res => res.blob())
-                    .then(blob => {
-                        return new Promise((resolve, reject) => {
-                            blobToDataUrl(blob, function(dataUrl) {
-                                element.data.url = dataUrl;
-                                resolve(element);
+                if (imgBlobUrl.startsWith('blob:')) {
+                    return fetch(imgBlobUrl)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            return new Promise((resolve, reject) => {
+                                blobToDataUrl(blob, function(dataUrl) {
+                                    element.data.url = dataUrl;
+                                    resolve(element);
+                                });
                             });
                         });
-                    });
+                } else {
+                    return Promise.resolve(element);
+                }
             });
             // TODO: base64로 변환된 이미지 url imageData 배열내 url 자리에 삽입
             Promise.all(fetchPromises)
@@ -175,16 +173,39 @@ if ($action === 'modify') {
                         additionalData: additionalData
                     };
 
+                    // console.log(dataToSend);
+
                     var jsonDataToSend = JSON.stringify(dataToSend);
 
                     $.ajax({
                         // url: _root_url + '/blog/itemInsert',
-                        url: '<?=$form_action?>',
+                        url: '<?= $form_action ?>',
                         type: 'POST',
                         data: jsonDataToSend,
                         contentType: 'application/json',
                         success: function(response) {
                             console.log(response);
+                            switch (response) {
+                                case 'insert success':
+                                    alert('등록 완료');
+                                    location.replace(_root_url + '/blog/');
+                                    break;
+                                case 'insert fail':
+                                    alert('등록 실패');
+                                    location.replace(_root_url + '/blog/add');
+                                    break;
+                                case 'update success':
+                                    alert('수정 완료');
+                                    location.replace(_root_url + '/blog/');
+                                    break;
+                                case 'update success':
+                                    alert('수정 실패');
+                                    location.replace(_root_url + '/blog/edit/<?= $blog_data['idx'] ?>');
+                                    break;
+
+                                default:
+                                    break;
+                            }
                         },
                         error: function(error) {
                             // error handling here
@@ -196,26 +217,26 @@ if ($action === 'modify') {
         });
     }
 
-    function uploadImage(file) {
-        let form_data = new FormData();
-        form_data.append('file', file);
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                data: form_data,
-                type: "POST",
-                // url: '/api/imageUpload',
-                url: _root_url + 'blog/imageUpload',
-                cache: false,
-                contentType: false,
-                enctype: 'multipart/form-data',
-                processData: false,
-                success: function(url) {
-                    // console.log(url);
-                    resolve(url);
-                },
-            });
-        })
-    }
+    // function uploadImage(file) {
+    //     let form_data = new FormData();
+    //     form_data.append('file', file);
+    //     return new Promise((resolve, reject) => {
+    //         $.ajax({
+    //             data: form_data,
+    //             type: "POST",
+    //             // url: '/api/imageUpload',
+    //             url: _root_url + 'blog/imageUpload',
+    //             cache: false,
+    //             contentType: false,
+    //             enctype: 'multipart/form-data',
+    //             processData: false,
+    //             success: function(url) {
+    //                 // console.log(url);
+    //                 resolve(url);
+    //             },
+    //         });
+    //     })
+    // }
 
     function blobToDataUrl(blob, callback) {
         var reader = new FileReader();
