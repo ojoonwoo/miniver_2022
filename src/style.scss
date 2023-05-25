@@ -1791,6 +1791,18 @@ textarea::-webkit-scrollbar-thumb {
     }
 }
 
+#container.Blog {
+    .grid-inner {
+        .page-title {
+            margin-bottom: 3.6rem;
+        }
+        .blogbox-container {
+            display: grid;
+            width: 100%;
+        }
+    }
+}
+
 @media (max-height: 740px) {
     #container.Contact {
         > .inner {

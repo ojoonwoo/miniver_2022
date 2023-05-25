@@ -58,7 +58,7 @@ function ProjectDetail(props) {
                 url: '/api/work/getdetail',
                 params: { idx: params.id },
             });
-            // console.log(result.data);
+            console.log(result.data);
 
             setProjectData(result.data);
             let related_work;

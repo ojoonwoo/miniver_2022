@@ -4,11 +4,13 @@ const express = require('express');
 const work = require('./work');
 const contact = require('./contact');
 const press = require('./press');
+const posting = require('./posting');
 
 const router = express.Router();
 router.use('/work', work);
 router.use('/press', press);
 router.use('/contact', contact);
+router.use('/posting', posting);
 
 // export default router;
 module.exports = router;

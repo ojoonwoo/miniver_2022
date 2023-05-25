@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, '..', '/build')));
 
 app.use('/works', express.static(path.join(__dirname, './../uploads/work')));
 app.use('/journalists', express.static(path.join(__dirname, './../uploads/press')));
-app.use('/blog', express.static(path.join(__dirname, './../uploads/blog')));
+app.use('/postings', express.static(path.join(__dirname, './../uploads/blog')));
 
 // cors 옵션 설정 필요
 app.use('/api', api);
@@ -38,6 +38,7 @@ app.use(function(err, req, res, next) {
 
 // 클라이언트 사이드에 라우팅 위임
 app.get('*', (req, res) => {
+     console.log('on server console');
     res.sendFile(path.join(__dirname, '..', '/build/index.html'));
     // res.sendFile(path.join(__dirname, '..', '/public/index.html'));
 });
