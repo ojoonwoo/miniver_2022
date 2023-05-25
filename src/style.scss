@@ -42,6 +42,9 @@ body {
     letter-spacing: -0.01em;
     color: $black;
 }
+html, body {
+    overscroll-behavior: none;
+}
 body.scroll-blocking {
     overflow: hidden;
 }
@@ -1687,6 +1690,7 @@ textarea::-webkit-scrollbar-thumb {
             margin-bottom: 3.6rem;
             .swiper-slide {
                 width: auto;
+                // touch-action: none;
                 video,
                 img {
                     min-width: 19.1rem;
@@ -2425,7 +2429,7 @@ textarea::-webkit-scrollbar-thumb {
             }
             .project-detail__details {
                 .swiper-wrapper {
-                    cursor: grab;
+                    // cursor: grab;
                 }
                 .swiper-slide {
                     // width: 121rem;

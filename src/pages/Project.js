@@ -61,7 +61,6 @@ function Project(props) {
             url: '/api/work/getlist',
             params: { cate: cate },
         });
-        console.log(result.data.list);
         setTotalProjectCount(result.data.list.length);
     };
 

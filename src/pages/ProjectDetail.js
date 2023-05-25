@@ -277,6 +277,12 @@ function ProjectDetail(props) {
             return span.innerText;
         });
     }
+    function touchCapable() {
+        console.log('touch capable');
+        return (
+            'ontouchstart' in window || (window.DocumentTouch && document instanceof window.DocumentTouch) || navigator.maxTouchPoints > 0 ||window.navigator.msMaxTouchPoints > 0
+        );
+    };
 
     return (
         <PageTransition variantsName="detail">
@@ -350,10 +356,14 @@ function ProjectDetail(props) {
                                 slidesOffsetAfter={swiperSize}
                                 scrollbar={{ el: '.slideshow-scrollbar', dragSize: device==='mobile' ? (0.02666*window.innerWidth)*20.5/projectData.detail_sources1_arr.length : (0.0052*window.innerWidth)*46.8/projectData.detail_sources1_arr.length, draggable: false }}
                                 freeMode={false}
+                                simulateTouch={!touchCapable()}
                                 updateOnWindowResize={true}
                                 onSwiper={(swiper) => console.log(swiper)}
                                 onSlideChange={() => console.log('slide change')}
-                                onResize={(swiper) => {}}
+                                onResize={(swiper) => {
+                                    // console.log('swiper on resize')
+                                    // swiper.update();
+                                }}
                             >
                                     {
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
