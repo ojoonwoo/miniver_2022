@@ -7,6 +7,7 @@ use function PHPSTORM_META\map;
 class BlogController extends Controller
 {
     private $uploader;
+    private $color_array = array('#000000', '#2C2762', '#126DEA', '#FF9212', '#59C0F4', '#424242', '#EF2318');
 
     public function index()
     {
@@ -52,12 +53,17 @@ class BlogController extends Controller
         $model = new \application\models\BlogModel();
         $blog_id = $model->getLastBlogID();
         $blog_id = $blog_id ?: 1;
+        
 
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
+        $data['additionalData']['color'] = $this->getWriterColor();
+
+
         $imageData = $data['imageData'];
 
         $imageDataMapped = $this->decodeImageUrls($data, $imageData, $blog_id);
+
 
         $insert_result = $model->insertBlog($imageDataMapped);
 
@@ -74,6 +80,18 @@ class BlogController extends Controller
             // echo $insert_result;
             echo "insert fail";
         }
+    }
+    private function getWriterColor() {
+        // 이전 게시글의 컬러값과 중복되지 않게 컬러 세팅
+        $model = new \application\models\BlogModel();
+        $prev_color = $model->getPreviousItemColor();
+        $color = $this->color_array[0];
+
+        if($prev_color) {
+            $color = array_values(array_filter($this->color_array, function($v) use ($prev_color) { return ($v !== $prev_color); }))[rand(0, 5)];
+        }
+
+        return $color;
     }
     private function decodeImageUrls($data, $imageData, $blog_id)
     {
@@ -110,11 +128,9 @@ class BlogController extends Controller
     private function save_image($image, $blog_id, $filename)
     {
         $return_object = array();
-        if ($_SERVER['HTTP_HOST'] == 'www.royalcaninevent2020.com' || $_SERVER['HTTP_HOST'] == 'royalcaninevent2020.com') {
-            $uploads_dir = "/storage_data/breed23/uploads/" . $blog_id . "/";
-        } else {
-            $uploads_dir = _BASE_UPLOAD_DIR . "blog/" . $blog_id . "/";
-        }
+        
+        $uploads_dir = _BASE_UPLOAD_DIR . "blog/" . $blog_id . "/";
+    
 
         if (!is_dir($uploads_dir)) {
             mkdir($uploads_dir);

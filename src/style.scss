@@ -42,6 +42,9 @@ body {
     letter-spacing: -0.01em;
     color: $black;
 }
+html, body {
+    overscroll-behavior: none;
+}
 body.scroll-blocking {
     overflow: hidden;
 }
@@ -1672,10 +1675,22 @@ textarea::-webkit-scrollbar-thumb {
                 // word-break: break-all;
             }
         }
+        .project-detail__url {
+            margin-top: 1.8rem;
+            a {
+                font-size: 1.2rem;
+                font-weight: 300;
+                color: #404040;
+                letter-spacing: -0.05em;
+                text-decoration: underline;
+                text-underline-offset: 0.4rem;
+            }
+        }
         .project-detail__details {
             margin-bottom: 3.6rem;
             .swiper-slide {
                 width: auto;
+                // touch-action: none;
                 video,
                 img {
                     min-width: 19.1rem;
@@ -2417,9 +2432,16 @@ textarea::-webkit-scrollbar-thumb {
                     }
                 }
             }
+            .project-detail__url {
+                margin-left: 27.3rem;
+                margin-top: 3rem;
+                a {
+                    font-size: 2rem;
+                }
+            }
             .project-detail__details {
                 .swiper-wrapper {
-                    cursor: grab;
+                    // cursor: grab;
                 }
                 .swiper-slide {
                     // width: 121rem;

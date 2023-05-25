@@ -277,6 +277,12 @@ function ProjectDetail(props) {
             return span.innerText;
         });
     }
+    function touchCapable() {
+        console.log('touch capable');
+        return (
+            'ontouchstart' in window || (window.DocumentTouch && document instanceof window.DocumentTouch) || navigator.maxTouchPoints > 0 ||window.navigator.msMaxTouchPoints > 0
+        );
+    };
 
     return (
         <PageTransition variantsName="detail">
@@ -284,7 +290,7 @@ function ProjectDetail(props) {
             <div id="container" className={props.pageName} ref={containerRef}>
                 <Header />
                 <div className="contents" ref={contentRef}>
-                    {projectData.category_names && (
+                    {projectData.category_data && (
                         <div className="project-detail__hero">
                             <div className="hero-box">
                                 <ImageVideo src={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`} autoPlay={true}></ImageVideo>
@@ -303,11 +309,13 @@ function ProjectDetail(props) {
                             <p className="project-detail__title-kr">{projectData.work_title_kor}</p>
                             <p className="page-title project-detail__title">{projectData.work_title}</p>
                             <div className="project-detail_categories">
-                                {projectData.category_names &&
-                                    projectData.category_names.map((value, idx) => (
-                                        <span key={idx} className="project-detail__category">
-                                            #{value}
-                                        </span>
+                                {projectData.category_data &&
+                                    projectData.category_data.map((value, idx) => (
+                                        <Link to={`/project#${value['id']}`}>
+                                            <span key={idx} className="project-detail__category">
+                                                #{value['name']}
+                                            </span>
+                                        </Link>
                                     ))}
                             </div>
                         </div>
@@ -315,8 +323,8 @@ function ProjectDetail(props) {
                             <span>View List</span>
                         </Link>
                     </motion.div>
-                    {/* {projectData.category_names && heroBoxPosition && rectSize !== null && */}
-                    {/* {projectData.category_names && heroBoxPosition && topBlockHeight &&
+                    {/* {projectData.category_data && heroBoxPosition && rectSize !== null && */}
+                    {/* {projectData.category_data && heroBoxPosition && topBlockHeight &&
                     <div className="project-detail__hero">
                         {`project detail boxPosition y: ${heroBoxPosition.y}`}
                         {`project detail topBlockHeight: ${topBlockHeight}`}
@@ -348,10 +356,14 @@ function ProjectDetail(props) {
                                 slidesOffsetAfter={swiperSize}
                                 scrollbar={{ el: '.slideshow-scrollbar', dragSize: device==='mobile' ? (0.02666*window.innerWidth)*20.5/projectData.detail_sources1_arr.length : (0.0052*window.innerWidth)*46.8/projectData.detail_sources1_arr.length, draggable: false }}
                                 freeMode={false}
+                                simulateTouch={!touchCapable()}
                                 updateOnWindowResize={true}
-                                // onSwiper={(swiper) => console.log(swiper)}
-                                // onSlideChange={() => console.log('slide change')}
-                                onResize={(swiper) => {}}
+                                onSwiper={(swiper) => console.log(swiper)}
+                                onSlideChange={() => console.log('slide change')}
+                                onResize={(swiper) => {
+                                    // console.log('swiper on resize')
+                                    // swiper.update();
+                                }}
                             >
                                     {
                                     projectData.detail_sources1_arr.map((slideContent, index) => (
@@ -375,6 +387,13 @@ function ProjectDetail(props) {
                                     </dl>
                                 </div>
                             </div>
+                            {projectData.work_site_url &&
+                            <div className="project-detail__url">
+                                <a href={projectData.work_site_url} target="_blank">
+                                    {projectData.work_site_url}
+                                </a>
+                            </div>
+                            }
                         </div>
                         <div className="project-detail__mockup">
                             <div className="mockup-box">

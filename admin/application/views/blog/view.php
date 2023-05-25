@@ -45,6 +45,10 @@ if ($action === 'modify') {
         <label for="blog-title" class="form-label">제목</label>
         <input type="text" class="form-control" id="blog-title" name="blog_title" <?= $readonly ?> value="<?= $blog_data['blog_title'] ?>">
     </div>
+    <div class="mb-3">
+        <label for="blog-writer" class="form-label">작성자</label>
+        <input type="text" class="form-control" id="blog-writer" name="blog_writer" <?= $readonly ?> value="<?= $blog_data['blog_writer'] ?>">
+    </div>
     <div class="editor-wrap">
         <div id="editorjs"></div>
     </div>
@@ -116,6 +120,18 @@ if ($action === 'modify') {
     }
 
     function save() {
+
+        var titleVal = $('#blog-title').val(),
+            writerVal = $('#blog-writer').val();
+        
+        if($.trim(titleVal).length < 1) {
+            alert('제목을 입력해주세요');
+            return false;
+        }
+        if($.trim(writerVal).length < 1) {
+            alert('작성자를 입력해주세요');
+            return false;
+        }
         // editor.save().then((data) => {
         //     console.log(data);
         //     console.log(_root_url + '/blog/itemInsert');
@@ -139,9 +155,10 @@ if ($action === 'modify') {
             // console.log($('#blog-title').val());
 
             var additionalData = {
-                title: $('#blog-title').val(),
+                title: titleVal,
+                writer: writerVal,
                 visible: $('#blog-visible').is(':checked') ? 1 : 0
-            }
+            };
             var editorData = editorData;
             var imageData = editorData.blocks.filter(item => item.type === 'image');
 
