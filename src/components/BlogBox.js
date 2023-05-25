@@ -17,11 +17,13 @@ function BlogBox(props) {
     // pressTitle = pressTitle.replaceAll("&quot;", '"');
     // pressTitle = pressTitle.replaceAll("&nbsp;", " ");
     // pressTitle = pressTitle.replaceAll("&amp;", "&");
+    const [title, setTitle] = useState('');
     const [firstImage, setFirstImage] = useState('');
     const [textHeader, setTextHeader] = useState('');
 
     useEffect(() => {
-        let editorData = JSON.parse(props.item.blog_json);
+        setTitle(props.item.blog_title);
+        const editorData = JSON.parse(props.item.blog_json);
         const firstImageObj = editorData.blocks.find(item => item.type === 'image');
         setFirstImage(firstImageObj.id);
         const textHeaderObj = editorData.blocks.find(item => item.type === 'header')
@@ -44,7 +46,7 @@ function BlogBox(props) {
         <Link to={'/blog/1'} className={styles.blogbox}>
             <div className={styles['title-block']}>
                 <p className={styles['date']}>May 9, 2023</p>
-                <p className={styles['title']}>미니버타이징 타이틀입니드아아아아아아아</p>
+                <p className={styles['title']}>{title}</p>
             </div>
             <div className={styles['img-block']}>
                 <img className={styles['thumb']} src={`/postings/${props.item.idx}/${firstImage}.png`} alt=""></img>
