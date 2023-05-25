@@ -2,9 +2,10 @@
 
 .blogbox {
     width: 100%;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3.5rem;
     .title-block {
         width: 100%;
+        margin-bottom: 1.3rem;
         .date {
             font-weight: 400;
             font-size: 1.2rem;
@@ -22,14 +23,69 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 22.8rem;
+            width: 60.8vw;
         }
     }
     .img-block {
         width: 100%;
+        padding-bottom: 67.3%;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 1.4rem;
+        .thumb {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
     .text-block {
         width: 100%;
+        .author-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.3rem;
+            .by {
+                font-weight: 400;
+                font-size: 1.1rem;
+                letter-spacing: -0.01em;
+                color: #000000;
+            }
+            .icon {
+                width: 2.4rem;
+                height: 2.4rem;
+                border-radius: 50%;
+                background-color: black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 0.6rem 0 0.5rem;
+                svg {
+                    display: block;
+                    width: 0.85rem;
+                    path {
+                        fill: #ffffff;
+                    }
+                }
+            }
+            .name {
+                font-weight: 700;
+                font-size: 1.5rem;
+                letter-spacing: -0.01em;
+                color: #000000;
+            }
+        }
+        .desc {
+            font-family: 'Noto Sans KR';
+            font-weight: 400;
+            font-size: 1.2rem;
+            line-height: 1.416666666666667;
+            letter-spacing: -0.03em;
+            color: #000000;
+            word-break: break-all;
+        }
     }
 }
 
