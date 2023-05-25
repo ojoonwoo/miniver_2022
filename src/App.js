@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Project from './pages/Project';
 import ProjectDetail from './pages/ProjectDetail';
+import Blog from './pages/Blog';
+import BlogDetail from './pages/BlogDetail';
 import Press from './pages/Press';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
@@ -65,9 +67,12 @@ function App() {
                     <Route exact path="/" element={<Home pageName="Home" />}></Route>
                     <Route path="/about" element={<About pageName="About" />}></Route>
                     <Route path="/project/*">
-                        {/* <Route index element={<Project pageName="Project" />}></Route> */}
                         <Route index element={<Project pageName="Project" />}></Route>
                         <Route path=":id" element={<ProjectDetail pageName="ProjectDetail" initial={{ opacity: 1 }} />}></Route>
+                    </Route>
+                    <Route path="/blog/*">
+                        <Route index element={<Blog pageName="Blog" />}></Route>
+                        <Route path=":id" element={<BlogDetail pageName="BlogDetail" initial={{ opacity: 1 }} />}></Route>
                     </Route>
                     <Route path="/press" element={<Press pageName="Press" />}></Route>
                     <Route path="/contact" element={<Contact pageName="Contact" />}></Route>

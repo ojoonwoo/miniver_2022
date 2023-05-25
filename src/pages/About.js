@@ -31,7 +31,7 @@ function About(props) {
     let themeColor = useSelector((state) => {
         return state.themeColor;
     });
-    console.log(themeColor);
+    // console.log(themeColor);
     let dispatch = useDispatch();
 
     let device = useSelector((state) => {
@@ -57,7 +57,7 @@ function About(props) {
                 url: '/api/work/getlist',
                 params: { limit: 3 },
             });
-            console.log(workList.data.list);
+            // console.log(workList.data.list);
             setWorkList(workList.data.list);
         }
         getProjectData();
@@ -442,12 +442,12 @@ function About(props) {
         // }
 
         return () => {
-            console.log('어바웃 언마운트');
+            // console.log('어바웃 언마운트');
         };
     }, []);
 
     useEffect(() => {
-        console.log('현재 액티브 슬라이드', activeSlide);
+        // console.log('현재 액티브 슬라이드', activeSlide);
         // switch (activeSlide) {
         //     case value:
 
@@ -1630,8 +1630,8 @@ function About(props) {
                                 }
                                 // freeMode={true}
                                 updateOnWindowResize={true}
-                                onSwiper={(swiper) => console.log(swiper)}
-                                onSlideChange={() => console.log('slide change')}
+                                // onSwiper={(swiper) => console.log(swiper)}
+                                // onSlideChange={() => console.log('slide change')}
                                 onResize={(swiper) => {
                                     // if(device==='desktop') {
                                     //     swiper.params.slidesOffsetAfter = (window.innerWidth-1200)/2;

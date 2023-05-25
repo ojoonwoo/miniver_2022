@@ -65,24 +65,24 @@ function ProjectDetail(props) {
             if(result.data.related_work) {
             // * 연관 프로젝트가 세팅되어있을때
                 related_work = result.data.related_work;
-                console.log(related_work);
+                // console.log(related_work);
                 const relatedWork = await axios({
                     method: 'get',
                     url: '/api/work/getrelatedlist',
                     params: { idx: related_work, limit: 3 },
                 });
-                console.log(relatedWork.data.list);
+                // console.log(relatedWork.data.list);
                 setRelatedWork(relatedWork.data.list);
             } else {
             // * 연관 프로젝트가 세팅되어있지않을때
                 related_work = result.data.work_categories.substring(0, 1);
-                console.log(related_work);
+                // console.log(related_work);
                 const relatedWork = await axios({
                     method: 'get',
                     url: '/api/work/getlist',
                     params: { cate: related_work, exclude: result.data.idx, limit: 3 },
                 });
-                console.log(relatedWork.data.list);
+                // console.log(relatedWork.data.list);
                 setRelatedWork(relatedWork.data.list);
             }
             // console.log(related_work);
@@ -91,21 +91,21 @@ function ProjectDetail(props) {
         }
         getProjectData();
 
-        console.log('project detail mount');
+        // console.log('project detail mount');
         return () => {
             dispatch(heroBoxChangeColor(''));
-            console.log('project detail unmount');
+            // console.log('project detail unmount');
         };
     }, []);
 
     useEffect(() => {
         if (projectData.hero_color) {
             dispatch(heroBoxChangeColor(projectData.hero_color));
-            console.log('hero color is', projectData.hero_color);
+            // console.log('hero color is', projectData.hero_color);
         }
         return () => {
             dispatch(heroBoxChangeColor(''));
-            console.log('hero color remove');
+            // console.log('hero color remove');
         };
     }, [projectData]);
 
@@ -431,8 +431,8 @@ function ProjectDetail(props) {
                                 slidesOffsetAfter={swiperSizeBottom}
                                 // freeMode={true}
                                 updateOnWindowResize={true}
-                                onSwiper={(swiper) => console.log(swiper)}
-                                onSlideChange={() => console.log('slide change')}
+                                // onSwiper={(swiper) => console.log(swiper)}
+                                // onSlideChange={() => console.log('slide change')}
                                 onResize={(swiper) => {}}
                             >
                                 {relatedWork.map((slideContent, index) => (

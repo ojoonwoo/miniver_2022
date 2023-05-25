@@ -26,13 +26,13 @@ function Home(props) {
     // let [isMobile, setIsMobile] = useState(true);
 
     useEffect(() => {
-        console.log('홈 마운트');
-        console.log('props', props);
+        // console.log('홈 마운트');
+        // console.log('props', props);
         dispatch(changeColor('white'));
         document.body.classList.toggle('scroll-blocking');
 
         return () => {
-            console.log('홈 언마운트');
+            // console.log('홈 언마운트');
             document.body.classList.toggle('scroll-blocking');
         };
     }, []);

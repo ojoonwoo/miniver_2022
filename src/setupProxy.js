@@ -26,7 +26,7 @@ module.exports = function(app) {
         })
     );
     app.use(
-        '/blog',
+        '/postings',
         createProxyMiddleware({
             // target: 'https://localhost:4000',
             target: process.env.API_URL,
