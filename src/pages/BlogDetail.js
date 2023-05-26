@@ -41,6 +41,7 @@ function BlogDetail(props) {
             
             console.log(result.data);
             setBlogData(result.data);
+            // console.log(result.data[0].blog_json);
             setEditorData(JSON.parse(result.data.blog_json));
             
         }

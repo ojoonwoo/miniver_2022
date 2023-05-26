@@ -51,7 +51,7 @@ function BlogBox(props) {
 
     return (
         // <Link to={"/blog/"+props.item.idx} className={styles.blogbox}>
-        <Link to={'/blog/1'} className={styles.blogbox}>
+        <Link to={`/blog/${props.item.idx}`} className={styles.blogbox}>
             <div className={styles['title-block']}>
                 <p className={styles['date']}>{convertedDate}</p>
                 <p className={styles['title']}>{title}</p>
