@@ -25,9 +25,7 @@ function BlogDetail(props) {
         return state.currentDevice;
     });
     const [blogData, setBlogData] = useState([]);
-    // const [editorHtml, setEditorHtml] = useState([]);
     const [editorData, setEditorData] = useState([]);
-    // let blogHtml = null;
 
     useEffect(() => {
         dispatch(changeColor('black'));
