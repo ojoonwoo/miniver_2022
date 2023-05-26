@@ -1821,14 +1821,14 @@ textarea::-webkit-scrollbar-thumb {
     .grid-inner {
         .blog-content__head {
             text-align: center;
-            margin-bottom: 9.2rem;
+            margin-bottom: 4.7rem;
             .blog-content__head-date {
-                font-size: 3rem;
+                font-size: 1.2rem;
             }
             .blog-content__head-subject {
-                margin-top: 6.1rem;
-                margin-bottom: 2.7rem;
-                font-size: 8.6rem;
+                margin-top: 2.4rem;
+                margin-bottom: 1.6rem;
+                font-size: 3rem;
                 font-weight: 700;
             }
             .blog-content__head-writer {
@@ -1837,20 +1837,20 @@ textarea::-webkit-scrollbar-thumb {
                 justify-content: center;
                 .icon {
                     position: relative;
-                    width: 5.6rem;
-                    height: 5.6rem;
+                    width: 2.3rem;
+                    height: 2.3rem;
                     border-radius: 50%;
-                    margin-right: 1.3rem;
+                    margin-right: 0.5rem;
                     svg {
                         position: absolute;
                         top: 50%;
                         left: 50%;
-                        width: 2.1rem;
+                        width: 0.9rem;
                         transform: translate(-50%, -50%);
                     }
                 }
                 .author {
-                    font-size: 2.9rem;
+                    font-size: 1.2rem;
                     font-weight: 700;
                 }
             }
@@ -1858,9 +1858,9 @@ textarea::-webkit-scrollbar-thumb {
         .blog-content__body {
             div {
                 text-align: left;
-                max-width: 110rem;
+                width: 100%;
                 margin: 0 auto;
-                margin-bottom: 3rem;
+                margin-bottom: 2rem;
             }
             img {
                 display: block;
@@ -1868,19 +1868,21 @@ textarea::-webkit-scrollbar-thumb {
                 margin: 0 auto;
             }
             .is-stretched {
+                width: calc(100% + 6rem);
+                margin-left: -3rem;
+                margin-right: -3rem;
                 max-width: none;
-                width: 100%;
             }
             
             h3, p {
                 font-weight: 400;
             }
             h3 {
-                font-size: 4rem;
+                font-size: 2rem;
                 line-height: 1.27;
             }
             p {
-                font-size: 2rem;
+                font-size: 1.2rem;
                 line-height: 1.45;
             }
             a {
@@ -2958,6 +2960,55 @@ textarea::-webkit-scrollbar-thumb {
                 grid-template-columns: 1fr 1fr 1fr;
                 column-gap: 2rem;
                 padding-bottom: 16.7rem;
+            }
+        }
+    }
+
+
+    #container.BlogDetail {
+        .grid-inner {
+            .blog-content__head {
+                margin-bottom: 9.2rem;
+                .blog-content__head-date {
+                    font-size: 3rem;
+                }
+                .blog-content__head-subject {
+                    margin-top: 6.1rem;
+                    margin-bottom: 2.7rem;
+                    font-size: 8.6rem;
+                }
+                .blog-content__head-writer {
+                    .icon {
+                        width: 5.6rem;
+                        height: 5.6rem;
+                        border-radius: 50%;
+                        margin-right: 1.3rem;
+                        svg {
+                            width: 2.1rem;
+                        }
+                    }
+                    .author {
+                        font-size: 2.9rem;
+                    }
+                }
+            }
+            .blog-content__body {
+                div {
+                    max-width: 110rem;
+                    margin-bottom: 3rem;
+                }
+                img {
+                    width: 100%;
+                }
+                
+                h3 {
+                    font-size: 4rem;
+                    line-height: 1.27;
+                }
+                p {
+                    font-size: 2rem;
+                    line-height: 1.45;
+                }
             }
         }
     }
