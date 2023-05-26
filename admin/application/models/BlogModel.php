@@ -72,10 +72,15 @@ class BlogModel extends Model
 
     public function selectList()
     {
-        $sql = 'SELECT * FROM blog_info';
+        $sql = 'SELECT * FROM blog_info WHERE 1';
         $result = mysqli_query($this->my_db, $sql);
 
-        return $result;
+        $list = [];
+        while($data = mysqli_fetch_assoc($result)) {
+            $list[] = $data;
+        }
+
+        return $list;
     }
 
     public function getDetail($index)
