@@ -11,7 +11,7 @@ router.get('/getdetail', function (req, res) {
         if (!err) {
             // let returnData = results[0];
 
-            res.json(results);
+            res.json(results[0]);
         } else {
             console.log(`query error : ${err}`);
             res.send(err);

@@ -23,6 +23,7 @@ function BlogDetail(props) {
     let device = useSelector((state) => {
         return state.currentDevice;
     });
+    const [blogData, setBlogData] = useState([]);
 
     useEffect(() => {
         dispatch(changeColor('black'));
@@ -33,16 +34,47 @@ function BlogDetail(props) {
                 url: '/api/posting/getdetail',
                 params: { idx: params.id },
             });
+            
             console.log(result.data);
+            setBlogData(result.data);
         }
         getBlogData();
     }, []);
+    
+    const convertDate = (dateString) => {
+        let raw = new Date(dateString);
+        const str = raw.getMonth().toString() + ' ' + raw.getDate() + ', ' + raw.getFullYear()
+        return str;
+    }
 
     return (
         <PageTransition>
             <div id="container" className={props.pageName}>
                 <Header />
-                <div className="contents"></div>
+                <div className="contents">
+                    {blogData &&
+                    <>
+                    <div className="blog-remote"></div>
+                    <div className="blog-content">
+                        <div className="blog-content__head">
+                            <p className="blog-content__head-date">
+                                {/* {blogData.blog_register_date} */}
+                                {convertDate(blogData.blog_register_date)}
+                            </p>
+                            <h2 className="blog-content__head-subject">
+                                {blogData.blog_title}
+                            </h2>
+                            <div className="blog-content__head-writer">
+                                <span className="icon" style={{ backgroundColor: blogData.blog_color }}>
+                                    <em>M</em>
+                                </span>
+                                <span className="writer">{blogData.blog_writer}</span>
+                            </div>
+                        </div>    
+                    </div>
+                    </>
+                    }
+                </div>
                 {device === 'mobile' ? null : <Footer />}
             </div>
         </PageTransition>

@@ -25,9 +25,13 @@ function BlogBox(props) {
         setTitle(props.item.blog_title);
         const editorData = JSON.parse(props.item.blog_json);
         const firstImageObj = editorData.blocks.find(item => item.type === 'image');
-        setFirstImage(firstImageObj.id);
+        if(firstImageObj) {
+            setFirstImage(firstImageObj.id);
+        }
         const textHeaderObj = editorData.blocks.find(item => item.type === 'header')
-        setTextHeader(textHeaderObj.data.text);
+        if(textHeaderObj) {
+            setTextHeader(textHeaderObj.data.text);
+        }
 
 
         // console.log(editorData);
@@ -48,10 +52,12 @@ function BlogBox(props) {
                 <p className={styles['date']}>May 9, 2023</p>
                 <p className={styles['title']}>{title}</p>
             </div>
+            {firstImage &&
             <div className={styles['img-block']}>
                 <img className={styles['thumb']} src={`/postings/${props.item.idx}/${firstImage}.png`} alt=""></img>
                 {/* <img className={styles['thumb']} src={`/postings/1/WpllNiiTlM.png`} alt=""></img> */}
             </div>
+            }
             <div className={styles['text-block']}>
                 <div className={styles['author-box']}>
                     <p className={styles['by']}>by</p>
@@ -62,9 +68,11 @@ function BlogBox(props) {
                     </div>
                     <p className={styles['name']}>Kim sejin</p>
                 </div>
+                {textHeader &&
                 <p className={styles['desc']}>
                     {textHeader}
                 </p>
+                }
             </div>
         </Link>
     );

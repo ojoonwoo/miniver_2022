@@ -32,7 +32,8 @@ if($page_title == '') {
     ?>
     <script src="<?=_PUBLIC_URL?>lib/jquery-3.3.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script> -->
+    <script src="<?=_PUBLIC_URL?>lib/editorjs.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.3.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-image-editorjs@latest"></script>
