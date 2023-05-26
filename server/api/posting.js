@@ -19,5 +19,24 @@ router.get('/getdetail', function (req, res) {
     });
 });
 
+router.get('/getlist', function(req, res) {
+    // blog list 가져오기
+    const query = `select * from blog_info where 1 and blog_visible = "1" order by blog_register_date desc`;
+
+    console.log(query);
+
+    db.query(query, (err, results, fields) => {
+        if(!err) {
+            // res.json({ list: results });
+            // res.send();
+            // res.json({msg: 'Y'});
+            res.json({ list: results });
+        } else {
+            console.log(`query error : ${err}`);
+            res.send(err);
+        }
+    });
+});
+
 // export default router;
 module.exports = router;

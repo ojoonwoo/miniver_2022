@@ -19,18 +19,26 @@ function Blog(props) {
 
     const [blogData, setBlogData] = useState([]);
 
-
     useEffect(() => {
         dispatch(changeColor('black'));
+        getBlogData();
     }, []);
+
+    // useEffect(() => {
+    //     console.log('블로그데이터', blogData);
+
+    //     if (blogData && blogData[0] && blogData[0].blog_json) {
+    //         let data = JSON.parse(blogData[0].blog_json);
+    //         setEditorData(data);
+    //     }
+    // }, [blogData]);
 
     const getBlogData = async () => {
         const result = await axios({
             method: 'get',
-            url: '/api/press/getlist',
+            url: '/api/posting/getlist',
         });
         setBlogData(result.data.list);
-        // console.log(result.data.list);
     };
 
     return (
@@ -41,10 +49,9 @@ function Blog(props) {
                     <div className="grid-inner">
                         <h1 className="page-title">Blog</h1>
                         <div className="blogbox-container">
-                            {/* {blogData.map((item) => (
+                            {blogData.map((item) => (
                                 <BlogBox key={item.idx} item={item} />
-                            ))} */}
-                            <BlogBox key={'1'} />
+                            ))}
                         </div>
                     </div>
                 </div>
