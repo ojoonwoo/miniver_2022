@@ -4,22 +4,21 @@ import { Link } from 'react-router-dom';
 
 function BlogBox(props) {
     // console.log(props);
-    // let rawPressDate = new Date(props.item.press_date);
-    // // rawPressDate.setHours(rawPressDate.getHours()+9);
-    // // console.log(rawPressDate);
-    // let pressDate = rawPressDate.getFullYear() + '.' + (rawPressDate.getMonth() + 1) + '.' + rawPressDate.getDate();
-    // // console.log(pressDate);
-    // // let pressDate = rawPressDate.getFullYear() + "." + rawPressDate.() + "." + rawPressDate.getDay();
+    // console.log(props.item.blog_register_date);
+    let rawBlogDate = new Date(props.item.blog_register_date);
 
-    // let pressTitle = (props.item.press_title).replaceAll("<br>", "\n");
-    // pressTitle = pressTitle.replaceAll("&gt;", ">");
-    // pressTitle = pressTitle.replaceAll("&lt;", "<");
-    // pressTitle = pressTitle.replaceAll("&quot;", '"');
-    // pressTitle = pressTitle.replaceAll("&nbsp;", " ");
-    // pressTitle = pressTitle.replaceAll("&amp;", "&");
+    const year = rawBlogDate.getFullYear();
+    const month = rawBlogDate.toLocaleString('en-US', { month: 'long' });
+    const day = rawBlogDate.getDate();
+
+    const convertedDate = `${month} ${day}, ${year}`;
+    // console.log(convertedDate);
+
     const [title, setTitle] = useState('');
     const [firstImage, setFirstImage] = useState('');
     const [textHeader, setTextHeader] = useState('');
+    const [iconColor, setIconColor] = useState('');
+    const [authorName, setAuthorName] = useState('');
 
     useEffect(() => {
         setTitle(props.item.blog_title);
@@ -29,9 +28,14 @@ function BlogBox(props) {
             setFirstImage(firstImageObj.id);
         }
         const textHeaderObj = editorData.blocks.find(item => item.type === 'header')
+        const textDescObj = editorData.blocks.find(item => item.type === 'paragraph')
         if(textHeaderObj) {
             setTextHeader(textHeaderObj.data.text);
+        } else {
+            setTextHeader(textDescObj.data.text);
         }
+        setIconColor(props.item.blog_color);
+        setAuthorName(props.item.blog_writer);
 
 
         // console.log(editorData);
@@ -49,7 +53,7 @@ function BlogBox(props) {
         // <Link to={"/blog/"+props.item.idx} className={styles.blogbox}>
         <Link to={'/blog/1'} className={styles.blogbox}>
             <div className={styles['title-block']}>
-                <p className={styles['date']}>May 9, 2023</p>
+                <p className={styles['date']}>{convertedDate}</p>
                 <p className={styles['title']}>{title}</p>
             </div>
             {firstImage &&
@@ -61,12 +65,12 @@ function BlogBox(props) {
             <div className={styles['text-block']}>
                 <div className={styles['author-box']}>
                     <p className={styles['by']}>by</p>
-                    <div className={styles['icon']}>
+                    <div className={styles['icon']} style={{backgroundColor: iconColor}}>
                         <svg viewBox="0 0 8.5 10.2">
                             <path d="M8.5,0v10.2H6.1V3.3l-1,4.6H3.4l-1-4.4v6.7H0V0h3.6c0.1,0.6,0.7,4.1,0.7,4.1L4.9,0H8.5L8.5,0z" />
                         </svg>
                     </div>
-                    <p className={styles['name']}>Kim sejin</p>
+                    <p className={styles['name']}>{authorName}</p>
                 </div>
                 {textHeader &&
                 <p className={styles['desc']}>

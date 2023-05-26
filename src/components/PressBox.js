@@ -3,11 +3,12 @@ import styles from './PressBox.module.scss';
 
 function PressBox(props) {
     let rawPressDate = new Date(props.item.press_date);
-    // rawPressDate.setHours(rawPressDate.getHours()+9);
-    // console.log(rawPressDate);
-    let pressDate = rawPressDate.getFullYear() + '.' + (rawPressDate.getMonth() + 1) + '.' + rawPressDate.getDate();
-    // console.log(pressDate);
-    // let pressDate = rawPressDate.getFullYear() + "." + rawPressDate.() + "." + rawPressDate.getDay();
+
+    const year = rawPressDate.getFullYear();
+    const month = rawPressDate.toLocaleString('en-US', { month: 'long' });
+    const day = rawPressDate.getDate();
+
+    const convertedDate = `${month} ${day}, ${year}`;
 
     let pressTitle = (props.item.press_title).replaceAll("<br>", "\n");
     pressTitle = pressTitle.replaceAll("&gt;", ">");
@@ -23,7 +24,7 @@ function PressBox(props) {
             </div>
             <div className={styles['text-block']}>
                 <p className={styles['title']}>{pressTitle}</p>
-                <p className={styles['date']}>{pressDate}</p>
+                <p className={styles['date']}>{convertedDate}</p>
             </div>
         </a>
     );

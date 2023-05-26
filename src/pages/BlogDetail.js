@@ -17,6 +17,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+
 function BlogDetail(props) {
     const params = useParams();
     let dispatch = useDispatch();
@@ -24,6 +25,9 @@ function BlogDetail(props) {
         return state.currentDevice;
     });
     const [blogData, setBlogData] = useState([]);
+    // const [editorHtml, setEditorHtml] = useState([]);
+    const [editorData, setEditorData] = useState([]);
+    // let blogHtml = null;
 
     useEffect(() => {
         dispatch(changeColor('black'));
@@ -37,43 +41,90 @@ function BlogDetail(props) {
             
             console.log(result.data);
             setBlogData(result.data);
+            setEditorData(JSON.parse(result.data.blog_json));
+            
         }
         getBlogData();
     }, []);
     
-    const convertDate = (dateString) => {
+    const convertDateENUS = (dateString) => {
         let raw = new Date(dateString);
-        const str = raw.getMonth().toString() + ' ' + raw.getDate() + ', ' + raw.getFullYear()
+        const year = raw.getFullYear();
+        const month = raw.toLocaleString('en-US', { month: 'long' });
+        const day = raw.getDate();
+        const str = month + ' ' + day + ', ' + year;
+
         return str;
     }
+    const convertEditorBlock = (block, key) => {
+        // console.log(block);
+        let returnElem = null;
+        let classOptions = [];
+        let classOptionsStr = '';
+        
+        switch(block.type) {
+            case "image":
+                block.data.stretched && classOptions.push('is-stretched');
+                block.data.withBackground && classOptions.push('is-withBackground');
+                block.data.withBorder && classOptions.push('is-withBorder');
+                
+                returnElem = `<img src=${block.data.url}>`;
+            break;
+            case "header":
+                returnElem = `<h3>${block.data.text}</h3>`;
+            break;
+            case "paragraph":
+                returnElem = `<p>${block.data.text}</p>`;
+            break;
+            default:
+                returnElem = '';
+            break;
+        }
+
+        classOptionsStr = classOptions.join(' ');
+
+        return <div key={key} className={classOptionsStr} dangerouslySetInnerHTML={ {__html: returnElem} }></div>;
+    }
+
 
     return (
         <PageTransition>
             <div id="container" className={props.pageName}>
                 <Header />
                 <div className="contents">
-                    {blogData &&
-                    <>
-                    <div className="blog-remote"></div>
-                    <div className="blog-content">
-                        <div className="blog-content__head">
-                            <p className="blog-content__head-date">
-                                {/* {blogData.blog_register_date} */}
-                                {convertDate(blogData.blog_register_date)}
-                            </p>
-                            <h2 className="blog-content__head-subject">
-                                {blogData.blog_title}
-                            </h2>
-                            <div className="blog-content__head-writer">
-                                <span className="icon" style={{ backgroundColor: blogData.blog_color }}>
-                                    <em>M</em>
-                                </span>
-                                <span className="writer">{blogData.blog_writer}</span>
+                    <div className="grid-inner">
+                        {blogData &&
+                        <>
+                        <div className="blog-remote"></div>
+                        <div className="blog-content">
+                            <div className="blog-content__head">
+                                <p className="blog-content__head-date">
+                                    {/* {blogData.blog_register_date} */}
+                                    {convertDateENUS(blogData.blog_register_date)}
+                                </p>
+                                <h2 className="blog-content__head-subject">
+                                    {blogData.blog_title}
+                                </h2>
+                                <div className="blog-content__head-writer">
+                                    <span className="icon" style={{ backgroundColor: blogData.blog_color }}>
+                                        <svg viewBox="0 0 8.5 10.2">
+                                            <path d="M8.5,0v10.2H6.1V3.3l-1,4.6H3.4l-1-4.4v6.7H0V0h3.6c0.1,0.6,0.7,4.1,0.7,4.1L4.9,0H8.5L8.5,0z" fill="#ffffff"/>
+                                        </svg>
+                                    </span>
+                                    <span className="author">{blogData.blog_writer}</span>
+                                </div>
                             </div>
-                        </div>    
+                            <div className="blog-content__body">
+                                {editorData.blocks &&
+                                    editorData.blocks.map((block, idx) => (
+                                        convertEditorBlock(block, block.id)
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        </>
+                        }
                     </div>
-                    </>
-                    }
                 </div>
                 {device === 'mobile' ? null : <Footer />}
             </div>
