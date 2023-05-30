@@ -55,14 +55,14 @@ if ($action === 'modify') {
     <?php
     if ($action !== 'add') {
     ?>
-        <div class="mb-3">
+        <div class="mb-3 mt-3">
             <label for="blog-visible" class="form-label">노출 여부</label>
             <input type="checkbox" id="blog-visible" name="blog_visible" <?= $readonly ?> value="노출" <?= $blog_data['blog_visible'] === '1' ? 'checked' : '' ?>>
         </div>
     <?php
     }
     ?>
-    <button onClick="save()">Save</button>
+    <button class="btn btn-lg btn-primary" onClick="save()"><?=$submit_text?></button>
 </div>
 <script>
     var editor = new EditorJS({
@@ -78,6 +78,11 @@ if ($action === 'modify') {
                     //         defaultLevel: 3
                 }
             },
+            // paragraph: {
+            //     class: Paragraph,
+            //     inlineToolbar: true,
+            // },
+
             // ! blob 형태
             // ! blob으로 할시에 save 전에 blob to base64로 서버로 전송해서 이미지 저장하는 로직 필요해보임
             image: SimpleImage
@@ -107,15 +112,14 @@ if ($action === 'modify') {
             // }
         },
         data: {
-            "blocks": [
-                {
+            "blocks": [{
                     type: 'image',
                     data: {
                         stretched: true
                     }
                 },
                 {
-                    type: 'header', 
+                    type: 'header',
                     data: {
                         text: ''
                     }
@@ -141,12 +145,12 @@ if ($action === 'modify') {
 
         var titleVal = $('#blog-title').val(),
             writerVal = $('#blog-writer').val();
-        
-        if($.trim(titleVal).length < 1) {
+
+        if ($.trim(titleVal).length < 1) {
             alert('제목을 입력해주세요');
             return false;
         }
-        if($.trim(writerVal).length < 1) {
+        if ($.trim(writerVal).length < 1) {
             alert('작성자를 입력해주세요');
             return false;
         }
