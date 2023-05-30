@@ -54,14 +54,12 @@ class BlogModel extends Model
         $json_editorData = json_encode($editorData);
         $additionalData_visible = $additionalData['visible'];
 
-        $sql = 'UPDATE blog_info SET idx=?, blog_title=?, blog_writer=?, blog_json=?, blog_visible=?, blog_update_date=?';
-
+        $sql = 'UPDATE blog_info SET blog_title=?, blog_writer=?, blog_json=?, blog_visible=?, blog_update_date=? WHERE idx=?';
         $stmt = $this->my_db->prepare($sql);
 
         // Bind variables to the prepared statement as parameters
         // $stmt->bind_param("s", $json_data);
-        $stmt->bind_param("isssis", $index, $additionalData_title, $additionalData_writer, $json_editorData, $additionalData_visible, date('Y-m-d H:i:s'));
-
+        $stmt->bind_param("sssisi", $additionalData_title, $additionalData_writer, $json_editorData, $additionalData_visible, date('Y-m-d H:i:s'), $index);
         // Attempt to execute the prepared statement
         if ($stmt->execute()) {
             return true;
