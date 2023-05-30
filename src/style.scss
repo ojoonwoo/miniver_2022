@@ -1818,7 +1818,7 @@ textarea::-webkit-scrollbar-thumb {
     }
 }
 #container.BlogDetail {
-    // .grid-inner {
+    .grid-inner {
         .blog-content {
             padding-bottom: 12.4rem;
         }
@@ -1905,8 +1905,11 @@ textarea::-webkit-scrollbar-thumb {
                 font-weight: 700;
                 margin-top: 7rem;
             }
+            .blog-remote {
+                display: flex;
+            }
         }
-    // }
+    }
 }
 
 @media (max-height: 740px) {

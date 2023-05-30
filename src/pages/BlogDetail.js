@@ -145,7 +145,9 @@ function BlogDetail(props) {
                                     {blogAdjoinList.map((data, idx) => (
                                         <Link to={`/blog/${data.idx}`} key={data.idx}>
                                             <div className={`remote-link ${data.idx > params.id ? 'next' : 'prev'}`}>
-                                                {data.blog_title}
+                                                <span>{data.idx > params.id ? '다음' : '이전'} 글</span>
+                                                <span>{data.blog_title}</span>
+                                                <span>{convertDateENUS(data.blog_register_date)}</span>
                                             </div>
                                         </Link>
                                     ))}
