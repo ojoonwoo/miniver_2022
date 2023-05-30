@@ -96,7 +96,7 @@ if ($action === 'modify') {
             //                     // console.log(resultUrl);
             //                     return {
             //                         success: 1,
-            //                         file: {
+            //                          file: {
             //                             url: resultUrl
             //                         }
             //                     };
@@ -106,7 +106,25 @@ if ($action === 'modify') {
             //     }
             // }
         },
+        data: {
+            "blocks": [
+                {
+                    type: 'image',
+                    data: {
+                        stretched: true
+                    }
+                },
+                {
+                    type: 'header', 
+                    data: {
+                        text: ''
+                    }
+                }
+            ]
+        }
     });
+
+    console.log(editor);
 
     var pageAction = '<?= $action ?>';
     if (pageAction === 'modify') {
