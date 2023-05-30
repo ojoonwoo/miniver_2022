@@ -2964,6 +2964,24 @@ textarea::-webkit-scrollbar-thumb {
         }
     }
 
+    #container.Blog {
+        .grid-inner {
+            width: 100%;
+            padding: $desktop-container-padding;
+            margin: 0 auto;
+            .page-title {
+                margin-bottom: 10.4rem;
+            }
+            .blogbox-container {
+                display: grid;
+                width: 100%;
+                grid-template-columns: calc(33.3333333% - 2rem) calc(33.3333333% - 2rem) calc(33.3333333% - 2rem);
+                column-gap: 3rem;
+                padding-bottom: 16.7rem;
+            }
+        }
+    }
+
 
     #container.BlogDetail {
         .grid-inner {
