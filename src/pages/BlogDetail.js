@@ -84,6 +84,13 @@ function BlogDetail(props) {
 
         return <div key={key} className={classOptionsStr} dangerouslySetInnerHTML={ {__html: returnElem} }></div>;
     }
+    const goTopHandler = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+            duration: 0.1,
+        });
+    };
 
 
     return (
@@ -94,7 +101,6 @@ function BlogDetail(props) {
                     <div className="grid-inner">
                         {blogData &&
                         <>
-                        <div className="blog-remote"></div>
                         <div className="blog-content">
                             <div className="blog-content__head">
                                 <p className="blog-content__head-date">
@@ -120,6 +126,16 @@ function BlogDetail(props) {
                                     ))
                                 }
                             </div>
+                            <div className="blog-content__foot">
+                                <button type="button" className="go-top" onClick={goTopHandler}>
+                                Back to top
+                                </button>
+                            </div>
+                        </div>
+                        <div className="blog-remote">
+                            <Link to="">
+                                {/* adjoin */}
+                            </Link>
                         </div>
                         </>
                         }

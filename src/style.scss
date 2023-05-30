@@ -1818,7 +1818,10 @@ textarea::-webkit-scrollbar-thumb {
     }
 }
 #container.BlogDetail {
-    .grid-inner {
+    // .grid-inner {
+        .blog-content {
+            padding-bottom: 12.4rem;
+        }
         .blog-content__head {
             text-align: center;
             margin-bottom: 4.7rem;
@@ -1872,6 +1875,9 @@ textarea::-webkit-scrollbar-thumb {
                 margin-left: -3rem;
                 margin-right: -3rem;
                 max-width: none;
+                img {
+                    max-width: none;
+                }
             }
             
             h3, p {
@@ -1889,7 +1895,17 @@ textarea::-webkit-scrollbar-thumb {
                 text-decoration: underline;
             }
         }
-    }
+        .blog-content__foot {
+            max-width: 110rem;
+            margin: 0 auto;
+            text-align: right;
+            .go-top {
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-top: 7rem;
+            }
+        }
+    // }
 }
 
 @media (max-height: 740px) {
@@ -2985,6 +3001,7 @@ textarea::-webkit-scrollbar-thumb {
 
     #container.BlogDetail {
         .grid-inner {
+            display: block;
             .blog-content__head {
                 margin-bottom: 9.2rem;
                 .blog-content__head-date {
@@ -3015,6 +3032,12 @@ textarea::-webkit-scrollbar-thumb {
                     max-width: 110rem;
                     margin-bottom: 3rem;
                 }
+                .is-stretched {
+                    margin-left: 0;
+                    margin-right: 0;
+                    width: 100%;
+                    max-width: none;
+                }
                 img {
                     width: 100%;
                 }
@@ -3026,6 +3049,13 @@ textarea::-webkit-scrollbar-thumb {
                 p {
                     font-size: 2rem;
                     line-height: 1.45;
+                }
+            }
+            .blog-content__foot {
+                max-width: 100%;
+                .go-top {
+                    font-size: 2.5rem;
+                    margin-top: 7rem;
                 }
             }
         }
