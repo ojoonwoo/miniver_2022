@@ -25,6 +25,7 @@ function BlogDetail(props) {
         return state.currentDevice;
     });
     const [blogData, setBlogData] = useState([]);
+    const [blogAdjoinList, setBlogAdjoinList] = useState([]);
     const [editorData, setEditorData] = useState([]);
 
     useEffect(() => {
@@ -43,7 +44,19 @@ function BlogDetail(props) {
             setEditorData(JSON.parse(result.data.blog_json));
             
         }
+        async function getBlogAdjoinList() {
+            const result = await axios({
+                method: 'get',
+                url: '/api/posting/getadjoinlist',
+                params: { curidx: params.id },
+            });
+            
+            console.log(result.data);
+            setBlogAdjoinList(result.data.list);
+            
+        }
         getBlogData();
+        getBlogAdjoinList();
     }, []);
     
     const convertDateENUS = (dateString) => {
@@ -127,15 +140,21 @@ function BlogDetail(props) {
                                 }
                             </div>
                             <div className="blog-content__foot">
+                                {blogAdjoinList &&
+                                <div className="blog-remote">
+                                    {blogAdjoinList.map((data, idx) => (
+                                        <Link to={`/blog/${data.idx}`} key={data.idx}>
+                                            <div className={`remote-link ${data.idx > params.id ? 'next' : 'prev'}`}>
+                                                {data.blog_title}
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                                }
                                 <button type="button" className="go-top" onClick={goTopHandler}>
                                 Back to top
                                 </button>
                             </div>
-                        </div>
-                        <div className="blog-remote">
-                            <Link to="">
-                                {/* adjoin */}
-                            </Link>
                         </div>
                         </>
                         }
