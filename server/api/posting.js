@@ -37,6 +37,28 @@ router.get('/getlist', function(req, res) {
         }
     });
 });
+router.get('/getadjoinlist', function(req, res) {
+    const curidx = req.query.curidx;
+    const query = `select * from blog_info where 1 and blog_visible = "1" AND idx IN (
+        (select idx from blog_info where idx < ${curidx} order by idx desc limit 1),
+        (select idx from blog_info where idx > ${curidx} order by idx asc limit 1))`;
+
+    console.log(query);
+
+    db.query(query, (err, results, fields) => {
+        if(!err) {
+            // res.json({ list: results });
+            // res.send();
+            // res.json({msg: 'Y'});
+            res.json({ list: results });
+        } else {
+            console.log(`query error : ${err}`);
+            res.send(err);
+        }
+    });
+});
+
+
 
 // export default router;
 module.exports = router;
