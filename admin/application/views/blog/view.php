@@ -74,8 +74,8 @@ if ($action === 'modify') {
                 class: Header,
                 config: {
                     placeholder: 'Enter a header',
-                    //         levels: [2, 3, 4],
-                    //         defaultLevel: 3
+                            levels: [2, 3, 4, 5],
+                            defaultLevel: 3
                 }
             },
             // paragraph: {
@@ -121,7 +121,8 @@ if ($action === 'modify') {
                 {
                     type: 'header',
                     data: {
-                        text: ''
+                        text: '',
+                        level: 2
                     }
                 }
             ]

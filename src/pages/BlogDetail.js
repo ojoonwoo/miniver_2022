@@ -70,7 +70,8 @@ function BlogDetail(props) {
                 returnElem = `<img src=${block.data.url}>`;
             break;
             case "header":
-                returnElem = `<h3>${block.data.text}</h3>`;
+                const level = block.data.level;
+                returnElem = `<h${level}>${block.data.text}</h${level}>`;
             break;
             case "paragraph":
                 returnElem = `<p>${block.data.text}</p>`;
