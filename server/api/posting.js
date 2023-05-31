@@ -59,6 +59,5 @@ router.get('/getadjoinlist', function(req, res) {
 });
 
 
-
 // export default router;
 module.exports = router;

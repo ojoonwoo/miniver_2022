@@ -42,7 +42,8 @@ body {
     letter-spacing: -0.01em;
     color: $black;
 }
-html, body {
+html,
+body {
     overscroll-behavior: none;
 }
 body.scroll-blocking {
@@ -1820,7 +1821,7 @@ textarea::-webkit-scrollbar-thumb {
 #container.BlogDetail {
     .grid-inner {
         .blog-content {
-            padding-bottom: 12.4rem;
+            padding-bottom: 5.3rem;
         }
         .blog-content__head {
             text-align: center;
@@ -1895,7 +1896,7 @@ textarea::-webkit-scrollbar-thumb {
             h5 {
                 font-size: 1.4rem;
                 line-height: 1.27;
-            }   
+            }
             p {
                 font-weight: 400;
                 font-size: 1.2rem;
@@ -1908,16 +1909,66 @@ textarea::-webkit-scrollbar-thumb {
         }
         .blog-content__foot {
             max-width: 110rem;
-            margin: 0 auto;
+            margin: 9rem auto 0;
             // text-align: right;
             text-align: center;
             .go-top {
                 font-size: 1.2rem;
                 font-weight: 700;
-                margin-top: 7rem;
+                margin-top: 3.4rem;
             }
             .blog-remote {
-                display: flex;
+                .remote-link {
+                    background-color: #333333;
+                    color: #ffffff;
+                    padding: 2.4rem 2.2rem;
+                    display: flex;
+                    align-items: center;
+                    column-gap: 1.8rem;
+                    margin-bottom: 1rem;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                    svg {
+                        width: 0.9rem;
+                    }
+                    .inner {
+                        width: 100%;
+                        display: flex;
+                        flex-flow: column;
+                        row-gap: 0.6rem;
+                    }
+                    &.prev {
+                        text-align: left;
+                        .inner {
+                            align-items: flex-start;
+                        }
+                    }
+                    &.next {
+                        text-align: right;
+                        .inner {
+                            align-items: flex-end;
+                        }
+                    }
+                    .date {
+                        font-weight: 400;
+                        font-size: 1.1rem;
+                        letter-spacing: -0.03em;
+                        color: #ffffff;
+                    }
+                    .title {
+                        font-family: 'Noto Sans KR';
+                        font-weight: 700;
+                        font-size: 1.5rem;
+                        letter-spacing: -0.03em;
+                        color: #ffffff;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: 100%;
+                        max-width: 60vw;
+                    }
+                }
             }
         }
     }
@@ -2531,7 +2582,7 @@ textarea::-webkit-scrollbar-thumb {
                         font-weight: 300;
                         color: $grey2;
                         line-height: 1.45;
-                        &:nth-child(n+2) {
+                        &:nth-child(n + 2) {
                             margin-left: 2rem;
                         }
                     }
@@ -3013,75 +3064,109 @@ textarea::-webkit-scrollbar-thumb {
         }
     }
 
-
     #container.BlogDetail {
         .grid-inner {
             display: block;
-            .blog-content__head {
-                margin-bottom: 9.2rem;
-                .blog-content__head-date {
-                    font-size: 3rem;
-                }
-                .blog-content__head-subject {
-                    margin-top: 6.1rem;
-                    margin-bottom: 2.7rem;
-                    font-size: 8.6rem;
-                }
-                .blog-content__head-writer {
-                    .icon {
-                        width: 5.6rem;
-                        height: 5.6rem;
-                        border-radius: 50%;
-                        margin-right: 1.3rem;
-                        svg {
-                            width: 2.1rem;
+            .blog-content {
+                padding-bottom: 20rem;
+                .blog-content__head {
+                    margin-bottom: 9.2rem;
+                    .blog-content__head-date {
+                        font-size: 3rem;
+                    }
+                    .blog-content__head-subject {
+                        margin-top: 6.1rem;
+                        margin-bottom: 2.7rem;
+                        font-size: 8.6rem;
+                    }
+                    .blog-content__head-writer {
+                        .icon {
+                            width: 5.6rem;
+                            height: 5.6rem;
+                            border-radius: 50%;
+                            margin-right: 1.3rem;
+                            svg {
+                                width: 2.1rem;
+                            }
+                        }
+                        .author {
+                            font-size: 2.9rem;
                         }
                     }
-                    .author {
-                        font-size: 2.9rem;
+                }
+                .blog-content__body {
+                    div {
+                        max-width: 110rem;
+                        margin-bottom: 3rem;
+                    }
+                    .is-stretched {
+                        margin-left: 0;
+                        margin-right: 0;
+                        width: 100%;
+                        max-width: none;
+                    }
+                    img {
+                        width: 100%;
+                    }
+                    h2 {
+                        font-size: 4rem;
+                        line-height: 1.27;
+                    }
+                    h3 {
+                        font-size: 3.5rem;
+                        line-height: 1.27;
+                    }
+                    h4 {
+                        font-size: 3rem;
+                        line-height: 1.27;
+                    }
+                    h5 {
+                        font-size: 2.5rem;
+                        line-height: 1.27;
+                    }
+                    p {
+                        font-size: 2rem;
+                        line-height: 1.45;
                     }
                 }
-            }
-            .blog-content__body {
-                div {
-                    max-width: 110rem;
-                    margin-bottom: 3rem;
-                }
-                .is-stretched {
-                    margin-left: 0;
-                    margin-right: 0;
-                    width: 100%;
-                    max-width: none;
-                }
-                img {
-                    width: 100%;
-                }
-                h2 {
-                    font-size: 4rem;
-                    line-height: 1.27;
-                }
-                h3 {
-                    font-size: 3.5rem;
-                    line-height: 1.27;
-                }
-                h4 {
-                    font-size: 3rem;
-                    line-height: 1.27;
-                }
-                h5 {
-                    font-size: 2.5rem;
-                    line-height: 1.27;
-                }   
-                p {
-                    font-size: 2rem;
-                    line-height: 1.45;
-                }
-            }
-            .blog-content__foot {
-                max-width: 100%;
-                .go-top {
-                    font-size: 2.5rem;
-                    margin-top: 7rem;
+                .blog-content__foot {
+                    max-width: 100%;
+                    margin-top: 18.2rem;
+                    .blog-remote {
+                        &::after {
+                            content: '';
+                            display: block;
+                            clear: both;
+                        }
+                        .remote-link {
+                            width: calc(50% - 1rem);
+                            column-gap: 2.5rem;
+                            padding: 3.3rem 2.9rem;
+                            &.next {
+                                float: right;
+                            }
+                            &.prev {
+                                float: left;
+                            }
+                            svg {
+                                width: 1.4rem;
+                            }
+                            .inner {
+                                row-gap: 1rem;
+                                .date {
+                                    font-size: 1.7rem;
+                                }
+                                .title {
+                                    font-size: 2.2rem;
+                                    max-width: 90%;
+                                }
+                            }
+                        }
+                    }
+                    .go-top {
+                        font-size: 2.5rem;
+                        margin-top: 7rem;
+                    }
                 }
             }
         }
