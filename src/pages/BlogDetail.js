@@ -118,7 +118,17 @@ function BlogDetail(props) {
     const firstImage = () => {
         return editorData.blocks ? editorData.blocks.find(block => block.type === 'image').data.url : process.env.PUBLIC_URL+'/assets/og_image.jpg';
     }
-
+    const firstDesc = () => {
+        return editorData.blocks ? editorData.blocks.find(block => block.type === 'paragraph') : '궁극의 용감함 크리에이티브';
+    }
+    
+    const stripHtmlTags = (str) => {
+        if ((str===null) || (str===''))
+            return false;
+        else
+            str = str.toString();
+        return str.replace(/<[^>]*>/g, '');
+    }
 
     return (
         <PageTransition>
@@ -129,7 +139,7 @@ function BlogDetail(props) {
                     <meta name="description" content="궁극의 용감함 크리에이티브" />
                     <meta property="og:title" content={`미니버타이징 - ${props.pageName} | ${blogData.blog_title}`} />
                     <meta property="og:image" content={firstImage()} />
-                    <meta property="og:description" content="궁극의 용감함 크리에이티브" />
+                    <meta property="og:description" content={blogData.blog} />
                 </Helmet>
                 <Header />
                 <div className="contents">
