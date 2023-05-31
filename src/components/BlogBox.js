@@ -31,11 +31,20 @@ function BlogBox({item}) {
         return firstImageObj ? firstImageObj.id : null;
     }, [editorData]);
 
-    const textHeader = useMemo(() => {
-        const textHeaderObj = editorData.blocks.find(block => block.type === 'header');
+    const firstText = useMemo(() => {
+        // const textHeaderObj = editorData.blocks.find(block => block.type === 'header');
         const textDescObj = editorData.blocks.find(block => block.type === 'paragraph');
-        return textHeaderObj ? textHeaderObj.data.text : textDescObj.data.text;
+        // return textHeaderObj ? textHeaderObj.data.text : textDescObj.data.text;
+        return textDescObj.data.text;
     }, [editorData]);
+
+    // * 변수 firstText의 값에서 HTML 태그들을 찾아 지우는 함수
+    const stripHtmlTags = (str) => {
+        if ((str===null) || (str===''))
+            return false;
+        else
+            str = str.toString();
+        return str.replace(/<[^>]*>/g, '');
 
     useEffect(() => {
         // console.log('마운트');
@@ -66,9 +75,9 @@ function BlogBox({item}) {
                     </div>
                     <p className={styles['name']}>{blog_writer}</p>
                 </div>
-                {textHeader &&
+                {firstText &&
                 <p className={styles['desc']}>
-                    {textHeader}
+                    {stripHtmlTags(firstText)}
                 </p>
                 }
             </div>
