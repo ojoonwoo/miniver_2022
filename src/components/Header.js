@@ -161,7 +161,7 @@ function Header(props) {
                                         Project
                                     </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link
                                         to="/blog"
                                         onClick={() => {
@@ -170,7 +170,7 @@ function Header(props) {
                                     >
                                         Blog
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link
                                         to="/press"
@@ -206,9 +206,9 @@ function Header(props) {
                                 <li>
                                     <Link to="/project">Project</Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link to="/blog">Blog</Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link to="/press">Press</Link>
                                 </li>
