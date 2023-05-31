@@ -18,7 +18,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-
 function BlogDetail(props) {
     const params = useParams();
     let dispatch = useDispatch();
@@ -37,8 +36,8 @@ function BlogDetail(props) {
                 url: '/api/posting/getdetail',
                 params: { idx: params.id },
             });
-            
-            console.log(result.data);
+
+            // console.log(result.data);
             setBlogData(result.data);
             // console.log(result.data[0].blog_json);
             setEditorData(JSON.parse(result.data.blog_json));
@@ -55,7 +54,6 @@ function BlogDetail(props) {
             });
             
             setBlogAdjoinList(result.data.list);
-            
         }
         getBlogData();
         getBlogAdjoinList();
@@ -77,36 +75,44 @@ function BlogDetail(props) {
         const str = month + ' ' + day + ', ' + year;
 
         return str;
-    }
+    };
     const convertEditorBlock = (block, key) => {
-        // console.log(block);
+        console.log(block);
         let returnElem = null;
         let classOptions = [];
         let classOptionsStr = '';
-        
-        switch(block.type) {
-            case "image":
+
+        switch (block.type) {
+            case 'image':
                 block.data.stretched && classOptions.push('is-stretched');
                 block.data.withBackground && classOptions.push('is-withBackground');
                 block.data.withBorder && classOptions.push('is-withBorder');
-                
+
                 returnElem = `<img src=${block.data.url}>`;
-            break;
-            case "header":
-                returnElem = `<h3>${block.data.text}</h3>`;
-            break;
-            case "paragraph":
+                break;
+            case 'header':
+                const level = block.data.level;
+                returnElem = `<h${level}>${block.data.text}</h${level}>`;
+                break;
+            case 'paragraph':
                 returnElem = `<p>${block.data.text}</p>`;
-            break;
+                break;
+            case 'list':
+                returnElem = `<ul>`;
+                block.data.items.forEach((data, idx) => {
+                    returnElem += `<li>${data}</li>`
+                })
+                returnElem += `</ul>`;
+                break;
             default:
                 returnElem = '';
-            break;
+                break;
         }
 
         classOptionsStr = classOptions.join(' ');
 
-        return <div key={key} className={classOptionsStr} dangerouslySetInnerHTML={ {__html: returnElem} }></div>;
-    }
+        return <div key={key} className={classOptionsStr} dangerouslySetInnerHTML={{ __html: returnElem }}></div>;
+    };
     const goTopHandler = () => {
         window.scrollTo({
             top: 0,
@@ -119,7 +125,7 @@ function BlogDetail(props) {
         return editorData.blocks ? editorData.blocks.find(block => block.type === 'image').data.url : process.env.PUBLIC_URL+'/assets/og_image.jpg';
     }
     const firstDesc = () => {
-        return editorData.blocks ? editorData.blocks.find(block => block.type === 'paragraph') : '궁극의 용감함 크리에이티브';
+        return editorData.blocks ? editorData.blocks.find(block => block.type === 'paragraph').data.text : '궁극의 용감함 크리에이티브';
     }
     
     const stripHtmlTags = (str) => {
@@ -134,64 +140,66 @@ function BlogDetail(props) {
         <PageTransition>
             <div id="container" className={props.pageName}>
                 <Helmet>
-                    <title>{`미니버타이징 | ${blogData.blog_title}`}</title>
+                    <title>{`미니버타이징 - ${props.pageName} | ${blogData.blog_title}`}</title>
                     <meta name="title" content={`미니버타이징 - ${props.pageName} | ${blogData.blog_title}`} />
-                    <meta name="description" content="궁극의 용감함 크리에이티브" />
+                    <meta name="description" content={stripHtmlTags(firstDesc())} />
                     <meta property="og:title" content={`미니버타이징 - ${props.pageName} | ${blogData.blog_title}`} />
                     <meta property="og:image" content={firstImage()} />
-                    <meta property="og:description" content={blogData.blog} />
+                    <meta property="og:description" content={stripHtmlTags(firstDesc())} />
                 </Helmet>
                 <Header />
                 <div className="contents">
                     <div className="grid-inner">
-                        {blogData &&
-                        <>
-                        <div className="blog-content">
-                            <div className="blog-content__head">
-                                <p className="blog-content__head-date">
-                                    {/* {blogData.blog_register_date} */}
-                                    {convertDateENUS(blogData.blog_register_date)}
-                                </p>
-                                <h2 className="blog-content__head-subject">
-                                    {blogData.blog_title}
-                                </h2>
-                                <div className="blog-content__head-writer">
-                                    <span className="icon" style={{ backgroundColor: blogData.blog_color }}>
-                                        <svg viewBox="0 0 8.5 10.2">
-                                            <path d="M8.5,0v10.2H6.1V3.3l-1,4.6H3.4l-1-4.4v6.7H0V0h3.6c0.1,0.6,0.7,4.1,0.7,4.1L4.9,0H8.5L8.5,0z" fill="#ffffff"/>
-                                        </svg>
-                                    </span>
-                                    <span className="author">{blogData.blog_writer}</span>
-                                </div>
-                            </div>
-                            <div className="blog-content__body">
-                                {editorData.blocks &&
-                                    editorData.blocks.map((block, idx) => (
-                                        convertEditorBlock(block, block.id)
-                                    ))
-                                }
-                            </div>
-                            <div className="blog-content__foot">
-                                {blogAdjoinList &&
-                                <div className="blog-remote">
-                                    {blogAdjoinList.map((data, idx) => (
-                                        <Link to={`/blog/${data.idx}`} key={data.idx}>
-                                            <div className={`remote-link ${data.idx > params.id ? 'next' : 'prev'}`}>
-                                                <span>{data.idx > params.id ? '다음' : '이전'} 글</span>
-                                                <span>{data.blog_title}</span>
-                                                <span>{convertDateENUS(data.blog_register_date)}</span>
+                        {blogData && (
+                            <>
+                                <div className="blog-content">
+                                    <div className="blog-content__head">
+                                        <p className="blog-content__head-date">
+                                            {/* {blogData.blog_register_date} */}
+                                            {convertDateENUS(blogData.blog_register_date)}
+                                        </p>
+                                        <h2 className="blog-content__head-subject">{blogData.blog_title}</h2>
+                                        <div className="blog-content__head-writer">
+                                            <span className="icon" style={{ backgroundColor: blogData.blog_color }}>
+                                                <svg viewBox="0 0 8.5 10.2">
+                                                    <path d="M8.5,0v10.2H6.1V3.3l-1,4.6H3.4l-1-4.4v6.7H0V0h3.6c0.1,0.6,0.7,4.1,0.7,4.1L4.9,0H8.5L8.5,0z" fill="#ffffff" />
+                                                </svg>
+                                            </span>
+                                            <span className="author">{blogData.blog_writer}</span>
+                                        </div>
+                                    </div>
+                                    <div className="blog-content__body">{editorData.blocks && editorData.blocks.map((block, idx) => convertEditorBlock(block, block.id))}</div>
+                                    <div className="blog-content__foot">
+                                        {blogAdjoinList && (
+                                            <div className="blog-remote">
+                                                {blogAdjoinList.map((data, idx) => (
+                                                    <Link to={`/blog/${data.idx}`} key={data.idx} className={`remote-link ${data.idx > params.id ? 'next' : 'prev'}`}>
+                                                        {/* <span>{data.idx > params.id ? '다음' : '이전'} 글</span> */}
+                                                        {data.idx < params.id && (
+                                                            <svg viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M8.26326 1.20158L1.28125 8.18359L8.26326 15.1656" stroke="white" strokeWidth="1.31654" />
+                                                            </svg>
+                                                        )}
+                                                        <div className={`inner`}>
+                                                            <p className={`date`}>{convertDateENUS(data.blog_register_date)}</p>
+                                                            <p className={`title`}>{data.blog_title}</p>
+                                                        </div>
+                                                        {data.idx > params.id && (
+                                                            <svg viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M0.82463 15.3863L7.80664 8.4043L0.82463 1.42229" stroke="white" strokeWidth="1.31654" />
+                                                            </svg>
+                                                        )}
+                                                    </Link>
+                                                ))}
                                             </div>
-                                        </Link>
-                                    ))}
+                                        )}
+                                        <button type="button" className="go-top" onClick={goTopHandler}>
+                                            Back to top
+                                        </button>
+                                    </div>
                                 </div>
-                                }
-                                <button type="button" className="go-top" onClick={goTopHandler}>
-                                Back to top
-                                </button>
-                            </div>
-                        </div>
-                        </>
-                        }
+                            </>
+                        )}
                     </div>
                 </div>
                 {device === 'mobile' ? null : <Footer />}

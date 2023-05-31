@@ -9,6 +9,7 @@ import { changeColor, setContactState } from './../store.js';
 import PageTransition from '../components/PageTransition';
 import ArrowRight from '../components/ArrowRight.js';
 import Header from '../components/Header';
+import { Helmet } from 'react-helmet-async';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -385,6 +386,13 @@ function Contact(props) {
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <PageTransition variantsName="contact">
             <div id="container" className={props.pageName}>
+                <Helmet>
+                    <title>{`미니버타이징 - ${props.pageName}`}</title>
+                    <meta name="title" content={`미니버타이징 - ${props.pageName}`} />
+                    <meta name="description" content="프로젝트를 문의하고 싶으신가요?" />
+                    <meta property="og:title" content={`미니버타이징 - ${props.pageName}`} />
+                    <meta property="og:description" content="프로젝트를 문의하고 싶으신가요?" />
+                </Helmet>
                 <Header />  
                 <div className="inner">
                     <div className="surveys">

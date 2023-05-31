@@ -23,7 +23,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 60.8vw;
+            width: 80vw;
         }
     }
     .img-block {
@@ -81,10 +81,22 @@
             font-family: 'Noto Sans KR';
             font-weight: 400;
             font-size: 1.2rem;
-            line-height: 1.416666666666667;
+            line-height: 1.4;
             letter-spacing: -0.03em;
             color: #000000;
-            word-break: break-all;
+            
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            /* 여러 줄 자르기 추가 스타일 */
+            white-space: normal;
+            height: 4.2em;
+            text-align: left;
+            word-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
         }
     }
 }

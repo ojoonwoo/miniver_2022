@@ -46,9 +46,9 @@ function Blog(props) {
         <PageTransition>
             <div id="container" className="Blog">
                 <Helmet>
-                    <title>미니버타이징 | 블로그</title>
-                    <meta name="title" content="미니버타이징 | 블로그" />
-                    <meta property="og:title" content="미니버타이징 | 블로그" />
+                    <title>{`미니버타이징 ${props.pageName}`}</title>
+                    <meta name="title" content={`미니버타이징 - ${props.pageName}`} />
+                    <meta property="og:title" content={`미니버타이징 - ${props.pageName}`} />
                 </Helmet>
                 <Header />
                 <div className="contents">

@@ -62,7 +62,7 @@ if ($action === 'modify') {
     <?php
     }
     ?>
-    <button class="btn btn-lg btn-primary" onClick="save()"><?=$submit_text?></button>
+    <button class="btn btn-lg btn-primary" onClick="save()"><?= $submit_text ?></button>
 </div>
 <script>
     var editor = new EditorJS({
@@ -74,8 +74,15 @@ if ($action === 'modify') {
                 class: Header,
                 config: {
                     placeholder: 'Enter a header',
-                    //         levels: [2, 3, 4],
-                    //         defaultLevel: 3
+                    levels: [2, 3, 4, 5],
+                    defaultLevel: 3
+                }
+            },
+            list: {
+                class: List,
+                inlineToolbar: true,
+                config: {
+                    defaultStyle: 'unordered'
                 }
             },
             // paragraph: {
@@ -121,7 +128,8 @@ if ($action === 'modify') {
                 {
                     type: 'header',
                     data: {
-                        text: ''
+                        text: '',
+                        level: 2
                     }
                 }
             ]
