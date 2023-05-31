@@ -49,13 +49,13 @@ if ($action === 'modify') {
         <label for="blog-writer" class="form-label">작성자</label>
         <input type="text" class="form-control" id="blog-writer" name="blog_writer" <?= $readonly ?> value="<?= $blog_data['blog_writer'] ?>">
     </div>
-    <div class="editor-wrap">
+    <div class="editor-wrap mb-3">
         <div id="editorjs"></div>
     </div>
     <?php
     if ($action !== 'add') {
     ?>
-        <div class="mb-3 mt-3">
+        <div class="mb-3">
             <label for="blog-visible" class="form-label">노출 여부</label>
             <input type="checkbox" id="blog-visible" name="blog_visible" <?= $readonly ?> value="노출" <?= $blog_data['blog_visible'] === '1' ? 'checked' : '' ?>>
         </div>
