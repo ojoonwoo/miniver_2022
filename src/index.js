@@ -17,31 +17,8 @@ ReactGA.pageview(window.location.pathname + window.location.search);
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(document.getElementById('root'));
-// if (container.hasChildNodes()) {
-//     ReactDOM.hydrateRoot(
-//         <Provider store={store}>
-//             <BrowserRouter>
-//                 <HelmetProvider>
-//                     <App />
-//                 </HelmetProvider>
-//             </BrowserRouter>
-//         </Provider>
-//     );
-// } else {
-//     root.render(
-//         // <React.StrictMode>
-//             <Provider store={store}>
-//                 <BrowserRouter>
-//                     <HelmetProvider>
-//                         <App />
-//                     </HelmetProvider>
-//                 </BrowserRouter>
-//             </Provider>
-//         // </React.StrictMode>
-//     );
-// }
-root.render(
-    // <React.StrictMode>
+if (container.hasChildNodes()) {
+    ReactDOM.hydrateRoot(
         <Provider store={store}>
             <BrowserRouter>
                 <HelmetProvider>
@@ -49,8 +26,31 @@ root.render(
                 </HelmetProvider>
             </BrowserRouter>
         </Provider>
-    // </React.StrictMode>
-);
+    );
+} else {
+    root.render(
+        // <React.StrictMode>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <HelmetProvider>
+                        <App />
+                    </HelmetProvider>
+                </BrowserRouter>
+            </Provider>
+        // </React.StrictMode>
+    );
+}
+// root.render(
+//     // <React.StrictMode>
+//         <Provider store={store}>
+//             <BrowserRouter>
+//                 <HelmetProvider>
+//                     <App />
+//                 </HelmetProvider>
+//             </BrowserRouter>
+//         </Provider>
+//     // </React.StrictMode>
+// );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
