@@ -45,6 +45,7 @@ function BlogBox({item}) {
         else
             str = str.toString();
         return str.replace(/<[^>]*>/g, '');
+    }
 
     useEffect(() => {
         // console.log('마운트');
