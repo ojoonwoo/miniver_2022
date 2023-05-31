@@ -116,7 +116,7 @@ function BlogDetail(props) {
     };
 
     const firstImage = () => {
-        return editorData.blocks.find(block => block.type === 'image').data.url;
+        return editorData.blocks ? editorData.blocks.find(block => block.type === 'image').data.url : process.env.PUBLIC_URL+'/assets/og_image.jpg';
     }
 
 
