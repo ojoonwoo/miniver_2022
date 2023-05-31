@@ -66,7 +66,7 @@ function BlogDetail(props) {
         return str;
     };
     const convertEditorBlock = (block, key) => {
-        // console.log(block);
+        console.log(block);
         let returnElem = null;
         let classOptions = [];
         let classOptionsStr = '';
@@ -85,6 +85,13 @@ function BlogDetail(props) {
                 break;
             case 'paragraph':
                 returnElem = `<p>${block.data.text}</p>`;
+                break;
+            case 'list':
+                returnElem = `<ul>`;
+                block.data.items.forEach((data, idx) => {
+                    returnElem += `<li>${data}</li>`
+                })
+                returnElem += `</ul>`;
                 break;
             default:
                 returnElem = '';

@@ -1897,7 +1897,7 @@ textarea::-webkit-scrollbar-thumb {
                 font-size: 1.4rem;
                 line-height: 1.27;
             }
-            p {
+            p, li {
                 font-weight: 400;
                 font-size: 1.2rem;
                 line-height: 1.45;
@@ -1905,6 +1905,12 @@ textarea::-webkit-scrollbar-thumb {
             }
             a {
                 text-decoration: underline;
+            }
+            li {
+                margin-bottom: 0.8rem;
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
         .blog-content__foot {
@@ -3124,9 +3130,12 @@ textarea::-webkit-scrollbar-thumb {
                         font-size: 2.5rem;
                         line-height: 1.27;
                     }
-                    p {
+                    p, li {
                         font-size: 2rem;
                         line-height: 1.45;
+                    }
+                    li {
+                        margin-bottom: 1.8rem;
                     }
                 }
                 .blog-content__foot {
