@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useLayoutEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { motion, useAnimation } from 'framer-motion';
 import { useParams, Link, useLocation } from 'react-router-dom';
@@ -8,9 +8,10 @@ import PageTransition from '../components/PageTransition';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import useResizeObserver from '@react-hook/resize-observer';
+import { Helmet } from 'react-helmet-async';
 
-import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -30,7 +31,6 @@ function BlogDetail(props) {
 
     useEffect(() => {
         dispatch(changeColor('black'));
-        console.log(params.id);
         async function getBlogData() {
             const result = await axios({
                 method: 'get',
@@ -42,6 +42,9 @@ function BlogDetail(props) {
             setBlogData(result.data);
             // console.log(result.data[0].blog_json);
             setEditorData(JSON.parse(result.data.blog_json));
+
+            console.log(editorData);
+            
             
         }
         async function getBlogAdjoinList() {
@@ -51,13 +54,20 @@ function BlogDetail(props) {
                 params: { curidx: params.id },
             });
             
-            console.log(result.data);
             setBlogAdjoinList(result.data.list);
             
         }
         getBlogData();
         getBlogAdjoinList();
     }, []);
+
+    
+
+    // const textHeader = useMemo(() => {
+    //     const textHeaderObj = editorData.blocks.find(block => block.type === 'header');
+    //     const textDescObj = editorData.blocks.find(block => block.type === 'paragraph');
+    //     return textHeaderObj ? textHeaderObj.data.text : textDescObj.data.text;
+    // }, [editorData]);
     
     const convertDateENUS = (dateString) => {
         let raw = new Date(dateString);
@@ -105,10 +115,22 @@ function BlogDetail(props) {
         });
     };
 
+    const firstImage = () => {
+        return editorData.blocks.find(block => block.type === 'image').data.url;
+    }
+
 
     return (
         <PageTransition>
             <div id="container" className={props.pageName}>
+                <Helmet>
+                    <title>{`미니버타이징 | ${blogData.blog_title}`}</title>
+                    <meta name="title" content={`미니버타이징 - ${props.pageName} | ${blogData.blog_title}`} />
+                    <meta name="description" content="궁극의 용감함 크리에이티브" />
+                    <meta property="og:title" content={`미니버타이징 - ${props.pageName} | ${blogData.blog_title}`} />
+                    <meta property="og:image" content={firstImage()} />
+                    <meta property="og:description" content="궁극의 용감함 크리에이티브" />
+                </Helmet>
                 <Header />
                 <div className="contents">
                     <div className="grid-inner">

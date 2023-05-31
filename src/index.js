@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 import store from './store.js';
+import { HelmetProvider } from 'react-helmet-async';
+
 
 ReactGA.initialize('UA-93879621-2');
 ReactGA.pageview(window.location.pathname + window.location.search);
@@ -18,7 +20,9 @@ root.render(
     // <React.StrictMode>
         <Provider store={store}>
             <BrowserRouter>
-                <App />
+                <HelmetProvider>
+                    <App />
+                </HelmetProvider>
             </BrowserRouter>
         </Provider>
     // </React.StrictMode>

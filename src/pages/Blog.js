@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 // import { motion } from 'framer-motion';
-import BlogBox from './../components/BlogBox';
-
-import Footer from '../components/Footer';
 import { changeColor } from './../store.js';
 import { useDispatch, useSelector } from 'react-redux';
 import PageTransition from '../components/PageTransition';
-import Header from '../components/Header';
 import { Routes, Route, useLocation, Link, Outlet, useParams, useNavigate } from 'react-router-dom';
+
+import BlogBox from './../components/BlogBox';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import { Helmet } from 'react-helmet-async';
 
 function Blog(props) {
     const params = useParams();
@@ -44,6 +45,11 @@ function Blog(props) {
     return (
         <PageTransition>
             <div id="container" className="Blog">
+                <Helmet>
+                    <title>미니버타이징 | 블로그</title>
+                    <meta name="title" content="미니버타이징 | 블로그" />
+                    <meta property="og:title" content="미니버타이징 | 블로그" />
+                </Helmet>
                 <Header />
                 <div className="contents">
                     <div className="grid-inner">

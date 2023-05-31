@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import { setDevice } from './store.js';
 
 import RouteChangeTracker from './components/RouteChangeTracker';
+import { Helmet } from 'react-helmet-async';
 
 
 import './reset.css';
@@ -60,6 +61,23 @@ function App() {
 
     return (
         <div className="App" data-theme={themeColor}>
+            <Helmet>
+                <meta charset="utf-8" />
+                <link rel="icon" href="/public/mnv_favicon.ico" />
+                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+                <meta name="theme-color" content="#000000" />
+                <meta name="title" content="미니버타이징" />
+                <meta name="description" content="궁극의 용감함 크리에이티브" />
+                <meta name="naver-site-verification" content="a9cc2931e6ec42395359dfd359432881409c1f9a" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="미니버타이징" />
+                <meta property="og:url" content="https://minivertising.kr" />
+                <meta property="og:image" content="/public/assets/og_image.jpg" />
+                <meta property="og:description" content="궁극의 용감함 크리에이티브" />
+                <link rel="apple-touch-icon" href="/public/logo192.png" />
+                <link rel="manifest" href="/public/manifest.json" />
+                <title>미니버타이징</title>
+            </Helmet>
             <RouteChangeTracker location={location}/>
             <AnimatePresence>
                 {/* <Header /> */}
