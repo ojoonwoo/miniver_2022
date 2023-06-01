@@ -29,11 +29,13 @@ function Home(props) {
         // console.log('홈 마운트');
         // console.log('props', props);
         dispatch(changeColor('white'));
-        document.body.classList.toggle('scroll-blocking');
+        // document.body.classList.toggle('scroll-blocking');
+        document.body.classList.add('scroll-blocking');
 
         return () => {
             // console.log('홈 언마운트');
-            document.body.classList.toggle('scroll-blocking');
+            // document.body.classList.toggle('scroll-blocking');
+            document.body.classList.remove('scroll-blocking');
         };
     }, []);
 
