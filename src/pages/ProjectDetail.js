@@ -14,6 +14,8 @@ import { heroBoxChangeColor } from './../store.js';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
+import { Helmet } from 'react-helmet-async';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -288,6 +290,14 @@ function ProjectDetail(props) {
         <PageTransition variantsName="detail">
             {/* // <motion.div className="ProjectDetail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}> */}
             <div id="container" className={props.pageName} ref={containerRef}>
+                <Helmet>
+                    <title>{`미니버타이징 - ${props.pageName} | ${projectData.work_title_kor}`}</title>
+                    <meta name="title" content={`미니버타이징 - ${props.pageName} | ${projectData.work_title_kor}`} />
+                    <meta name="description" content={projectData.work_overview} />
+                    <meta property="og:title" content={`미니버타이징 - ${props.pageName} | ${projectData.work_title_kor}`} />
+                    <meta property="og:image" content={`/works/${projectData.idx}/hero_source/${projectData.hero_source}`} />
+                    <meta property="og:description" content={projectData.work_overview} />
+                </Helmet>
                 <Header />
                 <div className="contents" ref={contentRef}>
                     {projectData.category_data && (
