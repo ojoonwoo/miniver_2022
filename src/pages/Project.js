@@ -10,7 +10,6 @@ import CategoryItem from '../components/CategoryItem';
 import PageTransition from '../components/PageTransition';
 import Header from '../components/Header';
 import { Routes, Route, useLocation, Link, Outlet, useParams, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 
 // todo
 // 프로젝트 컨테이너 만들어서 리스트, 뷰 분리
@@ -98,11 +97,6 @@ function Project(props) {
         // <div id="container" className={props.pageName}>
         <PageTransition>
             <div id="container" className="Project">
-                <Helmet>
-                    <title>{`미니버타이징 - ${props.pageName}`}</title>
-                    <meta name="title" content={`미니버타이징 - ${props.pageName}`} />
-                    <meta property="og:title" content={`미니버타이징 - ${props.pageName}`} />
-                </Helmet>
                 <Header />
                 <div className="contents">
                     <div className="grid-inner">

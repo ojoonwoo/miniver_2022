@@ -9,7 +9,6 @@ import { Routes, Route, useLocation, Link, Outlet, useParams, useNavigate } from
 import BlogBox from './../components/BlogBox';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { Helmet } from 'react-helmet-async';
 
 function Blog(props) {
     const params = useParams();
@@ -45,11 +44,6 @@ function Blog(props) {
     return (
         <PageTransition>
             <div id="container" className="Blog">
-                <Helmet>
-                    <title>{`미니버타이징 ${props.pageName}`}</title>
-                    <meta name="title" content={`미니버타이징 - ${props.pageName}`} />
-                    <meta property="og:title" content={`미니버타이징 - ${props.pageName}`} />
-                </Helmet>
                 <Header />
                 <div className="contents">
                     <div className="grid-inner">

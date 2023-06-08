@@ -7,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 import store from './store.js';
-import { HelmetProvider } from 'react-helmet-async';
 // import { hydrate } from "react-dom";
 
 
@@ -44,9 +43,7 @@ root.render(
     // <React.StrictMode>
         <Provider store={store}>
             <BrowserRouter>
-                <HelmetProvider>
-                    <App />
-                </HelmetProvider>
+                <App />
             </BrowserRouter>
         </Provider>
     // </React.StrictMode>

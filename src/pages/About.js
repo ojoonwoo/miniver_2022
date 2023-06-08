@@ -20,7 +20,6 @@ import Footer from '../components/Footer';
 import Lottie from 'lottie-react';
 import animationData from '../about_title_animation.json';
 import Header from '../components/Header';
-import { Helmet } from 'react-helmet-async';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -484,13 +483,6 @@ function About(props) {
         // <motion.div className={props.pageName} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <PageTransition>
             <div id="container" className={props.pageName} data-scrollbar ref={scrollContainerRef}>
-                <Helmet>
-                    <title>{`미니버타이징 - ${props.pageName}`}</title>
-                    <meta name="title" content={`미니버타이징 - ${props.pageName}`} />
-                    <meta name="description" content={`궁극의 용감함 크리에이티브`} />
-                    <meta property="og:title" content={`미니버타이징 - ${props.pageName}`} />
-                    <meta property="og:description" content={`궁극의 용감함 크리에이티브`} />
-                </Helmet>
                 <Header />
                 <div className="inner">
                     <div className="cover-section">

@@ -8,7 +8,6 @@ import PageTransition from '../components/PageTransition';
 import { Scrollbar, A11y, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import useResizeObserver from '@react-hook/resize-observer';
-import { Helmet } from 'react-helmet-async';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -139,14 +138,6 @@ function BlogDetail(props) {
     return (
         <PageTransition>
             <div id="container" className={props.pageName}>
-                <Helmet>
-                    <title>{`미니버타이징 - ${props.pageName} | ${blogData.blog_title}`}</title>
-                    <meta name="title" content={`미니버타이징 - ${props.pageName} | ${blogData.blog_title}`} />
-                    <meta name="description" content={stripHtmlTags(firstDesc())} />
-                    <meta property="og:title" content={`미니버타이징 - ${props.pageName} | ${blogData.blog_title}`} />
-                    <meta property="og:image" content={firstImage()} />
-                    <meta property="og:description" content={stripHtmlTags(firstDesc())} />
-                </Helmet>
                 <Header />
                 <div className="contents">
                     <div className="grid-inner">
