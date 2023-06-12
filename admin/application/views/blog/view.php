@@ -233,7 +233,7 @@ if ($action === 'modify') {
                             switch (response) {
                                 case 'insert success':
                                     alert('등록 완료');
-                                    location.replace(_root_url + '/blog/');
+                                    location.replace(_root_url + '/blog');
                                     break;
                                 case 'insert fail':
                                     alert('등록 실패');
@@ -241,7 +241,7 @@ if ($action === 'modify') {
                                     break;
                                 case 'update success':
                                     alert('수정 완료');
-                                    location.replace(_root_url + '/blog/');
+                                    location.replace(_root_url + '/blog');
                                     break;
                                 case 'update success':
                                     alert('수정 실패');

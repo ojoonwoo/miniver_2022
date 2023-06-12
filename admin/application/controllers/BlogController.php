@@ -210,11 +210,9 @@ class BlogController extends Controller
     }
     private function delete_image($blog_id, $filename)
     {
-        if ($_SERVER['HTTP_HOST'] == 'www.royalcaninevent2020.com' || $_SERVER['HTTP_HOST'] == 'royalcaninevent2020.com') {
-            $uploads_dir = "/storage_data/breed23/uploads/" . $blog_id . "/";
-        } else {
-            $uploads_dir = _BASE_UPLOAD_DIR . "blog/" . $blog_id . "/";
-        }
+        
+        $uploads_dir = _BASE_UPLOAD_DIR . "blog/" . $blog_id . "/";
+        
         $dest = $uploads_dir . $filename . '.png';
         unlink($dest);
     }
