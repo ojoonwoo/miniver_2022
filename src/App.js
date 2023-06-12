@@ -70,10 +70,10 @@ function App() {
                         <Route index element={<Project pageName="Project" />}></Route>
                         <Route path=":id" element={<ProjectDetail pageName="ProjectDetail" initial={{ opacity: 1 }} />}></Route>
                     </Route>
-                    {/* <Route path="/blog/*">
+                    <Route path="/blog/*">
                         <Route index element={<Blog pageName="Blog" />}></Route>
                         <Route path=":id" element={<BlogDetail pageName="BlogDetail" initial={{ opacity: 1 }} />}></Route>
-                    </Route> */}
+                    </Route>
                     <Route path="/press" element={<Press pageName="Press" />}></Route>
                     <Route path="/contact" element={<Contact pageName="Contact" />}></Route>
                     <Route path="*" element={<NotFound />}></Route>

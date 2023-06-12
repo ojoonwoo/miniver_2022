@@ -1972,6 +1972,7 @@ textarea::-webkit-scrollbar-thumb {
                         overflow: hidden;
                         text-overflow: ellipsis;
                         width: 100%;
+                        line-height: 1.1;
                         max-width: 60vw;
                     }
                 }

@@ -70,7 +70,7 @@ class BlogModel extends Model
 
     public function selectList()
     {
-        $sql = 'SELECT * FROM blog_info WHERE 1';
+        $sql = 'SELECT * FROM blog_info WHERE 1 ORDER BY blog_register_date DESC';
         $result = mysqli_query($this->my_db, $sql);
 
         $list = [];

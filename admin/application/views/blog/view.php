@@ -126,17 +126,15 @@ if ($action === 'modify') {
                     }
                 },
                 {
-                    type: 'header',
+                    type: 'paragraph',
                     data: {
-                        text: '',
-                        level: 2
+                        placeholder: '리스트에서 노출되는 첫 문단입니다.',
+                        text: '리스트에서 노출되는 첫 문단입니다.',
                     }
                 }
             ]
         }
     });
-
-    console.log(editor);
 
     var pageAction = '<?= $action ?>';
     if (pageAction === 'modify') {
