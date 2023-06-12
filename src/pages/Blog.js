@@ -49,7 +49,7 @@ function Blog(props) {
                     <div className="grid-inner">
                         <h1 className="page-title">Blog</h1>
                         <div className="blogbox-container">
-                            {blogData.map((item) => (
+                            {blogData && blogData.map((item) => (
                                 <BlogBox key={item.idx} item={item} />
                             ))}
                         </div>
