@@ -2,8 +2,6 @@
 
 namespace application\controllers;
 
-use function PHPSTORM_META\map;
-
 class BlogController extends Controller
 {
     private $uploader;
